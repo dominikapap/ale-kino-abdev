@@ -25,3 +25,38 @@
   border-radius: 5px;
   border: 1px solid lightgray;
 }
+
+.date {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.date__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background-color: whitesmoke;
+}
+
+.date__listItem {
+  padding: 2px 15px;
+  border-left: 1px solid lightgray;
+}
+
+.footer {
+  border-top: 2px solid lightgray;
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.footer__nav {
+  display: flex;
+  justify-content: space-between;
+}
+

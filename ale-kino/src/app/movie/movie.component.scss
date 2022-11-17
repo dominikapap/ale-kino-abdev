@@ -1,0 +1,38 @@
+.movie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2em;
+
+}
+
+.movie__image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.movie__imageText {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: red;
+}
+
+.movie__imagePicture {
+  width: 148px;
+  height: 217px;
+}
+
+.movie__details {
+  flex: 4;
+}
+
+.movie__score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
