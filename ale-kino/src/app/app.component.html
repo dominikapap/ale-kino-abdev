@@ -1,51 +1,12 @@
-<header class="header">
-  <div class="header__title">Ale kino!</div>
-  <nav class="header__nav">
-    <button class="header__navButton">
-      <fa-icon [icon]="faCartShopping"></fa-icon>
-    </button>
-    <button class="header__navButton">Zaloguj</button>
-  </nav>
-</header>
+<app-header></app-header>
 
 <section class="date">
-  <ul class="date__list">
-    <li class="date__listItem">18/11</li>
-    <li class="date__listItem">18/11</li>
-    <li class="date__listItem">18/11</li>
-    <li class="date__listItem">18/11</li>
-    <li class="date__listItem">18/11</li>
-    <li class="date__listItem">18/11</li>
-    <li class="date__listItem">18/11</li>
-  </ul>
+  <app-date-nav></app-date-nav>
 </section>
 
 <app-movie></app-movie>
 <app-movie></app-movie>
 
-<footer class="footer">
-  <div class="footer__nav">
-    <div class="footer__navSocial">
-      <fa-icon [icon]="faCartShopping"></fa-icon>
-      <fa-icon [icon]="faCartShopping"></fa-icon>
-      <fa-icon [icon]="faCartShopping"></fa-icon>
-    </div>
-    <div class="footer__navPage">
-      <a href="">O nas</a>
-      <a href="">Praca</a>
-      <a href="">Regulamin</a>
-      <a href="">Wynajem sal</a>
-    </div>
-  </div>
-  <div class="footer__copyright">Ale kino! 2022</div>
-</footer>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<app-footer></app-footer>
 
 <router-outlet></router-outlet>

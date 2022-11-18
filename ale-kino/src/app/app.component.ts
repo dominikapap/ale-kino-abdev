@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,5 +7,7 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppComponent {
   title = 'ale-kino';
-  faCartShopping = faCartShopping;
+  items = ['18/11', '18/11','18/11','18/11','18/11','18/11','18/11'];
+
+
 }
