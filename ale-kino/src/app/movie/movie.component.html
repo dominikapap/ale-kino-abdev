@@ -14,6 +14,12 @@
       Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet
       officiis, summo sensibus id mei.
     </div>
+    <div class="movie__detailsMore"><a href="">Więcej</a></div>
+    <app-rounded-nav [items] = "items"></app-rounded-nav>
   </div>
-  <div class="movie__score">8/10</div>
+  <div class="movie__score">
+    <p class="movie__scoreText">8/10</p>
+    <app-button *ngIf="user.type.isUser" value="Oceń ten film!" class="movie__scoreButton"></app-button>
+    <app-button *ngIf="user.type.isUser" value="Chcę zobaczyć" class="movie__scoreButton"></app-button>
+  </div>
 </section>

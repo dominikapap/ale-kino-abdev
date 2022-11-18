@@ -1,5 +1,5 @@
 <ul class="rounded__list">
   <li *ngFor="let item of items" class="rounded__listItem">
-    <button>{{ item }}</button>
+    <a routerLink="/footer" routerLinkActive="active" ariaCurrentWhenActive="page">{{ item }}</a>
   </li>
 </ul>

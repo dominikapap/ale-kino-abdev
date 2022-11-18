@@ -1,9 +1,8 @@
 .movie {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   margin: 2em;
-
 }
 
 .movie__image {
@@ -28,11 +27,30 @@
 
 .movie__details {
   flex: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.movie__detailsMore  {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .movie__score {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1;
+}
+
+.movie__scoreText {
+  font-size: 1.5em;
+}
+
+.movie__scoreButton {
+  margin-top: 10px;
 }

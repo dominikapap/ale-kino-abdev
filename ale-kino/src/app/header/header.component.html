@@ -1,7 +1,9 @@
 <header class="header">
   <div class="header__title">Ale kino!</div>
   <nav class="header__nav">
-    <app-button icon="cart-shopping"></app-button>
-    <app-button value="Zaloguj"></app-button>
+    <app-button *ngIf="!user.type.isAdmin" icon="cart-shopping"></app-button>
+    <app-button *ngIf="!user.type.isUser && !user.type.isAdmin" value="Zaloguj"></app-button>
+    <app-button *ngIf="user.type.isUser && !user.type.isAdmin" [value]="'Cześć ' + user.username"></app-button>
+    <app-button *ngIf="!user.type.isUser && user.type.isAdmin" value="Cześć"></app-button>
   </nav>
 </header>

@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'ale-kino';
-  items = ['18/11', '18/11','18/11','18/11','18/11','18/11','18/11'];
-
-
+  items = ['18/11', '18/11', '18/11', '18/11', '18/11', '18/11', '18/11'];
+  isUser: boolean = false;
+  isAdmin: boolean = false;
 }
