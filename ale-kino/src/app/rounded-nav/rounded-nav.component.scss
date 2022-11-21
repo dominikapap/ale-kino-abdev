@@ -1,5 +1,5 @@
 .rounded__list {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   list-style-type: none;
   border: 1px solid lightgray;
@@ -7,8 +7,13 @@
 }
 
 .rounded__listItem {
+  padding: 3px 5px;
   border-left: 1px solid lightgray;
   background-color: whitesmoke;
+}
+
+.item-wide {
+  padding: 3px 25px;
 }
 
 li:first-child {

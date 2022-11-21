@@ -1,1 +1,39 @@
-<p>checkout-form works!</p>
+<div class="reservation">
+  <div class="selectedMovie">Co w duszy gra, 19/11/2022, godz. 15:30</div>
+
+  <div class="ticketList">
+    <div class="ticketList__item">
+      <div class="ticketList__ticketSeat" >Rząd E Miejsce 6</div>
+      <div class="ticketList__ticketPrice" >22 PLN</div>
+    </div>
+    <div class="ticketList__total">
+      <div class="ticketList__totalLabel">razem</div>
+      <div class="ticketList__totalPrice">22 PLN</div>
+    </div>
+  </div>
+
+  <form class="checkoutForm">
+    <label for="firstName">Imię: </label>
+    <input type="text" id="firstName" placeholder="Imię*" />
+    <label for="lastName">Nazwisko:</label>
+    <input type="text" id="lastName" placeholder="Nazwisko*" />
+    <label for="phoneNumber">Numer telefonu: </label>
+    <input type="tel" id="phoneNumber" placeholder="Numer telefonu" />
+    <label for="email">Adres email: </label>
+    <input type="email" placeholder="Adres e-mail*" id="email" />
+    <label for="re-email">Powtórz adres email: </label>
+    <input type="email" placeholder="Powtórz adres e-mail*" id="re-email" />
+
+    <div class="newsletter">
+      <label class="switch">
+        <input type="checkbox" />
+        <span class="slider round"></span>
+      </label>
+      <p>Chcę otrzymywać informację o zniżkach, promocjach itp</p>
+    </div>
+    <label for="code">Kod zniżkowy: </label>
+    <input type="text" placeholder="Kod zniżkowy" id="code" />
+    <app-button type="submit" [value]="'Zamawiam!'"></app-button>
+    <a href="">Wróć do wyboru mniejsc</a>
+  </form>
+</div>
