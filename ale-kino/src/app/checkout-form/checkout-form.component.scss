@@ -48,11 +48,11 @@
   margin-bottom: 0.2em;
 }
 .checkoutForm > input, p, a {
-  margin-bottom: 0.8em;
+  margin-bottom: 1.5em;
 }
 
 .checkoutForm > a {
-  margin-top: 0.8em;
+  margin-top: 1.5em;
 }
 
 .newsletter {
@@ -61,6 +61,10 @@
   align-content: center;
   margin-top: 0.8em;
   margin-bottom: 0.8em;
+}
+
+.btn-submit {
+  align-self: end;
 }
 
 // Styling for slider
