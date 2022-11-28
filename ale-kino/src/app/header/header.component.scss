@@ -1,19 +1,13 @@
 .header {
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 1em;
   border-bottom: 2px solid lightgray;
   height: 10vh;
 }
 
 .header__title {
-  display: flex;
-  justify-content: center;
-  font-size: 24px;
-  flex: 0.8;
-}
-.header__nav {
-  flex: 0.2;
-  display: flex;
-  justify-content: space-around;
+  font-size: 1.5em;
+  margin-left: auto;
+  margin-right: auto;
 }

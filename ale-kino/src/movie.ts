@@ -1,6 +1,7 @@
 export interface Movie {
   title: string,
   tags: string[],
+  length: string,
   rated: string,
   description: string,
   image: string,

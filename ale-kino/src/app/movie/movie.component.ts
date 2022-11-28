@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../user';
 import { UserService } from '../user.service';
-import { MoviesService } from './../movies.service';
+import { Movie } from 'src/movie';
 
 @Component({
   selector: 'app-movie',
@@ -10,7 +10,20 @@ import { MoviesService } from './../movies.service';
 })
 export class MovieComponent implements OnInit {
 
-  constructor(private userService: UserService, private moviesService: MoviesService) { }
+@Input() movie: Movie =     {
+  title: '',
+  tags: [''],
+  length: '',
+  rated: '',
+  description:
+    '',
+  image: '',
+  premiere: false,
+  score: '',
+  schedule: [],
+};
+
+  constructor(private userService: UserService) { }
 
   user: User = this.userService.getUser();
   items = ['12:00', '15:30', '21:30'];

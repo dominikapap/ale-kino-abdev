@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class RoundedNavComponent implements OnInit {
 
-  @Input() items: string[] =['18/11', '18/11','18/11','18/11','18/11','18/11','18/11'];
+  @Input() items: string[] =[];
   @Input() listClass: any;
   @Input() itemClass: any;
 
