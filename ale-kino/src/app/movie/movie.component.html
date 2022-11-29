@@ -14,7 +14,7 @@
       {{movie.description}}
     </div>
     <div class="movie__detailsMore"><a href="">Więcej</a></div>
-    <app-rounded-nav [items] = "items"></app-rounded-nav>
+    <app-rounded-nav *ngIf="dailySchedule" [items] = "dailySchedule.hours" (selectValueEvent)="getMovieInfo($event)" [routerLink]="'/reservation'"></app-rounded-nav>
   </div>
   <div class="movie__score">
     <p class="movie__scoreText">{{movie.score}}/10</p>

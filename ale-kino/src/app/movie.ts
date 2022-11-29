@@ -7,7 +7,12 @@ export interface Movie {
   image: string,
   premiere: boolean,
   score: string,
-  schedule: {date: string, hours: string[]}[]
+  schedule: Schedule[]
+}
+
+export interface Schedule {
+  date: string,
+  hours: string[]
 }
 
 

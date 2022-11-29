@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output,  EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-rounded-nav',
@@ -10,10 +11,19 @@ export class RoundedNavComponent implements OnInit {
   @Input() items: string[] =[];
   @Input() listClass: any;
   @Input() itemClass: any;
+  @Input() routerLink: string = '';
+
+
+
+  @Output() selectValueEvent = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  selectNewValue(value: string){
+    this.selectValueEvent.emit(value);
   }
 
 }

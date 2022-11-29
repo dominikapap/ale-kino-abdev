@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Movie } from 'src/movie';
+import { Movie } from 'src/app/movie';
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +18,28 @@ export class MoviesService {
       score: '8',
       schedule: [
         {
-          date: '18/11',
+          date: '13/11',
           hours: ['12:30', '15:30', '18:30'],
         },
         {
-          date: '19/11',
+          date: '14/11',
           hours: ['12:30', '18:30'],
+        },
+        {
+          date: '15/11',
+          hours: ['12:30', '14:20', '16:10', '18:30'],
+        },
+        {
+          date: '16/11',
+          hours: ['12:30', '18:30'],
+        },
+        {
+          date: '17/11',
+          hours: ['12:30', '14:00', '18:30'],
+        },
+        {
+          date: '18/11',
+          hours: ['12:30', '15:30'],
         },
       ],
     },
@@ -39,12 +55,28 @@ export class MoviesService {
       score: '8',
       schedule: [
         {
-          date: '18/11',
+          date: '13/11',
           hours: ['12:30', '15:30', '18:30'],
         },
         {
-          date: '19/11',
+          date: '14/11',
           hours: ['12:30', '18:30'],
+        },
+        {
+          date: '15/11',
+          hours: ['12:30', '14:20', '16:10', '18:30'],
+        },
+        {
+          date: '16/11',
+          hours: ['12:30', '18:30'],
+        },
+        {
+          date: '17/11',
+          hours: ['12:30', '14:00', '18:30'],
+        },
+        {
+          date: '18/11',
+          hours: ['12:30', '15:30'],
         },
       ],
     },

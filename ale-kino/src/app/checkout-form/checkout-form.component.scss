@@ -1,41 +1,42 @@
 .reservation {
-  display: grid;
-  justify-items: center;
-}
-
-.selectedMovie {
-  font-size: 1.4em;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
   margin-top: 2em;
-  margin-bottom: 2em;
 }
 
 .selectedMovie {
   display: flex;
   justify-content: center;
+  font-size: 1.25em;
 }
+
 .ticketList {
-  display: grid;
-  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 450px;
+  align-self: center;
+  gap: 1.5em;
 }
+
 .ticketList__item {
   display: flex;
-  justify-content: space-between;
+  gap: 10em;
 }
 
 .ticketList__total {
   display: flex;
-  justify-self: end;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
+  align-self: end;
+  gap: 2em;
 
-.ticketList__totalLabel {
-  padding-right: 1em;;
 }
 
 .checkoutForm {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
+  max-width: 450px;
+  align-self: center;
 }
 
 .checkoutForm > input {
@@ -47,11 +48,13 @@
 .checkoutForm > label {
   margin-bottom: 0.2em;
 }
-.checkoutForm > input, p, a {
+.checkoutForm > input, a {
   margin-bottom: 1.5em;
 }
 
 .checkoutForm > a {
+  display: flex;
+  justify-content: center;
   margin-top: 1.5em;
 }
 
@@ -59,18 +62,83 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  margin-top: 0.8em;
-  margin-bottom: 0.8em;
+  margin-bottom: 1.5em;
 }
 
 .btn-submit {
   align-self: end;
 }
 
+
+// .selectedMovie {
+//   font-size: 1.4em;
+//   margin-top: 2em;
+//   margin-bottom: 2em;
+// }
+
+// .selectedMovie {
+//   display: flex;
+//   justify-content: center;
+// }
+// .ticketList {
+//   display: grid;
+//   min-width: 400px;
+// }
+// .ticketList__item {
+//   display: flex;
+//   justify-content: space-between;
+// }
+
+// .ticketList__total {
+//   display: flex;
+//   justify-self: end;
+//   margin-top: 1em;
+//   margin-bottom: 1em;
+// }
+
+// .ticketList__totalLabel {
+//   padding-right: 1em;;
+// }
+
+// .checkoutForm {
+//   display: inline-flex;
+//   flex-direction: column;
+// }
+
+// .checkoutForm > input {
+//   padding: 0.5em 1.5em;
+//   border: 1px solid lightgray;
+//   border-radius: 5px;
+// }
+
+// .checkoutForm > label {
+//   margin-bottom: 0.2em;
+// }
+// .checkoutForm > input, p, a {
+//   margin-bottom: 1.5em;
+// }
+
+// .checkoutForm > a {
+//   margin-top: 1.5em;
+// }
+
+// .newsletter {
+//   display: flex;
+//   justify-content: center;
+//   align-content: center;
+//   margin-top: 0.8em;
+//   margin-bottom: 0.8em;
+// }
+
+// .btn-submit {
+//   align-self: end;
+// }
+
 // Styling for slider
 .switch {
   position: relative;
   display: inline-block;
+  align-self: center;
   width: 30px;
   height: 14px;
   margin-right: 0.5em;

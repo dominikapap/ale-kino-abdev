@@ -1,15 +1,54 @@
+import { MovieInfoService } from './../movie-info.service';
 import { Component, OnInit } from '@angular/core';
+
+interface Ticket {
+  type: string;
+  price: number;
+}
 
 @Component({
   selector: 'app-reservation',
   templateUrl: './reservation.component.html',
-  styleUrls: ['./reservation.component.scss']
+  styleUrls: ['./reservation.component.scss'],
 })
 export class ReservationComponent implements OnInit {
+  constructor(private movieInfo: MovieInfoService) {}
 
-  constructor() { }
+  rowLetters: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+  rowNumbers: number[] = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+  ];
+  ticketTypes: Ticket[] = [
+    {
+      type: 'bilet normalny',
+      price: 2,
+    },
+    {
+      type: 'bilet ulgowy',
+      price: 11,
+    },
+    {
+      type: 'bilet rodzinny',
+      price: 30,
+    },
+    {
+      type: 'voucher',
+      price: 25,
+    },
+  ];
+
+  isSelected: boolean = false;
+  moveTitle: string = '';
+  icon: any = 'trash-can';
 
   ngOnInit(): void {
+    this.movieInfo.selectedMovieTitle$$.subscribe((title) => {
+      this.moveTitle = title;
+    });
   }
 
+  addSeat(letter: string, number: number) {
+    console.log('seat was clicked', letter, number);
+    this.isSelected = true;
+  }
 }

@@ -1,5 +1,5 @@
+import { MovieInfoService } from '../movie-info.service';
 import { Component, OnInit } from '@angular/core';
-import { format, add } from 'date-fns';
 
 @Component({
   selector: 'app-date-nav',
@@ -8,19 +8,15 @@ import { format, add } from 'date-fns';
 })
 export class DateNavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private movieInfo: MovieInfoService) { }
 
-  items = ['13/11']
+  items = ['13/11','14/11','15/11','16/11','17/11','18/11','19/11']
 
   ngOnInit(): void {
-    console.log(format(new Date(), 'dd/MM'));
   }
 
-  initiateWeekDates(){
-    for(let i = 0; i < 7; i++){
-      this.items.push()
-    }
-    const dateToday = format(new Date(), 'dd/MM');
+  getSelectedDate(date: string){
+    this.movieInfo.selectedMovieDate$$.next(date);
   }
 
 }

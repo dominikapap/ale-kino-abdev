@@ -7,7 +7,7 @@ import {
   FontAwesomeModule,
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { MovieComponent } from './movie/movie.component';
 import { ButtonComponent } from './button/button.component';
 import { HeaderComponent } from './header/header.component';
@@ -38,5 +38,6 @@ import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(faCartShopping);
+    library.addIcons(faTrashCan);
   }
 }

@@ -1,5 +1,11 @@
 <ul class="rounded__list" [ngClass]="listClass">
-  <li *ngFor="let item of items" class="rounded__listItem" [ngClass]="itemClass">
-    <a routerLink="/footer" routerLinkActive="active" ariaCurrentWhenActive="page">{{ item }}</a>
+  <li
+    *ngFor="let item of items"
+    class="rounded__listItem"
+    [ngClass]="itemClass"
+    (click)="selectNewValue(item)"
+  >
+    <a href="" *ngIf="routerLink" [routerLink]="routerLink">{{ item }}</a>
+    <p *ngIf="!routerLink">{{ item }}</p>
   </li>
 </ul>

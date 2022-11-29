@@ -7,7 +7,8 @@
 }
 
 .rounded__listItem {
-  padding: 3px 5px;
+  padding: 5px 20px;
+  cursor: pointer;
   border-left: 1px solid lightgray;
   background-color: whitesmoke;
 }
@@ -28,7 +29,6 @@ a {
   font: inherit;
   cursor: pointer;
   outline: inherit;
-  padding: 2px 15px;
   text-decoration: none;
 }
 
