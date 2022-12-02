@@ -4,6 +4,7 @@
   gap: 1em;
   border-bottom: 2px solid lightgray;
   height: 10vh;
+  position: relative;
 }
 
 .header__title {
@@ -22,3 +23,35 @@
   outline: inherit;
   text-decoration: none;
 }
+
+.header__popNav {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: absolute;
+  background-color: white;
+  right: 0;
+  top: 9vh;
+}
+
+.header__popNav > ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.header__popNav > ul > li {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.header__popNav > ul > li:hover {
+  background-color: lightblue;
+}
+
+.hide {
+  display: none;
+}
+
+

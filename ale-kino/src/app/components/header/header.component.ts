@@ -11,8 +11,13 @@ export class HeaderComponent implements OnInit {
 
   constructor(private userService: UserService) { }
   user: User = this.userService.getUser();
+  isPopNavHidden: boolean = true;
 
   ngOnInit(): void {
+  }
+
+  togglePopNavMenu(){
+    this.isPopNavHidden = !this.isPopNavHidden;
   }
 
 }

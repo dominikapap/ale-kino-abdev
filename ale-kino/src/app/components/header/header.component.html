@@ -3,16 +3,28 @@
     <a [routerLink]="'/'">Ale kino!</a>
   </div>
   <app-button *ngIf="!user.type.isAdmin" icon="cart-shopping"></app-button>
-  <app-button
+
+  <app-button (clickButtonEvent) ="togglePopNavMenu()"
     *ngIf="!user.type.isUser && !user.type.isAdmin"
     value="Zaloguj"
   ></app-button>
+
   <app-button
     *ngIf="user.type.isUser && !user.type.isAdmin"
     [value]="'Cześć ' + user.username"
   ></app-button>
+
   <app-button
     *ngIf="!user.type.isUser && user.type.isAdmin"
     value="Cześć"
   ></app-button>
+
+  <div class="header__popNav" [ngClass]="{'hide': isPopNavHidden}">
+    <ul>
+      <li>Moje bilety</li>
+      <li>Chcę obejrzeć</li>
+      <li>Ustawienia</li>
+      <li>Wyloguj</li>
+    </ul>
+  </div>
 </header>
