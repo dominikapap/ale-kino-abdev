@@ -1,4 +1,5 @@
-import { MoviesService } from './../movies.service';
+import { MovieInfoService } from '../../services/movie-info.service';
+import { MoviesService } from './../../services/movies.service';
 import { Component, OnInit } from '@angular/core';
 import { Movie } from 'src/app/movie';
 
@@ -9,12 +10,16 @@ import { Movie } from 'src/app/movie';
 })
 export class HomePageComponent implements OnInit {
   movies: Movie[] = [];
+  dailyMovies: Movie[] = [];
+  selectedMovieDate: string = '';
 
   constructor(private moviesService: MoviesService) { }
 
   ngOnInit(): void {
-    this.movies = this.moviesService.getMovies();
-    // console.log(this.movies)
+    this.moviesService.getMovies().subscribe({
+      next: (response) => this.movies = response
+    });
+
   }
 
 }

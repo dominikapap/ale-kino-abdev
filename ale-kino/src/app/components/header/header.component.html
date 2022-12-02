@@ -1,5 +1,7 @@
 <header class="header">
-  <div class="header__title">Ale kino!</div>
+  <div class="header__title">
+    <a [routerLink]="'/'">Ale kino!</a>
+  </div>
   <app-button *ngIf="!user.type.isAdmin" icon="cart-shopping"></app-button>
   <app-button
     *ngIf="!user.type.isUser && !user.type.isAdmin"

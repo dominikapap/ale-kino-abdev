@@ -1,8 +1,8 @@
-import { MovieInfoService } from '../movie-info.service';
-import { Schedule } from './../movie';
+import { MovieInfoService } from '../../services/movie-info.service';
+import { Schedule } from './../../movie';
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../user';
-import { UserService } from '../user.service';
+import { User } from '../../user';
+import { UserService } from '../../services/user.service';
 import { Movie } from 'src/app/movie';
 
 @Component({
@@ -12,6 +12,7 @@ import { Movie } from 'src/app/movie';
 })
 export class MovieComponent implements OnInit {
   @Input() movie: Movie = {
+    id: 0,
     title: '',
     tags: [''],
     length: '',

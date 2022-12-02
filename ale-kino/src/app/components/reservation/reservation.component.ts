@@ -1,4 +1,4 @@
-import { MovieInfoService } from './../movie-info.service';
+import { MovieInfoService } from '../../services/movie-info.service';
 import { Component, OnInit } from '@angular/core';
 
 interface Ticket {

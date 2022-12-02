@@ -1,0 +1,6 @@
+{
+  "/movies": "/movies",
+  "/movies\\?id=:id": "/movies:id",
+  "/schedule": "/schedule",
+  "/schedule\\?id=:id": "/schedule:id"
+}

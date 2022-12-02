@@ -1,4 +1,4 @@
-import { Movie } from './movie';
+import { Movie } from '../movie';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 

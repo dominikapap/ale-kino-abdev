@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './home-page/home-page.component';
-import { ReservationComponent } from './reservation/reservation.component';
-import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
+import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
