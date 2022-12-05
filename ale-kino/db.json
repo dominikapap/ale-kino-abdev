@@ -1,14 +1,20 @@
 {
-  "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" },
-    { "id": 2, "title": "json-server 2", "author": "typicode2" }
-  ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 2 },
-    { "id": 2, "body": "some comment 2", "postId": 1 }
-  ],
-  "profile": { "name": "typicode" },
-
+  "screenings": [
+    {
+    "id": 1,
+    "date": "13-11-2022",
+    "time": "12:30",
+    "roomId": 1,
+    "movieId": 1
+  },
+  {
+    "id": 2,
+    "date": "13-11-2022",
+    "time": "14:30",
+    "roomId": 2,
+    "movieId": 1
+  }
+],
 
   "users": [
     {
@@ -34,7 +40,6 @@
       "type": "admin"
     }
   ],
-
 
   "movies": [
     {

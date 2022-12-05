@@ -6,11 +6,10 @@ import { User } from '../../user';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) {}
   user: User = {
     username: '',
     type: {
@@ -27,12 +26,31 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  togglePopNavMenu(){
+  togglePopNavMenu() {
     this.isPopNavHidden = !this.isPopNavHidden;
   }
 
-  login(){
+  login() {
     this.router.navigate(['/login']);
   }
 
+  handlePopupNavClick(navItem: string) {
+    switch (navItem.toLowerCase()) {
+      case 'ustawienia':
+        // this.router.navigate(['/settings']);
+        break;
+      case 'wyloguj':
+        this.userService.subject.next({
+          username: '',
+          type: {
+            isUser: false,
+            isAdmin: false,
+          },
+        });
+        break;
+    }
+    console.log(navItem);
+
+    this.isPopNavHidden = true;
+  }
 }

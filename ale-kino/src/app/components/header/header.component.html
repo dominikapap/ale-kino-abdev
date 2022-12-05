@@ -16,17 +16,22 @@
       [value]="'Cześć ' + user.username"
     ></app-button>
     <app-popup-nav
+      (clickNavItemEvent)="handlePopupNavClick($event)"
       [isPopNavHidden]="isPopNavHidden"
-      [navItems]="['Moje bilety', 'Chcę obejrzeć', 'Ustawienia']"
+      [navItems]="['Moje bilety', 'Chcę obejrzeć', 'Ustawienia', 'Wyloguj']"
     ></app-popup-nav>
   </div>
 
   <div class="popnav-container" *ngIf="!user.type.isUser && user.type.isAdmin">
-    <app-button value="Cześć"></app-button>
+    <app-button
+      (clickButtonEvent)="togglePopNavMenu()"
+      value="Cześć"
+    ></app-button>
 
     <app-popup-nav
+      (clickNavItemEvent)="handlePopupNavClick($event)"
       [isPopNavHidden]="isPopNavHidden"
-      [navItems]="['Moje bilety', 'Chcę obejrzeć', 'Ustawienia']"
+      [navItems]="['Moje bilety', 'Chcę obejrzeć', 'Ustawienia', 'Wyloguj']"
     ></app-popup-nav>
   </div>
 </header>
