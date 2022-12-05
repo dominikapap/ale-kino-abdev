@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user.subject.subscribe(console.log);
+    this.user.subject.subscribe();
   }
 
   private createForm() {
@@ -40,6 +40,5 @@ export class LoginFormComponent implements OnInit {
       },
     });
     this.router.navigate(['/']);
-    console.log('form sent');
   }
 }
