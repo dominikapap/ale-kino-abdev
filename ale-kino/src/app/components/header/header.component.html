@@ -4,12 +4,14 @@
   </div>
   <app-button *ngIf="!user.type.isAdmin" icon="cart-shopping"></app-button>
 
-  <app-button (clickButtonEvent) ="togglePopNavMenu()"
+  <app-button
+  (clickButtonEvent)="login()"
     *ngIf="!user.type.isUser && !user.type.isAdmin"
     value="Zaloguj"
   ></app-button>
 
   <app-button
+    (clickButtonEvent)="togglePopNavMenu()"
     *ngIf="user.type.isUser && !user.type.isAdmin"
     [value]="'Cześć ' + user.username"
   ></app-button>
@@ -19,7 +21,7 @@
     value="Cześć"
   ></app-button>
 
-  <div class="header__popNav" [ngClass]="{'hide': isPopNavHidden}">
+  <div class="header__popNav" [ngClass]="{ hide: isPopNavHidden }">
     <ul>
       <li>Moje bilety</li>
       <li>Chcę obejrzeć</li>

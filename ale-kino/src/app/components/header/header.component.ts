@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../user';
@@ -9,7 +10,7 @@ import { User } from '../../user';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
   user: User = this.userService.getUser();
   isPopNavHidden: boolean = true;
 
@@ -18,6 +19,10 @@ export class HeaderComponent implements OnInit {
 
   togglePopNavMenu(){
     this.isPopNavHidden = !this.isPopNavHidden;
+  }
+
+  login(){
+    this.router.navigate(['/login']);
   }
 
 }

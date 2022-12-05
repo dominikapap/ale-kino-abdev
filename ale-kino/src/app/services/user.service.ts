@@ -5,7 +5,7 @@ import { User } from './../user';
   providedIn: 'root',
 })
 export class UserService {
-  user: User = {
+  private user: User = {
     username: 'Nameless',
     type: {
       isUser: false,

@@ -1,0 +1,14 @@
+<div class="container">
+  <h1>Zaloguj się</h1>
+  <form class="login-form">
+    <div class="login-form__input">
+      <label for="email">{{ "e-mail" | uppercase }}</label>
+      <input type="email" id="email" />
+    </div>
+    <div class="login-form__input">
+      <label for="password">{{ "hasło" | uppercase }}</label>
+      <input type="password" id="password" />
+    </div>
+    <app-button [value]="'logowanie' | uppercase" (clickButtonEvent)="login()"></app-button>
+  </form>
+</div>

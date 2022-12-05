@@ -18,6 +18,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CheckoutFormComponent } from './components/checkout-form/checkout-form.
     HomePageComponent,
     ReservationComponent,
     CheckoutFormComponent,
+    LoginFormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FontAwesomeModule, HttpClientModule],
   providers: [],
