@@ -1,7 +1,7 @@
 <div class="popup-nav" [ngClass]="{ hide: isPopNavHidden }">
   <ul>
-    <li *ngFor="let navItem of navItems" (click)="handleNavItemClick(navItem)">{{ navItem }}</li>
-    <!-- <li (click)="handleNavItemClick(navItem)">Wyloguj</li> -->
+    <li *ngFor="let navItem of navItems" (click)="handleNavItemClick(navItem)">
+      {{ navItem }}
+    </li>
   </ul>
 </div>
-

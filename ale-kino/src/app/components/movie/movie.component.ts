@@ -29,13 +29,24 @@ export class MovieComponent implements OnInit {
     private movieInfo: MovieInfoService
   ) {}
 
-  user: User = this.userService.getUser();
+  user: User = {
+    username: '',
+    type: {
+      isUser: false,
+      isAdmin: false,
+    },
+  };
+
   dailySchedule: Schedule | undefined = {
     date: '',
     hours: [],
   };
 
   ngOnInit(): void {
+    this.userService.subject.subscribe((user) => {
+      this.user = user;
+    });
+
     this.movieInfo.selectedMovieDate$$.subscribe((value) => {
       this.dailySchedule = this.movie.schedule.find((date) => {
         return date.date === value;

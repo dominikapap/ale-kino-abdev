@@ -1,33 +1,16 @@
 {
-  "screenings": [
-    {
-    "id": 1,
-    "date": "13-11-2022",
-    "time": "12:30",
-    "roomId": 1,
-    "movieId": 1
-  },
-  {
-    "id": 2,
-    "date": "13-11-2022",
-    "time": "14:30",
-    "roomId": 2,
-    "movieId": 1
-  }
-],
-
   "users": [
     {
       "id": 1,
       "email": "jakiadres@mail.com",
       "password": "qwerty1234",
-      "roleId": 1
+      "rolesId": 1
     },
     {
       "id": 2,
       "email": "jakiadmin@mail.com",
       "password": "qwerty1234",
-      "roleId": 2
+      "rolesId": 2
     }
   ],
   "roles": [
@@ -38,6 +21,37 @@
     {
       "id": 2,
       "type": "admin"
+    }
+  ],
+
+  "screenings": [
+    {
+      "id": 1,
+      "date": "13-11-2022",
+      "time": "12:30",
+      "roomsId": 1,
+      "moviesId": 1
+    },
+    {
+      "id": 2,
+      "date": "14-11-2022",
+      "time": "14:30",
+      "roomsId": 2,
+      "moviesId": 1
+    },
+    {
+      "id": 3,
+      "date": "13-11-2022",
+      "time": "14:30",
+      "roomsId": 3,
+      "moviesId": 2
+    },
+    {
+      "id": 4,
+      "date": "13-11-2022",
+      "time": "16:30",
+      "roomsId": 2,
+      "moviesId": 1
     }
   ],
 
