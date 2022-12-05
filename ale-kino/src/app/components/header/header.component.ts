@@ -11,10 +11,20 @@ import { User } from '../../user';
 export class HeaderComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
-  user: User = this.userService.getUser();
+  user: User = {
+    username: '',
+    type: {
+      isUser: false,
+      isAdmin: false,
+    },
+  };
+
   isPopNavHidden: boolean = true;
 
   ngOnInit(): void {
+    this.userService.subject.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   togglePopNavMenu(){

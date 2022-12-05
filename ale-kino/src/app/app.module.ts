@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   FontAwesomeModule,
   FaIconLibrary,
@@ -34,7 +35,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
     CheckoutFormComponent,
     LoginFormComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FontAwesomeModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, FontAwesomeModule, HttpClientModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
