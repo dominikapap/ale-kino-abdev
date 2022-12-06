@@ -1,7 +1,8 @@
 import { MovieInfoService } from './../../services/movie-info.service';
 import { MoviesService } from './../../services/movies.service';
 import { Component, OnInit } from '@angular/core';
-import { Movie } from 'src/app/movie';
+import { Movie, DailyMovieScreenings } from 'src/app/movie';
+import { Subscription } from 'rxjs';
 
 interface MovieScreening {
   date: string;
@@ -12,16 +13,17 @@ interface MovieScreening {
   time: string;
 }
 
+
+
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  movies: Movie[] = [];
-  dailyMovies: Movie[] = [];
-  dailyScreenings: MovieScreening[] = [];
   selectedMovieDate: string = '';
+  subscriptions = new Subscription();
+  movies: DailyMovieScreenings[] = [];
 
   constructor(
     private moviesService: MoviesService,
@@ -30,19 +32,46 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.movieInfoService.selectedMovieDate$$.subscribe((selectedDay) => {
-      this.moviesService.getDailyScreenings(selectedDay)
-      .subscribe({
-        next: (response) => {
-          this.dailyScreenings = <MovieScreening[]>response;
-          this.dailyScreenings.forEach(screening => {
-            console.log(screening)
-          })
-        },
-      });
+      this.subscriptions.unsubscribe(); //remove previous day subscription
+      this.subscriptions = this.moviesService
+        .getDailyScreenings(selectedDay)
+        .subscribe({
+          next: (response) => {
+            this.movies = Array.from(
+              this.mergeMovieScreenings(<MovieScreening[]>response).values()
+            );
+          },
+        });
     });
+  }
 
-    this.moviesService.getMovies().subscribe({
-      next: (response) => (this.movies = response),
+  mergeMovieScreenings(dailyScreenings: MovieScreening[]) {
+    const formatedMovieData = new Map();
+    dailyScreenings.forEach((screening) => {
+      if (formatedMovieData.get(screening.moviesId) === undefined) {
+        //create map entry for movie if it doesnt exist yet
+        formatedMovieData.set(screening.moviesId, {
+          id: screening.moviesId,
+          movieInfo: screening.movies,
+          screenings: [
+            {
+              id: screening.id,
+              roomId: screening.roomsId,
+              date: screening.date,
+              time: screening.time,
+            },
+          ],
+        });
+      } else {
+        //add a screening to an array for existing map entry for movie
+        formatedMovieData.get(screening.moviesId).screenings.push({
+          id: screening.id,
+          roomId: screening.roomsId,
+          date: screening.date,
+          time: screening.time,
+        });
+      }
     });
+    return formatedMovieData;
   }
 }

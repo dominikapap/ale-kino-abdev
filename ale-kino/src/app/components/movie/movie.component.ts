@@ -1,9 +1,9 @@
+import { Screening } from './../../movie';
 import { MovieInfoService } from '../../services/movie-info.service';
-import { Schedule } from './../../movie';
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../user';
 import { UserService } from '../../services/user.service';
-import { Movie } from 'src/app/movie';
+import { Movie, DailyMovieScreenings } from 'src/app/movie';
 
 @Component({
   selector: 'app-movie',
@@ -11,18 +11,7 @@ import { Movie } from 'src/app/movie';
   styleUrls: ['./movie.component.scss'],
 })
 export class MovieComponent implements OnInit {
-  @Input() movie: Movie = {
-    id: 0,
-    title: '',
-    tags: [''],
-    length: '',
-    rated: '',
-    description: '',
-    image: '',
-    premiere: false,
-    score: '',
-    schedule: [],
-  };
+  @Input() movie!: DailyMovieScreenings;
 
   constructor(
     private userService: UserService,
@@ -37,25 +26,31 @@ export class MovieComponent implements OnInit {
     },
   };
 
-  dailySchedule: Schedule | undefined = {
-    date: '',
-    hours: [],
-  };
+  dailyTimeSchedule: string[] = [];
+  // dailySchedule: Schedule | undefined = {
+  //   date: '',
+  //   hours: [],
+  // };
 
   ngOnInit(): void {
     this.userService.subject.subscribe((user) => {
       this.user = user;
     });
 
-    this.movieInfo.selectedMovieDate$$.subscribe((value) => {
-      this.dailySchedule = this.movie.schedule.find((date) => {
-        return date.date === value;
-      });
-    });
+    this.dailyTimeSchedule = this.screeningTimeToArray(this.movie);
   }
 
-  getMovieInfo(time: string){
+  getMovieInfo(time: string) {
     this.movieInfo.selectedMovieTime$$.next(time);
-    this.movieInfo.selectedMovieTitle$$.next(this.movie.title);
+    this.movieInfo.selectedMovieTitle$$.next(this.movie.movieInfo.title);
+  }
+
+  screeningTimeToArray(movie: DailyMovieScreenings) {
+    //get time from each screening and group them in an array
+    const dailyTimeSchedule: string[] = [];
+    movie.screenings.forEach((screening: Screening) => {
+      dailyTimeSchedule.push(screening.time);
+    });
+    return dailyTimeSchedule;
   }
 }

@@ -7,13 +7,18 @@ export interface Movie {
   description: string,
   image: string,
   premiere: boolean,
-  score: string,
-  schedule: Schedule[]
+  score: string
 }
 
-export interface Schedule {
-  date: string,
-  hours: string[]
+export interface Screening {
+  id: number;
+  roomId: number;
+  date: string;
+  time: string;
 }
 
-
+export interface DailyMovieScreenings {
+  id: number;
+  movieInfo: Movie;
+  screenings: Screening[];
+}
