@@ -1,21 +1,19 @@
 import { MovieScreening } from '../../movie-interfaces';
 import { MovieInfoService } from './../../services/movie-info.service';
 import { MoviesService } from './../../services/movies.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Movie, DailyMovieScreenings } from 'src/app/movie-interfaces';
 import { map, Subscription } from 'rxjs';
-
-
-
-
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, OnDestroy {
   selectedMovieDate: string = '';
+  movieInfoServiceSubscription = new Subscription();
+  moviesServiceSubscription = new Subscription();
   subscriptions = new Subscription();
   movies: DailyMovieScreenings[] = [];
 
@@ -25,23 +23,28 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.movieInfoServiceSubscription =
+      this.movieInfoService.selectedMovieDate$$.subscribe((selectedDay) => {
+        this.moviesServiceSubscription = this.moviesService
+          .getDailyScreenings(selectedDay)
+          .pipe(
+            map((response) => {
+              return Array.from(
+                this.mergeMovieScreenings(<MovieScreening[]>response).values()
+              );
+            })
+          )
+          .subscribe({
+            next: (response) => {
+              this.movies = response;
+            },
+          });
+      });
+  }
 
-    this.movieInfoService.selectedMovieDate$$.subscribe((selectedDay) => {
-      this.subscriptions.unsubscribe(); //remove previous day subscription
-      this.subscriptions = this.moviesService
-        .getDailyScreenings(selectedDay).pipe(
-          map(response => {
-            return Array.from(
-              this.mergeMovieScreenings(<MovieScreening[]>response).values()
-            );
-          })
-        )
-        .subscribe({
-          next: (response) => {
-            this.movies = response;
-          },
-        });
-    });
+  ngOnDestroy() {
+    this.movieInfoServiceSubscription.unsubscribe();
+    this.moviesServiceSubscription.unsubscribe();
   }
 
   mergeMovieScreenings(dailyScreenings: MovieScreening[]) {

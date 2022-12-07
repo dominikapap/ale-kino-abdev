@@ -39,7 +39,13 @@
   align-self: center;
 }
 
-.checkoutForm > input {
+.checkoutForm__field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5em;
+}
+
+.checkoutForm__field > input {
   padding: 0.5em 1.5em;
   border: 1px solid lightgray;
   border-radius: 5px;
@@ -48,8 +54,12 @@
 .checkoutForm > label {
   margin-bottom: 0.2em;
 }
-.checkoutForm > input, a {
-  margin-bottom: 1.5em;
+
+.checkoutForm__errorMessage {
+  color: red;
+}
+.error {
+  border: 1px solid red;
 }
 
 .checkoutForm > a {
@@ -62,7 +72,6 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  margin-bottom: 1.5em;
 }
 
 .btn-submit {

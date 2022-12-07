@@ -3,8 +3,8 @@
 
   <div class="ticketList">
     <div class="ticketList__item">
-      <div class="ticketList__ticketSeat" >Rząd E Miejsce 6</div>
-      <div class="ticketList__ticketPrice" >22 PLN</div>
+      <div class="ticketList__ticketSeat">Rząd E Miejsce 6</div>
+      <div class="ticketList__ticketPrice">22 PLN</div>
     </div>
     <div class="ticketList__total">
       <div class="ticketList__totalLabel">razem</div>
@@ -12,28 +12,92 @@
     </div>
   </div>
 
-  <form class="checkoutForm"  [formGroup]="checkoutForm" (ngSubmit)="sendForm()">
-    <label for="firstName">Imię: </label>
-    <input type="text" id="firstName" placeholder="Imię*" />
-    <label for="lastName">Nazwisko:</label>
-    <input type="text" id="lastName" placeholder="Nazwisko*" />
-    <label for="phoneNumber">Numer telefonu: </label>
-    <input type="tel" id="phoneNumber" placeholder="Numer telefonu" />
-    <label for="email">Adres email: </label>
-    <input type="email" placeholder="Adres e-mail*" id="email" />
-    <label for="re-email">Powtórz adres email: </label>
-    <input type="email" placeholder="Powtórz adres e-mail*" id="re-email" />
-
-    <div class="newsletter">
-      <label class="switch">
-        <input type="checkbox" />
-        <span class="slider round"></span>
-      </label>
-      <p>Chcę otrzymywać informację o zniżkach, promocjach itp</p>
+  <form class="checkoutForm" [formGroup]="checkoutForm" (ngSubmit)="sendForm()">
+    <div class="checkoutForm__field">
+      <label for="firstName">Imię: </label>
+      <input
+        [class.error]="firstNameCtrl.touched || firstNameCtrl.dirty && firstNameCtrl.errors"
+        type="text"
+        id="firstName"
+        placeholder="Imię*"
+        formControlName="firstName"
+      />
+      <ng-container *ngIf="firstNameCtrl.errors as errors">
+        <ng-container *ngIf="firstNameCtrl.touched">
+          <p class="checkoutForm__errorMessage" *ngIf="errors['required']">Te pole jest obowiązkowe</p>
+          <p class="checkoutForm__errorMessage" *ngIf="errors['minlength'] as milLength">
+            Podałeś {{ milLength.actualLength }} znaki, minimum to
+            {{ milLength.requiredLength }}
+          </p>
+        </ng-container>
+      </ng-container>
     </div>
-    <label for="code">Kod zniżkowy: </label>
-    <input type="text" placeholder="Kod zniżkowy" id="code" />
-    <app-button type="submit" [value]="'Zamawiam!'" class="btn-submit"></app-button>
-    <a href="" >Wróć do wyboru mniejsc</a>
+
+    <div class="checkoutForm__field">
+      <label for="lastName">Nazwisko:</label>
+      <input
+        type="text"
+        id="lastName"
+        placeholder="Nazwisko*"
+        formControlName="lastName"
+      />
+    </div>
+
+    <div class="checkoutForm__field">
+      <label for="phoneNumber">Numer telefonu: </label>
+      <input
+        type="tel"
+        id="phoneNumber"
+        placeholder="Numer telefonu"
+        formControlName="phoneNumber"
+      />
+    </div>
+
+    <div class="checkoutForm__field">
+      <label for="email">Adres email: </label>
+      <input
+        type="email"
+        placeholder="Adres e-mail*"
+        id="email"
+        formControlName="email"
+      />
+    </div>
+
+    <div class="checkoutForm__field">
+      <label for="re-email">Powtórz adres email: </label>
+      <input
+        type="email"
+        placeholder="Powtórz adres e-mail*"
+        id="re-email"
+        formControlName="emailRepeat"
+      />
+    </div>
+
+    <div class="checkoutForm__field">
+      <div class="newsletter">
+        <label class="switch">
+          <input type="checkbox" formControlName="hasDiscountCode" />
+          <span class="slider round"></span>
+        </label>
+        <p>Chcę otrzymywać informację o zniżkach, promocjach itp</p>
+      </div>
+    </div>
+
+    <div class="checkoutForm__field">
+      <label for="code">Kod zniżkowy: </label>
+      <input
+        type="text"
+        placeholder="Kod zniżkowy"
+        id="code"
+        formControlName="discountCode"
+      />
+    </div>
+
+    <app-button
+      type="submit"
+      [value]="'Zamawiam!'"
+      class="btn-submit"
+    ></app-button>
+    <a href="">Wróć do wyboru mniejsc</a>
   </form>
 </div>
