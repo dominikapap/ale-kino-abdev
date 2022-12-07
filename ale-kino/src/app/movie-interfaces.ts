@@ -10,9 +10,18 @@ export interface Movie {
   score: string
 }
 
+export interface MovieScreening {
+  date: string;
+  id: number;
+  movies: Movie;
+  moviesId: number;
+  screeningRoomsId: number;
+  time: string;
+}
+
 export interface Screening {
   id: number;
-  roomId: number;
+  screeningsRoomId: number;
   date: string;
   time: string;
 }

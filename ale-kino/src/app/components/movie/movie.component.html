@@ -1,24 +1,36 @@
 <section class="movie">
   <div class="movie__image">
     <p class="movie__imageText">Premiera</p>
-    <img
-      class="movie__imagePicture"
-      [src]="movie.movieInfo.image"
-      alt=""
-    />
+    <img class="movie__imagePicture" [src]="movie.movieInfo.image" alt="" />
   </div>
   <div class="movie__details">
-    <div class="movie__detailsTitle">{{movie.movieInfo.title}}</div>
-    <div class="movie__detailsTags">{{movie.movieInfo.tags}} | {{movie.movieInfo.length}} minut | {{movie.movieInfo.rated}}</div>
+    <div class="movie__detailsTitle">{{ movie.movieInfo.title }}</div>
+    <div class="movie__detailsTags">
+      {{ movie.movieInfo.tags }} | {{ movie.movieInfo.length }} minut |
+      {{ movie.movieInfo.rated }}
+    </div>
     <div class="movie__detailsDescription">
-      {{movie.movieInfo.description}}
+      {{ movie.movieInfo.description }}
     </div>
     <div class="movie__detailsMore"><a href="">Więcej</a></div>
-    <app-rounded-nav *ngIf="dailyTimeSchedule" [items] = "dailyTimeSchedule" (selectValueEvent)="getMovieInfo($event)" [routerLink]="'/reservation'"></app-rounded-nav>
+    <app-rounded-nav
+      *ngIf="dailyTimeSchedule"
+      [items]="dailyTimeSchedule"
+      (selectValueEvent)="getMovieInfo($event)"
+      [routerLink]="'/reservation'"
+    ></app-rounded-nav>
   </div>
   <div class="movie__score">
-    <p class="movie__scoreText">{{movie.movieInfo.score}}/10</p>
-    <app-button *ngIf="user.type.isUser" value="Oceń ten film!" class="movie__scoreButton"></app-button>
-    <app-button *ngIf="user.type.isUser" value="Chcę zobaczyć" class="movie__scoreButton"></app-button>
+    <p class="movie__scoreText">{{ movie.movieInfo.score }}/10</p>
+    <app-button
+      *ngIf="user.type.isUser"
+      value="Oceń ten film!"
+      class="movie__scoreButton"
+    ></app-button>
+    <app-button
+      *ngIf="user.type.isUser"
+      value="Chcę zobaczyć"
+      class="movie__scoreButton"
+    ></app-button>
   </div>
 </section>

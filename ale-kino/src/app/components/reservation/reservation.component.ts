@@ -1,5 +1,6 @@
 import { MovieInfoService } from '../../services/movie-info.service';
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 interface Ticket {
   type: string;
@@ -12,7 +13,8 @@ interface Ticket {
   styleUrls: ['./reservation.component.scss'],
 })
 export class ReservationComponent implements OnInit {
-  constructor(private movieInfo: MovieInfoService) {}
+  constructor(private movieInfo: MovieInfoService,
+    private activatedRoute: ActivatedRoute) {}
 
   rowLetters: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
   rowNumbers: number[] = [
@@ -42,6 +44,8 @@ export class ReservationComponent implements OnInit {
   icon: any = 'trash-can';
 
   ngOnInit(): void {
+    // const id = this.activatedRoute.snapshot.paramMap.get('id');
+    // console.log(id);
     this.movieInfo.selectedMovieTitle$$.subscribe((title) => {
       this.moveTitle = title;
     });

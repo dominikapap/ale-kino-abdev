@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <form class="checkoutForm">
+  <form class="checkoutForm"  [formGroup]="checkoutForm" (ngSubmit)="sendForm()">
     <label for="firstName">Imię: </label>
     <input type="text" id="firstName" placeholder="Imię*" />
     <label for="lastName">Nazwisko:</label>

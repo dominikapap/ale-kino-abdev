@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Movie } from 'src/app/movie';
+import { Movie } from 'src/app/movie-interfaces';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -13,17 +13,17 @@ export class MoviesService {
   getDailyScreenings(date: string){
     return this.http.get(`http://localhost:3000/screenings?_expand=movies&date=${date}`);
   }
-  getMovies() {
-    return this.http.get<Movie[]>('http://localhost:3000/movies');
-  }
+  // getMovies() {
+  //   return this.http.get<Movie[]>('http://localhost:3000/movies');
+  // }
 
   getMovie(movieId: string){
     return this.http.get<Movie[]>(`http://localhost:3000/movies/${movieId}`);
   }
 
-  getSchedule() {
-    return this.http.get('http://localhost:3000/schedule');
-  }
+  // getSchedule() {
+  //   return this.http.get('http://localhost:3000/schedule');
+  // }
 
   ngOnInit(){
 
