@@ -58,9 +58,7 @@
 .checkoutForm__errorMessage {
   color: red;
 }
-.error {
-  border: 1px solid red;
-}
+
 
 .checkoutForm > a {
   display: flex;
@@ -76,6 +74,10 @@
 
 .btn-submit {
   align-self: end;
+}
+
+input.ng-touched.ng-invalid {
+  border-color: red;
 }
 
 

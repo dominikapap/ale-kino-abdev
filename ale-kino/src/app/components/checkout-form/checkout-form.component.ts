@@ -16,9 +16,10 @@ import {
 })
 export class CheckoutFormComponent implements OnInit {
   checkoutForm = this.createForm();
+  isError: boolean = false;
 
   constructor(private builder: FormBuilder) {
-    this.checkoutForm.valueChanges.subscribe(console.log);
+    // this.checkoutForm.valueChanges.subscribe(console.log);
   }
 
   ngOnInit(): void {}
@@ -26,31 +27,31 @@ export class CheckoutFormComponent implements OnInit {
   private createForm() {
     const form = this.builder.group({
       firstName: this.builder.control('', {
-        validators: [Validators.required, Validators.minLength(4)],
+        validators: [
+          Validators.required,
+          Validators.pattern('[a-zA-Z]*'),
+          Validators.maxLength(20),
+        ],
       }),
-      lastName: this.builder.control(''),
-      phoneNumber: this.builder.control(''),
-      email: this.builder.control(''),
-      emailRepeat: this.builder.control(''),
+      lastName: this.builder.control('', {
+        validators: [
+          Validators.required,
+          Validators.pattern('[a-zA-Z]*'),
+          Validators.maxLength(20),
+        ],
+      }),
+      phoneNumber: this.builder.control('', {
+        validators: [Validators.pattern('^[\+]?[(]?[0-9]{2}[)]?[\s\]?[0-9]{2,3}[-\s\.]?[0-9]{2,3}[-\s\.]?[0-9]{2,3}$'), Validators.maxLength(20)],
+      }),
+      email: this.builder.control('', {
+        validators: [Validators.required, Validators.email],
+      }),
+      emailRepeat: this.builder.control('', {
+        validators: [Validators.required, Validators.email],
+      }),
       hasDiscountCode: this.builder.control(false),
       discountCode: this.builder.control(''),
     });
-
-    form.controls.firstName.statusChanges.subscribe(() => {
-      console.log('status changed!')
-      if (form.controls.firstName.errors) {
-        console.log('there are errors')
-      }
-    });
-
-    // form.controls.firstName.valueChanges.subscribe(() => {
-    //   console.log('status changed!')
-    //   if (form.controls.firstName.invalid) {
-    //     console.log('there are errors')
-    //   }
-    // });
-
-
 
     return form;
   }

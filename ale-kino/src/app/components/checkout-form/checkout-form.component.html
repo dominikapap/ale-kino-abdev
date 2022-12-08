@@ -16,7 +16,7 @@
     <div class="checkoutForm__field">
       <label for="firstName">Imię: </label>
       <input
-        [class.error]="firstNameCtrl.touched || firstNameCtrl.dirty && firstNameCtrl.errors"
+        [class.error]="firstNameCtrl.touched && firstNameCtrl.errors"
         type="text"
         id="firstName"
         placeholder="Imię*"
@@ -24,8 +24,13 @@
       />
       <ng-container *ngIf="firstNameCtrl.errors as errors">
         <ng-container *ngIf="firstNameCtrl.touched">
-          <p class="checkoutForm__errorMessage" *ngIf="errors['required']">Te pole jest obowiązkowe</p>
-          <p class="checkoutForm__errorMessage" *ngIf="errors['minlength'] as milLength">
+          <p class="checkoutForm__errorMessage" *ngIf="errors['required']">
+            Te pole jest obowiązkowe
+          </p>
+          <p
+            class="checkoutForm__errorMessage"
+            *ngIf="errors['minlength'] as milLength"
+          >
             Podałeś {{ milLength.actualLength }} znaki, minimum to
             {{ milLength.requiredLength }}
           </p>
@@ -41,6 +46,13 @@
         placeholder="Nazwisko*"
         formControlName="lastName"
       />
+      <ng-container *ngIf="lastNameCtrl.errors as errors">
+        <ng-container *ngIf="lastNameCtrl.touched">
+          <p class="checkoutForm__errorMessage" *ngIf="errors['required']">
+            Te pole jest obowiązkowe
+          </p>
+        </ng-container>
+      </ng-container>
     </div>
 
     <div class="checkoutForm__field">
@@ -61,6 +73,16 @@
         id="email"
         formControlName="email"
       />
+      <ng-container *ngIf="emailCtrl.errors as errors">
+        <ng-container *ngIf="emailCtrl.touched">
+          <p class="checkoutForm__errorMessage" *ngIf="errors['required']">
+            Te pole jest obowiązkowe
+          </p>
+          <p class="checkoutForm__errorMessage" *ngIf="errors['email']">
+            Podany adres email jest nieprawidłowy
+          </p>
+        </ng-container>
+      </ng-container>
     </div>
 
     <div class="checkoutForm__field">
@@ -71,6 +93,16 @@
         id="re-email"
         formControlName="emailRepeat"
       />
+      <ng-container *ngIf="emailRepeatCtrl.errors as errors">
+        <ng-container *ngIf="emailRepeatCtrl.touched">
+          <p class="checkoutForm__errorMessage" *ngIf="errors['required']">
+            Te pole jest obowiązkowe
+          </p>
+          <p class="checkoutForm__errorMessage" *ngIf="errors['email']">
+            Podany adres email jest nieprawidłowy
+          </p>
+        </ng-container>
+      </ng-container>
     </div>
 
     <div class="checkoutForm__field">
