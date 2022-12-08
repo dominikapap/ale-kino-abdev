@@ -13,6 +13,10 @@ export class MovieInfoService {
   selectedMovieScreening$$ = new BehaviorSubject<string>('');
   selectedMovieTitle$$ = new BehaviorSubject<string>('');
 
+  get selectedMovieDate$(){
+    return this.selectedMovieDate$$.asObservable();
+  }
+
   ngOnInit(){
 
   }
