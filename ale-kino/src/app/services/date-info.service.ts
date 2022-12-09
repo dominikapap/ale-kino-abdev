@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { parse } from 'date-fns';
 
@@ -18,7 +19,11 @@ export class DateInfoService {
     { dayOfTheWeek: 'Sb', date: '18/11/2022' },
     { dayOfTheWeek: 'Nd', date: '19/11/2022' },
   ];
+
+  private currentWeekDates$$ = new BehaviorSubject<Day[]>([]);
+
   constructor() {
+
     const x = parse('14.03.2018', 'dd.MM.yyyy', new Date());
     console.log(x);
   }
