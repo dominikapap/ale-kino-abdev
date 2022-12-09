@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { parse } from 'date-fns';
+import { parse, format, getDay, subDays } from 'date-fns';
 
 interface Day {
   dayOfTheWeek: string;
@@ -23,8 +23,10 @@ export class DateInfoService {
   private currentWeekDates$$ = new BehaviorSubject<Day[]>([]);
 
   constructor() {
+    console.log(this.getMondayDate());
+  }
 
-    const x = parse('14.03.2018', 'dd.MM.yyyy', new Date());
-    console.log(x);
+  getMondayDate() {
+    return format(subDays(new Date(), getDay(new Date()) - 1), 'dd/MM/yyyy');
   }
 }
