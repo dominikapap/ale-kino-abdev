@@ -20,6 +20,7 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { PopupNavComponent } from './popup-nav/popup-nav.component';
+import { TimeNavComponent } from './components/time-nav/time-nav.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { PopupNavComponent } from './popup-nav/popup-nav.component';
     CheckoutFormComponent,
     LoginFormComponent,
     PopupNavComponent,
+    TimeNavComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FontAwesomeModule, HttpClientModule, ReactiveFormsModule],
   providers: [],

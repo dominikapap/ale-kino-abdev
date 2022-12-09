@@ -13,10 +13,7 @@ export class DateNavComponent implements OnInit {
   currentYear = '2022';
   ngOnInit(): void {}
 
-  private convertDateFormat(date: string) {
-    return date.replace('/', '-') + `-${this.currentYear}`;
-  }
   getSelectedDate(date: string) {
-    this.movieInfo.selectedMovieDate$$.next(this.convertDateFormat(date));
+    this.movieInfo.setMovieDate(date)
   }
 }
