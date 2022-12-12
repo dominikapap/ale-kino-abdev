@@ -1,0 +1,26 @@
+.rounded__list {
+  display: inline-flex;
+  align-items: center;
+  list-style-type: none;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.rounded__listItem {
+  padding: 5px 20px;
+  cursor: pointer;
+  border-left: 1px solid lightgray;
+  background-color: whitesmoke;
+}
+
+.item-wide {
+  padding: 3px 25px;
+}
+
+li:first-child {
+  border-left: none;
+}
+
+.rounded__listItem:hover {
+  background-color: lightblue;
+}

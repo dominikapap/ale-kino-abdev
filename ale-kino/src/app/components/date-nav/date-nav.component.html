@@ -1,1 +1,9 @@
-<app-rounded-nav [items]="items" (selectValueEvent)="getSelectedDate($event)"></app-rounded-nav>
+<ul class="rounded__list">
+  <li
+    *ngFor="let day of days"
+    class="rounded__listItem"
+    (click)="getSelectedDay(day.dayOfTheWeek)"
+  >
+    <p>{{ day.dayOfTheWeek }}</p>
+  </li>
+</ul>

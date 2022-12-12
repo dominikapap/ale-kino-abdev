@@ -1,6 +1,6 @@
 import { MovieInfoService } from '../../services/movie-info.service';
 import { Component, OnInit } from '@angular/core';
-import { DateInfoService } from 'src/app/services/date-info.service';
+import { DateInfoService, Day } from 'src/app/services/date-info.service';
 
 @Component({
   selector: 'app-date-nav',
@@ -10,11 +10,22 @@ import { DateInfoService } from 'src/app/services/date-info.service';
 export class DateNavComponent implements OnInit {
   constructor(private movieInfo: MovieInfoService, private dateInfoService: DateInfoService) {}
 
-  items = ['13/11', '14/11', '15/11', '16/11', '17/11', '18/11', '19/11'];
-  currentYear = '2022';
-  ngOnInit(): void {}
+  days: Day[] = [];
 
-  getSelectedDate(date: string) {
-    this.movieInfo.setMovieDate(date)
+  ngOnInit(): void {
+    this.dateInfoService.currentWeekDates$.subscribe(weekDays => {
+      this.days = weekDays;
+    })
+  }
+
+  getSelectedDay(dayOfTheWeek: string) {
+    let day: Day = {
+      dayOfTheWeek: '',
+      date: ''
+    }
+    day = <Day>this.days.find(day => {
+      return day.dayOfTheWeek === dayOfTheWeek;
+    })
+    this.movieInfo.setMovieDate(day.date)
   }
 }

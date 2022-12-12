@@ -1,8 +1,8 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of, map } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { parse, format, getDay, subDays } from 'date-fns';
+import { format, getDay, subDays, addDays } from 'date-fns';
 
-interface Day {
+export interface Day {
   dayOfTheWeek: string;
   date: string;
 }
@@ -10,23 +10,44 @@ interface Day {
   providedIn: 'root',
 })
 export class DateInfoService {
-  currentWeek: Day[] = [
-    { dayOfTheWeek: 'Pn', date: '13/11/2022' },
-    { dayOfTheWeek: 'Wt', date: '14/11/2022' },
-    { dayOfTheWeek: 'Sr', date: '15/11/2022' },
-    { dayOfTheWeek: 'Czw', date: '16/11/2022' },
-    { dayOfTheWeek: 'Pt', date: '17/11/2022' },
-    { dayOfTheWeek: 'Sb', date: '18/11/2022' },
-    { dayOfTheWeek: 'Nd', date: '19/11/2022' },
-  ];
 
   private currentWeekDates$$ = new BehaviorSubject<Day[]>([]);
 
-  constructor() {
-    console.log(this.getMondayDate());
+  get currentWeekDates$() {
+    return this.currentWeekDates$$.asObservable();
   }
 
-  getMondayDate() {
-    return format(subDays(new Date(), getDay(new Date()) - 1), 'dd/MM/yyyy');
+  constructor() {
+    of<Date[]>(this.getCurrentWeekDates())
+      .pipe(
+        map((date) => {
+          return this.convertDateToDayFormat(date);
+        })
+      )
+      .subscribe((weekDates) => {
+        this.currentWeekDates$$.next(weekDates);
+      });
+  }
+
+  private convertDateToDayFormat(dates: Date[]) {
+    let days: Day[] = [];
+    dates.forEach((date) => {
+      days.push({
+        dayOfTheWeek: format(date, 'EEEEEE'),
+        date: format(date, 'dd-MM-yyyy'),
+      });
+    });
+    return days;
+  }
+
+  private getCurrentWeekDates(): Date[] {
+    //creates an array with current week dates
+    const currentWeekDatesArray: Date[] = [];
+    const daysInWeek = 7;
+    const mondayDate = subDays(new Date(), getDay(new Date()) - 1);
+    for (let i = 0; i < daysInWeek; i++) {
+      currentWeekDatesArray.push(addDays(mondayDate, i));
+    }
+    return currentWeekDatesArray;
   }
 }
