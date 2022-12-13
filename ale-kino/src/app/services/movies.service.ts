@@ -22,8 +22,8 @@ export class MoviesService {
     private http: HttpClient,
     private movieInfoService: MovieInfoService
   ) {
-    this.movieInfoService.selectedMovieDate$.subscribe((selectedDay) => {
-      this.getDailyScreenings(selectedDay)
+    this.movieInfoService.movieSelectionState$.subscribe((movieSelectionState) => {
+      this.getDailyScreenings(movieSelectionState.movieDate)
         .pipe(
           map((response) => {
             return Array.from(

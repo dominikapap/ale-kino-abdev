@@ -11,16 +11,36 @@
   cursor: pointer;
   border-left: 1px solid lightgray;
   background-color: whitesmoke;
+
 }
 
 .item-wide {
   padding: 3px 25px;
 }
 
+
 li:first-child {
   border-left: none;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+li:last-child {
+  border-right: none;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 
 .rounded__listItem:hover {
   background-color: lightblue;
+}
+
+.disabled {
+  cursor: initial;
+  opacity: 0.30;
+
+}
+.rounded__listItem.disabled:hover {
+  cursor: initial;
+  background-color: whitesmoke;
 }

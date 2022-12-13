@@ -1,16 +1,16 @@
 import { BehaviorSubject, of, map } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { format, getDay, subDays, addDays } from 'date-fns';
+import { format, getDay, subDays, addDays, isPast,isSameDay} from 'date-fns';
 
 export interface Day {
   dayOfTheWeek: string;
   date: string;
+  isPast?: boolean;
 }
 @Injectable({
   providedIn: 'root',
 })
 export class DateInfoService {
-
   private currentWeekDates$$ = new BehaviorSubject<Day[]>([]);
 
   get currentWeekDates$() {
@@ -35,6 +35,7 @@ export class DateInfoService {
       days.push({
         dayOfTheWeek: format(date, 'EEEEEE'),
         date: format(date, 'dd-MM-yyyy'),
+        isPast: this.checkIfPastDate(date)
       });
     });
     return days;
@@ -49,5 +50,23 @@ export class DateInfoService {
       currentWeekDatesArray.push(addDays(mondayDate, i));
     }
     return currentWeekDatesArray;
+  }
+
+  getWeekDayDate(dayOfTheWeek: string, days: Day[]) {
+    let day: Day = {
+      dayOfTheWeek: '',
+      date: '',
+    };
+    day = <Day>days.find((day) => {
+      return day.dayOfTheWeek === dayOfTheWeek;
+    });
+    return day.date;
+  }
+
+  private checkIfPastDate(date: Date){
+    if(isPast(date) && !isSameDay(date, new Date())){
+      return true;
+    }
+    return false;
   }
 }

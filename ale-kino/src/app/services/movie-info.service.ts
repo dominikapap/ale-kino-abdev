@@ -1,33 +1,31 @@
-import { Movie } from '../movie-interfaces';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { format } from 'date-fns';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieInfoService {
+  constructor() {}
 
-  constructor() { }
+  private movieSelectionState$$ = new BehaviorSubject<{ movieDate: string, movieTitle: string }>({
+    movieDate: format(new Date(), 'dd-MM-yyyy'),
+    movieTitle: ''
+  });
 
-  private selectedMovieDate$$ = new BehaviorSubject<string>('12-12-2022');
-  selectedMovieScreening$$ = new BehaviorSubject<string>('');
-  selectedMovieTitle$$ = new BehaviorSubject<string>('');
-
-  get selectedMovieDate$(){
-    return this.selectedMovieDate$$.asObservable();
+  get  movieSelectionState$() {
+    return this.movieSelectionState$$.asObservable();
   }
 
-  setMovieDate(date: string){
-    this.selectedMovieDate$$.next(date);
+  setMovieDate(date: string) {
+    this.movieSelectionState$$ .next({
+      ...this.movieSelectionState$$ .value,
+      movieDate: date
+    });
   }
 
-  // private convertDateFormat(date: string) {
-  //   return date.replace('/', '-') + `-${this.currentYear}`;
-  // }
-
-  ngOnInit(){
-
-  }
+  // selectedMovieScreening$$ = new BehaviorSubject<string>('');
 
 
+  ngOnInit() {}
 }

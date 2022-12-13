@@ -46,8 +46,8 @@ export class ReservationComponent implements OnInit {
   ngOnInit(): void {
     // const id = this.activatedRoute.snapshot.paramMap.get('id');
     // console.log(id);
-    this.movieInfo.selectedMovieTitle$$.subscribe((title) => {
-      this.moveTitle = title;
+    this.movieInfo.movieSelectionState$.subscribe((movieSelectionState) => {
+      this.moveTitle = movieSelectionState.movieTitle;
     });
   }
 

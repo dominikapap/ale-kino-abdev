@@ -8,24 +8,24 @@ import { DateInfoService, Day } from 'src/app/services/date-info.service';
   styleUrls: ['./date-nav.component.scss'],
 })
 export class DateNavComponent implements OnInit {
-  constructor(private movieInfo: MovieInfoService, private dateInfoService: DateInfoService) {}
+  constructor(
+    private movieInfo: MovieInfoService,
+    private dateInfoService: DateInfoService
+  ) {}
 
-  days: Day[] = [];
+  currentWeekDays: Day[] = [];
 
   ngOnInit(): void {
-    this.dateInfoService.currentWeekDates$.subscribe(weekDays => {
-      this.days = weekDays;
-    })
+    this.dateInfoService.currentWeekDates$.subscribe((currentWeekDays) => {
+      this.currentWeekDays = currentWeekDays;
+    });
   }
 
   getSelectedDay(dayOfTheWeek: string) {
-    let day: Day = {
-      dayOfTheWeek: '',
-      date: ''
-    }
-    day = <Day>this.days.find(day => {
-      return day.dayOfTheWeek === dayOfTheWeek;
-    })
-    this.movieInfo.setMovieDate(day.date)
+    let date: string = this.dateInfoService.getWeekDayDate(
+      dayOfTheWeek,
+      this.currentWeekDays
+    );
+    this.movieInfo.setMovieDate(date);
   }
 }

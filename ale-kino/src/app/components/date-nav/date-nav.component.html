@@ -1,8 +1,9 @@
 <ul class="rounded__list">
   <li
-    *ngFor="let day of days"
+    *ngFor="let day of currentWeekDays"
     class="rounded__listItem"
-    (click)="getSelectedDay(day.dayOfTheWeek)"
+    [ngClass]="{'disabled': day.isPast}"
+    (click)="!day.isPast && getSelectedDay(day.dayOfTheWeek)"
   >
     <p>{{ day.dayOfTheWeek }}</p>
   </li>
