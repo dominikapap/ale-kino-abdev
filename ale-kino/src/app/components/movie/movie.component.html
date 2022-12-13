@@ -13,12 +13,10 @@
       {{ movie.movieInfo.description }}
     </div>
     <div class="movie__detailsMore"><a href="">Więcej</a></div>
-    <app-rounded-nav
-      *ngIf="dailyTimeSchedule"
-      [items]="dailyTimeSchedule"
-      (selectValueEvent)="getMovieInfo($event)"
-      [routerLink]="'/reservation'"
-    ></app-rounded-nav>
+    <app-time-nav
+      *ngIf="movie.screenings"
+      [screenings]="movie.screenings"
+    ></app-time-nav>
   </div>
   <div class="movie__score">
     <p class="movie__scoreText">{{ movie.movieInfo.score }}/10</p>

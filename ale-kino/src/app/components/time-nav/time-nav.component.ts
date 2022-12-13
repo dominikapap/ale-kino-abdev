@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Screening } from '../../movie-interfaces';
 
 @Component({
   selector: 'app-time-nav',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./time-nav.component.scss']
 })
 export class TimeNavComponent implements OnInit {
+  @Input() screenings: Screening[] =[];
+  @Input() routerLink: string = '';
 
   constructor() { }
 

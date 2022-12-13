@@ -26,13 +26,11 @@ export class MovieComponent implements OnInit {
     },
   };
 
-  dailyTimeSchedule: string[] = []; //change it from string to screenings ***************************
   ngOnInit(): void {
     this.userService.subject.subscribe((user) => {
       this.user = user;
     });
 
-    this.dailyTimeSchedule = this.screeningTimeToArray(this.movie);
   }
 
   getMovieInfo(time: string) {
@@ -46,12 +44,4 @@ export class MovieComponent implements OnInit {
     // this.movieInfo.selectedMovieTitle$$.next(this.movie.movieInfo.title);
   }
 
-  screeningTimeToArray(movie: DailyMovieScreenings) {
-    //get time from each screening and group them in an array
-    const dailyTimeSchedule: string[] = [];
-    movie.screenings.forEach((screening: Screening) => {
-      dailyTimeSchedule.push(screening.time);
-    });
-    return dailyTimeSchedule;
-  }
 }

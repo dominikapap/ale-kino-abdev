@@ -8,7 +8,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginFormComponent },
-  { path: 'reservation', component: ReservationComponent },
+  { path: 'reservation/:id', component: ReservationComponent },
   { path: 'checkout', component: CheckoutFormComponent },
 ];
 

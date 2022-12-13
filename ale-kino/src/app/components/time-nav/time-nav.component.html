@@ -1,1 +1,8 @@
-<p>time-nav works!</p>
+<ul class="rounded__list">
+  <li
+    *ngFor="let screening of screenings"
+    class="rounded__listItem"
+  >
+    <a href="" [routerLink]="'/reservation/'+screening.id">{{ screening.time }}</a>
+  </li>
+</ul>
