@@ -1,8 +1,8 @@
 <div *ngIf="isLoaded">
   <div class="title">
-    <span>{{ screeningDetails.movies.title + ',&nbsp;'}}</span>
-    <span>{{ screeningDetails.date + ',&nbsp;'}}</span>
-    <span>{{ screeningDetails.time}}</span>
+    <span>{{ screeningDetails.movies.title + ",&nbsp;" }}</span>
+    <span>{{ screeningDetails.date + ",&nbsp;" }}</span>
+    <span>{{ screeningDetails.time }}</span>
   </div>
   <p class="screen">Ekran</p>
   <div class="seats">
@@ -13,15 +13,22 @@
         class="seatNumber"
         *ngFor="let rowNumber of rowNumbers"
         (click)="addSeat(rowLetter, rowNumber)"
-        [ngClass]="{ green: isSelected }"
+        [ngClass]="{ active: isActive(rowLetter, rowNumber) }"
       >
         {{ rowNumber }}
       </li>
     </ul>
   </div>
 
-  <div class="seatInfo">
-    <div class="seat__placement">Rząd E Miejsce 6</div>
+  <div class="seatInfo" *ngFor="let selectedSeat of selectedSeatMap | keyvalue">
+    <div class="seat__placement">
+      {{
+        "Rząd &nbsp;" +
+          selectedSeat.value.letter +
+          "&nbsp; Miejsce &nbsp;" +
+          (selectedSeat.value.number < 10 ? '0' + selectedSeat.value.number : selectedSeat.value.number)
+      }}
+    </div>
     <select class="seat__ticketType">
       <option *ngFor="let ticketType of ticketTypes" [value]="ticketType.type">
         {{ ticketType.type }}

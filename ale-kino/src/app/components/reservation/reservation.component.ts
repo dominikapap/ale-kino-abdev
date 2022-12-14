@@ -21,12 +21,8 @@ export class ReservationComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  rows: number = 0; //number of room rows
-  seats: number = 0; //number of seats in a row
-  rowLetters: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
-  rowNumbers: number[] = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-  ];
+  rowLetters: string[] = [];
+  rowNumbers: number[] = [];
   ticketTypes: Ticket[] = [
     {
       type: 'bilet normalny',
@@ -47,32 +43,30 @@ export class ReservationComponent implements OnInit {
   ];
 
   screeningDetails: any;
-  isSelected: boolean = false;
-  moveTitle: string = '';
   icon: any = 'trash-can';
   isLoaded = false;
   subscriptions: Subscription = new Subscription();
+  selectedSeatMap = new Map();
 
   ngOnInit(): void {
     this.getScreening();
   }
 
   getScreening() {
-    const subParam = this.route.paramMap.subscribe((params) => {// get screening id from url params
+    const subParam = this.route.paramMap.subscribe((params) => {
+      // get screening id from url params
       const id: string = <string>params.get('id');
 
       const subScreen = this.screeningService //get screening details based on screening id
         .getScreeningDetails(id)
         .subscribe((screening) => {
-          console.log(screening);
+          // console.log(screening);
           this.screeningDetails = screening[0];
 
           const subRoom = this.roomsService //get room details
             .getRoomDetails(this.screeningDetails.screeningRooms.roomsId)
             .subscribe((roomDetails) => {
-              this.rows = roomDetails.rows;
-              this.seats = roomDetails.seats;
-              console.log(roomDetails);
+              this.initiateRoomSizeData(roomDetails.rows, roomDetails.seats);
             });
 
           this.subscriptions.add(subRoom);
@@ -83,24 +77,41 @@ export class ReservationComponent implements OnInit {
     this.subscriptions.add(subParam);
   }
 
-  generateRowLetters(rowsNumber: number) { //generate an array of letters
+  generateRowLetters(rowsNumber: number) {
+    //generate an array of letters
     const alpha = Array.from(Array(rowsNumber)).map((e, i) => i + 65);
     const alphabet = alpha.map((x) => String.fromCharCode(x));
-    console.log(alphabet);
     return alphabet;
   }
 
-  generateSeatNumbers(){
-    //tbc
+  generateSeatNumbers(seats: number) {
+    return Array.from({ length: seats }, (_, i) => i + 1);
   }
 
-  initiateRoomSizeData(rows: number, seats: number){
+  initiateRoomSizeData(rows: number, seats: number) {
     this.rowLetters = this.generateRowLetters(rows);
+    this.rowNumbers = this.generateSeatNumbers(seats);
   }
 
   addSeat(letter: string, number: number) {
-    console.log('seat was clicked', letter, number);
-    this.isSelected = true;
+    const mapKey = `${letter}${number}`;
+
+    if (this.selectedSeatMap.has(mapKey)) {
+      this.selectedSeatMap.delete(mapKey);
+    } else {
+      this.selectedSeatMap.set(mapKey, {
+        letter,
+        number,
+        isActive: true,
+      });
+    }
+    // console.log([...this.selectedSeatMap.entries()]);
+  }
+
+  isActive(letter: string, number: number) {
+    const mapKey = `${letter}${number}`;
+    let seat = this.selectedSeatMap.get(mapKey);
+    return seat?.isActive;
   }
 
   ngOnDestroy() {

@@ -36,10 +36,6 @@ li {
   height: 30px;
 }
 
-.green {
-  background-color: greenyellow;
-}
-
 .seatLetter {
   background-color: rgb(230, 230, 230);
 }
@@ -48,12 +44,22 @@ li {
   cursor: pointer;
 }
 
+.seatNumber.active:hover {
+  background-color: greenyellow;
+  cursor: pointer;
+}
+
+
+.active {
+  background-color: greenyellow;
+}
+
 .seatInfo {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
-  margin-bottom: 2em;
+  margin-bottom: 0.5em;
 }
 
 .seat__ticketType {
