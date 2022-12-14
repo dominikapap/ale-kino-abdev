@@ -7,7 +7,12 @@
 }
 
 .rounded__listItem {
-  padding: 5px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 70px;
+  // padding: 5px 20px;
   cursor: pointer;
   border-left: 1px solid lightgray;
   background-color: whitesmoke;
@@ -30,6 +35,11 @@ a {
   cursor: pointer;
   outline: inherit;
   text-decoration: none;
+  height: 30px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .rounded__listItem:hover {

@@ -4,5 +4,7 @@
   "/schedule": "/schedule",
   "/schedule\\?id=:id": "/schedule:id",
   "/screenings": "/screenings",
-  "/screenings\\?date=:date": "/screenings:date"
+  "/screenings\\?date=:date": "/screenings:date",
+  "/rooms": "/rooms",
+  "/rooms\\?id=:id": "/rooms:id"
 }

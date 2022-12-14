@@ -27,7 +27,7 @@
   "screenings": [
     {
       "id": 1,
-      "date": "12-12-2022",
+      "date": "13-12-2022",
       "time": "12:30",
       "screeningRoomsId": 1,
       "moviesId": 1
@@ -50,6 +50,13 @@
       "id": 4,
       "date": "13-12-2022",
       "time": "16:30",
+      "screeningRoomsId": 2,
+      "moviesId": 1
+    },
+    {
+      "id": 5,
+      "date": "13-12-2022",
+      "time": "18:30",
       "screeningRoomsId": 2,
       "moviesId": 1
     }
@@ -84,11 +91,17 @@
       "id": 1,
       "rows": 10,
       "seats": 16
+    },
+    {
+      "id": 2,
+      "rows": 8,
+      "seats": 12
     }
   ],
   "screeningRooms": [
     {
       "id": 1,
+      "roomsId": 1,
       "reservedSeats": [
         {
           "id": 1,
@@ -99,6 +112,7 @@
     },
     {
       "id": 2,
+      "roomsId": 2,
       "reservedSeats": [
         {
           "id": 1,

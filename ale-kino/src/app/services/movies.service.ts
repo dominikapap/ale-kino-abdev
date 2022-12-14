@@ -22,21 +22,29 @@ export class MoviesService {
     private http: HttpClient,
     private movieInfoService: MovieInfoService
   ) {
-    this.movieInfoService.movieSelectionState$.subscribe((movieSelectionState) => {
-      this.getDailyScreenings(movieSelectionState.movieDate)
-        .pipe(
-          map((response) => {
-            return Array.from(
-              this.mergeMovieScreenings(<MovieScreening[]>response).values()
-            );
-          })
-        )
-        .subscribe({
-          next: (response) => {
-            this.movies$$.next(response);
-          },
-        });
-    });
+    this.movieInfoService.movieSelectionState$.subscribe(
+      (movieSelectionState) => {
+        this.getDailyScreenings(movieSelectionState.movieDate)
+          .pipe(
+            map((response) => {
+              return Array.from(
+                this.mergeMovieScreenings(<MovieScreening[]>response).values()
+              );
+            })
+          )
+          .subscribe({
+            next: (response) => {
+              this.movies$$.next(response);
+            },
+          });
+      }
+    );
+  }
+
+  getScreeningDetails(screeningId: string) {
+    return this.http.get(
+      `http://localhost:3000/screenings?_expand=movies&_expand=screeningRooms&id=${screeningId}`
+    );
   }
 
   getDailyScreenings(date: string) {
@@ -45,9 +53,9 @@ export class MoviesService {
     );
   }
 
-  getMovie(movieId: string) {
-    return this.http.get<Movie[]>(`http://localhost:3000/movies/${movieId}`);
-  }
+  // getMovie(movieId: string) {
+  //   return this.http.get<Movie[]>(`http://localhost:3000/movies/${movieId}`);
+  // }
 
   mergeMovieScreenings(dailyScreenings: MovieScreening[]) {
     const formatedMovieData = new Map();
