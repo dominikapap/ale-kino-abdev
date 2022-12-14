@@ -95,10 +95,10 @@ export class ReservationComponent implements OnInit {
 
   addSeat(letter: string, number: number) {
     const mapKey = `${letter}${number}`;
-
+    const maxNumberOfReservedSeats = 10;
     if (this.selectedSeatMap.has(mapKey)) {
       this.selectedSeatMap.delete(mapKey);
-    } else {
+    } else if (this.selectedSeatMap.size < maxNumberOfReservedSeats) {
       this.selectedSeatMap.set(mapKey, {
         letter,
         number,
