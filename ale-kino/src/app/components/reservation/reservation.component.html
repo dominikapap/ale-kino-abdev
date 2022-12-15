@@ -5,40 +5,9 @@
     <span>{{ screeningDetails.time }}</span>
   </div>
   <p class="screen">Ekran</p>
-  <div class="seats">
-    <ul *ngFor="let rowLetter of rowLetters">
-      <li class="seatLetter">{{ rowLetter }}</li>
-      <li
-        [id]="rowLetter + rowNumber"
-        class="seatNumber"
-        *ngFor="let rowNumber of rowNumbers"
-        (click)="addSeat(rowLetter, rowNumber)"
-        [ngClass]="{ active: isActive(rowLetter, rowNumber) }"
-      >
-        {{ rowNumber }}
-      </li>
-    </ul>
-  </div>
 
-  <div class="seatInfo" *ngFor="let selectedSeat of selectedSeatMap | keyvalue">
-    <div class="seat__placement">
-      {{
-        "Rząd &nbsp;" +
-          selectedSeat.value.letter +
-          "&nbsp; Miejsce &nbsp;" +
-          (selectedSeat.value.number < 10 ? '0' + selectedSeat.value.number : selectedSeat.value.number)
-      }}
-    </div>
-    <select class="seat__ticketType">
-      <option *ngFor="let ticketType of ticketTypes" [value]="ticketType.type">
-        {{ ticketType.type }}
-      </option>
-    </select>
-    <div class="seat__removeIcon">
-      <fa-icon [icon]="icon"></fa-icon>
-    </div>
-    <div class="seat__ticketPrice">22 PLN</div>
-  </div>
+  <app-screening-room  *ngIf="isLoaded" [rows] = "rows" [seats] ="seats"></app-screening-room>
+  <app-seat-ticket ></app-seat-ticket>
 
   <a [routerLink]="'/checkout'" class="checkoutLink">Przejdź do zamówienia</a>
 </div>

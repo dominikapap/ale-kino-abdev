@@ -21,6 +21,8 @@ import { CheckoutFormComponent } from './components/checkout-form/checkout-form.
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { PopupNavComponent } from './components/popup-nav/popup-nav.component';
 import { TimeNavComponent } from './components/time-nav/time-nav.component';
+import { ScreeningRoomComponent } from './components/screening-room/screening-room.component';
+import { SeatTicketComponent } from './seat-ticket/seat-ticket.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { TimeNavComponent } from './components/time-nav/time-nav.component';
     CheckoutFormComponent,
     LoginFormComponent,
     PopupNavComponent,
-    TimeNavComponent
+    TimeNavComponent,
+    ScreeningRoomComponent,
+    SeatTicketComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FontAwesomeModule, HttpClientModule, ReactiveFormsModule],
   providers: [],

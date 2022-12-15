@@ -1,0 +1,38 @@
+.seats {
+  margin-bottom: 2em;
+}
+
+ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+}
+
+li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid lightgray;
+  width: 40px;
+  height: 40px;
+}
+
+.seatLetter {
+  background-color: rgb(230, 230, 230);
+}
+.seatNumber:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+.seatNumber.reserved:hover {
+  background-color: greenyellow;
+  cursor: pointer;
+}
+
+
+.reserved {
+  background-color: greenyellow;
+}
+
+

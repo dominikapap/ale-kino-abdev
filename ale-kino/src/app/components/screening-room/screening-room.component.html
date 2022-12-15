@@ -1,0 +1,14 @@
+<div class="seats">
+  <ul *ngFor="let rowLetter of rowLetters">
+    <li class="seatLetter">{{ rowLetter }}</li>
+    <li
+      [id]="rowLetter + rowNumber"
+      class="seatNumber"
+      *ngFor="let rowNumber of rowNumbers"
+      (click)="addSeat(rowLetter, rowNumber)"
+      [ngClass]="{ reserved: isReserved(rowLetter, rowNumber) }"
+    >
+      {{ rowNumber }}
+    </li>
+  </ul>
+</div>

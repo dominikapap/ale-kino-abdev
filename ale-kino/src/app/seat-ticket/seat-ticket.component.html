@@ -1,0 +1,19 @@
+<div class="seatInfo" *ngFor="let selectedSeat of selectedSeatMap | keyvalue">
+  <div class="seat__placement">
+    {{
+      "Rząd &nbsp;" +
+        selectedSeat.value.row +
+        "&nbsp; Miejsce &nbsp;" +
+        (selectedSeat.value.seatNumber < 10 ? '0' + selectedSeat.value.seatNumber : selectedSeat.value.seatNumber)
+    }}
+  </div>
+  <select class="seat__ticketType">
+    <option *ngFor="let ticketType of ticketTypes" [value]="ticketType.type">
+      {{ ticketType.type }}
+    </option>
+  </select>
+  <div class="seat__removeIcon" (click)="removeTicket(selectedSeat.value.row, selectedSeat.value.seatNumber)">
+    <fa-icon [icon]="icon"></fa-icon>
+  </div>
+  <div class="seat__ticketPrice">22 PLN</div>
+</div>
