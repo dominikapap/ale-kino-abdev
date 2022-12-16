@@ -5,7 +5,8 @@ import { BehaviorSubject } from 'rxjs';
 export interface Seat {
   row: string;
   seatNumber: number;
-  isReserved: true;
+  isReserved?: boolean;
+  isSelected?: boolean;
 }
 
 @Injectable({
@@ -19,6 +20,44 @@ export class RoomsService {
   get selectedSeatMap$() {
     return this.selectedSeatMap$$.asObservable();
   }
+
+  /**********TEST********* */
+  private seatSelectionState$$ = new BehaviorSubject<Seat[]>([]);
+
+  get selectionSeatState$() {
+    return this.seatSelectionState$$.asObservable();
+  }
+
+  selectSeat(row: string, seatNumber: number) {
+    console.log(row, seatNumber);
+    this.seatSelectionState$$.next([
+      ...this.seatSelectionState$$.value,
+      {
+        row,
+        seatNumber,
+        isSelected: true,
+      },
+    ]);
+  }
+
+  deselectSeat(row: string, seatNumber: number) {
+    this.seatSelectionState$$.next(
+      this.seatSelectionState$$.value.filter((seat) => {
+        return row !== seat.row && seatNumber !== seat.seatNumber;
+      })
+    );
+  }
+
+  isSelectedSeat(row: string, seatNumber: number) {
+    return this.seatSelectionState$$.value.some((seat) => {
+      return row === seat.row && seatNumber === seat.seatNumber;
+    });
+  }
+
+  // addSeat(row: string, seatNumber: number){
+  //   const mapKey = `${row}${seatNumber}`;
+  //   this.selectedSeatMap$$.next()
+  // }
 
   // modifySelectedSeat(
   //   row: string,

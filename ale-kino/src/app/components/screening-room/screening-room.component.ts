@@ -43,7 +43,7 @@ export class ScreeningRoomComponent implements OnInit {
   }
 
   addSeat(row: string, seatNumber: number) {
-    // this.roomsService.modifySelectedSeat(row,seatNumber,this.maxNumberOfReservedSeats)
+    // this.roomsService.addSeat(row, seatNumber);
     const mapKey = `${row}${seatNumber}`;
 
     if (this.selectedSeatMap.has(mapKey)) {
@@ -52,16 +52,16 @@ export class ScreeningRoomComponent implements OnInit {
       this.selectedSeatMap.set(mapKey, {
         row,
         seatNumber,
-        isActive: true,
+        isSelected: true,
       });
     }
-    // console.log([...this.selectedSeatMap.entries()]);
+
   }
 
   isReserved(row: string, seatNumber: number) {
     const mapKey = `${row}${seatNumber}`;
     let seat = this.selectedSeatMap.get(mapKey);
-    return seat?.isActive;
+    return seat?.isSelected;
   }
 
 }
