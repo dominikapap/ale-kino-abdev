@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RoomsService } from '../../services/rooms.service';
+import { RoomsService, Seat } from '../../services/screening-room-state.service';
 
 
 interface Ticket {
@@ -14,14 +14,16 @@ interface Ticket {
 })
 export class SeatTicketComponent implements OnInit {
 
-  constructor(private roomsService: RoomsService) { }
+  constructor(private screeningRoomStateService: RoomsService) { }
 
   ngOnInit(): void {
-    this.roomsService.selectedSeatMap$.subscribe(selectedSeatMap => {
-      this.selectedSeatMap = selectedSeatMap;
+    this.screeningRoomStateService.seatSelectionState$.subscribe(seatSelectionState => {
+      this.seatSelectionState = seatSelectionState;
     })
   }
   selectedSeatMap = new Map();
+  seatSelectionState: Seat[] = [];
+
   icon: any = 'trash-can';
   ticketTypes: Ticket[] = [
     {
@@ -43,9 +45,7 @@ export class SeatTicketComponent implements OnInit {
   ];
 
   removeTicket(row: string, seatNumber: number) {
-    const mapKey = `${row}${seatNumber}`;
-    this.selectedSeatMap.delete(mapKey);
-    console.log('Ticket was removed!')
+    this.screeningRoomStateService.deselectSeat({row, seatNumber});
   }
 
 }
