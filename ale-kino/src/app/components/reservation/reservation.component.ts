@@ -17,7 +17,7 @@ interface Ticket {
 export class ReservationComponent implements OnInit {
   constructor(
     private screeningService: ScreeningService,
-    private roomsService: RoomsService,
+    private screeningRoomStateService: RoomsService,
     private route: ActivatedRoute
   ) {
  }
@@ -65,20 +65,9 @@ export class ReservationComponent implements OnInit {
       const subScreen = this.screeningService //get screening details based on screening id
         .getScreeningDetails(id)
         .subscribe((screening) => {
-          // console.log(screening);
           this.screeningDetails = screening[0];
-
-          const subRoom = this.roomsService //get room details
-            .getRoomDetails(this.screeningDetails.screeningRooms.roomsId)
-            .subscribe((roomDetails) => {
-              this.rows = roomDetails.rows;
-              this.seats = roomDetails.seats;
-              // this.initiateRoomSizeData(roomDetails.rows, roomDetails.seats);
-              this.isLoaded = true;
-            });
-
-          this.subscriptions.add(subRoom);
-
+          // console.log(this.screeningDetails)
+          this.isLoaded = true;
         });
       this.subscriptions.add(subScreen);
     });

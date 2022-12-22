@@ -6,5 +6,7 @@
   "/screenings": "/screenings",
   "/screenings\\?date=:date": "/screenings:date",
   "/rooms": "/rooms",
-  "/rooms\\?id=:id": "/rooms:id"
+  "/rooms\\?id=:id": "/rooms:id",
+  "/screeningRooms": "/screeningRooms",
+  "/screeningRooms\\?id=:id": "/screeningRooms/:id"
 }

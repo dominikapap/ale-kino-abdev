@@ -27,35 +27,35 @@
   "screenings": [
     {
       "id": 1,
-      "date": "19-12-2022",
+      "date": "21-12-2022",
       "time": "12:30",
       "screeningRoomsId": 1,
       "moviesId": 1
     },
     {
       "id": 2,
-      "date": "20-12-2022",
+      "date": "22-12-2022",
       "time": "14:30",
       "screeningRoomsId": 2,
       "moviesId": 1
     },
     {
       "id": 3,
-      "date": "19-12-2022",
+      "date": "21-12-2022",
       "time": "14:30",
       "screeningRoomsId": 3,
       "moviesId": 2
     },
     {
       "id": 4,
-      "date": "19-12-2022",
+      "date": "21-12-2022",
       "time": "16:30",
       "screeningRoomsId": 2,
       "moviesId": 1
     },
     {
       "id": 5,
-      "date": "19-12-2022",
+      "date": "21-12-2022",
       "time": "18:30",
       "screeningRoomsId": 2,
       "moviesId": 1
@@ -105,8 +105,13 @@
       "reservedSeats": [
         {
           "id": 1,
-          "row": 1,
+          "row": "A",
           "seatNumber": 1
+        },
+        {
+          "id": 2,
+          "row": "B",
+          "seatNumber": 5
         }
       ]
     },
@@ -116,8 +121,13 @@
       "reservedSeats": [
         {
           "id": 1,
-          "row": 2,
+          "row": "A",
           "seatNumber": 5
+        },
+        {
+          "id": 1,
+          "row": "A",
+          "seatNumber": 6
         }
       ]
     }

@@ -1,3 +1,8 @@
+li {
+  --selected: greenyellow;
+  --reserved: rgb(155, 71, 51);
+}
+
 .seats {
   margin-bottom: 2em;
 }
@@ -25,14 +30,23 @@ li {
   cursor: pointer;
 }
 
-.seatNumber.reserved:hover {
-  background-color: greenyellow;
+.seatNumber.selected:hover {
+  background-color: var(--selected);
   cursor: pointer;
 }
 
 
+.selected {
+  background-color: var(--selected);
+}
+
 .reserved {
-  background-color: greenyellow;
+  background-color: var(--reserved);
+}
+
+.seatNumber.reserved:hover {
+  background-color: var(--reserved);
+  cursor: unset;
 }
 
 

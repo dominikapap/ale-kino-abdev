@@ -43,19 +43,15 @@ export class MoviesService {
 
   getScreeningDetails(screeningId: string) {
     return this.http.get(
-      `http://localhost:3000/screenings?_expand=movies&_expand=screeningRooms&id=${screeningId}`
+      `http://localhost:3000/screenings?_expand=movies&id=${screeningId}`
     );
   }
-
+ // `http://localhost:3000/screenings?_expand=movies&_expand=screeningRooms&id=${screeningId}`
   getDailyScreenings(date: string) {
     return this.http.get(
       `http://localhost:3000/screenings?_expand=movies&date=${date}`
     );
   }
-
-  // getMovie(movieId: string) {
-  //   return this.http.get<Movie[]>(`http://localhost:3000/movies/${movieId}`);
-  // }
 
   mergeMovieScreenings(dailyScreenings: MovieScreening[]) {
     const formatedMovieData = new Map();

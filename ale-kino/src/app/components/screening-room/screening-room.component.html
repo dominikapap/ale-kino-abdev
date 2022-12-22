@@ -5,8 +5,11 @@
       [id]="rowLetter + rowNumber"
       class="seatNumber"
       *ngFor="let rowNumber of rowNumbers"
-      (click)="toggleSeat(rowLetter, rowNumber)"
-      [ngClass]="{ reserved: isSelected(rowLetter, rowNumber) }"
+      (click)="!isReserved(rowLetter, rowNumber) ? toggleSeat(rowLetter, rowNumber) : {}"
+      [ngClass]="{
+        selected: isSelected(rowLetter, rowNumber),
+        reserved: isReserved(rowLetter, rowNumber)
+      }"
     >
       {{ rowNumber }}
     </li>
