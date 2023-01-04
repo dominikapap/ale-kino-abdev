@@ -1,14 +1,31 @@
 <div class="container">
   <h1>Zaloguj się</h1>
-  <form [formGroup]="loginForm" class="login-form" (ngSubmit)="sendLoginForm()">
+  <form [formGroup]="loginForm" class="login-form" (ngSubmit)="login()">
     <div class="login-form__input">
       <label for="email">{{ "e-mail" | uppercase }}</label>
-      <input type="email" id="email" />
+      <input formControlName="email" type="email" id="email" (focus)="emailNotFocused=false" (focusout)="emailNotFocused=true"/>
+      <ng-container *ngIf="emailCtrl.errors as errors">
+        <ng-container *ngIf="emailCtrl.touched && emailNotFocused">
+          <p class="loginForm__errorMessage" *ngIf="errors['required']">
+            To pole jest obowiązkowe
+          </p>
+          <p class="loginForm__errorMessage" *ngIf="errors['email']">
+            Podany adres email jest nieprawidłowy
+          </p>
+        </ng-container>
+      </ng-container>
     </div>
     <div class="login-form__input">
       <label for="password">{{ "hasło" | uppercase }}</label>
-      <input type="password" id="password" />
+      <input formControlName="password" type="password" id="password"  (focus)="passwordNotFocused=false" (focusout)="passwordNotFocused=true"/>
+      <ng-container *ngIf="passwordCtrl.errors as errors">
+        <ng-container *ngIf="passwordCtrl.touched && passwordNotFocused">
+          <p class="loginForm__errorMessage" *ngIf="errors['required']">
+            To pole jest obowiązkowe
+          </p>
+        </ng-container>
+      </ng-container>
     </div>
-    <app-button [value]="'logowanie' | uppercase"></app-button>
+    <app-button [value]="'logowanie' | uppercase" (keyup.enter)="login()"></app-button>
   </form>
 </div>

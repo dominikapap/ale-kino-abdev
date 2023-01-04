@@ -1,4 +1,7 @@
 {
+  "/users": "/users",
+  "/users/:email": "/users?email=:email",
+  "/users/:password": "/users?password=:password",
   "/movies": "/movies",
   "/movies\\?id=:id": "/movies:id",
   "/schedule": "/schedule",

@@ -20,3 +20,14 @@
 .login-form__input > input {
   padding: 5px 0;
 }
+
+.loginForm__errorMessage {
+  color: red;
+}
+
+input.ng-touched.ng-invalid {
+  border-color: red;
+}
+
+
+

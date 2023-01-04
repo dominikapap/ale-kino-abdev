@@ -1,9 +1,9 @@
 {
   "users": [
     {
-      "id": 1,
-      "email": "jakiadres@mail.com",
+      "email": "test@test.pl",
       "password": "qwerty1234",
+      "id": 1,
       "rolesId": 1
     },
     {
@@ -11,6 +11,41 @@
       "email": "jakiadmin@mail.com",
       "password": "qwerty1234",
       "rolesId": 2
+    },
+    {
+      "email": "sdfsdf@sdf.dv",
+      "password": "sdfsdfwe",
+      "id": 3
+    },
+    {
+      "email": "sdfsdf@sdf.dv",
+      "password": "ewfwef",
+      "id": 4
+    },
+    {
+      "email": "sdfsdf@sdf.dv",
+      "password": "dfg",
+      "id": 5
+    },
+    {
+      "email": "test@test.pl",
+      "password": "$2a$10$8S9EckIlQF5je9bBcLp45e22ShWu66G2C8H9A5DizzitToUNwxyVi",
+      "id": 6
+    },
+    {
+      "email": "sdfsdf@sdf.dv",
+      "password": "wer",
+      "id": 7
+    },
+    {
+      "email": "sdfsdf@sdf.dv",
+      "password": "dfgdfg",
+      "id": 8
+    },
+    {
+      "email": "jakismail@something.random",
+      "password": "qwerty1234",
+      "id": 9
     }
   ],
   "roles": [
@@ -23,50 +58,50 @@
       "type": "admin"
     }
   ],
-
   "screenings": [
     {
       "id": 1,
-      "date": "21-12-2022",
+      "date": "04-01-2023",
       "time": "12:30",
       "screeningRoomsId": 1,
       "moviesId": 1
     },
     {
       "id": 2,
-      "date": "22-12-2022",
+      "date": "05-01-2023",
       "time": "14:30",
       "screeningRoomsId": 2,
       "moviesId": 1
     },
     {
       "id": 3,
-      "date": "21-12-2022",
+      "date": "04-01-2023",
       "time": "14:30",
       "screeningRoomsId": 3,
       "moviesId": 2
     },
     {
       "id": 4,
-      "date": "21-12-2022",
+      "date": "04-01-2023",
       "time": "16:30",
       "screeningRoomsId": 2,
       "moviesId": 1
     },
     {
       "id": 5,
-      "date": "21-12-2022",
+      "date": "04-01-2023",
       "time": "18:30",
       "screeningRoomsId": 2,
       "moviesId": 1
     }
   ],
-
   "movies": [
     {
       "id": 1,
       "title": "Apokawixa",
-      "tags": ["Horror"],
+      "tags": [
+        "Horror"
+      ],
       "length": "120",
       "rated": "PG-13",
       "description": "Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.",
@@ -77,7 +112,9 @@
     {
       "id": 2,
       "title": "Apokawixa 2",
-      "tags": ["Horror"],
+      "tags": [
+        "Horror"
+      ],
       "length": "120",
       "rated": "PG-13",
       "description": "Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.",

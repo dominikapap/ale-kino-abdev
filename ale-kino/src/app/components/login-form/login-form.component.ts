@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { AuthStateService } from 'src/app/auth/auth.state.service';
 
 @Component({
   selector: 'app-login-form',
@@ -9,10 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
+  authService = inject(AuthStateService)
+  builder = inject(NonNullableFormBuilder)
   loginForm = this.createForm();
+  emailNotFocused: boolean = false;
+  passwordNotFocused: boolean = false;
 
-  constructor(private builder: FormBuilder, private user: UserService, private router: Router) {
-    this.loginForm.valueChanges.subscribe(console.log);
+  constructor (private user: UserService, private router: Router) {
+    // this.loginForm.valueChanges.subscribe(console.log);
   }
 
   ngOnInit(): void {
@@ -21,8 +26,8 @@ export class LoginFormComponent implements OnInit {
 
   private createForm() {
     return this.builder.group({
-      username: this.builder.control('', {
-        validators: [Validators.required],
+      email: this.builder.control('', {
+        validators: [Validators.required, Validators.email],
       }),
       password: this.builder.control('', {
         validators: [Validators.required],
@@ -30,8 +35,16 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
-  sendLoginForm() {
+  get emailCtrl() {
+    return this.loginForm.controls.email;
+  }
+  get passwordCtrl() {
+    return this.loginForm.controls.password;
+  }
+
+  login() {
     this.loginForm.markAllAsTouched();
+    console.log(this.loginForm.getRawValue())
     this.user.subject.next({
       username: 'Nameless',
       type: {
@@ -39,6 +52,7 @@ export class LoginFormComponent implements OnInit {
         isAdmin: false,
       },
     });
-    this.router.navigate(['/']);
+    this.authService.login(this.loginForm.getRawValue()).subscribe();
+    // this.router.navigate(['/']);
   }
 }

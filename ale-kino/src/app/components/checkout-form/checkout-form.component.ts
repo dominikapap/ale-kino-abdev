@@ -2,11 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   Validators,
-  ValidatorFn,
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  FormArray,
 } from '@angular/forms';
 
 @Component({
