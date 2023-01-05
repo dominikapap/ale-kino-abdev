@@ -1,9 +1,10 @@
 import { Screening } from '../../movie-interfaces';
 import { MovieInfoService } from '../../services/movie-info.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, inject } from '@angular/core';
 import { User } from '../../user-interfaces';
 import { UserService } from '../../services/user.service';
 import { Movie, DailyMovieScreenings } from 'src/app/movie-interfaces';
+import { UserStateService } from 'src/app/core/user.state.service';
 
 @Component({
   selector: 'app-movie',
@@ -11,6 +12,7 @@ import { Movie, DailyMovieScreenings } from 'src/app/movie-interfaces';
   styleUrls: ['./movie.component.scss'],
 })
 export class MovieComponent implements OnInit {
+  private userStateService = inject(UserStateService);
   @Input() movie!: DailyMovieScreenings;
 
   constructor(
@@ -30,6 +32,9 @@ export class MovieComponent implements OnInit {
     this.userService.subject.subscribe((user) => {
       this.user = user;
     });
+    this.userStateService.user$.subscribe(user => {
+      console.log('user', user)
+    })
 
   }
 

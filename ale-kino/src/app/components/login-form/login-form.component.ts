@@ -44,7 +44,6 @@ export class LoginFormComponent implements OnInit {
 
   login() {
     this.loginForm.markAllAsTouched();
-    console.log(this.loginForm.getRawValue())
     this.user.subject.next({
       username: 'Nameless',
       type: {
@@ -53,6 +52,5 @@ export class LoginFormComponent implements OnInit {
       },
     });
     this.authService.login(this.loginForm.getRawValue()).subscribe();
-    // this.router.navigate(['/']);
   }
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { AuthResponse } from './auth-response.interface';
+import { User, UserStateService } from '../core/user.state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,7 @@ import { AuthResponse } from './auth-response.interface';
 export class AuthStateService {
   private http = inject(HttpClient);
   private router = inject(Router);
+  private userStateService = inject(UserStateService);
 
   constructor() {}
 
@@ -25,11 +27,17 @@ export class AuthStateService {
     return this.auth$$.value;
   }
 
-  private getUserRole(response:any){
-    if (response.length > 0) {
-      return response[0].roles.type;
+  private getUserData(response: any) {
+    if (response.length > 0) {//if the credential data was correct
+      const res = response[0];
+      return <User>{
+        id: res.id,
+        email: res.email,
+        password: res.password,
+        role: res.roles.type
+      }
     }
-    return response;
+    return {};//if the credential data was incorrect
   }
 
   login(credentials: { email: string; password: string }) {
@@ -39,14 +47,16 @@ export class AuthStateService {
       )
       .pipe(
         map((res) => {
-          return this.getUserRole(res);
+          return <User>this.getUserData(res);
         }),
         tap({
-          next: (res) => {
-            console.log('tap', res);
-            if (res.length > 0) {
+          next: (user: User) => {
+            console.log('response:', user);
+            if (Object.keys(user).length !== 0) {
+              this.userStateService.addUser(user);
               this.auth$$.next({ hasAuth: true });
               console.log('logging in...');
+              this.router.navigate(['/']);
               return;
             }
             console.log('the data was incorrect...');
