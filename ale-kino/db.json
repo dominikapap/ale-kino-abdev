@@ -61,35 +61,35 @@
   "screenings": [
     {
       "id": 1,
-      "date": "04-01-2023",
+      "date": "10-01-2023",
       "time": "12:30",
       "screeningRoomsId": 1,
       "moviesId": 1
     },
     {
       "id": 2,
-      "date": "05-01-2023",
+      "date": "11-01-2023",
       "time": "14:30",
       "screeningRoomsId": 2,
       "moviesId": 1
     },
     {
       "id": 3,
-      "date": "04-01-2023",
+      "date": "10-01-2023",
       "time": "14:30",
       "screeningRoomsId": 3,
       "moviesId": 2
     },
     {
       "id": 4,
-      "date": "04-01-2023",
+      "date": "10-01-2023",
       "time": "16:30",
       "screeningRoomsId": 2,
       "moviesId": 1
     },
     {
       "id": 5,
-      "date": "04-01-2023",
+      "date": "10-01-2023",
       "time": "18:30",
       "screeningRoomsId": 2,
       "moviesId": 1

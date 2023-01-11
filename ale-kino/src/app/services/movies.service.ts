@@ -3,7 +3,7 @@ import {
   DailyMovieScreenings,
   Movie,
   MovieScreening,
-} from 'src/app/movie-interfaces';
+} from 'src/app/model/movie-interfaces';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map } from 'rxjs';
 import { MovieInfoService } from './movie-info.service';

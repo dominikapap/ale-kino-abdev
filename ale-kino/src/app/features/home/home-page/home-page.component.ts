@@ -1,6 +1,6 @@
-import { MoviesService } from './../../services/movies.service';
+import { MoviesService } from '../../../services/movies.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DailyMovieScreenings } from 'src/app/movie-interfaces';
+import { DailyMovieScreenings } from 'src/app/model/movie-interfaces';
 import { Subscription } from 'rxjs';
 
 @Component({

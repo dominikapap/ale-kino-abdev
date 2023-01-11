@@ -9,20 +9,21 @@ import {
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 import { faCartShopping, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { MovieComponent } from './components/movie/movie.component';
-import { ButtonComponent } from './components/button/button.component';
-import { HeaderComponent } from './components/header/header.component';
-import { RoundedNavComponent } from './components/rounded-nav/rounded-nav.component';
-import { DateNavComponent } from './components/date-nav/date-nav.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { HomePageComponent } from './components/home-page/home-page.component';
-import { ReservationComponent } from './components/reservation/reservation.component';
-import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-import { PopupNavComponent } from './components/popup-nav/popup-nav.component';
-import { TimeNavComponent } from './components/time-nav/time-nav.component';
-import { ScreeningRoomComponent } from './components/screening-room/screening-room.component';
-import { SeatTicketComponent } from './components/seat-ticket/seat-ticket.component';
+import { MovieComponent } from './features/home/movie/movie.component';
+import { ButtonComponent } from './features/ui/button/button.component';
+import { HeaderComponent } from './shell/header/header.component';
+import { RoundedNavComponent } from './features/ui/rounded-nav/rounded-nav.component';
+import { DateNavComponent } from './features/home/date-nav/date-nav.component';
+import { FooterComponent } from './shell/footer/footer.component';
+import { HomePageComponent } from './features/home/home-page/home-page.component';
+import { ReservationComponent } from './features/reservation/reservation/reservation.component';
+import { CheckoutFormComponent } from './features/checkout/checkout-form/checkout-form.component';
+import { LoginFormComponent } from './auth/login-form/login-form.component';
+import { PopupNavComponent } from './shell/popup-nav/popup-nav.component';
+import { TimeNavComponent } from './features/home/time-nav/time-nav.component';
+import { ScreeningRoomComponent } from './features/reservation/screening-room/screening-room.component';
+import { SeatTicketComponent } from './features/reservation/seat-ticket/seat-ticket.component';
+import { ShellComponent } from './shell/shell/shell.component';
 
 
 @NgModule({
@@ -36,12 +37,13 @@ import { SeatTicketComponent } from './components/seat-ticket/seat-ticket.compon
     FooterComponent,
     HomePageComponent,
     ReservationComponent,
-    CheckoutFormComponent,
+
     LoginFormComponent,
     PopupNavComponent,
     TimeNavComponent,
     ScreeningRoomComponent,
-    SeatTicketComponent
+    SeatTicketComponent,
+    ShellComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FontAwesomeModule, HttpClientModule, ReactiveFormsModule],
   providers: [],

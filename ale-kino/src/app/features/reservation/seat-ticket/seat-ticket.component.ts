@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RoomsService, Seat } from '../../services/screening-room-state.service';
+import { RoomsService, Seat } from '../../../services/screening-room-state.service';
 
 
 interface Ticket {

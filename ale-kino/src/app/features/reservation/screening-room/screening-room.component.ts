@@ -2,7 +2,7 @@ import {
   RoomsService,
   ScreeningRoom,
   Seat,
-} from '../../services/screening-room-state.service';
+} from '../../../services/screening-room-state.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -71,4 +71,5 @@ export class ScreeningRoomComponent implements OnInit {
   isReserved(row: string, seatNumber: number) {
     return this.screeningRoomStateService.isSeatReserved({ row, seatNumber });
   }
+
 }

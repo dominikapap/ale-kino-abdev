@@ -1,9 +1,9 @@
-import { Screening } from '../../movie-interfaces';
-import { MovieInfoService } from '../../services/movie-info.service';
+import { Screening } from '../../../model/movie-interfaces';
+import { MovieInfoService } from '../../../services/movie-info.service';
 import { Component, OnInit, Input, inject } from '@angular/core';
-import { User } from '../../user-interfaces';
-import { UserService } from '../../services/user.service';
-import { Movie, DailyMovieScreenings } from 'src/app/movie-interfaces';
+import { User } from '../../../model/user-interfaces';
+import { UserService } from '../../../services/user.service';
+import { Movie, DailyMovieScreenings } from 'src/app/model/movie-interfaces';
 import { UserStateService } from 'src/app/core/user.state.service';
 
 @Component({
