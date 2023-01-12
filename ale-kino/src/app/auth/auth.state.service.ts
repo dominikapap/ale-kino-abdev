@@ -2,8 +2,17 @@ import { BehaviorSubject, map, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { AuthResponse } from './auth-response.interface';
 import { User, UserStateService } from '../core/user.state.service';
+
+export type AuthState = {
+  hasUserAuth: boolean;
+  hasAdminAuth: boolean;
+};
+
+const userAuthStateDefault = {
+  hasUserAuth: false,
+  hasAdminAuth: false,
+};
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +24,7 @@ export class AuthStateService {
 
   constructor() {}
 
-  private auth$$ = new BehaviorSubject<{ hasAuth: boolean }>({
-    hasAuth: false,
-  });
+  private auth$$ = new BehaviorSubject<AuthState>(userAuthStateDefault);
 
   get auth$() {
     return this.auth$$.asObservable();
@@ -27,17 +34,25 @@ export class AuthStateService {
     return this.auth$$.value;
   }
 
+  private patchState(stateSlice: Partial<AuthState>) {
+    this.auth$$.next({
+      ...this.auth$$.value,
+      ...stateSlice,
+    });
+  }
+
   private getUserData(response: any) {
-    if (response.length > 0) {//if the credential data was correct
+    if (response.length > 0) {
+      //if the credential data was correct
       const res = response[0];
       return <User>{
         id: res.id,
         email: res.email,
         password: res.password,
-        role: res.roles.type
-      }
+        role: res.roles.type,
+      };
     }
-    return {};//if the credential data was incorrect
+    return {}; //if the credential data was incorrect
   }
 
   login(credentials: { email: string; password: string }) {
@@ -53,8 +68,12 @@ export class AuthStateService {
           next: (user: User) => {
             console.log('response:', user);
             if (Object.keys(user).length !== 0) {
+              if (user.role === 'user') {
+                this.patchState({ hasUserAuth: true });
+              } else if (user.role === 'admin') {
+                this.patchState({ hasAdminAuth: true });
+              }
               this.userStateService.addUser(user);
-              this.auth$$.next({ hasAuth: true });
               console.log('logging in...');
               this.router.navigate(['/']);
               return;
@@ -63,5 +82,9 @@ export class AuthStateService {
           },
         })
       );
+  }
+
+  logout() {
+    this.patchState({ hasUserAuth: false, hasAdminAuth: false });
   }
 }

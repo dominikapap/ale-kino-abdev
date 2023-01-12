@@ -21,12 +21,12 @@
   <div class="movie__score">
     <p class="movie__scoreText">{{ movie.movieInfo.score }}/10</p>
     <app-button
-      *ngIf="user.type.isUser"
+      *ngIf="authState.hasUserAuth"
       value="Oceń ten film!"
       class="movie__scoreButton"
     ></app-button>
     <app-button
-      *ngIf="user.type.isUser"
+      *ngIf="authState.hasUserAuth"
       value="Chcę zobaczyć"
       class="movie__scoreButton"
     ></app-button>

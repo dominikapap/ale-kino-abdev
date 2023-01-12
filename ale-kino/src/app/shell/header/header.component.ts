@@ -1,5 +1,6 @@
+import { AuthState, AuthStateService } from 'src/app/auth/auth.state.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../model/user-interfaces';
 
@@ -9,6 +10,7 @@ import { User } from '../../model/user-interfaces';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  private authStateService = inject(AuthStateService);
   constructor(private userService: UserService, private router: Router) {}
   user: User = {
     username: '',
@@ -18,9 +20,17 @@ export class HeaderComponent implements OnInit {
     },
   };
 
+  authState: AuthState = {
+    hasUserAuth: false,
+    hasAdminAuth: false,
+  };
+
   isPopNavHidden: boolean = true;
 
   ngOnInit(): void {
+    this.authStateService.auth$.subscribe(authState => {
+      this.authState = authState;
+    })
     this.userService.subject.subscribe((user) => {
       this.user = user;
     });
@@ -37,16 +47,9 @@ export class HeaderComponent implements OnInit {
   handlePopupNavClick(navItem: string) {
     switch (navItem.toLowerCase()) {
       case 'ustawienia':
-        // this.router.navigate(['/settings']);
         break;
       case 'wyloguj':
-        this.userService.subject.next({
-          username: '',
-          type: {
-            isUser: false,
-            isAdmin: false,
-          },
-        });
+        this.authStateService.logout()
         break;
     }
     console.log(navItem);

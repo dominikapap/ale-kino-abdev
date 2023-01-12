@@ -1,3 +1,5 @@
+import { AuthState } from './../../../auth/auth.state.service';
+import { AuthStateService } from 'src/app/auth/auth.state.service';
 import { Screening } from '../../../model/movie-interfaces';
 import { MovieInfoService } from '../../../services/movie-info.service';
 import { Component, OnInit, Input, inject } from '@angular/core';
@@ -12,30 +14,23 @@ import { UserStateService } from 'src/app/core/user.state.service';
   styleUrls: ['./movie.component.scss'],
 })
 export class MovieComponent implements OnInit {
-  private userStateService = inject(UserStateService);
+  private authStateService = inject(AuthStateService);
   @Input() movie!: DailyMovieScreenings;
 
   constructor(
-    private userService: UserService,
     private movieInfo: MovieInfoService,
   ) {}
 
-  user: User = {
-    username: '',
-    type: {
-      isUser: false,
-      isAdmin: false,
-    },
+
+  authState: AuthState = {
+    hasUserAuth: false,
+    hasAdminAuth: false,
   };
 
   ngOnInit(): void {
-    this.userService.subject.subscribe((user) => {
-      this.user = user;
-    });
-    this.userStateService.user$.subscribe(user => {
-      console.log('user', user)
+    this.authStateService.auth$.subscribe(authState => {
+      this.authState = authState;
     })
-
   }
 
   getMovieInfo(time: string) {

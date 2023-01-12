@@ -1,18 +1,21 @@
+import { ButtonComponent } from './../ui/button/button.component';
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [CheckoutFormComponent],
   imports: [
+    ReactiveFormsModule,
+    ButtonComponent,
     RouterModule.forChild([
       {
         path: '',
         component: CheckoutFormComponent,
         children: [],
       },
-    ] as Routes),
+    ]),
   ],
-  exports: [CheckoutFormComponent]
 })
 export default class CheckoutModule {}

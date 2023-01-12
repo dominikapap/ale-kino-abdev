@@ -1,7 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
+import {
+  FontAwesomeModule,
+} from '@fortawesome/angular-fontawesome';
 @Component({
   selector: 'app-button',
+  standalone: true,
+  imports: [FontAwesomeModule, CommonModule],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })

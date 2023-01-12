@@ -6,11 +6,11 @@
 
   <app-button
     (clickButtonEvent)="login()"
-    *ngIf="!user.type.isUser && !user.type.isAdmin"
+    *ngIf="!authState.hasUserAuth && !authState.hasAdminAuth"
     value="Zaloguj"
   ></app-button>
 
-  <div class="popnav-container" *ngIf="user.type.isUser && !user.type.isAdmin">
+  <div class="popnav-container" *ngIf="authState.hasUserAuth">
     <app-button
       (clickButtonEvent)="togglePopNavMenu()"
       [value]="'Cześć ' + user.username"
@@ -22,7 +22,7 @@
     ></app-popup-nav>
   </div>
 
-  <div class="popnav-container" *ngIf="!user.type.isUser && user.type.isAdmin">
+  <div class="popnav-container" *ngIf="authState.hasAdminAuth">
     <app-button
       (clickButtonEvent)="togglePopNavMenu()"
       value="Cześć"
