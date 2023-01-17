@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "json": "json-server db.json --routes routes.json",
+    "server": "json-server db.json --watch -m ./node_modules/json-server-auth -r routes.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

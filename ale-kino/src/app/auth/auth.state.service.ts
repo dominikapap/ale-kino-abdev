@@ -1,3 +1,4 @@
+import { AuthResponseLearn } from './auth-response.interface';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -79,6 +80,31 @@ export class AuthStateService {
               return;
             }
             console.log('the data was incorrect...');
+          },
+        })
+      );
+  }
+
+  loginLearn(credentials: { email: string; password: string }) {
+    return this.http
+      .post<AuthResponseLearn>('http://localhost:3000/login', {
+        email: credentials.email,
+        password: credentials.password,
+      })
+      .pipe(
+        tap({
+          next: (res) => {
+            console.log('res', res);
+            const { accessToken, user } = res;
+            // this.userStateService.addUser(user);
+            // this.auth$$.next({ hasAuth: true });
+            // localStorage.setItem('token', accessToken);
+            // localStorage.setItem('user', JSON.stringify(user));
+
+            // this.router.navigate(['']);
+          },
+          error: () => {
+            alert('error');
           },
         })
       );

@@ -51,6 +51,7 @@ export class LoginFormComponent implements OnInit {
         isAdmin: false,
       },
     });
-    this.authService.login(this.loginForm.getRawValue()).subscribe();
+    // this.authService.login(this.loginForm.getRawValue()).subscribe();
+    this.authService.loginLearn(this.loginForm.getRawValue()).subscribe();
   }
 }

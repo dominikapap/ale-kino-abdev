@@ -4,3 +4,12 @@ export interface AuthResponse {
   password: string;
   role: string;
 }
+
+export interface AuthResponseLearn {
+  accessToken: string;
+  user: {
+    id: number;
+    email: string;
+    role: string;
+  };
+}
