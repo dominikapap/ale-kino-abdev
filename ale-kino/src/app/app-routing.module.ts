@@ -17,6 +17,10 @@ const routes: Routes = [
         path: 'checkout',
         loadChildren: () => import('./features/checkout/checkout.module'),
       },
+      {
+        path: 'summary',
+        loadChildren: () => import('./features/summary/summary.module'),
+      },
     ],
   },
   {

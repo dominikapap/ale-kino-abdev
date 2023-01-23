@@ -17,20 +17,14 @@ export class MovieComponent implements OnInit {
   private authStateService = inject(AuthStateService);
   @Input() movie!: DailyMovieScreenings;
 
-  constructor(
-    private movieInfo: MovieInfoService,
-  ) {}
+  constructor(private movieInfo: MovieInfoService) {}
 
-
-  authState: AuthState = {
-    hasUserAuth: false,
-    hasAdminAuth: false,
-  };
+  role: string = '';
 
   ngOnInit(): void {
-    this.authStateService.auth$.subscribe(authState => {
-      this.authState = authState;
-    })
+    this.authStateService.auth$.subscribe((authState) => {
+      this.role = authState.role;
+    });
   }
 
   getMovieInfo(time: string) {
@@ -38,10 +32,8 @@ export class MovieComponent implements OnInit {
     // const screening = this.movie.screenings.find(sc => {
     //   return sc.time === time;
     // })
-
     // console.log('screening:', screening)
     // this.movieInfo.selectedMovieScreening$$.next(time);
     // this.movieInfo.selectedMovieTitle$$.next(this.movie.movieInfo.title);
   }
-
 }

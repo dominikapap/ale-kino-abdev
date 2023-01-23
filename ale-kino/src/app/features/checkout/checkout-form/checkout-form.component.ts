@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout-form',
@@ -10,10 +8,12 @@ import {
   styleUrls: ['./checkout-form.component.scss'],
 })
 export class CheckoutFormComponent implements OnInit {
+  private builder = inject(FormBuilder);
+  private router = inject(Router);
   checkoutForm = this.createForm();
   isError: boolean = false;
 
-  constructor(private builder: FormBuilder) {
+  constructor() {
     // this.checkoutForm.valueChanges.subscribe(console.log);
   }
 
@@ -36,7 +36,12 @@ export class CheckoutFormComponent implements OnInit {
         ],
       }),
       phoneNumber: this.builder.control('', {
-        validators: [Validators.pattern('^[\+]?[(]?[0-9]{2}[)]?[\s\]?[0-9]{2,3}[-\s\.]?[0-9]{2,3}[-\s\.]?[0-9]{2,3}$'), Validators.maxLength(20)],
+        validators: [
+          Validators.pattern(
+            '^[+]?[(]?[0-9]{2}[)]?[s]?[0-9]{2,3}[-s.]?[0-9]{2,3}[-s.]?[0-9]{2,3}$'
+          ),
+          Validators.maxLength(20),
+        ],
       }),
       email: this.builder.control('', {
         validators: [Validators.required, Validators.email],
@@ -53,6 +58,9 @@ export class CheckoutFormComponent implements OnInit {
 
   sendForm() {
     this.checkoutForm.markAllAsTouched();
+    if (this.checkoutForm.valid) {
+      this.router.navigate(['/summary']);
+    }
   }
 
   get firstNameCtrl() {

@@ -2,9 +2,11 @@
   display: flex;
   align-items: center;
   gap: 1em;
-  border-bottom: 2px solid lightgray;
+  border-bottom: 0.1px solid lightgray;
   height: 60px;
   position: relative;
+  background-color: white;
+  padding: 0 2em;
 }
 
 .header__title {

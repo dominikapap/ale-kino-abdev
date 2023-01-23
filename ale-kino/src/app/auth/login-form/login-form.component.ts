@@ -26,10 +26,10 @@ export class LoginFormComponent implements OnInit {
 
   private createForm() {
     return this.builder.group({
-      email: this.builder.control('', {
+      email: this.builder.control('test@test.pl', {
         validators: [Validators.required, Validators.email],
       }),
-      password: this.builder.control('', {
+      password: this.builder.control('testtest', {
         validators: [Validators.required],
       }),
     });

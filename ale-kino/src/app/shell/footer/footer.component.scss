@@ -1,9 +1,10 @@
 .footer {
-  border-top: 2px solid lightgray;
+  border-top: 1px solid lightgray;
   height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: white;
 }
 
 .footer__nav {
@@ -11,6 +12,7 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  padding: 0 2em;
 }
 
 .footer__navPage > ul {

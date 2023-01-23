@@ -2,18 +2,18 @@
   <div class="header__title">
     <a [routerLink]="'/'">Ale kino!</a>
   </div>
-  <app-button *ngIf="!user.type.isAdmin" icon="cart-shopping"></app-button>
+  <app-button *ngIf="role !== 'admin'" icon="cart-shopping"></app-button>
 
   <app-button
     (clickButtonEvent)="login()"
-    *ngIf="!authState.hasUserAuth && !authState.hasAdminAuth"
+    *ngIf="role===''"
     value="Zaloguj"
   ></app-button>
 
-  <div class="popnav-container" *ngIf="authState.hasUserAuth">
+  <div class="popnav-container" *ngIf="role==='user'">
     <app-button
       (clickButtonEvent)="togglePopNavMenu()"
-      [value]="'Cześć ' + user.username"
+      [value]="'Cześć ' + username"
     ></app-button>
     <app-popup-nav
       (clickNavItemEvent)="handlePopupNavClick($event)"
@@ -22,7 +22,7 @@
     ></app-popup-nav>
   </div>
 
-  <div class="popnav-container" *ngIf="authState.hasAdminAuth">
+  <div class="popnav-container" *ngIf="role === 'admin'">
     <app-button
       (clickButtonEvent)="togglePopNavMenu()"
       value="Cześć"

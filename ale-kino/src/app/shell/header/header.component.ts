@@ -1,8 +1,8 @@
+import { User, UserStateService } from 'src/app/core/user.state.service';
 import { AuthState, AuthStateService } from 'src/app/auth/auth.state.service';
 import { Router } from '@angular/router';
 import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { User } from '../../model/user-interfaces';
 
 @Component({
   selector: 'app-header',
@@ -10,29 +10,20 @@ import { User } from '../../model/user-interfaces';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  private userStateService = inject(UserStateService);
   private authStateService = inject(AuthStateService);
-  constructor(private userService: UserService, private router: Router) {}
-  user: User = {
-    username: '',
-    type: {
-      isUser: false,
-      isAdmin: false,
-    },
-  };
+  private router = inject(Router);
 
-  authState: AuthState = {
-    hasUserAuth: false,
-    hasAdminAuth: false,
-  };
-
+  username: string = '';
+  role = '';
   isPopNavHidden: boolean = true;
 
   ngOnInit(): void {
-    this.authStateService.auth$.subscribe(authState => {
-      this.authState = authState;
-    })
-    this.userService.subject.subscribe((user) => {
-      this.user = user;
+    this.authStateService.auth$.subscribe((authState) => {
+      this.role = authState.role;
+    });
+    this.userStateService.user$.subscribe((userState) => {
+      this.username = userState.username;
     });
   }
 
@@ -49,11 +40,9 @@ export class HeaderComponent implements OnInit {
       case 'ustawienia':
         break;
       case 'wyloguj':
-        this.authStateService.logout()
+        this.authStateService.logout();
         break;
     }
-    console.log(navItem);
-
     this.isPopNavHidden = true;
   }
 }

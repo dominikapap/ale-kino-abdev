@@ -5,8 +5,7 @@ import { ReplaySubject } from 'rxjs';
 export interface User {
   id: number;
   email: string;
-  password: string;
-  role: string;
+  username: string;
 }
 
 @Injectable({

@@ -15,6 +15,7 @@ import { FooterComponent } from './shell/footer/footer.component';
 import { PopupNavComponent } from './shell/popup-nav/popup-nav.component';
 import { ShellComponent } from './shell/shell/shell.component';
 import { ButtonComponent } from './features/ui/button/button.component';
+import { SummaryComponent } from './features/summary/summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,10 @@ import { ButtonComponent } from './features/ui/button/button.component';
     RoundedNavComponent,
     FooterComponent,
     PopupNavComponent,
-    ShellComponent
+    ShellComponent,
+    SummaryComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FontAwesomeModule, HttpClientModule, ReactiveFormsModule, ButtonComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FontAwesomeModule, ButtonComponent],
   providers: [],
   bootstrap: [AppComponent],
 })

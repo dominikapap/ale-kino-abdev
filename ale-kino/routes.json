@@ -1,15 +1,3 @@
 {
-  "/users": "/users",
-  "/users/:email": "/users?email=:email",
-  "/users/:password": "/users?password=:password",
-  "/movies": "/movies",
-  "/movies\\?id=:id": "/movies:id",
-  "/schedule": "/schedule",
-  "/schedule\\?id=:id": "/schedule:id",
-  "/screenings": "/screenings",
-  "/screenings\\?date=:date": "/screenings:date",
-  "/rooms": "/rooms",
-  "/rooms\\?id=:id": "/rooms:id",
-  "/screeningRooms": "/screeningRooms",
-  "/screeningRooms\\?id=:id": "/screeningRooms/:id"
+
 }
