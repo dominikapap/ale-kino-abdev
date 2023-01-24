@@ -1,8 +1,7 @@
-import { User, UserStateService } from 'src/app/core/user.state.service';
-import { AuthState, AuthStateService } from 'src/app/auth/auth.state.service';
+import { UserStateService } from 'src/app/core/user.state.service';
+import { AuthStateService } from 'src/app/auth/auth.state.service';
 import { Router } from '@angular/router';
 import { Component, inject, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',

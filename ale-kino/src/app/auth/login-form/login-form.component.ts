@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { AuthStateService } from 'src/app/auth/auth.state.service';
 
@@ -9,20 +8,12 @@ import { AuthStateService } from 'src/app/auth/auth.state.service';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
   authService = inject(AuthStateService)
   builder = inject(NonNullableFormBuilder)
   loginForm = this.createForm();
   emailNotFocused: boolean = false;
   passwordNotFocused: boolean = false;
-
-  constructor (private user: UserService, private router: Router) {
-    // this.loginForm.valueChanges.subscribe(console.log);
-  }
-
-  ngOnInit(): void {
-    this.user.subject.subscribe();
-  }
 
   private createForm() {
     return this.builder.group({
@@ -44,14 +35,6 @@ export class LoginFormComponent implements OnInit {
 
   login() {
     this.loginForm.markAllAsTouched();
-    this.user.subject.next({
-      username: 'Nameless',
-      type: {
-        isUser: true,
-        isAdmin: false,
-      },
-    });
-    // this.authService.login(this.loginForm.getRawValue()).subscribe();
     this.authService.loginLearn(this.loginForm.getRawValue()).subscribe();
   }
 }

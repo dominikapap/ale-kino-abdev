@@ -1,6 +1,6 @@
-import { MovieInfoService } from '../../../services/movie-info.service';
+import { MovieInfoService } from '../../../services/selected-date.state.service';
 import { Component, OnInit } from '@angular/core';
-import { DateInfoService, Day } from 'src/app/services/date-info.service';
+import { DateInfoService, Day } from 'src/app/features/home/services/date-info.service';
 
 @Component({
   selector: 'app-date-nav',

@@ -8,9 +8,9 @@ import { format } from 'date-fns';
 export class MovieInfoService {
   constructor() {}
 
-  private movieSelectionState$$ = new BehaviorSubject<{ movieDate: string, movieTitle: string }>({
+  private movieSelectionState$$ = new BehaviorSubject<{ movieDate: string}>({
     movieDate: format(new Date(), 'dd-MM-yyyy'),
-    movieTitle: ''
+
   });
 
   get  movieSelectionState$() {
@@ -23,9 +23,6 @@ export class MovieInfoService {
       movieDate: date
     });
   }
-
-  // selectedMovieScreening$$ = new BehaviorSubject<string>('');
-
 
   ngOnInit() {}
 }

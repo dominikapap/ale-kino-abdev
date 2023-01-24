@@ -1,8 +1,8 @@
-import { RoomsService } from '../../../services/screening-room-state.service';
+import { RoomsService } from '../../../services/screening-room.state.service';
 import { ScreeningService } from '../../../services/screening.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 
 interface Ticket {
   type: string;
@@ -19,8 +19,7 @@ export class ReservationComponent implements OnInit {
     private screeningService: ScreeningService,
     private screeningRoomStateService: RoomsService,
     private route: ActivatedRoute
-  ) {
- }
+  ) {}
 
   rowLetters: string[] = [];
   rowNumbers: number[] = [];
@@ -52,31 +51,22 @@ export class ReservationComponent implements OnInit {
   subscriptions: Subscription = new Subscription();
   selectedSeatMap = new Map();
 
-
   ngOnInit(): void {
     this.getScreeningDetails();
   }
 
   getScreeningDetails() {
-    const subParam = this.route.paramMap.subscribe((params) => {
-      // get screening id from url params
-      const id: string = <string>params.get('id');
-
-      const subScreen = this.screeningService //get screening details based on screening id
-        .getScreeningDetails(id)
-        .subscribe((screening) => {
-          this.screeningDetails = screening[0];
-          // console.log(this.screeningDetails)
-          this.isLoaded = true;
-        });
-      this.subscriptions.add(subScreen);
-    });
-    this.subscriptions.add(subParam);
-  }
-
-
-
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          const id: string = <string>params.get('id');
+          return this.screeningService.getScreeningDetails(id);
+        })
+      )
+      .subscribe(([screening]) => {
+        this.screeningDetails = screening;
+        console.log(this.screeningDetails);
+        this.isLoaded = true;
+      });
   }
 }

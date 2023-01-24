@@ -128,5 +128,26 @@
         }
       ]
     }
+  ],
+  "tickets": [
+
+  ],
+  "ticket-types": [
+    {
+      "id": 1,
+      "type": "normalny"
+    },
+    {
+      "id": 2,
+      "type": "ulgowy"
+    },
+    {
+      "id": 3,
+      "type": "rodzinny"
+    },
+    {
+      "id": 3,
+      "type": "voucher"
+    }
   ]
 }

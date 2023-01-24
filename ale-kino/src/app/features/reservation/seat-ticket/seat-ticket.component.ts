@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RoomsService, Seat } from '../../../services/screening-room-state.service';
+import { RoomsService, Seat } from '../../../services/screening-room.state.service';
 
 
 interface Ticket {
@@ -17,8 +17,8 @@ export class SeatTicketComponent implements OnInit {
   constructor(private screeningRoomStateService: RoomsService) { }
 
   ngOnInit(): void {
-    this.screeningRoomStateService.seatSelectionState$.subscribe(seatSelectionState => {
-      this.seatSelectionState = seatSelectionState;
+    this.screeningRoomStateService.seatOccupancyState$.subscribe(seatOccupancyState => {
+      this.seatSelectionState = seatOccupancyState.selectedSeats;
     })
   }
   selectedSeatMap = new Map();

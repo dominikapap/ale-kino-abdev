@@ -3,6 +3,6 @@
     *ngFor="let screening of screenings"
     class="rounded__listItem"
   >
-    <a href="" [routerLink]="'/reservation/'+screening.id">{{ screening.time }}</a>
+    <a [routerLink]="'/reservation/'+screening.id">{{ screening.time }}</a>
   </li>
 </ul>

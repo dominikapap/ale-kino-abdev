@@ -2,7 +2,7 @@ import {
   RoomsService,
   ScreeningRoom,
   Seat,
-} from '../../../services/screening-room-state.service';
+} from '../../../services/screening-room.state.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -24,7 +24,6 @@ export class ScreeningRoomComponent implements OnInit {
     this.screeningRoomStateService
       .getScreeningRoomDetails(this.screeningRoomId)
       .subscribe((screeningRoomDetails: ScreeningRoom) => {
-        // console.log(screeningRoomDetails)
         this.initiateRoomSizeData(
           screeningRoomDetails.room.rows,
           screeningRoomDetails.room.seats
@@ -32,9 +31,9 @@ export class ScreeningRoomComponent implements OnInit {
         this.initiateReservedSeats(screeningRoomDetails.reservedSeats);
       });
 
-    this.screeningRoomStateService.seatSelectionState$.subscribe(
-      (seatSelectionState) => {
-        this.seatSelectionState = seatSelectionState;
+    this.screeningRoomStateService.seatOccupancyState$.subscribe(
+      (seatOccupancyState) => {
+        this.seatSelectionState = seatOccupancyState.selectedSeats;
       }
     );
   }

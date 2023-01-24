@@ -3,10 +3,10 @@ import {
   DailyMovieScreenings,
   Movie,
   MovieScreening,
-} from 'src/app/model/movie-interfaces';
+} from 'src/app/features/home/movie/movie.interface';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map } from 'rxjs';
-import { MovieInfoService } from './movie-info.service';
+import { MovieInfoService } from './selected-date.state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -46,7 +46,7 @@ export class MoviesService {
       `http://localhost:3000/screenings?_expand=movies&id=${screeningId}`
     );
   }
- // `http://localhost:3000/screenings?_expand=movies&_expand=screeningRooms&id=${screeningId}`
+
   getDailyScreenings(date: string) {
     return this.http.get(
       `http://localhost:3000/screenings?_expand=movies&date=${date}`
