@@ -135,12 +135,14 @@ export class RoomsService {
   }
 
   getScreeningRoomDetails(screeningRoomId: string) {
+    console.log(screeningRoomId)
     return this.http
       .get<any>(
         `http://localhost:3000/screeningRooms?_expand=rooms&id=${screeningRoomId}`
       )
       .pipe(
         map((screeningRoomDetailsArray) => {
+          console.log(screeningRoomDetailsArray)
           return this.convertScreeningRoomJSONStructure(
             screeningRoomDetailsArray
           );

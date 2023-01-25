@@ -59,9 +59,7 @@
     {
       "id": 1,
       "title": "Apokawixa",
-      "tags": [
-        "Horror"
-      ],
+      "tags": ["Horror"],
       "length": "120",
       "rated": "PG-13",
       "description": "Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.",
@@ -72,9 +70,7 @@
     {
       "id": 2,
       "title": "Apokawixa 2",
-      "tags": [
-        "Horror"
-      ],
+      "tags": ["Horror"],
       "length": "120",
       "rated": "PG-13",
       "description": "Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.",
@@ -99,6 +95,26 @@
     {
       "id": 1,
       "roomsId": 1,
+      "tickets": [
+        {
+          "id": 1,
+          "seat": {
+            "row": "A",
+            "seatNumber": 1
+          },
+          "ticket-typesId": 1,
+          "usersId": 1
+        },
+        {
+          "id": 2,
+          "seat": {
+            "row": "B",
+            "seatNumber": 5
+          },
+          "ticket-typesId": 1,
+          "usersId": 1
+        }
+      ],
       "reservedSeats": [
         {
           "id": 1,
@@ -115,6 +131,26 @@
     {
       "id": 2,
       "roomsId": 2,
+      "tickets": [
+        {
+          "id": 1,
+          "seat": {
+            "row": "A",
+            "seatNumber": 1
+          },
+          "ticket-typesId": 1,
+          "usersId": 1
+        },
+        {
+          "id": 2,
+          "seat": {
+            "row": "B",
+            "seatNumber": 5
+          },
+          "ticket-typesId": 1,
+          "usersId": 1
+        }
+      ],
       "reservedSeats": [
         {
           "id": 1,
@@ -128,9 +164,6 @@
         }
       ]
     }
-  ],
-  "tickets": [
-
   ],
   "ticket-types": [
     {

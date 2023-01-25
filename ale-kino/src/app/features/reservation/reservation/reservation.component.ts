@@ -17,7 +17,6 @@ interface Ticket {
 export class ReservationComponent implements OnInit {
   constructor(
     private screeningService: ScreeningService,
-    private screeningRoomStateService: RoomsService,
     private route: ActivatedRoute
   ) {}
 
@@ -26,30 +25,9 @@ export class ReservationComponent implements OnInit {
   rows: number = 0;
   seats: number = 0;
 
-  ticketTypes: Ticket[] = [
-    {
-      type: 'bilet normalny',
-      price: 2,
-    },
-    {
-      type: 'bilet ulgowy',
-      price: 11,
-    },
-    {
-      type: 'bilet rodzinny',
-      price: 30,
-    },
-    {
-      type: 'voucher',
-      price: 25,
-    },
-  ];
-
   screeningDetails: any;
   icon: any = 'trash-can';
   isLoaded = false;
-  subscriptions: Subscription = new Subscription();
-  selectedSeatMap = new Map();
 
   ngOnInit(): void {
     this.getScreeningDetails();
