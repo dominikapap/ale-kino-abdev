@@ -21,35 +21,35 @@
   "screenings": [
     {
       "id": 1,
-      "date": "23-01-2023",
+      "date": "25-01-2023",
       "time": "12:30",
       "screeningRoomsId": 1,
       "moviesId": 1
     },
     {
       "id": 2,
-      "date": "24-01-2023",
+      "date": "26-01-2023",
       "time": "14:30",
       "screeningRoomsId": 2,
       "moviesId": 1
     },
     {
       "id": 3,
-      "date": "23-01-2023",
+      "date": "25-01-2023",
       "time": "14:30",
       "screeningRoomsId": 3,
       "moviesId": 2
     },
     {
       "id": 4,
-      "date": "24-01-2023",
+      "date": "26-01-2023",
       "time": "16:30",
       "screeningRoomsId": 2,
       "moviesId": 1
     },
     {
       "id": 5,
-      "date": "23-01-2023",
+      "date": "25-01-2023",
       "time": "18:30",
       "screeningRoomsId": 2,
       "moviesId": 1
@@ -135,19 +135,23 @@
   "ticket-types": [
     {
       "id": 1,
-      "type": "normalny"
+      "type": "normalny",
+      "price": 25
     },
     {
       "id": 2,
-      "type": "ulgowy"
+      "type": "ulgowy",
+      "price": 20
     },
     {
       "id": 3,
-      "type": "rodzinny"
+      "type": "rodzinny",
+      "price": 40
     },
     {
-      "id": 3,
-      "type": "voucher"
+      "id": 4,
+      "type": "voucher",
+      "price": 30
     }
   ]
 }

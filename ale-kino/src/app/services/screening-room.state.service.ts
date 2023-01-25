@@ -25,6 +25,12 @@ export type SeatState = {
   reservedSeats: Seat[];
 };
 
+export type Ticket = {
+  id: number;
+  type: string;
+  price: number;
+}
+
 const defaultSeatState: SeatState = {
   selectedSeats: [],
   reservedSeats: [],
@@ -125,7 +131,7 @@ export class RoomsService {
   }
 
   getTicketTypes(){
-    return this.http.get<{id: number, type: string}>( `http://localhost:3000/ticket-types`)
+    return this.http.get<Ticket[]>( `http://localhost:3000/ticket-types`)
   }
 
   getScreeningRoomDetails(screeningRoomId: string) {
