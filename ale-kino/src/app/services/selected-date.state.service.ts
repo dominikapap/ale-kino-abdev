@@ -5,22 +5,22 @@ import { format } from 'date-fns';
 @Injectable({
   providedIn: 'root',
 })
-export class MovieInfoService {
+export class SelectedDateService {
   constructor() {}
 
-  private movieSelectionState$$ = new BehaviorSubject<{ movieDate: string}>({
-    movieDate: format(new Date(), 'dd-MM-yyyy'),
+  private selectedDateState$$ = new BehaviorSubject<{ date: string}>({
+    date: format(new Date(), 'dd-MM-yyyy'),
 
   });
 
-  get  movieSelectionState$() {
-    return this.movieSelectionState$$.asObservable();
+  get  selectedDateState$() {
+    return this.selectedDateState$$.asObservable();
   }
 
-  setMovieDate(date: string) {
-    this.movieSelectionState$$ .next({
-      ...this.movieSelectionState$$ .value,
-      movieDate: date
+  setDate(date: string) {
+    this.selectedDateState$$ .next({
+      ...this.selectedDateState$$ .value,
+      date: date
     });
   }
 

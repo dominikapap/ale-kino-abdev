@@ -1,8 +1,8 @@
 import {
-  RoomsService,
+  ScreeningService,
   ScreeningRoom,
   Seat,
-} from '../../../services/screening-room.state.service';
+} from '../../../services/screening.state.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -11,7 +11,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./screening-room.component.scss'],
 })
 export class ScreeningRoomComponent implements OnInit {
-  constructor(private screeningRoomStateService: RoomsService) {}
+  constructor(private screeningService: ScreeningService) {}
 
   @Input() screeningRoomId: string = '';
   @Input() maxNumberOfReservedSeats: number = 10;
@@ -21,7 +21,7 @@ export class ScreeningRoomComponent implements OnInit {
   seatSelectionState: Seat[] = [];
 
   ngOnInit(): void {
-    this.screeningRoomStateService
+    this.screeningService
       .getScreeningRoomDetails(this.screeningRoomId)
       .subscribe((screeningRoomDetails: ScreeningRoom) => {
         this.initiateRoomSizeData(
@@ -31,7 +31,7 @@ export class ScreeningRoomComponent implements OnInit {
         this.initiateReservedSeats(screeningRoomDetails.reservedSeats);
       });
 
-    this.screeningRoomStateService.seatOccupancyState$.subscribe(
+    this.screeningService.seatOccupancyState$.subscribe(
       (seatOccupancyState) => {
         this.seatSelectionState = seatOccupancyState.selectedSeats;
       }
@@ -55,20 +55,20 @@ export class ScreeningRoomComponent implements OnInit {
   }
 
   toggleSeat(row: string, seatNumber: number) {
-    this.screeningRoomStateService.toggleSelectedSeat({ row, seatNumber });
+    this.screeningService.toggleSelectedSeat({ row, seatNumber });
   }
 
   isSelected(row: string, seatNumber: number) {
-    return this.screeningRoomStateService.isSeatSelected({ row, seatNumber });
+    return this.screeningService.isSeatSelected({ row, seatNumber });
   }
 
   initiateReservedSeats(seats: Seat[]){
     // console.log(seats)
-    this.screeningRoomStateService.reserveSeats(seats);
+    this.screeningService.reserveSeats(seats);
   }
 
   isReserved(row: string, seatNumber: number) {
-    return this.screeningRoomStateService.isSeatReserved({ row, seatNumber });
+    return this.screeningService.isSeatReserved({ row, seatNumber });
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RoomsService, Seat, Ticket } from '../../../services/screening-room.state.service';
+import { ScreeningService, Seat, Ticket } from '../../../services/screening.state.service';
 
 @Component({
   selector: 'app-seat-ticket',
@@ -7,13 +7,13 @@ import { RoomsService, Seat, Ticket } from '../../../services/screening-room.sta
   styleUrls: ['./seat-ticket.component.scss']
 })
 export class SeatTicketComponent implements OnInit {
-  constructor(private screeningRoomStateService: RoomsService) { }
+  constructor(private screeningService: ScreeningService) { }
 
   ngOnInit(): void {
-    this.screeningRoomStateService.seatOccupancyState$.subscribe(seatOccupancyState => {
+    this.screeningService.seatOccupancyState$.subscribe(seatOccupancyState => {
       this.seatSelectionState = seatOccupancyState.selectedSeats;
     })
-    this.screeningRoomStateService.getTicketTypes().subscribe(ticketTypes => {
+    this.screeningService.getTicketTypes().subscribe(ticketTypes => {
       this.ticketTypes = ticketTypes;
     })
   }
@@ -30,7 +30,7 @@ export class SeatTicketComponent implements OnInit {
 
 
   removeTicket(row: string, seatNumber: number) {
-    this.screeningRoomStateService.deselectSeat({row, seatNumber});
+    this.screeningService.deselectSeat({row, seatNumber});
   }
 
 }

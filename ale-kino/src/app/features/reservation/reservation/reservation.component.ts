@@ -1,6 +1,6 @@
-import { RoomsService } from '../../../services/screening-room.state.service';
-import { ScreeningService } from '../../../services/screening.service';
-import { Component, OnInit } from '@angular/core';
+import { ScreeningService } from '../../../services/screening.state.service';
+// import { ScreeningService } from '../../../services/screening.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, switchMap } from 'rxjs';
 
@@ -15,8 +15,10 @@ interface Ticket {
   styleUrls: ['./reservation.component.scss'],
 })
 export class ReservationComponent implements OnInit {
+  private screeningService = inject(ScreeningService);
+
   constructor(
-    private screeningService: ScreeningService,
+    // private screeningService: ScreeningService,
     private route: ActivatedRoute
   ) {}
 
@@ -38,6 +40,9 @@ export class ReservationComponent implements OnInit {
       .pipe(
         switchMap((params) => {
           const id: string = <string>params.get('id');
+          this.screeningService.getScreeningDetailsN(id).subscribe(screeningDetails => {
+            console.log('sd:',screeningDetails)
+          })
           return this.screeningService.getScreeningDetails(id);
         })
       )

@@ -1,4 +1,4 @@
-import { MovieInfoService } from '../../../services/selected-date.state.service';
+import { SelectedDateService } from '../../../services/selected-date.state.service';
 import { Component, OnInit } from '@angular/core';
 import { DateInfoService, Day } from 'src/app/features/home/services/date-info.service';
 
@@ -9,7 +9,7 @@ import { DateInfoService, Day } from 'src/app/features/home/services/date-info.s
 })
 export class DateNavComponent implements OnInit {
   constructor(
-    private movieInfo: MovieInfoService,
+    private selectedDateService: SelectedDateService,
     private dateInfoService: DateInfoService
   ) {}
 
@@ -26,6 +26,6 @@ export class DateNavComponent implements OnInit {
       dayOfTheWeek,
       this.currentWeekDays
     );
-    this.movieInfo.setMovieDate(date);
+    this.selectedDateService.setDate(date);
   }
 }

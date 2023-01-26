@@ -1,6 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
+import { Movie } from '../features/home/movie/movie.interface';
+
+type Screening = {
+  id: number;
+  date: string;
+  time: string;
+  roomInfo: Room;
+  movieInfo: Movie;
+};
 
 export interface Seat {
   row: string;
@@ -29,7 +38,7 @@ export type Ticket = {
   id: number;
   type: string;
   price: number;
-}
+};
 
 const defaultSeatState: SeatState = {
   selectedSeats: [],
@@ -39,7 +48,7 @@ const defaultSeatState: SeatState = {
 @Injectable({
   providedIn: 'root',
 })
-export class RoomsService {
+export class ScreeningService {
   private http = inject(HttpClient);
 
   private seatOccupancyState$$ = new BehaviorSubject<SeatState>(
@@ -130,19 +139,30 @@ export class RoomsService {
     });
   }
 
-  getTicketTypes(){
-    return this.http.get<Ticket[]>( `http://localhost:3000/ticket-types`)
+  getTicketTypes() {
+    return this.http.get<Ticket[]>(`http://localhost:3000/ticket-types`);
+  }
+
+  getScreeningDetailsN(screeningId: string) {
+    return this.http.get<Screening>(
+      `http://localhost:3000/screeningsN?_expand=rooms&_expand=movies&id=${screeningId}`
+    );
+  }
+
+  getScreeningDetails(screeningId: string) {
+    return this.http.get<any>(
+      `http://localhost:3000/screenings?_expand=movies&_expand=screeningRooms&id=${screeningId}`
+    );
   }
 
   getScreeningRoomDetails(screeningRoomId: string) {
-    console.log(screeningRoomId)
     return this.http
       .get<any>(
         `http://localhost:3000/screeningRooms?_expand=rooms&id=${screeningRoomId}`
       )
       .pipe(
         map((screeningRoomDetailsArray) => {
-          console.log(screeningRoomDetailsArray)
+          console.log(screeningRoomDetailsArray);
           return this.convertScreeningRoomJSONStructure(
             screeningRoomDetailsArray
           );

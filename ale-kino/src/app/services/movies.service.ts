@@ -6,7 +6,7 @@ import {
 } from 'src/app/features/home/movie/movie.interface';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map } from 'rxjs';
-import { MovieInfoService } from './selected-date.state.service';
+import { SelectedDateService } from './selected-date.state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,11 +20,11 @@ export class MoviesService {
 
   constructor(
     private http: HttpClient,
-    private movieInfoService: MovieInfoService
+    private selectedDateService: SelectedDateService
   ) {
-    this.movieInfoService.movieSelectionState$.subscribe(
+    this.selectedDateService.selectedDateState$.subscribe(
       (movieSelectionState) => {
-        this.getDailyScreenings(movieSelectionState.movieDate)
+        this.getDailyScreenings(movieSelectionState.date)
           .pipe(
             map((response) => {
               return Array.from(
