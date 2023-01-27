@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { TicketsService } from 'src/app/services/tickets.service';
 import { ScreeningService, Seat, Ticket } from '../../../services/screening.state.service';
 
 @Component({
@@ -7,13 +8,14 @@ import { ScreeningService, Seat, Ticket } from '../../../services/screening.stat
   styleUrls: ['./seat-ticket.component.scss']
 })
 export class SeatTicketComponent implements OnInit {
+  private ticketsService = inject(TicketsService);
   constructor(private screeningService: ScreeningService) { }
 
   ngOnInit(): void {
     this.screeningService.seatOccupancyState$.subscribe(seatOccupancyState => {
       this.seatSelectionState = seatOccupancyState.selectedSeats;
     })
-    this.screeningService.getTicketTypes().subscribe(ticketTypes => {
+    this.ticketsService.getTicketTypes().subscribe(ticketTypes => {
       this.ticketTypes = ticketTypes;
     })
   }

@@ -1,10 +1,10 @@
 <div class="seats">
-  <ul *ngFor="let rowLetter of rowLetters">
+  <ul *ngFor="let rowLetter of roomSetupData.rowLetters">
     <li class="seatLetter">{{ rowLetter }}</li>
     <li
       [id]="rowLetter + rowNumber"
       class="seatNumber"
-      *ngFor="let rowNumber of rowNumbers"
+      *ngFor="let rowNumber of roomSetupData.rowNumbers"
       (click)="!isReserved(rowLetter, rowNumber) ? toggleSeat(rowLetter, rowNumber) : {}"
       [ngClass]="{
         selected: isSelected(rowLetter, rowNumber),

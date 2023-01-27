@@ -3,7 +3,14 @@ import {
   ScreeningRoom,
   Seat,
 } from '../../../services/screening.state.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { RoomsService } from 'src/app/services/rooms.service';
+import { RoomSetup, ScreeningRoomsService } from 'src/app/services/screening-rooms.service';
+
+export type RoomSize = {
+  rows: number;
+  seats: number;
+};
 
 @Component({
   selector: 'app-screening-room',
@@ -11,47 +18,27 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./screening-room.component.scss'],
 })
 export class ScreeningRoomComponent implements OnInit {
-  constructor(private screeningService: ScreeningService) {}
+  private roomService = inject(RoomsService);
+  private screeningRoomService = inject(ScreeningRoomsService);
+  private screeningService = inject(ScreeningService);
 
-  @Input() screeningRoomId: string = '';
+  @Input() roomId: number = 0;
   @Input() maxNumberOfReservedSeats: number = 10;
-
-  rowLetters: string[] = [];
-  rowNumbers: number[] = [];
   seatSelectionState: Seat[] = [];
+  roomSetupData: any;
 
   ngOnInit(): void {
-    this.screeningService
-      .getScreeningRoomDetails(this.screeningRoomId)
-      .subscribe((screeningRoomDetails: ScreeningRoom) => {
-        this.initiateRoomSizeData(
-          screeningRoomDetails.room.rows,
-          screeningRoomDetails.room.seats
-        );
-        this.initiateReservedSeats(screeningRoomDetails.reservedSeats);
-      });
-
     this.screeningService.seatOccupancyState$.subscribe(
       (seatOccupancyState) => {
         this.seatSelectionState = seatOccupancyState.selectedSeats;
       }
     );
-  }
 
-  private generateRowLetters(rowsNumber: number) {
-    //generate an array of letters
-    const alpha = Array.from(Array(rowsNumber)).map((e, i) => i + 65);
-    const alphabet = alpha.map((x) => String.fromCharCode(x));
-    return alphabet;
-  }
-
-  private generateSeatNumbers(seats: number) {
-    return Array.from({ length: seats }, (_, i) => i + 1);
-  }
-
-  private initiateRoomSizeData(rows: number, seats: number) {
-    this.rowLetters = this.generateRowLetters(rows);
-    this.rowNumbers = this.generateSeatNumbers(seats);
+    this.screeningRoomService.initiateRoomSetupData(this.roomId);
+    this.screeningRoomService.roomSetupData$.subscribe(roomSetupData => {
+      console.log('rsd:',roomSetupData)
+      this.roomSetupData = roomSetupData;
+    })
   }
 
   toggleSeat(row: string, seatNumber: number) {
@@ -62,7 +49,7 @@ export class ScreeningRoomComponent implements OnInit {
     return this.screeningService.isSeatSelected({ row, seatNumber });
   }
 
-  initiateReservedSeats(seats: Seat[]){
+  initiateReservedSeats(seats: Seat[]) {
     // console.log(seats)
     this.screeningService.reserveSeats(seats);
   }
@@ -70,5 +57,4 @@ export class ScreeningRoomComponent implements OnInit {
   isReserved(row: string, seatNumber: number) {
     return this.screeningService.isSeatReserved({ row, seatNumber });
   }
-
 }

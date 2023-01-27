@@ -6,8 +6,11 @@
   </div>
   <p class="screen">Ekran</p>
 
-  <app-screening-room  *ngIf="isLoaded" [screeningRoomId]="this.screeningDetails.screeningRoomsId"></app-screening-room>
-  <app-seat-ticket ></app-seat-ticket>
+  <app-screening-room
+    *ngIf="isLoaded"
+    [roomId]="screeningDetails.roomsId"
+  ></app-screening-room>
+  <app-seat-ticket></app-seat-ticket>
 
   <a [routerLink]="'/checkout'" class="checkoutLink">Przejdź do zamówienia</a>
 </div>

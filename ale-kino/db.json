@@ -18,43 +18,6 @@
       "type": "admin"
     }
   ],
-  "screenings": [
-    {
-      "id": 1,
-      "date": "25-01-2023",
-      "time": "12:30",
-      "screeningRoomsId": 1,
-      "moviesId": 1
-    },
-    {
-      "id": 2,
-      "date": "26-01-2023",
-      "time": "14:30",
-      "screeningRoomsId": 2,
-      "moviesId": 1
-    },
-    {
-      "id": 3,
-      "date": "25-01-2023",
-      "time": "14:30",
-      "screeningRoomsId": 3,
-      "moviesId": 2
-    },
-    {
-      "id": 4,
-      "date": "26-01-2023",
-      "time": "16:30",
-      "screeningRoomsId": 2,
-      "moviesId": 1
-    },
-    {
-      "id": 5,
-      "date": "25-01-2023",
-      "time": "18:30",
-      "screeningRoomsId": 2,
-      "moviesId": 1
-    }
-  ],
   "movies": [
     {
       "id": 1,
@@ -91,80 +54,6 @@
       "seats": 12
     }
   ],
-  "screeningRooms": [
-    {
-      "id": 1,
-      "roomsId": 1,
-      "tickets": [
-        {
-          "id": 1,
-          "seat": {
-            "row": "A",
-            "seatNumber": 1
-          },
-          "ticket-typesId": 1,
-          "usersId": 1
-        },
-        {
-          "id": 2,
-          "seat": {
-            "row": "B",
-            "seatNumber": 5
-          },
-          "ticket-typesId": 1,
-          "usersId": 1
-        }
-      ],
-      "reservedSeats": [
-        {
-          "id": 1,
-          "row": "A",
-          "seatNumber": 1
-        },
-        {
-          "id": 2,
-          "row": "B",
-          "seatNumber": 5
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "roomsId": 2,
-      "tickets": [
-        {
-          "id": 1,
-          "seat": {
-            "row": "A",
-            "seatNumber": 1
-          },
-          "ticket-typesId": 1,
-          "usersId": 1
-        },
-        {
-          "id": 2,
-          "seat": {
-            "row": "B",
-            "seatNumber": 5
-          },
-          "ticket-typesId": 1,
-          "usersId": 1
-        }
-      ],
-      "reservedSeats": [
-        {
-          "id": 1,
-          "row": "A",
-          "seatNumber": 5
-        },
-        {
-          "id": 1,
-          "row": "A",
-          "seatNumber": 6
-        }
-      ]
-    }
-  ],
   "ticket-types": [
     {
       "id": 1,
@@ -187,41 +76,89 @@
       "price": 30
     }
   ],
-  "screeningsN": [
+  "screenings": [
     {
       "id": 1,
-      "date": "25-01-2023",
+      "date": "27-01-2023",
       "time": "12:30",
       "roomsId": 1,
       "moviesId": 1
     },
     {
       "id": 2,
-      "date": "26-01-2023",
+      "date": "28-01-2023",
       "time": "14:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
       "id": 3,
-      "date": "25-01-2023",
+      "date": "27-01-2023",
       "time": "14:30",
       "roomsId": 3,
       "moviesId": 2
     },
     {
       "id": 4,
-      "date": "26-01-2023",
+      "date": "28-01-2023",
       "time": "16:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
       "id": 5,
-      "date": "25-01-2023",
+      "date": "27-01-2023",
       "time": "18:30",
       "roomsId": 2,
       "moviesId": 1
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "usersId": 1,
+      "screeningsId": 5,
+      "tickets": [
+        {
+          "id": 1,
+          "seat": {
+            "row": "A",
+            "seat": 5
+          },
+          "ticket-typesId": 1
+        },
+        {
+          "id": 2,
+          "seat": {
+            "row": "A",
+            "seat": 6
+          },
+          "ticket-typesId": 2
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "usersId": 2,
+      "screeningsId": 5,
+      "tickets": [
+        {
+          "id": 1,
+          "seat": {
+            "row": "B",
+            "seat": 5
+          },
+          "ticket-typesId": 3
+        },
+        {
+          "id": 2,
+          "seat": {
+            "row": "B",
+            "seat": 6
+          },
+          "ticket-typesId": 4
+        }
+      ]
     }
   ]
 }

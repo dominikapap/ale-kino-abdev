@@ -1,13 +1,7 @@
 import { ScreeningService } from '../../../services/screening.state.service';
-// import { ScreeningService } from '../../../services/screening.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, switchMap } from 'rxjs';
-
-interface Ticket {
-  type: string;
-  price: number;
-}
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-reservation',
@@ -16,16 +10,7 @@ interface Ticket {
 })
 export class ReservationComponent implements OnInit {
   private screeningService = inject(ScreeningService);
-
-  constructor(
-    // private screeningService: ScreeningService,
-    private route: ActivatedRoute
-  ) {}
-
-  rowLetters: string[] = [];
-  rowNumbers: number[] = [];
-  rows: number = 0;
-  seats: number = 0;
+  private route = inject(ActivatedRoute);
 
   screeningDetails: any;
   icon: any = 'trash-can';
@@ -40,15 +25,12 @@ export class ReservationComponent implements OnInit {
       .pipe(
         switchMap((params) => {
           const id: string = <string>params.get('id');
-          this.screeningService.getScreeningDetailsN(id).subscribe(screeningDetails => {
-            console.log('sd:',screeningDetails)
-          })
           return this.screeningService.getScreeningDetails(id);
         })
       )
       .subscribe(([screening]) => {
         this.screeningDetails = screening;
-        console.log(this.screeningDetails);
+        console.log('details', this.screeningDetails);
         this.isLoaded = true;
       });
   }

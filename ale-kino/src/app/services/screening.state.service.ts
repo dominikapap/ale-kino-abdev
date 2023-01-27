@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { Movie } from '../features/home/movie/movie.interface';
 
-type Screening = {
+export type Screening = {
   id: number;
   date: string;
   time: string;
@@ -139,53 +139,10 @@ export class ScreeningService {
     });
   }
 
-  getTicketTypes() {
-    return this.http.get<Ticket[]>(`http://localhost:3000/ticket-types`);
-  }
-
-  getScreeningDetailsN(screeningId: string) {
-    return this.http.get<Screening>(
-      `http://localhost:3000/screeningsN?_expand=rooms&_expand=movies&id=${screeningId}`
-    );
-  }
-
   getScreeningDetails(screeningId: string) {
     return this.http.get<any>(
-      `http://localhost:3000/screenings?_expand=movies&_expand=screeningRooms&id=${screeningId}`
+      `http://localhost:3000/screenings?_expand=rooms&_expand=movies&id=${screeningId}`
     );
   }
 
-  getScreeningRoomDetails(screeningRoomId: string) {
-    return this.http
-      .get<any>(
-        `http://localhost:3000/screeningRooms?_expand=rooms&id=${screeningRoomId}`
-      )
-      .pipe(
-        map((screeningRoomDetailsArray) => {
-          console.log(screeningRoomDetailsArray);
-          return this.convertScreeningRoomJSONStructure(
-            screeningRoomDetailsArray
-          );
-        })
-      );
-  }
-
-  getRoomDetails(roomId: string) {
-    return this.http.get<any>(`http://localhost:3000/rooms/${roomId}`);
-  }
-
-  private convertScreeningRoomJSONStructure(
-    screeningRoomDetailsArray: {
-      id: number;
-      reservedSeats: Seat[];
-      rooms: Room;
-    }[]
-  ) {
-    const scDetails: ScreeningRoom = {
-      id: screeningRoomDetailsArray[0].id,
-      reservedSeats: screeningRoomDetailsArray[0].reservedSeats,
-      room: screeningRoomDetailsArray[0].rooms,
-    };
-    return scDetails;
-  }
 }
