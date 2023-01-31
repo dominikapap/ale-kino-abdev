@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, forkJoin, map, Observable, switchMap } from 'rxjs';
+import { UserStateService } from '../core/user.state.service';
 import { Movie } from '../features/home/movie/movie.interface';
+import { OrdersService } from './orders.service';
+import { Ticket, TicketsService } from './tickets.service';
 
 export type Screening = {
   id: number;
@@ -34,15 +37,19 @@ export type SeatState = {
   reservedSeats: Seat[];
 };
 
-export type Ticket = {
-  id: number;
-  type: string;
-  price: number;
-};
-
 const defaultSeatState: SeatState = {
   selectedSeats: [],
   reservedSeats: [],
+};
+
+export type TicketState = {
+  selectedTickets: Ticket[];
+  reservedTickets: Ticket[];
+};
+
+const defaultTicketState: TicketState = {
+  selectedTickets: [],
+  reservedTickets: [],
 };
 
 @Injectable({
@@ -50,6 +57,85 @@ const defaultSeatState: SeatState = {
 })
 export class ScreeningService {
   private http = inject(HttpClient);
+  private ordersService = inject(OrdersService);
+  private ticketsService = inject(TicketsService);
+  private userService = inject(UserStateService);
+
+  private screeningTicketsState$$ = new BehaviorSubject<TicketState>(
+    defaultTicketState
+  );
+
+  get screeningTicketsState$() {
+    return this.screeningTicketsState$$.asObservable();
+  }
+
+  get screeningTicketsStateValue() {
+    return this.screeningTicketsState$$.value;
+  }
+
+  private patchTicketsState(stateSlice: Partial<TicketState>) {
+    this.screeningTicketsState$$.next({
+      ...this.screeningTicketsStateValue,
+      ...stateSlice,
+    });
+  }
+
+  initiateScreeningTicketsState(screeningRoomId: number){
+    //get screening tickets from checked out orders
+    this.ordersService
+    .getAllCheckedOutScreeningOrders(screeningRoomId)
+    .pipe(
+      switchMap((checkedOutOrders) => {
+        let requests: Observable<Ticket[]>[] = [];
+        checkedOutOrders.forEach((order) => {
+          requests.push(this.ticketsService.getAllOrderTickets(order.id));
+        });
+        return forkJoin<Ticket[][]>(requests);
+      }),
+      map((orders) => {
+        let tickets: Ticket[] = [];
+        orders.forEach((order) => {
+          tickets = [...tickets, ...order];
+        });
+        return tickets;
+      })
+    )
+    .subscribe((tickets) => {
+      console.log('Tickets:', tickets);
+      this.patchTicketsState({reservedTickets: tickets})
+    });
+    //get user screening tickets from not checked out order
+    this.userService.user$.pipe(switchMap(user => {
+      return this.ordersService.getNotCheckedOutUserScreeningOrder(screeningRoomId, user.id)
+    }),
+    switchMap(([order]) => {
+      return this.ticketsService.getAllOrderTickets(order.id)
+    })).subscribe(tickets => {
+      console.log('Not checked out user order:',tickets)
+      this.patchTicketsState({selectedTickets: tickets})
+    })
+
+  }
+
+  isSeatReserved(seat: Seat) {
+    return this.screeningTicketsStateValue.reservedTickets.some((reservedTicket) => {
+      return (
+        seat.row === reservedTicket.seat.row &&
+        seat.seatNumber === reservedTicket.seat.seatNumber
+      );
+    });
+  }
+
+  isSeatSelectedN(seat: Seat) {
+    return this.screeningTicketsStateValue.selectedTickets.some((selectedTickets) => {
+      return (
+        seat.row === selectedTickets.seat.row &&
+        seat.seatNumber === selectedTickets.seat.seatNumber
+      );
+    });
+  }
+
+  // Old version below
 
   private seatOccupancyState$$ = new BehaviorSubject<SeatState>(
     defaultSeatState
@@ -130,19 +216,11 @@ export class ScreeningService {
     });
   }
 
-  isSeatReserved(seat: Seat) {
-    return this.seatOccupancyStateValue.reservedSeats.some((reservedSeat) => {
-      return (
-        seat.row === reservedSeat.row &&
-        seat.seatNumber === reservedSeat.seatNumber
-      );
-    });
-  }
+
 
   getScreeningDetails(screeningId: string) {
     return this.http.get<any>(
       `http://localhost:3000/screenings?_expand=rooms&_expand=movies&id=${screeningId}`
     );
   }
-
 }

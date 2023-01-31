@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TicketsService } from 'src/app/services/tickets.service';
-import { ScreeningService, Seat, Ticket } from '../../../services/screening.state.service';
+import { TicketsService, TicketType } from 'src/app/services/tickets.service';
+import { ScreeningService, Seat } from '../../../services/screening.state.service';
 
 @Component({
   selector: 'app-seat-ticket',
@@ -22,12 +22,12 @@ export class SeatTicketComponent implements OnInit {
 
   seatSelectionState: Seat[] = [];
   icon: any = 'trash-can';
-  ticketTypes: Ticket[] = [];
-  selectedTicket!: Ticket;
+  ticketTypes: TicketType[] = [];
+  selectedTicket!: TicketType;
 
   onSelected(ticketId: string){
-    console.log(<Ticket>this.ticketTypes.find(ticket => ticket.id === (parseInt(ticketId, 10))))
-    this.selectedTicket = <Ticket>this.ticketTypes.find(ticket => ticket.id === (parseInt(ticketId, 10)));
+    // console.log(<TicketType>this.ticketTypes.find(ticket => ticket.id === (parseInt(ticketId, 10))))
+    this.selectedTicket = <TicketType>this.ticketTypes.find(ticket => ticket.id === (parseInt(ticketId, 10)));
   }
 
 

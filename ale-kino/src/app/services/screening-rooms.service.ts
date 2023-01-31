@@ -50,7 +50,6 @@ export class ScreeningRoomsService {
   }
 
   initiateRoomSetupData(screeningRoomId: number) {
-    console.log(screeningRoomId)
     this.roomService
       .getRoomDetails(screeningRoomId)
       .subscribe((roomDetails) => {
