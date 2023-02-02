@@ -55,7 +55,8 @@ export class ScreeningRoomComponent implements OnInit {
   }
 
   toggleSeat(row: string, seatNumber: number) {
-    this.screeningService.toggleSelectedSeat({ row, seatNumber });
+    this.screeningService.toggleSelectedSeatN({ row, seatNumber });
+    // this.screeningService.toggleSelectedSeat({ row, seatNumber });
   }
 
   isSelected(row: string, seatNumber: number) {

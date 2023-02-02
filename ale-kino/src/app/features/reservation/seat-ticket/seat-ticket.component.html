@@ -2,11 +2,11 @@
   <div class="seat__placement">
     {{
       "Rząd &nbsp;" +
-        selectedSeat.row +
+        selectedSeat.seat.row +
         "&nbsp; Miejsce &nbsp;" +
-        (selectedSeat.seatNumber < 10
-          ? "0" + selectedSeat.seatNumber
-          : selectedSeat.seatNumber)
+        (selectedSeat.seat.seatNumber < 10
+          ? "0" + selectedSeat.seat.seatNumber
+          : selectedSeat.seat.seatNumber)
     }}
   </div>
   <select class="seat__ticketType" (change)="onSelected(tickets.value)" #tickets>
@@ -16,7 +16,7 @@
   </select>
   <div
     class="seat__removeIcon"
-    (click)="removeTicket(selectedSeat.row, selectedSeat.seatNumber)"
+    (click)="removeTicket(selectedSeat.seat.row, selectedSeat.seat.seatNumber)"
   >
     <fa-icon [icon]="icon"></fa-icon>
   </div>

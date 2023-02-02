@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TicketsService, TicketType } from 'src/app/services/tickets.service';
+import { Ticket, TicketsService, TicketType } from 'src/app/services/tickets.service';
 import { ScreeningService, Seat } from '../../../services/screening.state.service';
 
 @Component({
@@ -12,15 +12,18 @@ export class SeatTicketComponent implements OnInit {
   constructor(private screeningService: ScreeningService) { }
 
   ngOnInit(): void {
-    this.screeningService.seatOccupancyState$.subscribe(seatOccupancyState => {
-      this.seatSelectionState = seatOccupancyState.selectedSeats;
+    // this.screeningService.seatOccupancyState$.subscribe(seatOccupancyState => {
+    //   this.seatSelectionState = seatOccupancyState.selectedSeats;
+    // })
+    this.screeningService.screeningTicketsState$.subscribe(screeningTicketsState => {
+      this.seatSelectionState = screeningTicketsState.selectedTickets;
     })
     this.ticketsService.getTicketTypes().subscribe(ticketTypes => {
       this.ticketTypes = ticketTypes;
     })
   }
 
-  seatSelectionState: Seat[] = [];
+  seatSelectionState: Ticket[] = [];
   icon: any = 'trash-can';
   ticketTypes: TicketType[] = [];
   selectedTicket!: TicketType;

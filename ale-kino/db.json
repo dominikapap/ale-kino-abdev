@@ -22,7 +22,9 @@
     {
       "id": 1,
       "title": "Apokawixa",
-      "tags": ["Horror"],
+      "tags": [
+        "Horror"
+      ],
       "length": "120",
       "rated": "PG-13",
       "description": "Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.",
@@ -33,7 +35,9 @@
     {
       "id": 2,
       "title": "Apokawixa 2",
-      "tags": ["Horror"],
+      "tags": [
+        "Horror"
+      ],
       "length": "120",
       "rated": "PG-13",
       "description": "Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.",
@@ -54,7 +58,7 @@
       "seats": 12
     }
   ],
-  "ticket-types": [
+  "ticketTypes": [
     {
       "id": 1,
       "type": "normalny",
@@ -79,35 +83,28 @@
   "screenings": [
     {
       "id": 1,
-      "date": "31-01-2023",
+      "date": "02-02-2023",
       "time": "12:30",
       "roomsId": 1,
       "moviesId": 1
     },
     {
       "id": 2,
-      "date": "31-01-2023",
+      "date": "02-02-2023",
       "time": "14:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
-      "id": 3,
-      "date": "31-01-2023",
-      "time": "14:30",
-      "roomsId": 3,
-      "moviesId": 2
-    },
-    {
       "id": 4,
-      "date": "01-02-2023",
+      "date": "03-02-2023",
       "time": "16:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
       "id": 5,
-      "date": "31-01-2023",
+      "date": "02-01-2023",
       "time": "18:30",
       "roomsId": 2,
       "moviesId": 1
@@ -125,12 +122,6 @@
       "usersId": 1,
       "screeningsId": 1,
       "isCheckedOut": false
-    },
-    {
-      "id": 3,
-      "usersId": 2,
-      "screeningsId": 1,
-      "isCheckedOut": true
     }
   ],
   "tickets": [
@@ -141,7 +132,7 @@
         "row": "B",
         "seatNumber": 5
       },
-      "ticket-typesId": 3
+      "ticketTypesId": 3
     },
     {
       "id": 2,
@@ -150,43 +141,61 @@
         "row": "B",
         "seatNumber": 6
       },
-      "ticket-typesId": 4
+      "ticketTypesId": 4
     },
     {
-      "id": 3,
       "ordersId": 2,
       "seat": {
-        "row": "D",
+        "row": "F",
         "seatNumber": 5
       },
-      "ticket-typesId": 3
+      "ticketTypesId": 1,
+      "id": 7
     },
     {
-      "id": 4,
       "ordersId": 2,
       "seat": {
-        "row": "D",
-        "seatNumber": 6
+        "row": "F",
+        "seatNumber": 2
       },
-      "ticket-typesId": 4
+      "ticketTypesId": 1,
+      "id": 18
     },
     {
-      "id": 5,
-      "ordersId": 3,
+      "ordersId": 2,
       "seat": {
-        "row": "C",
-        "seatNumber": 7
+        "row": "G",
+        "seatNumber": 13
       },
-      "ticket-typesId": 1
+      "ticketTypesId": 1,
+      "id": 19
     },
     {
-      "id": 6,
-      "ordersId": 3,
+      "ordersId": 2,
       "seat": {
-        "row": "C",
+        "row": "F",
         "seatNumber": 8
       },
-      "ticket-typesId": 4
+      "ticketTypesId": 1,
+      "id": 20
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "F",
+        "seatNumber": 12
+      },
+      "ticketTypesId": 1,
+      "id": 21
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "H",
+        "seatNumber": 10
+      },
+      "ticketTypesId": 1,
+      "id": 22
     }
   ]
 }

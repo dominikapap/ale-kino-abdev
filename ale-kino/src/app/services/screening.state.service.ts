@@ -43,11 +43,13 @@ const defaultSeatState: SeatState = {
 };
 
 export type TicketState = {
+  notCheckedOutOrderId?: number;
   selectedTickets: Ticket[];
   reservedTickets: Ticket[];
 };
 
 const defaultTicketState: TicketState = {
+  notCheckedOutOrderId: -1,
   selectedTickets: [],
   reservedTickets: [],
 };
@@ -80,59 +82,112 @@ export class ScreeningService {
     });
   }
 
-  initiateScreeningTicketsState(screeningRoomId: number){
+  initiateScreeningTicketsState(screeningRoomId: number) {
     //get screening tickets from checked out orders
     this.ordersService
-    .getAllCheckedOutScreeningOrders(screeningRoomId)
-    .pipe(
-      switchMap((checkedOutOrders) => {
-        let requests: Observable<Ticket[]>[] = [];
-        checkedOutOrders.forEach((order) => {
-          requests.push(this.ticketsService.getAllOrderTickets(order.id));
-        });
-        return forkJoin<Ticket[][]>(requests);
-      }),
-      map((orders) => {
-        let tickets: Ticket[] = [];
-        orders.forEach((order) => {
-          tickets = [...tickets, ...order];
-        });
-        return tickets;
-      })
-    )
-    .subscribe((tickets) => {
-      console.log('Tickets:', tickets);
-      this.patchTicketsState({reservedTickets: tickets})
-    });
+      .getAllCheckedOutScreeningOrders(screeningRoomId)
+      .pipe(
+        switchMap((checkedOutOrders) => {
+          let requests: Observable<Ticket[]>[] = [];
+          checkedOutOrders.forEach((order) => {
+            requests.push(this.ticketsService.getAllOrderTickets(order.id));
+          });
+          return forkJoin<Ticket[][]>(requests);
+        }),
+        map((orders) => {
+          let tickets: Ticket[] = [];
+          orders.forEach((order) => {
+            tickets = [...tickets, ...order];
+          });
+          return tickets;
+        })
+      )
+      .subscribe((tickets) => {
+        console.log('Tickets:', tickets);
+        this.patchTicketsState({ reservedTickets: tickets });
+      });
     //get user screening tickets from not checked out order
-    this.userService.user$.pipe(switchMap(user => {
-      return this.ordersService.getNotCheckedOutUserScreeningOrder(screeningRoomId, user.id)
-    }),
-    switchMap(([order]) => {
-      return this.ticketsService.getAllOrderTickets(order.id)
-    })).subscribe(tickets => {
-      console.log('Not checked out user order:',tickets)
-      this.patchTicketsState({selectedTickets: tickets})
-    })
-
+    this.userService.user$
+      .pipe(
+        switchMap((user) => {
+          return this.ordersService.getNotCheckedOutUserScreeningOrder(
+            screeningRoomId,
+            user.id
+          );
+        }),
+        switchMap(([order]) => {
+          this.patchTicketsState({ notCheckedOutOrderId: order.id });
+          return this.ticketsService.getAllOrderTickets(order.id);
+        })
+      )
+      .subscribe((tickets) => {
+        console.log('Not checked out user order:', tickets);
+        this.patchTicketsState({ selectedTickets: tickets });
+      });
   }
 
   isSeatReserved(seat: Seat) {
-    return this.screeningTicketsStateValue.reservedTickets.some((reservedTicket) => {
-      return (
-        seat.row === reservedTicket.seat.row &&
-        seat.seatNumber === reservedTicket.seat.seatNumber
-      );
-    });
+    return this.screeningTicketsStateValue.reservedTickets.some(
+      (reservedTicket) => {
+        return (
+          seat.row === reservedTicket.seat.row &&
+          seat.seatNumber === reservedTicket.seat.seatNumber
+        );
+      }
+    );
   }
 
   isSeatSelectedN(seat: Seat) {
-    return this.screeningTicketsStateValue.selectedTickets.some((selectedTickets) => {
-      return (
-        seat.row === selectedTickets.seat.row &&
-        seat.seatNumber === selectedTickets.seat.seatNumber
-      );
+    return this.screeningTicketsStateValue.selectedTickets.find(
+      (selectedTickets) => {
+        return (
+          seat.row === selectedTickets.seat.row &&
+          seat.seatNumber === selectedTickets.seat.seatNumber
+        );
+      }
+    );
+  }
+
+  toggleSelectedSeatN(seat: Seat) {
+    const selectedTicket = this.isSeatSelectedN(seat);
+    if (
+      selectedTicket === undefined &&
+      this.screeningTicketsStateValue.selectedTickets.length <
+        this.MAX_NUMBER_OF_RESERVED_SEATS &&
+      this.screeningTicketsStateValue.notCheckedOutOrderId
+    ) {
+      this.ticketsService
+        .addTicketToOrder(
+          this.screeningTicketsStateValue.notCheckedOutOrderId,
+          seat
+        )
+        .subscribe((selectedTicket) => {
+          this.addSelectedTicketToLocalState(selectedTicket);
+        });
+    } else if (selectedTicket !== undefined) {
+      this.ticketsService
+        .removeTicketFromOrder((<Ticket>selectedTicket)?.id)
+        .subscribe(() => {
+          this.removeSelectedTicketFromLocalState(selectedTicket);
+        });
+    }
+  }
+
+  private addSelectedTicketToLocalState(selectedTicket: Ticket) {
+    this.patchTicketsState({
+      selectedTickets: [
+        ...this.screeningTicketsStateValue.selectedTickets,
+        selectedTicket,
+      ],
     });
+  }
+
+  private removeSelectedTicketFromLocalState(selectedTicket: Ticket) {
+    const newSelectedTicketsState =
+      this.screeningTicketsStateValue.selectedTickets.filter((ticket) => {
+        return selectedTicket?.id !== ticket.id;
+      });
+    this.patchTicketsState({ selectedTickets: newSelectedTicketsState });
   }
 
   // Old version below
@@ -215,8 +270,6 @@ export class ScreeningService {
       this.reserveSeat(seat);
     });
   }
-
-
 
   getScreeningDetails(screeningId: string) {
     return this.http.get<any>(
