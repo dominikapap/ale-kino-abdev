@@ -43,13 +43,13 @@ export class MoviesService {
 
   getScreeningDetails(screeningId: string) {
     return this.http.get(
-      `http://localhost:3000/screenings?_expand=movies&id=${screeningId}`
+      `/screenings?_expand=movies&id=${screeningId}`
     );
   }
 
   getDailyScreenings(date: string) {
     return this.http.get(
-      `http://localhost:3000/screenings?_expand=movies&date=${date}`
+      `/screenings?_expand=movies&date=${date}`
     );
   }
 

@@ -17,19 +17,19 @@ export class OrdersService {
 
   getAllScreeningOrders(screeningId: number) {
     return this.http.get(
-      `http://localhost:3000/orders?screeningsId=${screeningId}`
+      `/orders?screeningsId=${screeningId}`
     );
   }
 
   getAllCheckedOutScreeningOrders(screeningId: number) {
     return this.http.get<Order[]>(
-      `http://localhost:3000/orders?screeningsId=${screeningId}&isCheckedOut=true`
+      `/orders?screeningsId=${screeningId}&isCheckedOut=true`
     );
   }
 
   getNotCheckedOutUserScreeningOrder(screeningId: number, userId: number) {
     return this.http.get<Order[]>(
-      `http://localhost:3000/orders?screeningsId=${screeningId}&userId=${userId}&isCheckedOut=false`
+      `/orders?screeningsId=${screeningId}&userId=${userId}&isCheckedOut=false`
     );
   }
 

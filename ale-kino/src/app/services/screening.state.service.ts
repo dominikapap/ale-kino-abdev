@@ -2,17 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, map, Observable, switchMap } from 'rxjs';
 import { UserStateService } from '../core/user.state.service';
-import { Movie } from '../features/home/movie/movie.interface';
 import { OrdersService } from './orders.service';
 import { Ticket, TicketsService } from './tickets.service';
-
-export type Screening = {
-  id: number;
-  date: string;
-  time: string;
-  roomInfo: Room;
-  movieInfo: Movie;
-};
 
 export interface Seat {
   row: string;
@@ -26,21 +17,6 @@ export interface Room {
   rows: number;
   seats: number;
 }
-export interface ScreeningRoom {
-  id: number;
-  reservedSeats: Seat[];
-  room: Room;
-}
-
-export type SeatState = {
-  selectedSeats: Seat[];
-  reservedSeats: Seat[];
-};
-
-const defaultSeatState: SeatState = {
-  selectedSeats: [],
-  reservedSeats: [],
-};
 
 export type TicketState = {
   notCheckedOutOrderId?: number;
@@ -54,15 +30,14 @@ const defaultTicketState: TicketState = {
   reservedTickets: [],
 };
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ScreeningService {
   private http = inject(HttpClient);
   private ordersService = inject(OrdersService);
   private ticketsService = inject(TicketsService);
   private userService = inject(UserStateService);
 
+  private MAX_NUMBER_OF_RESERVED_SEATS: number = 10;
   private screeningTicketsState$$ = new BehaviorSubject<TicketState>(
     defaultTicketState
   );
@@ -82,7 +57,12 @@ export class ScreeningService {
     });
   }
 
+  private resetScreeningTicketState() {
+    this.patchTicketsState(defaultTicketState);
+  }
+
   initiateScreeningTicketsState(screeningRoomId: number) {
+    this.resetScreeningTicketState();
     //get screening tickets from checked out orders
     this.ordersService
       .getAllCheckedOutScreeningOrders(screeningRoomId)
@@ -103,7 +83,6 @@ export class ScreeningService {
         })
       )
       .subscribe((tickets) => {
-        console.log('Tickets:', tickets);
         this.patchTicketsState({ reservedTickets: tickets });
       });
     //get user screening tickets from not checked out order
@@ -116,12 +95,11 @@ export class ScreeningService {
           );
         }),
         switchMap(([order]) => {
-          this.patchTicketsState({ notCheckedOutOrderId: order.id });
-          return this.ticketsService.getAllOrderTickets(order.id);
+          this.patchTicketsState({ notCheckedOutOrderId: order?.id });
+          return this.ticketsService.getAllOrderTickets(order?.id);
         })
       )
       .subscribe((tickets) => {
-        console.log('Not checked out user order:', tickets);
         this.patchTicketsState({ selectedTickets: tickets });
       });
   }
@@ -137,7 +115,7 @@ export class ScreeningService {
     );
   }
 
-  isSeatSelectedN(seat: Seat) {
+  isSeatSelected(seat: Seat) {
     return this.screeningTicketsStateValue.selectedTickets.find(
       (selectedTickets) => {
         return (
@@ -148,8 +126,8 @@ export class ScreeningService {
     );
   }
 
-  toggleSelectedSeatN(seat: Seat) {
-    const selectedTicket = this.isSeatSelectedN(seat);
+  toggleSelectedSeat(seat: Seat) {
+    const selectedTicket = this.isSeatSelected(seat);
     if (
       selectedTicket === undefined &&
       this.screeningTicketsStateValue.selectedTickets.length <
@@ -182,7 +160,7 @@ export class ScreeningService {
     });
   }
 
-  private removeSelectedTicketFromLocalState(selectedTicket: Ticket) {
+  removeSelectedTicketFromLocalState(selectedTicket: Ticket) {
     const newSelectedTicketsState =
       this.screeningTicketsStateValue.selectedTickets.filter((ticket) => {
         return selectedTicket?.id !== ticket.id;
@@ -190,90 +168,9 @@ export class ScreeningService {
     this.patchTicketsState({ selectedTickets: newSelectedTicketsState });
   }
 
-  // Old version below
-
-  private seatOccupancyState$$ = new BehaviorSubject<SeatState>(
-    defaultSeatState
-  );
-  private MAX_NUMBER_OF_RESERVED_SEATS: number = 10;
-
-  get seatOccupancyState$() {
-    return this.seatOccupancyState$$.asObservable();
-  }
-
-  get seatOccupancyStateValue() {
-    return this.seatOccupancyState$$.value;
-  }
-
-  private patchState(stateSlice: Partial<SeatState>) {
-    this.seatOccupancyState$$.next({
-      ...this.seatOccupancyStateValue,
-      ...stateSlice,
-    });
-  }
-
-  /* Seat selection state functions */
-  selectSeat(seat: Seat) {
-    seat.isSelected = true;
-    const newSelectedSeats = [
-      ...this.seatOccupancyStateValue.selectedSeats,
-      seat,
-    ];
-    this.patchState({ selectedSeats: newSelectedSeats });
-  }
-
-  deselectSeat(seat: { row: string; seatNumber: number }) {
-    const newSelectedSeats = this.seatOccupancyStateValue.selectedSeats.filter(
-      (selectedSeat) => {
-        return !(
-          seat.row === selectedSeat.row &&
-          seat.seatNumber === selectedSeat.seatNumber
-        );
-      }
-    );
-    this.patchState({ selectedSeats: newSelectedSeats });
-  }
-
-  isSeatSelected(seat: Seat) {
-    return this.seatOccupancyStateValue.selectedSeats.some((selectedSeat) => {
-      return (
-        seat.row === selectedSeat.row &&
-        seat.seatNumber === selectedSeat.seatNumber
-      );
-    });
-  }
-
-  toggleSelectedSeat(seat: Seat) {
-    if (
-      !this.isSeatSelected(seat) &&
-      this.seatOccupancyStateValue.selectedSeats.length <
-        this.MAX_NUMBER_OF_RESERVED_SEATS
-    ) {
-      this.selectSeat(seat);
-    } else {
-      this.deselectSeat(seat);
-    }
-  }
-
-  /* Seat reservation state functions */
-  reserveSeat(seat: Seat) {
-    seat.isReserved = true;
-    const newReservedSeats = [
-      ...this.seatOccupancyStateValue.reservedSeats,
-      seat,
-    ];
-    this.patchState({ reservedSeats: newReservedSeats });
-  }
-
-  reserveSeats(seats: Seat[]) {
-    seats.forEach((seat) => {
-      this.reserveSeat(seat);
-    });
-  }
-
   getScreeningDetails(screeningId: string) {
     return this.http.get<any>(
-      `http://localhost:3000/screenings?_expand=rooms&_expand=movies&id=${screeningId}`
+      `/screenings?_expand=rooms&_expand=movies&id=${screeningId}`
     );
   }
 }

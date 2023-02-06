@@ -1,10 +1,13 @@
+@use '../../../colors' as colors;
 .footer {
-  border-top: 1px solid lightgray;
-  height: 60px;
+  border-top: 1px solid colors.$accent-color;
+  height: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: white;
+  background-color: colors.$primary-color;
+  color: white;
+  padding: 0.5em;
 }
 
 .footer__nav {
@@ -22,7 +25,7 @@
   li {
     padding-left: 5px;
     padding-right: 5px;
-    border-right: 1px solid black;
+    border-right: 1px solid white;
   }
 
   li:last-child {
@@ -31,12 +34,12 @@
 
   a {
     text-decoration: none;
-    color: black;
+    color: white;
   }
 }
 
 .footer__navSocialIcon {
-  font-size: 1.5em;
+  font-size: 1.2em;
   padding-right: 1em;
 }
 

@@ -1,6 +1,8 @@
+@use '../../../colors' as colors;
+
 .wrapper {
-  min-height: calc(100% - 125px);
-  background-color: white;
+  min-height: calc(100% - 150px);
+  background-color: colors.$primary-color;
 }
 
 

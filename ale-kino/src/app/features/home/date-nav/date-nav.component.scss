@@ -1,3 +1,5 @@
+@use '../../../../colors' as colors;
+
 .rounded__list {
   display: inline-flex;
   align-items: center;
@@ -7,7 +9,7 @@
 }
 
 .rounded__listItem {
-  padding: 5px 20px;
+  padding: 10px 30px;
   cursor: pointer;
   border-left: 1px solid lightgray;
   background-color: whitesmoke;
@@ -32,7 +34,7 @@ li:last-child {
 }
 
 .rounded__listItem:hover {
-  background-color: lightblue;
+  background-color: colors.$accent-color;
 }
 
 .disabled {

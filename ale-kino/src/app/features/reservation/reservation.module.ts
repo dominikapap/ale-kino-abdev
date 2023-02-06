@@ -1,3 +1,4 @@
+import { ScreeningService } from './../../services/screening.state.service';
 import { ScreeningRoomComponent } from './screening-room/screening-room.component';
 import { SeatTicketComponent } from './seat-ticket/seat-ticket.component';
 import { ReservationComponent } from './reservation/reservation.component';
@@ -9,6 +10,7 @@ import {
 } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
+  providers: [ScreeningService],
   declarations: [
     ReservationComponent,
     SeatTicketComponent,

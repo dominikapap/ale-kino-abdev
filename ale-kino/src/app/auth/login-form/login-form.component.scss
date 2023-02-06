@@ -1,3 +1,5 @@
+@use '../../../colors' as colors;
+
 .container {
   display: flex;
   flex-direction: column;
@@ -5,6 +7,7 @@
   align-items: center;
   padding: 5em 0;
   height: 50vh;
+  color: white;
 }
 
 .login-form {
@@ -17,10 +20,12 @@
 .login-form__input {
   display: flex;
   flex-direction: column;
+  gap: 10px;
+
 }
 
 .login-form__input > input {
-  padding: 5px 0;
+  padding: 1em;
 }
 
 .loginForm__errorMessage {

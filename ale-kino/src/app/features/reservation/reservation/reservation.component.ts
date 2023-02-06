@@ -30,7 +30,6 @@ export class ReservationComponent implements OnInit {
       )
       .subscribe(([screening]) => {
         this.screeningDetails = screening;
-        console.log('details', this.screeningDetails);
         this.isLoaded = true;
       });
   }

@@ -1,3 +1,5 @@
+@use '../../../../colors' as colors;
+
 .rounded__list {
   display: inline-flex;
   align-items: center;
@@ -43,5 +45,5 @@ a {
 }
 
 .rounded__listItem:hover {
-  background-color: lightblue;
+  background-color: colors.$accent-color;
 }

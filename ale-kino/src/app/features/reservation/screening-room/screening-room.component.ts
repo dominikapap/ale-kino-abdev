@@ -36,11 +36,6 @@ export class ScreeningRoomComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.screeningService.seatOccupancyState$.subscribe(
-      (seatOccupancyState) => {
-        this.seatSelectionState = seatOccupancyState.selectedSeats;
-      }
-    );
 
     this.screeningRoomService.initiateRoomSetupData(this.roomId);
     this.screeningRoomService.roomSetupData$.subscribe((roomSetupData) => {
@@ -55,16 +50,11 @@ export class ScreeningRoomComponent implements OnInit {
   }
 
   toggleSeat(row: string, seatNumber: number) {
-    this.screeningService.toggleSelectedSeatN({ row, seatNumber });
-    // this.screeningService.toggleSelectedSeat({ row, seatNumber });
+    this.screeningService.toggleSelectedSeat({ row, seatNumber });
   }
 
   isSelected(row: string, seatNumber: number) {
-    return this.screeningService.isSeatSelectedN({ row, seatNumber });
-  }
-
-  initiateReservedSeats(seats: Seat[]) {
-    this.screeningService.reserveSeats(seats);
+    return this.screeningService.isSeatSelected({ row, seatNumber });
   }
 
   isReserved(row: string, seatNumber: number) {

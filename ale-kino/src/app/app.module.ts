@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +16,9 @@ import { PopupNavComponent } from './shell/popup-nav/popup-nav.component';
 import { ShellComponent } from './shell/shell/shell.component';
 import { ButtonComponent } from './features/ui/button/button.component';
 import { SummaryComponent } from './features/summary/summary/summary.component';
+import { CustomHttpInterceptor } from './core/custom-http.interceptor';
+import { API_URL, IS_PRODUCTION } from './core/env.token';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -25,10 +28,31 @@ import { SummaryComponent } from './features/summary/summary/summary.component';
     FooterComponent,
     PopupNavComponent,
     ShellComponent,
-    SummaryComponent
+    SummaryComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FontAwesomeModule, ButtonComponent],
-  providers: [],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    ButtonComponent,
+  ],
+  providers: [
+    {
+      provide: API_URL,
+      useValue: environment.API_URL
+    },
+    {
+      provide: IS_PRODUCTION,
+      useValue: environment.production,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

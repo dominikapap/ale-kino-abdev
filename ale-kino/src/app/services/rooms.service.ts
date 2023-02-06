@@ -8,6 +8,6 @@ export class RoomsService {
   private http = inject(HttpClient);
 
   getRoomDetails(roomId: number) {
-    return this.http.get<any>(`http://localhost:3000/rooms/${roomId}`);
+    return this.http.get<any>(`/rooms/${roomId}`);
   }
 }

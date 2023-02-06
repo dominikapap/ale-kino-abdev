@@ -22,17 +22,17 @@ export class TicketsService {
   private http = inject(HttpClient);
 
   addTicketToOrder(orderId: number, seat: Seat) {
-    return this.http.post<Ticket>('http://localhost:3000/tickets', { ordersId: orderId, seat: seat, ticketTypesId: 1 })
+    return this.http.post<Ticket>('/tickets', { ordersId: orderId, seat: seat, ticketTypesId: 1 })
   }
 
   removeTicketFromOrder(ticketId: number) {
-    return this.http.delete(`http://localhost:3000/tickets/${ticketId}`);
+    return this.http.delete(`/tickets/${ticketId}`);
   }
 
   getAllOrderTickets(orderId: number) {
-    return this.http.get<Ticket[]>(`http://localhost:3000/tickets?ordersId=${orderId}`);
+    return this.http.get<Ticket[]>(`/tickets?ordersId=${orderId}`);
   }
   getTicketTypes() {
-    return this.http.get<TicketType[]>(`http://localhost:3000/ticketTypes`);
+    return this.http.get<TicketType[]>(`/ticketTypes`);
   }
 }

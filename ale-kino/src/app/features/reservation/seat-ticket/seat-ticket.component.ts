@@ -12,9 +12,6 @@ export class SeatTicketComponent implements OnInit {
   constructor(private screeningService: ScreeningService) { }
 
   ngOnInit(): void {
-    // this.screeningService.seatOccupancyState$.subscribe(seatOccupancyState => {
-    //   this.seatSelectionState = seatOccupancyState.selectedSeats;
-    // })
     this.screeningService.screeningTicketsState$.subscribe(screeningTicketsState => {
       this.seatSelectionState = screeningTicketsState.selectedTickets;
     })
@@ -29,13 +26,18 @@ export class SeatTicketComponent implements OnInit {
   selectedTicket!: TicketType;
 
   onSelected(ticketId: string){
-    // console.log(<TicketType>this.ticketTypes.find(ticket => ticket.id === (parseInt(ticketId, 10))))
     this.selectedTicket = <TicketType>this.ticketTypes.find(ticket => ticket.id === (parseInt(ticketId, 10)));
   }
 
-
   removeTicket(row: string, seatNumber: number) {
-    this.screeningService.deselectSeat({row, seatNumber});
+    const selectedTicket = this.screeningService.isSeatSelected({row, seatNumber});
+    if (selectedTicket !== undefined) {
+      this.ticketsService
+        .removeTicketFromOrder((<Ticket>selectedTicket)?.id)
+        .subscribe(() => {
+          this.screeningService.removeSelectedTicketFromLocalState(selectedTicket);
+        });
+    }
   }
 
 }
