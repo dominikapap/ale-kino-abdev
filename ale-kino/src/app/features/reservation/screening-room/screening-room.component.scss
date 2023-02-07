@@ -13,6 +13,7 @@ ul {
   list-style-type: none;
   display: flex;
   justify-content: center;
+  padding-bottom: 1em;
 }
 
 li {
@@ -23,13 +24,19 @@ li {
   width: 40px;
   height: 40px;
   background-color: white;
+  margin-left: 1px;
+  margin-right: 1px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom: 3px solid black;
 }
 
 .seatLetter {
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(194, 194, 194);
+  border-bottom: none;
 }
 .seatNumber:hover {
-  background-color: whitesmoke;
+  background-color: lightgray;
   cursor: pointer;
 }
 

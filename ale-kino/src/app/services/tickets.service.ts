@@ -4,8 +4,8 @@ import { Seat } from './screening.state.service';
 
 export type Ticket = {
   id: number;
-  orderId: number;
-  ticketTypeId: number;
+  ordersId: number;
+  ticketTypesId: number;
   seat: Seat,
 }
 
@@ -34,5 +34,8 @@ export class TicketsService {
   }
   getTicketTypes() {
     return this.http.get<TicketType[]>(`/ticketTypes`);
+  }
+  getTicketTypeInfo(ticketTypeId: number){
+    return this.http.get<TicketType[]>(`/ticketTypes?id=${ticketTypeId}`);
   }
 }

@@ -8,25 +8,32 @@ import { ScreeningService, Seat } from '../../../services/screening.state.servic
   styleUrls: ['./seat-ticket.component.scss']
 })
 export class SeatTicketComponent implements OnInit {
-  private ticketsService = inject(TicketsService);
+  ticketsService = inject(TicketsService);
   constructor(private screeningService: ScreeningService) { }
 
   ngOnInit(): void {
     this.screeningService.screeningTicketsState$.subscribe(screeningTicketsState => {
-      this.seatSelectionState = screeningTicketsState.selectedTickets;
+      this.selectedTickets = screeningTicketsState.selectedTickets;
     })
     this.ticketsService.getTicketTypes().subscribe(ticketTypes => {
       this.ticketTypes = ticketTypes;
     })
   }
 
-  seatSelectionState: Ticket[] = [];
+  selectedTickets: Ticket[] = [];
   icon: any = 'trash-can';
   ticketTypes: TicketType[] = [];
   selectedTicket!: TicketType;
 
-  onSelected(ticketId: string){
-    this.selectedTicket = <TicketType>this.ticketTypes.find(ticket => ticket.id === (parseInt(ticketId, 10)));
+  onSelected(ticket: Ticket, ticketTypeId: string){
+    console.log("Ticket Info:", ticket)
+    console.log('New ticket type id:',ticketTypeId)
+    this.ticketsService.getTicketTypeInfo(parseInt(ticketTypeId, 10))
+    // this.selectedTicket = <TicketType>this.ticketTypes.find(ticket => ticket.id === ticket.id);
+  }
+
+  getTicketPrice(ticketTypeId: number){
+    return this.ticketTypes.find(ticketType => ticketType.id === ticketTypeId)?.price;
   }
 
   removeTicket(row: string, seatNumber: number) {

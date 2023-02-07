@@ -83,28 +83,28 @@
   "screenings": [
     {
       "id": 1,
-      "date": "06-02-2023",
+      "date": "07-02-2023",
       "time": "12:30",
       "roomsId": 1,
       "moviesId": 1
     },
     {
       "id": 2,
-      "date": "06-02-2023",
+      "date": "07-02-2023",
       "time": "14:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
       "id": 4,
-      "date": "07-02-2023",
+      "date": "08-02-2023",
       "time": "16:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
       "id": 5,
-      "date": "06-02-2023",
+      "date": "07-02-2023",
       "time": "18:30",
       "roomsId": 2,
       "moviesId": 1
@@ -150,24 +150,6 @@
       "ticketTypesId": 4
     },
     {
-      "ordersId": 2,
-      "seat": {
-        "row": "G",
-        "seatNumber": 8
-      },
-      "ticketTypesId": 1,
-      "id": 14
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "D",
-        "seatNumber": 11
-      },
-      "ticketTypesId": 1,
-      "id": 15
-    },
-    {
       "ordersId": 3,
       "seat": {
         "row": "E",
@@ -198,73 +180,19 @@
       "ordersId": 2,
       "seat": {
         "row": "G",
-        "seatNumber": 13
+        "seatNumber": 6
       },
       "ticketTypesId": 1,
-      "id": 20
+      "id": 31
     },
     {
       "ordersId": 2,
       "seat": {
         "row": "H",
-        "seatNumber": 14
+        "seatNumber": 9
       },
       "ticketTypesId": 1,
-      "id": 21
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "I",
-        "seatNumber": 14
-      },
-      "ticketTypesId": 1,
-      "id": 22
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "I",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 1,
-      "id": 23
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "J",
-        "seatNumber": 3
-      },
-      "ticketTypesId": 1,
-      "id": 24
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "G",
-        "seatNumber": 2
-      },
-      "ticketTypesId": 1,
-      "id": 25
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "E",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 1,
-      "id": 26
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "H",
-        "seatNumber": 10
-      },
-      "ticketTypesId": 1,
-      "id": 27
+      "id": 36
     }
   ]
 }

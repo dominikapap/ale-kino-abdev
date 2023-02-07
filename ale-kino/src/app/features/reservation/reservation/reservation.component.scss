@@ -10,8 +10,8 @@
 .screen {
   display: flex;
   justify-content: center;
-  border-top: 2px solid lightgray;
-  width: 600px;
+  border-top: 10px solid lightgray;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
   padding-top: 0.5em;

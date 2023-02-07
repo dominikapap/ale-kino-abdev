@@ -1,24 +1,24 @@
-<div class="seatInfo" *ngFor="let selectedSeat of seatSelectionState">
+<div class="seatInfo" *ngFor="let ticket of selectedTickets">
   <div class="seat__placement">
     {{
       "Rząd &nbsp;" +
-        selectedSeat.seat.row +
+      ticket.seat.row +
         "&nbsp; Miejsce &nbsp;" +
-        (selectedSeat.seat.seatNumber < 10
-          ? "0" + selectedSeat.seat.seatNumber
-          : selectedSeat.seat.seatNumber)
+        (ticket.seat.seatNumber < 10
+          ? "0" + ticket.seat.seatNumber
+          : ticket.seat.seatNumber)
     }}
   </div>
-  <select class="seat__ticketType" (change)="onSelected(tickets.value)" #tickets>
+  <select class="seat__ticketType" (change)="onSelected(ticket, tickets.value)" #tickets>
     <option *ngFor="let ticketType of ticketTypes" [value]="ticketType.id">
       {{ ticketType.type }}
     </option>
   </select>
   <div
     class="seat__removeIcon"
-    (click)="removeTicket(selectedSeat.seat.row, selectedSeat.seat.seatNumber)"
+    (click)="removeTicket(ticket.seat.row, ticket.seat.seatNumber)"
   >
     <fa-icon [icon]="icon"></fa-icon>
   </div>
-  <div class="seat__ticketPrice">22 PLN</div>
+  <div class="seat__ticketPrice">{{getTicketPrice(ticket.ticketTypesId)}} PLN</div>
 </div>
