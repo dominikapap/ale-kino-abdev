@@ -83,28 +83,28 @@
   "screenings": [
     {
       "id": 1,
-      "date": "07-02-2023",
+      "date": "13-02-2023",
       "time": "12:30",
       "roomsId": 1,
       "moviesId": 1
     },
     {
       "id": 2,
-      "date": "07-02-2023",
+      "date": "13-02-2023",
       "time": "14:30",
       "roomsId": 2,
-      "moviesId": 1
+      "moviesId": 2
     },
     {
       "id": 4,
-      "date": "08-02-2023",
+      "date": "14-02-2023",
       "time": "16:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
       "id": 5,
-      "date": "07-02-2023",
+      "date": "13-02-2023",
       "time": "18:30",
       "roomsId": 2,
       "moviesId": 1
@@ -128,6 +128,18 @@
       "usersId": 1,
       "screeningsId": 5,
       "isCheckedOut": true
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 4,
+      "isCheckedOut": false,
+      "id": 4
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 5,
+      "isCheckedOut": false,
+      "id": 5
     }
   ],
   "tickets": [
@@ -138,16 +150,16 @@
         "row": "B",
         "seatNumber": 5
       },
-      "ticketTypesId": 3
+      "ticketTypesId": 2
     },
     {
-      "id": 2,
+      "id": 1,
       "ordersId": 1,
       "seat": {
         "row": "B",
         "seatNumber": 6
       },
-      "ticketTypesId": 4
+      "ticketTypesId": 2
     },
     {
       "ordersId": 3,
@@ -168,19 +180,64 @@
       "id": 17
     },
     {
-      "ordersId": 3,
+      "ordersId": 4,
       "seat": {
-        "row": "E",
-        "seatNumber": 8
+        "row": "D",
+        "seatNumber": 6
       },
       "ticketTypesId": 1,
-      "id": 18
+      "id": 20
     },
     {
-      "ordersId": 2,
+      "ordersId": 4,
       "seat": {
-        "row": "G",
+        "row": "C",
         "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 21
+    },
+    {
+      "ordersId": 4,
+      "seat": {
+        "row": "C",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 22
+    },
+    {
+      "ordersId": 5,
+      "seat": {
+        "row": "E",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 28
+    },
+    {
+      "ordersId": 5,
+      "seat": {
+        "row": "E",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 29
+    },
+    {
+      "ordersId": 5,
+      "seat": {
+        "row": "D",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 30
+    },
+    {
+      "ordersId": 5,
+      "seat": {
+        "row": "D",
+        "seatNumber": 5
       },
       "ticketTypesId": 1,
       "id": 31
@@ -188,11 +245,137 @@
     {
       "ordersId": 2,
       "seat": {
-        "row": "H",
-        "seatNumber": 9
+        "row": "C",
+        "seatNumber": 6
       },
       "ticketTypesId": 1,
-      "id": 36
+      "id": 32
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "A",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 37
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "A",
+        "seatNumber": 4
+      },
+      "ticketTypesId": 1,
+      "id": 38
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "C",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 41
+    },
+    {
+      "ordersId": 4,
+      "seat": {
+        "row": "D",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 42
+    },
+    {
+      "ordersId": 4,
+      "seat": {
+        "row": "B",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 43
+    },
+    {
+      "ordersId": 4,
+      "seat": {
+        "row": "B",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 44
+    },
+    {
+      "ordersId": 4,
+      "seat": {
+        "row": "A",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 45
+    },
+    {
+      "ordersId": 4,
+      "seat": {
+        "row": "A",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 46
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "C",
+        "seatNumber": 4
+      },
+      "ticketTypesId": 1,
+      "id": 47
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "B",
+        "seatNumber": 4
+      },
+      "ticketTypesId": 1,
+      "id": 48
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "C",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 49
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "B",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 50
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "A",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 51
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "A",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 52
     }
   ]
 }

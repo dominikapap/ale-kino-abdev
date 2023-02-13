@@ -35,6 +35,6 @@ export class LoginFormComponent {
 
   login() {
     this.loginForm.markAllAsTouched();
-    this.authService.loginLearn(this.loginForm.getRawValue()).subscribe();
+    this.authService.login(this.loginForm.getRawValue()).subscribe();
   }
 }

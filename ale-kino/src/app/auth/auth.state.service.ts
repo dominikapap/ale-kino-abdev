@@ -49,23 +49,23 @@ export class AuthStateService {
     });
   }
 
-  loginLearn(credentials: { email: string; password: string }) {
+  login(credentials: { email: string; password: string }) {
+    console.log(credentials.password, credentials.email)
     return this.http
-      .post<AuthResponse>('http://localhost:3000/login', {
+      .post<AuthResponse>('/login', {
         email: credentials.email,
         password: credentials.password,
-      })
+      }, {withCredentials: true})
       .pipe(
         switchMap((res) => {
           const obs = this.http.get<Role[]>(
-            `http://localhost:3000/roles?id=${(<AuthResponse>res).user.rolesId}`
+            `/roles?id=${(<AuthResponse>res).user.rolesId}`
           );
           return combineLatest([of(res), obs]);
         }),
         tap({
           next: ([userData, roleData]) => {
             const role = roleData[0].type;
-
             const user: User = {
               id: userData.user.id,
               email: userData.user.email,

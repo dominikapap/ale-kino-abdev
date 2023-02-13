@@ -2,15 +2,23 @@
   <div class="seat__placement">
     {{
       "Rząd &nbsp;" +
-      ticket.seat.row +
+        ticket.seat.row +
         "&nbsp; Miejsce &nbsp;" +
         (ticket.seat.seatNumber < 10
           ? "0" + ticket.seat.seatNumber
           : ticket.seat.seatNumber)
     }}
   </div>
-  <select class="seat__ticketType" (change)="onSelected(ticket, tickets.value)" #tickets>
-    <option *ngFor="let ticketType of ticketTypes" [value]="ticketType.id">
+  <select
+    class="seat__ticketType"
+    (change)="onSelected(ticket, tickets.value)"
+    #tickets
+  >
+    <option
+      *ngFor="let ticketType of ticketTypes"
+      [value]="ticketType.id"
+      [selected]="ticket.ticketTypesId === ticketType.id ? 'selected' : false"
+    >
       {{ ticketType.type }}
     </option>
   </select>
@@ -20,5 +28,7 @@
   >
     <fa-icon [icon]="icon"></fa-icon>
   </div>
-  <div class="seat__ticketPrice">{{getTicketPrice(ticket.ticketTypesId)}} PLN</div>
+  <div class="seat__ticketPrice">
+    {{ getTicketPrice(ticket.ticketTypesId) }} PLN
+  </div>
 </div>

@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ScreeningService } from 'src/app/services/screening.state.service';
+import { Ticket } from 'src/app/services/tickets.service';
 
 @Component({
   selector: 'app-checkout-form',
@@ -8,16 +10,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./checkout-form.component.scss'],
 })
 export class CheckoutFormComponent implements OnInit {
+  screeningTicketState$ = inject(ScreeningService).screeningTicketsState$;
   private builder = inject(FormBuilder);
   private router = inject(Router);
   checkoutForm = this.createForm();
   isError: boolean = false;
 
   constructor() {
-    // this.checkoutForm.valueChanges.subscribe(console.log);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.screeningService.screeningTicketsState$.subscribe((state) => {
+    //   console.log('ticket state:', state);
+    // });
+  }
 
   private createForm() {
     const form = this.builder.group({

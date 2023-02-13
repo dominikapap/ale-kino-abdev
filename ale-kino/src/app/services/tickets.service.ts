@@ -29,6 +29,10 @@ export class TicketsService {
     return this.http.delete(`/tickets/${ticketId}`);
   }
 
+  updateTicket(ticketId: number, ticketSlice: Partial<Ticket>){
+    return this.http.patch<Ticket>(`/tickets/${ticketId}`, { ...ticketSlice })
+  }
+
   getAllOrderTickets(orderId: number) {
     return this.http.get<Ticket[]>(`/tickets?ordersId=${orderId}`);
   }

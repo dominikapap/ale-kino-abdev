@@ -1,8 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, map, Observable, switchMap } from 'rxjs';
+import {
+  BehaviorSubject,
+  forkJoin,
+  map,
+  Observable,
+  switchMap,
+  combineLatest,
+  of,
+} from 'rxjs';
 import { UserStateService } from '../core/user.state.service';
-import { OrdersService } from './orders.service';
+import { Order, OrdersService } from './orders.service';
 import { Ticket, TicketsService } from './tickets.service';
 
 export interface Seat {
@@ -30,7 +38,9 @@ const defaultTicketState: TicketState = {
   reservedTickets: [],
 };
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ScreeningService {
   private http = inject(HttpClient);
   private ordersService = inject(OrdersService);
@@ -64,44 +74,13 @@ export class ScreeningService {
   initiateScreeningTicketsState(screeningRoomId: number) {
     this.resetScreeningTicketState();
     //get screening tickets from checked out orders
-    this.ordersService
-      .getAllCheckedOutScreeningOrders(screeningRoomId)
-      .pipe(
-        switchMap((checkedOutOrders) => {
-          let requests: Observable<Ticket[]>[] = [];
-          checkedOutOrders.forEach((order) => {
-            requests.push(this.ticketsService.getAllOrderTickets(order.id));
-          });
-          return forkJoin<Ticket[][]>(requests);
-        }),
-        map((orders) => {
-          let tickets: Ticket[] = [];
-          orders.forEach((order) => {
-            tickets = [...tickets, ...order];
-          });
-          return tickets;
-        })
-      )
-      .subscribe((tickets) => {
-        this.patchTicketsState({ reservedTickets: tickets });
-      });
+    this.getScreeningReservedTickets(screeningRoomId).subscribe((tickets) => {
+      this.patchTicketsState({ reservedTickets: tickets });
+    });
     //get user screening tickets from not checked out order
-    this.userService.user$
-      .pipe(
-        switchMap((user) => {
-          return this.ordersService.getNotCheckedOutUserScreeningOrder(
-            screeningRoomId,
-            user.id
-          );
-        }),
-        switchMap(([order]) => {
-          this.patchTicketsState({ notCheckedOutOrderId: order?.id });
-          return this.ticketsService.getAllOrderTickets(order?.id);
-        })
-      )
-      .subscribe((tickets) => {
-        this.patchTicketsState({ selectedTickets: tickets });
-      });
+    this.getScreeningSelectedTickets(screeningRoomId).subscribe((tickets) => {
+      this.patchTicketsState({ selectedTickets: tickets });
+    });
   }
 
   isSeatReserved(seat: Seat) {
@@ -166,6 +145,56 @@ export class ScreeningService {
         return selectedTicket?.id !== ticket.id;
       });
     this.patchTicketsState({ selectedTickets: newSelectedTicketsState });
+  }
+
+  updateSelectedTicketToLocalState(selectedTicket: Ticket) {
+    let oldSelectedTicket = <Ticket>(
+      this.screeningTicketsStateValue.selectedTickets.find(
+        (ticket) => ticket.id === selectedTicket.id
+      )
+    );
+    Object.assign(oldSelectedTicket, selectedTicket);
+  }
+
+  private getScreeningReservedTickets(screeningRoomId: number) {
+    return this.ordersService
+      .getAllCheckedOutScreeningOrders(screeningRoomId)
+      .pipe(
+        switchMap((checkedOutOrders) => {
+          let requests: Observable<Ticket[]>[] = [];
+          checkedOutOrders.forEach((order) => {
+            requests.push(this.ticketsService.getAllOrderTickets(order.id));
+          });
+          return forkJoin<Ticket[][]>(requests);
+        }),
+        map((orders) => {
+          return orders.flat();
+        })
+      );
+  }
+
+  private getScreeningSelectedTickets(screeningRoomId: number) {
+    return this.userService.user$.pipe(
+      switchMap((user) => {
+        const order: Observable<Order[]> =
+          this.ordersService.getNotCheckedOutUserScreeningOrder(
+            screeningRoomId,
+            user.id
+          );
+        return combineLatest([order, of(user)]);
+      }),
+      switchMap(([[order], user]) => {
+        const newOrder$ = this.ordersService.createScreeningOrder(
+          screeningRoomId,
+          user.id
+        );
+        return order !== undefined ? of(order) : newOrder$;
+      }),
+      switchMap((order) => {
+        this.patchTicketsState({ notCheckedOutOrderId: order?.id });
+        return this.ticketsService.getAllOrderTickets(order?.id);
+      })
+    );
   }
 
   getScreeningDetails(screeningId: string) {

@@ -8,7 +8,6 @@ const routes: Routes = [
     component: ShellComponent,
     children: [
       { path: '', loadChildren: () => import('./features/home/home.module') },
-      { path: 'login', loadChildren: () => import('./auth/auth.module') },
       {
         path: 'reservation/:id',
         loadChildren: () => import('./features/reservation/reservation.module'),
@@ -23,6 +22,7 @@ const routes: Routes = [
       },
     ],
   },
+  { path: 'login', loadChildren: () => import('./auth/auth.module') },
   {
     path: '**',
     redirectTo: '',

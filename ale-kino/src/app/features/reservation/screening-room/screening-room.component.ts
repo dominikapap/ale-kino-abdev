@@ -1,5 +1,3 @@
-import { Ticket, TicketsService } from 'src/app/services/tickets.service';
-import { Order, OrdersService } from './../../../services/orders.service';
 import {
   ScreeningService,
   Seat,
@@ -7,8 +5,6 @@ import {
 } from '../../../services/screening.state.service';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { ScreeningRoomsService } from 'src/app/services/screening-rooms.service';
-import { UserStateService } from 'src/app/core/user.state.service';
-import { forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
 
 export type RoomSize = {
   rows: number;
@@ -23,7 +19,6 @@ export type RoomSize = {
 export class ScreeningRoomComponent implements OnInit {
   private screeningRoomService = inject(ScreeningRoomsService);
   private screeningService = inject(ScreeningService);
-  private userState = inject(UserStateService);
 
   @Input() roomId: number = 0;
   @Input() screeningRoomId: number = 0;
@@ -36,7 +31,6 @@ export class ScreeningRoomComponent implements OnInit {
   };
 
   ngOnInit(): void {
-
     this.screeningRoomService.initiateRoomSetupData(this.roomId);
     this.screeningRoomService.roomSetupData$.subscribe((roomSetupData) => {
       this.roomSetupData = roomSetupData;
