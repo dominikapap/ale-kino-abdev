@@ -9,6 +9,81 @@
   height: 50px;
   position: relative;
   padding: 1em 1em;
+
+  &__title {
+    font-size: 2em;
+    text-decoration: underline;
+    color: colors.$accent-color;
+
+    &-accent {
+      color: colors.$secondary-color;
+      text-decoration: underline;
+    }
+    &-bold {
+      font-weight: bold;
+    }
+
+    & > a {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+      text-decoration: none;
+    }
+  }
+
+  &__navigation {
+    display: flex;
+    gap: 20px;
+
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      min-width: 40px;
+      min-height: 40px;
+      padding: 10px;
+      margin-left: 5px;
+      margin-right: 5px;
+      border-radius: 10px;
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(105%);
+      }
+
+      &__filled {
+        background-color: colors.$accent-color;
+      }
+
+      &__outlined {
+        border: 1px solid colors.$accent-color;
+        color: colors.$accent-color;
+        background-color: transparent;
+      }
+    }
+
+    .pop-nav-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .pop-nav {
+        position: absolute;
+        top: 48px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 130px;
+      }
+    }
+  }
 }
 
 .container {
@@ -16,69 +91,4 @@
   align-items: center;
   justify-content: space-between;
   width: 1400px;
-}
-
-.header__title {
-  color: white;
-  font-size: 2em;
-  text-decoration: underline;
-  color: colors.$accent-color;
-
-  &-accent {
-    color: colors.$secondary-color;
-    text-decoration: underline;
-  }
-  &-bold {
-    font-weight: bold;
-  }
-}
-
-.header__title > a {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-  text-decoration: none;
-}
-
-.header__navigation {
-  display: flex;
-  gap: 20px;
-}
-
-.popnav-container {
-  position: relative;
-}
-
-.header__popNav {
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  position: absolute;
-  background-color: white;
-  right: 0;
-  top: 9vh;
-}
-
-.header__popNav > ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-}
-
-.header__popNav > ul > li {
-  cursor: pointer;
-  padding: 5px;
-}
-
-.header__popNav > ul > li:hover {
-  background-color: lightblue;
-}
-
-.hide {
-  display: none;
 }

@@ -1,3 +1,4 @@
+import { MenuCategory } from './../header/header-nav.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -8,7 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class PopupNavComponent implements OnInit {
   constructor() {}
   @Input() isPopNavHidden: boolean = true;
-  @Input() navItems: string[] = [];
+  @Input() navItems: MenuCategory[] = [];
 
   @Output() clickNavItemEvent = new EventEmitter<string>();
 

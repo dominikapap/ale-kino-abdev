@@ -17,7 +17,7 @@ export type Role = {
 
 const userAuthStateDefault = {
   hasAuth: false,
-  role: '',
+  role: 'guest',
 };
 
 @Injectable({
@@ -91,7 +91,7 @@ export class AuthStateService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('role');
-    this.patchState({ hasAuth: false, role: '' });
+    this.patchState({ hasAuth: false, role: 'guest' });
   }
 
   private setStateFromLocalStorage() {

@@ -19,7 +19,9 @@ import { SummaryComponent } from './features/summary/summary/summary.component';
 import { CustomHttpInterceptor } from './core/custom-http.interceptor';
 import { API_URL, IS_PRODUCTION } from './core/env.token';
 import { environment } from 'src/environments/environment';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,9 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     FontAwesomeModule,
     ButtonComponent,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
     {

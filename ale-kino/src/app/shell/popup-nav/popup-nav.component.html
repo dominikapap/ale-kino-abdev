@@ -1,7 +1,10 @@
 <div class="popup-nav" [ngClass]="{ hide: isPopNavHidden }">
   <ul>
-    <li *ngFor="let navItem of navItems" (click)="handleNavItemClick(navItem)">
-      {{ navItem }}
+    <li
+      *ngFor="let navItem of navItems"
+      (click)="handleNavItemClick(navItem.categoryName)"
+    >
+      <a [routerLink]="navItem?.href"> {{ navItem.categoryName | titlecase }}</a>
     </li>
   </ul>
 </div>

@@ -1,3 +1,4 @@
+import { HeaderNavService } from './header-nav.service';
 import { UserStateService } from 'src/app/core/user.state.service';
 import { AuthStateService } from 'src/app/auth/auth.state.service';
 import { Router } from '@angular/router';
@@ -11,6 +12,7 @@ import { Component, inject, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   private userStateService = inject(UserStateService);
   private authStateService = inject(AuthStateService);
+  headerNavState$= inject(HeaderNavService).setupState$;
   private router = inject(Router);
 
   username: string = '';
@@ -30,14 +32,21 @@ export class HeaderComponent implements OnInit {
     this.isPopNavHidden = !this.isPopNavHidden;
   }
 
+  openPopNavMenu() {
+    this.isPopNavHidden = false;
+  }
+
+  closePopNavMenu() {
+    this.isPopNavHidden = true;
+  }
+
   login() {
     this.router.navigate(['/login']);
   }
 
   handlePopupNavClick(navItem: string) {
+    console.log('selected option',navItem)
     switch (navItem.toLowerCase()) {
-      case 'ustawienia':
-        break;
       case 'wyloguj':
         this.authStateService.logout();
         break;
