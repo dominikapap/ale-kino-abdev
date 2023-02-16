@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="selectedMovie">
+    {{ screeningDetails?.movies?.title }}, {{ screeningDetails?.date }}, godz.{{
+      screeningDetails?.time
+    }}
+  </div>
+
+  <div class="ticketList">
+    <div class="ticketList__item" *ngFor="let ticket of openOrderTicketList">
+      <div class="ticketList__ticketSeat">
+        Rząd {{ ticket.seat.row }} Miejsce
+        {{ ticket.seat.seatNumber }}
+      </div>
+      <div class="ticketList__ticketPrice">
+        {{ticket.ticketTypesId}} PLN
+      </div>
+    </div>
+    <div class="ticketList__total">
+      <div class="ticketList__totalLabel">razem</div>
+      <div class="ticketList__totalPrice">{{ orderTotalCost }} PLN</div>
+    </div>
+  </div>
+</div>
+

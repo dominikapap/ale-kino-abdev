@@ -1,22 +1,5 @@
 <div class="reservation" *ngIf="screeningTicketState$ | async as ticketState">
-  <div class="selectedMovie">Co w duszy gra, 19/11/2022, godz. 15:30</div>
-
-  <div class="ticketList">
-    <div
-      class="ticketList__item"
-      *ngFor="let selectedTicket of ticketState.selectedTickets"
-    >
-      <div class="ticketList__ticketSeat">
-        Rząd {{ selectedTicket.seat.row }} Miejsce
-        {{ selectedTicket.seat.seatNumber }}
-      </div>
-      <div class="ticketList__ticketPrice">22 PLN</div>
-    </div>
-    <div class="ticketList__total">
-      <div class="ticketList__totalLabel">razem</div>
-      <div class="ticketList__totalPrice">22 PLN</div>
-    </div>
-  </div>
+  <app-checkout-order></app-checkout-order>
 
   <form class="checkoutForm" [formGroup]="checkoutForm" (ngSubmit)="sendForm()">
     <div class="checkoutForm__field">

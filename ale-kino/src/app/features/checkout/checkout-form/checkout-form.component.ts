@@ -20,9 +20,6 @@ export class CheckoutFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.screeningService.screeningTicketsState$.subscribe((state) => {
-    //   console.log('ticket state:', state);
-    // });
   }
 
   private createForm() {
@@ -83,5 +80,11 @@ export class CheckoutFormComponent implements OnInit {
   }
   get emailRepeatCtrl() {
     return this.checkoutForm.controls.emailRepeat;
+  }
+
+  total = 0;
+  getTotal(ticketPrice: number){
+    this.total +=ticketPrice;
+    return this.total;
   }
 }

@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+.selectedMovie {
+  display: flex;
+  justify-content: center;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+.ticketList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  gap: 0.5em;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    width: clamp(150px, 90vw, 400px);
+    gap: 10em;
+  }
+
+  &__total {
+    display: flex;
+    align-self: end;
+    gap: 2em;
+    font-weight: bold;
+
+  }
+}

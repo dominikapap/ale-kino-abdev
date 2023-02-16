@@ -11,7 +11,7 @@
   </div>
   <select
     class="seat__ticketType"
-    (change)="onSelected(ticket, tickets.value)"
+    (change)="onTicketTypeChanged(ticket, tickets.value)"
     #tickets
   >
     <option
@@ -28,7 +28,17 @@
   >
     <fa-icon [icon]="icon"></fa-icon>
   </div>
-  <div class="seat__ticketPrice">
-    {{ getTicketPrice(ticket.ticketTypesId) }} PLN
-  </div>
+  <!-- <div
+    class="seat__ticketPrice">
+    {{  getTicketPrice(ticket.ticketTypesId) }} PLN
+  </div> -->
+  <div
+  class="seat__ticketPrice"
+  *ngIf="
+    ticketsService.getTicketPriceByTypeId(ticket.ticketTypesId) | async as price
+  "
+>
+  {{ price }} PLN
 </div>
+</div>
+

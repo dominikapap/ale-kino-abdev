@@ -1,7 +1,10 @@
-import { ScreeningService } from '../../../services/screening.state.service';
+import {
+  ScreeningDetails,
+  ScreeningService,
+} from '../../../services/screening.state.service';
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-reservation',
@@ -9,33 +12,28 @@ import { switchMap, Subscription } from 'rxjs';
   styleUrls: ['./reservation.component.scss'],
 })
 export class ReservationComponent implements OnInit, OnDestroy {
-  private screeningService = inject(ScreeningService);
+  screeningService = inject(ScreeningService);
   private route = inject(ActivatedRoute);
   private subscriptions = new Subscription();
 
-  screeningDetails: any;
-  icon: any = 'trash-can';
-  isLoaded = false;
+  screeningDetails!: ScreeningDetails | undefined;
+  icon: string = 'trash-can';
 
   ngOnInit(): void {
-    this.getScreeningDetails();
+    this.initializeScreeningDetails();
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  getScreeningDetails() {
-    const sub = this.route.paramMap
-      .pipe(
-        switchMap((params) => {
-          const id: string = <string>params.get('id');
-          return this.screeningService.getScreeningDetails(id);
-        })
-      )
-      .subscribe(([screening]) => {
-        this.screeningDetails = screening;
-        this.isLoaded = true;
+  initializeScreeningDetails() {
+    const initDetailsSub =
+      this.screeningService.initializeScreeningDetailsFromRoute(this.route);
+    const stateDetailsSub =
+      this.screeningService.screeningTicketsState$.subscribe((state) => {
+        this.screeningDetails = state.screeningDetails;
       });
-    this.subscriptions.add(sub);
+    this.subscriptions.add(initDetailsSub);
+    this.subscriptions.add(stateDetailsSub);
   }
 }

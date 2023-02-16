@@ -1,4 +1,4 @@
-<div *ngIf="isLoaded" class="container">
+<div *ngIf="screeningDetails !== undefined" class="container">
   <div class="title">
     <span>{{ screeningDetails.movies.title + ",&nbsp;" }}</span>
     <span>{{ screeningDetails.date + ",&nbsp;" }}</span>
@@ -7,11 +7,12 @@
   <p class="screen">Ekran</p>
 
   <app-screening-room
-    *ngIf="isLoaded"
-    [roomId]="screeningDetails.roomsId"
+    [roomId]="screeningDetails.rooms.id"
     [screeningRoomId]="screeningDetails.id"
   ></app-screening-room>
   <app-seat-ticket></app-seat-ticket>
 
-  <a [routerLink]="'/checkout'" class="checkoutLink">Przejdź do zamówienia</a>
+  <a [routerLink]="'/checkout/' + screeningDetails.id" class="checkoutLink"
+    >Przejdź do zamówienia</a
+  >
 </div>

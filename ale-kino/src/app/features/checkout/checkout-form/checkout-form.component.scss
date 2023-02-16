@@ -3,34 +3,8 @@
   flex-direction: column;
   gap: 2em;
   padding-top: 2em;
+  padding-bottom: 2em;
   color: white;
-}
-
-.selectedMovie {
-  display: flex;
-  justify-content: center;
-  font-size: 1.25em;
-}
-
-.ticketList {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 450px;
-  align-self: center;
-  gap: 0.5em;
-}
-
-.ticketList__item {
-  display: flex;
-  gap: 10em;
-}
-
-.ticketList__total {
-  display: flex;
-  align-self: end;
-  gap: 2em;
-
 }
 
 .checkoutForm {
@@ -38,33 +12,33 @@
   flex-direction: column;
   max-width: 450px;
   align-self: center;
-}
 
-.checkoutForm__field {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1.5em;
-}
+  &__field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5em;
+  }
 
-.checkoutForm__field > input {
-  padding: 0.5em 1.5em;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-}
+  &__field > input {
+    padding: 0.5em 1.5em;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+  }
 
-.checkoutForm > label {
-  margin-bottom: 0.2em;
-}
+  &__errorMessage {
+    color: red;
+  }
 
-.checkoutForm__errorMessage {
-  color: red;
-}
+  & > label {
+    margin-bottom: 0.2em;
+  }
 
-
-.checkoutForm > a {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5em;
+  & > a {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5em;
+    color: white;
+  }
 }
 
 .newsletter {

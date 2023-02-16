@@ -1,22 +1,21 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import {
   Ticket,
   TicketsService,
   TicketType,
 } from 'src/app/services/tickets.service';
-import {
-  ScreeningService,
-  Seat,
-} from '../../../services/screening.state.service';
+import { ScreeningService } from '../../../services/screening.state.service';
 
 @Component({
   selector: 'app-seat-ticket',
   templateUrl: './seat-ticket.component.html',
   styleUrls: ['./seat-ticket.component.scss'],
 })
-export class SeatTicketComponent implements OnInit {
-  ticketsService = inject(TicketsService);
-  constructor(private screeningService: ScreeningService) {}
+export class SeatTicketComponent implements OnInit, OnDestroy {
+   ticketsService = inject(TicketsService);
+  private screeningService = inject(ScreeningService);
+  private subscriptions = new Subscription();
 
   ngOnInit(): void {
     this.screeningService.screeningTicketsState$.subscribe(
@@ -29,17 +28,22 @@ export class SeatTicketComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
   selectedTickets: Ticket[] = [];
   icon: any = 'trash-can';
   ticketTypes: TicketType[] = [];
   selectedTicket!: TicketType;
 
-  onSelected(ticket: Ticket, ticketTypeId: string) {
-    this.ticketsService
-      .updateTicket(ticket.id, { ticketTypesId: parseInt(ticketTypeId, 10) })
-      .subscribe((response) => {
-        this.screeningService.updateSelectedTicketToLocalState(response)
-      });
+  onTicketTypeChanged(ticket: Ticket, ticketTypeId: string) {
+    const ticketTypeIdAsNumber = parseInt(ticketTypeId, 10);
+    this.ticketsService.updateTicket(ticket.id, {
+      ticketTypesId: ticketTypeIdAsNumber,
+    }).subscribe(updatedTicket => {
+      this.screeningService.updateSelectedTicketToLocalState(updatedTicket)
+    })
   }
 
   getTicketPrice(ticketTypeId: number) {
@@ -48,18 +52,10 @@ export class SeatTicketComponent implements OnInit {
   }
 
   removeTicket(row: string, seatNumber: number) {
-    const selectedTicket = this.screeningService.isSeatSelected({
+    const removeTicketSub = this.screeningService.removeSelectedTicket(
       row,
-      seatNumber,
-    });
-    if (selectedTicket !== undefined) {
-      this.ticketsService
-        .removeTicketFromOrder((<Ticket>selectedTicket)?.id)
-        .subscribe(() => {
-          this.screeningService.removeSelectedTicketFromLocalState(
-            selectedTicket
-          );
-        });
-    }
+      seatNumber
+    );
+    this.subscriptions.add(removeTicketSub);
   }
 }

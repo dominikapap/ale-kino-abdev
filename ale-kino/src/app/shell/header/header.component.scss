@@ -1,22 +1,36 @@
-@use '../../../colors' as colors;
+@use "../../../colors" as colors;
 
 .header {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  background-color: colors.$bg-color;
   gap: 1em;
   border-bottom: 0.1px solid colors.$accent-color;
   height: 50px;
   position: relative;
-  background-color: colors.$primary-color;
   padding: 1em 1em;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1400px;
 }
 
 .header__title {
   color: white;
   font-size: 2em;
-  font-weight: bold;
-  margin-left: auto;
-  margin-right: auto;
+  text-decoration: underline;
+  color: colors.$accent-color;
+
+  &-accent {
+    color: colors.$secondary-color;
+    text-decoration: underline;
+  }
+  &-bold {
+    font-weight: bold;
+  }
 }
 
 .header__title > a {
@@ -28,6 +42,11 @@
   cursor: pointer;
   outline: inherit;
   text-decoration: none;
+}
+
+.header__navigation {
+  display: flex;
+  gap: 20px;
 }
 
 .popnav-container {
@@ -63,5 +82,3 @@
 .hide {
   display: none;
 }
-
-

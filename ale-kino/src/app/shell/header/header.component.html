@@ -1,37 +1,48 @@
 <header class="header">
-  <div class="header__title">
-    <a [routerLink]="'/'">Ale kino!</a>
-  </div>
-  <app-button *ngIf="role !== 'admin'" icon="cart-shopping"></app-button>
+  <div class="container">
+    <div class="header__title">
+      <a [routerLink]="'/'"
+        ><span class="header__title-accent"
+          ><span class="header__title-bold">A</span>LE
+        </span>
+        <span class="header__title-bold">K</span>INO !</a
+      >
+    </div>
 
-  <app-button
-    (clickButtonEvent)="login()"
-    *ngIf="role===''"
-    value="Zaloguj"
-  ></app-button>
+    <div class="header__navigation">
+      <app-button *ngIf="role !== 'admin'" icon="cart-shopping" [btnClass]="'btn-accent'"></app-button>
 
-  <div class="popnav-container" *ngIf="role==='user'">
-    <app-button
-      (clickButtonEvent)="togglePopNavMenu()"
-      [value]="'Cześć ' + username"
-    ></app-button>
-    <app-popup-nav
-      (clickNavItemEvent)="handlePopupNavClick($event)"
-      [isPopNavHidden]="isPopNavHidden"
-      [navItems]="['Moje bilety', 'Chcę obejrzeć', 'Ustawienia', 'Wyloguj']"
-    ></app-popup-nav>
-  </div>
+      <app-button
+        (clickButtonEvent)="login()"
+        *ngIf="role === ''"
+        value="Zaloguj"
+      ></app-button>
 
-  <div class="popnav-container" *ngIf="role === 'admin'">
-    <app-button
-      (clickButtonEvent)="togglePopNavMenu()"
-      value="Cześć"
-    ></app-button>
+      <div class="popnav-container" *ngIf="role === 'user'" >
+        <app-button
+        [btnClass]="'btn-accent-border'"
+          (clickButtonEvent)="togglePopNavMenu()"
+          [value]="'Cześć ' + username"
+        ></app-button>
+        <app-popup-nav
+          (clickNavItemEvent)="handlePopupNavClick($event)"
+          [isPopNavHidden]="isPopNavHidden"
+          [navItems]="['Moje bilety', 'Chcę obejrzeć', 'Ustawienia', 'Wyloguj']"
+        ></app-popup-nav>
+      </div>
 
-    <app-popup-nav
-      (clickNavItemEvent)="handlePopupNavClick($event)"
-      [isPopNavHidden]="isPopNavHidden"
-      [navItems]="['Moje bilety', 'Chcę obejrzeć', 'Ustawienia', 'Wyloguj']"
-    ></app-popup-nav>
+      <div class="popnav-container" *ngIf="role === 'admin'">
+        <app-button
+          (clickButtonEvent)="togglePopNavMenu()"
+          value="Cześć"
+        ></app-button>
+
+        <app-popup-nav
+          (clickNavItemEvent)="handlePopupNavClick($event)"
+          [isPopNavHidden]="isPopNavHidden"
+          [navItems]="['Moje bilety', 'Chcę obejrzeć', 'Ustawienia', 'Wyloguj']"
+        ></app-popup-nav>
+      </div>
+    </div>
   </div>
 </header>
