@@ -1,4 +1,5 @@
 @use "../../../colors" as colors;
+@use "../../../breakpoints" as breakpoints;
 
 .header {
   display: flex;
@@ -87,8 +88,8 @@
 }
 
 .container {
+  @extend .app-container;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1400px;
 }
