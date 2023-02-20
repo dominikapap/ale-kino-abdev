@@ -1,25 +1,26 @@
 import { ButtonComponent } from '../user/features/ui/button/button.component';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { DashboardComponent } from '.';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, UpperCasePipe } from '@angular/common';
 
 @NgModule({
-  declarations: [LoginFormComponent],
+  declarations: [DashboardComponent],
   imports: [
     ReactiveFormsModule,
     ButtonComponent,
-    RouterModule,
-    CommonModule,
-    UpperCasePipe,
     RouterModule.forChild([
       {
         path: '',
-        component: LoginFormComponent,
-        children: [],
+        component: DashboardComponent,
+        children: [
+          {
+            path: 'create-screening',
+            loadComponent: () => import('./features/create-screening/create-screening.component'),
+          },
+        ],
       },
     ]),
   ],
 })
-export default class AuthModule {}
+export default class AdminModule {}

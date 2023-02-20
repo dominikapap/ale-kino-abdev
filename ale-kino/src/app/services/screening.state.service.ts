@@ -12,7 +12,7 @@ import {
   Subscription,
 } from 'rxjs';
 import { UserStateService } from '../core/user.state.service';
-import { Movie } from '../features/home/movie/movie.interface';
+import { Movie } from '../user/features/home/movie/movie.interface';
 import { Order, OrdersService } from './orders.service';
 import { Ticket, TicketsService } from './tickets.service';
 

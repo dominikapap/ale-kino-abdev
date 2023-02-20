@@ -1,0 +1,57 @@
+import {
+  ScreeningService,
+  Seat,
+  TicketState,
+} from '../../../../services/screening.state.service';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { ScreeningRoomsService } from 'src/app/services/screening-rooms.service';
+
+export type RoomSize = {
+  rows: number;
+  seats: number;
+};
+
+@Component({
+  selector: 'app-screening-room',
+  templateUrl: './screening-room.component.html',
+  styleUrls: ['./screening-room.component.scss'],
+})
+export class ScreeningRoomComponent implements OnInit {
+  private screeningRoomService = inject(ScreeningRoomsService);
+  private screeningService = inject(ScreeningService);
+
+  @Input() roomId: number = 0;
+  @Input() screeningRoomId: number = 0;
+  @Input() maxNumberOfReservedSeats: number = 10;
+  seatSelectionState: Seat[] = [];
+  roomSetupData: any;
+  ticketsState: TicketState = {
+    reservedTickets: [],
+    selectedTickets: [],
+  };
+
+  ngOnInit(): void {
+    this.screeningRoomService.initiateRoomSetupData(this.roomId);
+    this.screeningRoomService.roomSetupData$.subscribe((roomSetupData) => {
+      this.roomSetupData = roomSetupData;
+    });
+
+    this.screeningService.initiateScreeningTicketsState(this.screeningRoomId);
+
+    this.screeningService.screeningTicketsState$.subscribe((ticketsState) => {
+      this.ticketsState = ticketsState;
+    });
+  }
+
+  toggleSeat(row: string, seatNumber: number) {
+    this.screeningService.toggleSelectedSeat({ row, seatNumber });
+  }
+
+  isSelected(row: string, seatNumber: number) {
+    return this.screeningService.isSeatSelected({ row, seatNumber });
+  }
+
+  isReserved(row: string, seatNumber: number) {
+    return this.screeningService.isSeatReserved({ row, seatNumber });
+  }
+}

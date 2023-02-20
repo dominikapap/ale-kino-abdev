@@ -1,0 +1,11 @@
+@use '../../../breakpoints' as breakpoints;
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  @extend .app-container;
+  height: 100%;
+}

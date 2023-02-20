@@ -3,7 +3,7 @@ import {
   DailyMovieScreenings,
   Movie,
   MovieScreening,
-} from 'src/app/features/home/movie/movie.interface';
+} from 'src/app/user/features/home/movie/movie.interface';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map } from 'rxjs';
 import { SelectedDateService } from './selected-date.state.service';

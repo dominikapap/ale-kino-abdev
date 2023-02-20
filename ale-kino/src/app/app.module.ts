@@ -10,12 +10,12 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import { faCartShopping, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { HeaderComponent } from './shell/header/header.component';
-import { RoundedNavComponent } from './features/ui/rounded-nav/rounded-nav.component';
+import { RoundedNavComponent } from './user/features/ui/rounded-nav/rounded-nav.component';
 import { FooterComponent } from './shell/footer/footer.component';
 import { PopupNavComponent } from './shell/popup-nav/popup-nav.component';
 import { ShellComponent } from './shell/shell/shell.component';
-import { ButtonComponent } from './features/ui/button/button.component';
-import { SummaryComponent } from './features/summary/summary/summary.component';
+import { ButtonComponent } from './user/features/ui/button/button.component';
+import { SummaryComponent } from './user/features/summary/summary/summary.component';
 import { CustomHttpInterceptor } from './core/custom-http.interceptor';
 import { API_URL, IS_PRODUCTION } from './core/env.token';
 import { environment } from 'src/environments/environment';

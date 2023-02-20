@@ -7,18 +7,22 @@ const routes: Routes = [
     path: '',
     component: ShellComponent,
     children: [
-      { path: '', loadChildren: () => import('./features/home/home.module') },
+      { path: '', loadChildren: () => import('./user/features/home/home.module') },
       {
         path: 'reservation/:id',
-        loadChildren: () => import('./features/reservation/reservation.module'),
+        loadChildren: () => import('./user/features/reservation/reservation.module'),
       },
       {
         path: 'checkout/:id',
-        loadChildren: () => import('./features/checkout/checkout.module'),
+        loadChildren: () => import('./user/features/checkout/checkout.module'),
       },
       {
         path: 'summary',
-        loadChildren: () => import('./features/summary/summary.module'),
+        loadChildren: () => import('./user/features/summary/summary.module'),
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./admin/admin.module'),
       },
     ],
   },

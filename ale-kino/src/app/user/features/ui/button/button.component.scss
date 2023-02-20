@@ -1,0 +1,29 @@
+@use '../../../../../colors' as colors;
+.btn {
+  min-width: 40px;
+  min-height: 40px;
+  padding: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(95%);
+}
+
+.btn-accent {
+  background-color: colors.$accent-color;
+  border: 1px solid colors.$accent-color;
+}
+
+.btn-accent-border {
+  color: colors.$accent-color;
+  border: 1px solid colors.$accent-color;
+  background-color: transparent;
+}
+
+

@@ -1,0 +1,67 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$my-typography: mat.define-typography-config(
+  $font-family: 'Roboto',
+);
+
+$gold-palette: (
+  100: #ffe5d4,
+  200: #ffe1cd,
+  300: #FBD2B7,
+  500: #FBD2B7,
+  600: #FBD2B7,
+  700: #AF8B73,
+  800: #CF582E,
+  900: #CF582E,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #FFF,
+    800: #FFF,
+    900: #FFF,
+  ),
+);
+
+$app-name-primary: mat.define-palette($gold-palette, 600, 300, 800, 600);
+$app-name-accent: mat.define-palette(mat.$pink-palette);
+$app-name-warn: mat.define-palette(mat.$red-palette);
+
+$app-name-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $app-name-primary,
+      accent: $app-name-accent,
+      warn: $app-name-warn,
+    ),
+    typography: $my-typography,
+  )
+);
+
+@include mat.input-color($app-name-theme);
+@include mat.form-field-color($app-name-theme);
+@include mat.select-color($app-name-theme);
+@include mat.chips-color($app-name-theme);
+@include mat.button-color($app-name-theme);
+
+.mat-form-field-outline-start {
+  background-color: white !important;
+}
+
+.mat-form-field-outline-gap {
+  background-color: white !important;
+}
+
+.mat-form-field-outline-end {
+  background-color: white !important;
+}
+
+.date-time-form-field .mat-mdc-icon-button {
+  color: gray;
+}
