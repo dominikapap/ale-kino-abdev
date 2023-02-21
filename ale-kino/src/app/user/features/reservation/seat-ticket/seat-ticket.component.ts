@@ -1,11 +1,11 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ScreeningRoomStateService } from 'src/app/services/screening-room.state.service';
 import {
   Ticket,
   TicketsService,
   TicketType,
 } from 'src/app/services/tickets.service';
-import { ScreeningService } from '../../../../services/screening.state.service';
 
 @Component({
   selector: 'app-seat-ticket',
@@ -14,13 +14,13 @@ import { ScreeningService } from '../../../../services/screening.state.service';
 })
 export class SeatTicketComponent implements OnInit, OnDestroy {
    ticketsService = inject(TicketsService);
-  private screeningService = inject(ScreeningService);
+  private screeningRoomStateService = inject(ScreeningRoomStateService);
   private subscriptions = new Subscription();
 
   ngOnInit(): void {
-    this.screeningService.screeningTicketsState$.subscribe(
+    this.screeningRoomStateService.screeningRoomState$.subscribe(
       (screeningTicketsState) => {
-        this.selectedTickets = screeningTicketsState.selectedTickets;
+        this.selectedTickets = screeningTicketsState.ticketState.selectedTickets;
       }
     );
     this.ticketsService.getTicketTypes().subscribe((ticketTypes) => {
@@ -42,7 +42,7 @@ export class SeatTicketComponent implements OnInit, OnDestroy {
     this.ticketsService.updateTicket(ticket.id, {
       ticketTypesId: ticketTypeIdAsNumber,
     }).subscribe(updatedTicket => {
-      this.screeningService.updateSelectedTicketToLocalState(updatedTicket)
+      this.screeningRoomStateService.updateSelectedTicketToLocalState(updatedTicket)
     })
   }
 
@@ -52,7 +52,7 @@ export class SeatTicketComponent implements OnInit, OnDestroy {
   }
 
   removeTicket(row: string, seatNumber: number) {
-    const removeTicketSub = this.screeningService.removeSelectedTicket(
+    const removeTicketSub = this.screeningRoomStateService.removeSelectedTicket(
       row,
       seatNumber
     );

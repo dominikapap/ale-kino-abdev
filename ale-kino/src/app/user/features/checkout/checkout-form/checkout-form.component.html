@@ -1,4 +1,4 @@
-<div class="reservation" *ngIf="screeningTicketState$ | async as ticketState">
+<div class="reservation" *ngIf="screeningRoomState$ | async as ticketState">
   <app-checkout-order></app-checkout-order>
 
   <form class="checkoutForm" [formGroup]="checkoutForm" (ngSubmit)="sendForm()">

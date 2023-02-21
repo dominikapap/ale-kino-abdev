@@ -11,13 +11,32 @@ export type ScreeningDetails = {
   movies: Movie;
 };
 
+export type Screening = {
+  date: string;
+  time: string;
+  roomsId: number;
+  moviesId: number;
+};
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ScreeningsService {
   private http = inject(HttpClient);
 
-  constructor() { }
+  constructor() {}
+
+  addScreening(screening: Screening) {
+    return this.http.post<Screening>('/screenings', {
+      ...screening,
+    });
+  }
+
+  getAllScreeningsDetails() {
+    return this.http.get<ScreeningDetails[]>(
+      `/screenings?_expand=rooms&_expand=movies`
+    );
+  }
 
   getScreeningDetails(screeningId: string) {
     return this.http.get<ScreeningDetails[]>(

@@ -21,11 +21,21 @@ export type RoomSetup = {
   rowNumbers: number[];
 };
 
-export type ScreeningRoomState = {
-  screeningDetails?: ScreeningDetails;
+export type TicketState = {
   notCheckedOutOrderId?: number;
   selectedTickets: Ticket[];
   reservedTickets: Ticket[];
+};
+
+const defaultTicketState: TicketState = {
+  notCheckedOutOrderId: -1,
+  selectedTickets: [],
+  reservedTickets: [],
+};
+
+export type ScreeningRoomState = {
+  screeningDetails?: ScreeningDetails;
+  ticketState: TicketState;
   roomSetup: RoomSetup;
 };
 
@@ -35,9 +45,7 @@ const defaultRoomSetupData: RoomSetup = {
 };
 
 const defaultScreeningRoomState: ScreeningRoomState = {
-  notCheckedOutOrderId: -1,
-  selectedTickets: [],
-  reservedTickets: [],
+  ticketState: defaultTicketState,
   roomSetup: defaultRoomSetupData,
 };
 
@@ -71,12 +79,34 @@ export class ScreeningRoomStateService {
     });
   }
 
+  private patchTicketState(stateSlice: Partial<TicketState>) {
+    this.screeningRoomState$$.next({
+      ...this.screeningRoomStateValue,
+      ticketState: {
+        ...this.screeningRoomStateValue.ticketState,
+        ...stateSlice,
+      },
+    });
+  }
+
   private resetScreeningRoomState() {
     this.patchState(defaultScreeningRoomState);
   }
 
+  initiateScreeningTicketsState(screeningRoomId: number) {
+    this.resetScreeningRoomState();
+    //get screening tickets from checked out orders
+    this.getReservedScreeningTickets(screeningRoomId).subscribe((tickets) => {
+      this.patchTicketState({ reservedTickets: tickets });
+    });
+    //get user screening tickets from not checked out order
+    this.getSelectedScreeningTickets(screeningRoomId).subscribe((tickets) => {
+      this.patchTicketState({ selectedTickets: tickets });
+    });
+  }
+
   isSeatReserved(seat: Seat) {
-    return this.screeningRoomStateValue.reservedTickets.some(
+    return this.screeningRoomStateValue.ticketState.reservedTickets.some(
       (reservedTicket) => {
         return (
           seat.row === reservedTicket.seat.row &&
@@ -87,7 +117,7 @@ export class ScreeningRoomStateService {
   }
 
   isSeatSelected(seat: Seat) {
-    return this.screeningRoomStateValue.selectedTickets.find(
+    return this.screeningRoomStateValue.ticketState.selectedTickets.find(
       (selectedTickets) => {
         return (
           seat.row === selectedTickets.seat.row &&
@@ -101,13 +131,13 @@ export class ScreeningRoomStateService {
     const selectedTicket = this.isSeatSelected(seat);
     if (
       selectedTicket === undefined &&
-      this.screeningRoomStateValue.selectedTickets.length <
+      this.screeningRoomStateValue.ticketState.selectedTickets.length <
         this.MAX_NUMBER_OF_RESERVED_SEATS &&
-      this.screeningRoomStateValue.notCheckedOutOrderId
+      this.screeningRoomStateValue.ticketState.notCheckedOutOrderId
     ) {
       this.ticketsService
         .addTicketToOrder(
-          this.screeningRoomStateValue.notCheckedOutOrderId,
+          this.screeningRoomStateValue.ticketState.notCheckedOutOrderId,
           seat
         )
         .subscribe((selectedTicket) => {
@@ -122,10 +152,11 @@ export class ScreeningRoomStateService {
     }
   }
 
+
   private addSelectedTicketToLocalState(selectedTicket: Ticket) {
-    this.patchState({
+    this.patchTicketState({
       selectedTickets: [
-        ...this.screeningRoomStateValue.selectedTickets,
+        ...this.screeningRoomStateValue.ticketState.selectedTickets,
         selectedTicket,
       ],
     });
@@ -133,10 +164,10 @@ export class ScreeningRoomStateService {
 
   private removeSelectedTicketFromLocalState(selectedTicket: Ticket) {
     const newSelectedTicketsState =
-      this.screeningRoomStateValue.selectedTickets.filter((ticket) => {
+      this.screeningRoomStateValue.ticketState.selectedTickets.filter((ticket) => {
         return selectedTicket?.id !== ticket.id;
       });
-    this.patchState({ selectedTickets: newSelectedTicketsState });
+    this.patchTicketState({ selectedTickets: newSelectedTicketsState });
   }
 
   removeSelectedTicket(row: string, seatNumber: number) {
@@ -157,7 +188,7 @@ export class ScreeningRoomStateService {
 
   updateSelectedTicketToLocalState(selectedTicket: Ticket) {
     let oldSelectedTicket = <Ticket>(
-      this.screeningRoomStateValue.selectedTickets.find(
+      this.screeningRoomStateValue.ticketState.selectedTickets.find(
         (ticket) => ticket.id === selectedTicket.id
       )
     );
@@ -201,7 +232,7 @@ export class ScreeningRoomStateService {
         return order !== undefined ? of(order) : newOrder$;
       }),
       switchMap((order) => {
-        this.patchState({ notCheckedOutOrderId: order?.id });
+        this.patchTicketState({ notCheckedOutOrderId: order?.id });
         return this.ticketsService.getAllOrderTicketsWithFullInfo(order?.id);
       })
     );

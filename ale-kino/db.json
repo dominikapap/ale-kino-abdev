@@ -285,6 +285,33 @@
       },
       "ticketTypesId": 1,
       "id": 49
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "E",
+        "seatNumber": 9
+      },
+      "ticketTypesId": 1,
+      "id": 55
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "F",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 56
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "E",
+        "seatNumber": 8
+      },
+      "ticketTypesId": 1,
+      "id": 57
     }
   ]
 }

@@ -1,3 +1,7 @@
+import {
+  Screening,
+  ScreeningsService,
+} from './../../../services/screenings.service';
 import { Movie, MoviesService } from './../../../services/movies.service';
 import { Component, inject } from '@angular/core';
 import {
@@ -53,25 +57,23 @@ export default class CreateScreeningComponent {
   private router = inject(Router);
   private moviesService = inject(MoviesService);
   private roomsService = inject(RoomsService);
+  private screenings = inject(ScreeningsService);
   screeningForm = this.createForm();
   isError: boolean = false;
 
-  movieOptions: Movie[] = [];
+  private movieOptions: Movie[] = [];
   filteredMovieOptions!: Observable<Movie[]>;
 
-  roomOptions: Room[] = [];
+  private roomOptions: Room[] = [];
   filteredRoomOptions!: Observable<Room[]>;
 
   private createForm() {
     const form = this.builder.group({
       movieInfo: this.builder.group({
-        movieTitle: this.builder.control<string | Movie>(
-          '',
-          Validators.required
-        ),
+        movie: this.builder.control<string | Movie>('', Validators.required),
       }),
       roomInfo: this.builder.group({
-        roomName: this.builder.control<string | Room>('', Validators.required),
+        room: this.builder.control<string | Room>('', Validators.required),
       }),
       dateInfo: this.builder.group({
         date: this.builder.control(''),
@@ -88,10 +90,32 @@ export default class CreateScreeningComponent {
       return;
     }
 
-    console.log(this.screeningForm.value);
     if (this.screeningForm.valid) {
+      const screening: Screening = {
+        date: this.dateValue,
+        time: this.dateValue,
+        roomsId: this.roomValue.id,
+        moviesId: this.movieValue.id,
+      };
+      this.screenings.addScreening(screening).subscribe((response) => {
+        // console.log('Added:', response);
+      });
+
+      // console.log(this.screeningForm.value);
       // this.router.navigate(['/summary']);
     }
+  }
+
+  get movieValue() {
+    return <Movie>this.screeningForm.value.movieInfo?.movie;
+  }
+
+  get roomValue() {
+    return <Room>this.screeningForm.value.roomInfo?.room;
+  }
+
+  get dateValue() {
+    return <string>this.screeningForm.value.dateInfo?.date;
   }
 
   get movieInformationForm() {
@@ -106,10 +130,10 @@ export default class CreateScreeningComponent {
   }
 
   get movieCtrl() {
-    return this.movieInformationForm['controls'].movieTitle;
+    return this.movieInformationForm['controls'].movie;
   }
   get roomCtrl() {
-    return this.roomInformationForm['controls'].roomName;
+    return this.roomInformationForm['controls'].room;
   }
   get dateTimeCtrl() {
     return this.dateInformationForm['controls'].date;

@@ -28,17 +28,17 @@
   >
     <fa-icon [icon]="icon"></fa-icon>
   </div>
-  <!-- <div
+  <div
     class="seat__ticketPrice">
     {{  getTicketPrice(ticket.ticketTypesId) }} PLN
-  </div> -->
-  <div
+  </div>
+  <!-- <div
   class="seat__ticketPrice"
   *ngIf="
     ticketsService.getTicketPriceByTypeId(ticket.ticketTypesId) | async as price
   "
 >
   {{ price }} PLN
-</div>
+</div> -->
 </div>
 
