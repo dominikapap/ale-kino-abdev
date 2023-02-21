@@ -1,10 +1,10 @@
 import {
   ScreeningService,
-  Seat,
   TicketState,
 } from '../../../../services/screening.state.service';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { ScreeningRoomsService } from 'src/app/services/screening-rooms.service';
+import { Seat } from 'src/app/services/rooms.service';
 
 export type RoomSize = {
   rows: number;

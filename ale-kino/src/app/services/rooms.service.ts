@@ -8,6 +8,13 @@ export interface Room {
   seats: number;
 }
 
+export interface Seat {
+  row: string;
+  seatNumber: number;
+  isReserved?: boolean;
+  isSelected?: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })

@@ -1,9 +1,9 @@
 import {
-  ScreeningDetails,
   ScreeningService,
 } from '../../../../services/screening.state.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { Ticket } from 'src/app/services/tickets.service';
+import { ScreeningDetails } from 'src/app/services/screenings.service';
 
 @Component({
   selector: 'app-checkout-order',

@@ -1,10 +1,10 @@
 import {
-  ScreeningDetails,
   ScreeningService,
 } from '../../../../services/screening.state.service';
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ScreeningDetails } from 'src/app/services/screenings.service';
 
 @Component({
   selector: 'app-reservation',

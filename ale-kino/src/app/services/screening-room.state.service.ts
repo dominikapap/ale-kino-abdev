@@ -1,82 +1,82 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   BehaviorSubject,
+  combineLatest,
   forkJoin,
   map,
   Observable,
-  switchMap,
-  combineLatest,
   of,
   Subscription,
+  switchMap,
 } from 'rxjs';
 import { UserStateService } from '../core/user.state.service';
 import { Order, OrdersService } from './orders.service';
-import { Seat } from './rooms.service';
-import { ScreeningDetails } from './screenings.service';
+import { RoomsService, Seat } from './rooms.service';
+import { ScreeningDetails, ScreeningsService } from './screenings.service';
 import { Ticket, TicketsService } from './tickets.service';
 
-export type TicketState = {
+export type RoomSetup = {
+  rowLetters: string[];
+  rowNumbers: number[];
+};
+
+export type ScreeningRoomState = {
   screeningDetails?: ScreeningDetails;
   notCheckedOutOrderId?: number;
   selectedTickets: Ticket[];
   reservedTickets: Ticket[];
+  roomSetup: RoomSetup;
 };
 
-const defaultTicketState: TicketState = {
+const defaultRoomSetupData: RoomSetup = {
+  rowLetters: [],
+  rowNumbers: [],
+};
+
+const defaultScreeningRoomState: ScreeningRoomState = {
   notCheckedOutOrderId: -1,
   selectedTickets: [],
   reservedTickets: [],
+  roomSetup: defaultRoomSetupData,
 };
 
 @Injectable({
   providedIn: 'root',
 })
-export class ScreeningService {
-  private http = inject(HttpClient);
-  private ordersService = inject(OrdersService);
+export class ScreeningRoomStateService {
   private ticketsService = inject(TicketsService);
+  private roomsService = inject(RoomsService);
+  private ordersService = inject(OrdersService);
   private userService = inject(UserStateService);
-
+  private screeningService = inject(ScreeningsService);
+  constructor() {}
   private MAX_NUMBER_OF_RESERVED_SEATS: number = 10;
-  private screeningTicketsState$$ = new BehaviorSubject<TicketState>(
-    defaultTicketState
+  private screeningRoomState$$ = new BehaviorSubject<ScreeningRoomState>(
+    defaultScreeningRoomState
   );
 
-  get screeningTicketsState$() {
-    return this.screeningTicketsState$$.asObservable();
+  get screeningRoomState$() {
+    return this.screeningRoomState$$.asObservable();
   }
 
-  get screeningTicketsStateValue() {
-    return this.screeningTicketsState$$.value;
+  private get screeningRoomStateValue() {
+    return this.screeningRoomState$$.value;
   }
 
-  private patchTicketsState(stateSlice: Partial<TicketState>) {
-    this.screeningTicketsState$$.next({
-      ...this.screeningTicketsStateValue,
+  private patchState(stateSlice: Partial<ScreeningRoomState>) {
+    this.screeningRoomState$$.next({
+      ...this.screeningRoomStateValue,
       ...stateSlice,
     });
   }
 
-  private resetScreeningTicketState() {
-    this.patchTicketsState(defaultTicketState);
-  }
-
-  initiateScreeningTicketsState(screeningRoomId: number) {
-    this.resetScreeningTicketState();
-    //get screening tickets from checked out orders
-    this.getReservedScreeningTickets(screeningRoomId).subscribe((tickets) => {
-      this.patchTicketsState({ reservedTickets: tickets });
-    });
-    //get user screening tickets from not checked out order
-    this.getSelectedScreeningTickets(screeningRoomId).subscribe((tickets) => {
-      this.patchTicketsState({ selectedTickets: tickets });
-    });
+  private resetScreeningRoomState() {
+    this.patchState(defaultScreeningRoomState);
   }
 
   isSeatReserved(seat: Seat) {
-    return this.screeningTicketsStateValue.reservedTickets.some(
+    return this.screeningRoomStateValue.reservedTickets.some(
       (reservedTicket) => {
         return (
           seat.row === reservedTicket.seat.row &&
@@ -87,7 +87,7 @@ export class ScreeningService {
   }
 
   isSeatSelected(seat: Seat) {
-    return this.screeningTicketsStateValue.selectedTickets.find(
+    return this.screeningRoomStateValue.selectedTickets.find(
       (selectedTickets) => {
         return (
           seat.row === selectedTickets.seat.row &&
@@ -101,13 +101,13 @@ export class ScreeningService {
     const selectedTicket = this.isSeatSelected(seat);
     if (
       selectedTicket === undefined &&
-      this.screeningTicketsStateValue.selectedTickets.length <
+      this.screeningRoomStateValue.selectedTickets.length <
         this.MAX_NUMBER_OF_RESERVED_SEATS &&
-      this.screeningTicketsStateValue.notCheckedOutOrderId
+      this.screeningRoomStateValue.notCheckedOutOrderId
     ) {
       this.ticketsService
         .addTicketToOrder(
-          this.screeningTicketsStateValue.notCheckedOutOrderId,
+          this.screeningRoomStateValue.notCheckedOutOrderId,
           seat
         )
         .subscribe((selectedTicket) => {
@@ -123,9 +123,9 @@ export class ScreeningService {
   }
 
   private addSelectedTicketToLocalState(selectedTicket: Ticket) {
-    this.patchTicketsState({
+    this.patchState({
       selectedTickets: [
-        ...this.screeningTicketsStateValue.selectedTickets,
+        ...this.screeningRoomStateValue.selectedTickets,
         selectedTicket,
       ],
     });
@@ -133,22 +133,11 @@ export class ScreeningService {
 
   private removeSelectedTicketFromLocalState(selectedTicket: Ticket) {
     const newSelectedTicketsState =
-      this.screeningTicketsStateValue.selectedTickets.filter((ticket) => {
+      this.screeningRoomStateValue.selectedTickets.filter((ticket) => {
         return selectedTicket?.id !== ticket.id;
       });
-    this.patchTicketsState({ selectedTickets: newSelectedTicketsState });
+    this.patchState({ selectedTickets: newSelectedTicketsState });
   }
-
-  // updateSelectedTicket(ticketId: number, ticketSlice: Partial<Ticket>) {
-  //   return this.ticketsService
-  //     .updateTicket(ticketId, ticketSlice)
-  //     .subscribe(([ticket, [ticketType]]) => {
-  //       this.updateSelectedTicketToLocalState({
-  //         ...ticket,
-  //         ticketTypes: ticketType,
-  //       });
-  //     });
-  // }
 
   removeSelectedTicket(row: string, seatNumber: number) {
     const selectedTicket = this.isSeatSelected({
@@ -161,14 +150,14 @@ export class ScreeningService {
         .subscribe(() => {
           this.removeSelectedTicketFromLocalState(selectedTicket);
         });
-    }else {
-      return new Subscription()
+    } else {
+      return new Subscription();
     }
   }
 
   updateSelectedTicketToLocalState(selectedTicket: Ticket) {
     let oldSelectedTicket = <Ticket>(
-      this.screeningTicketsStateValue.selectedTickets.find(
+      this.screeningRoomStateValue.selectedTickets.find(
         (ticket) => ticket.id === selectedTicket.id
       )
     );
@@ -212,10 +201,34 @@ export class ScreeningService {
         return order !== undefined ? of(order) : newOrder$;
       }),
       switchMap((order) => {
-        this.patchTicketsState({ notCheckedOutOrderId: order?.id });
+        this.patchState({ notCheckedOutOrderId: order?.id });
         return this.ticketsService.getAllOrderTicketsWithFullInfo(order?.id);
       })
     );
+  }
+
+  private generateRowLetters(rowsNumber: number) {
+    //generate an array of letters
+    const alpha = Array.from(Array(rowsNumber)).map((e, i) => i + 65);
+    const alphabet = alpha.map((x) => String.fromCharCode(x));
+    return alphabet;
+  }
+
+  private generateSeatNumbers(seats: number) {
+    return Array.from({ length: seats }, (_, i) => i + 1);
+  }
+
+  initiateRoomSetupData(screeningRoomId: number) {
+    this.roomsService
+      .getRoomDetails(screeningRoomId)
+      .subscribe((roomDetails) => {
+        this.patchState({
+          roomSetup: {
+            rowLetters: this.generateRowLetters(roomDetails.rows),
+            rowNumbers: this.generateSeatNumbers(roomDetails.seats),
+          },
+        });
+      });
   }
 
   initializeScreeningDetailsFromRoute(route: ActivatedRoute) {
@@ -223,17 +236,11 @@ export class ScreeningService {
       .pipe(
         switchMap((params) => {
           const id: string = <string>params.get('id');
-          return this.getScreeningDetails(id);
+          return this.screeningService.getScreeningDetails(id);
         })
       )
       .subscribe(([screeningDetails]) => {
-        this.patchTicketsState({ screeningDetails });
+        this.patchState({ screeningDetails });
       });
-  }
-
-  getScreeningDetails(screeningId: string) {
-    return this.http.get<ScreeningDetails[]>(
-      `/screenings?_expand=rooms&_expand=movies&id=${screeningId}`
-    );
   }
 }
