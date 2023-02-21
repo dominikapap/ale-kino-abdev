@@ -43,4 +43,24 @@ export class ScreeningsService {
       `/screenings?_expand=rooms&_expand=movies&id=${screeningId}`
     );
   }
+
+  getDailyRoomScreeningDetails(roomId: number, date: Date) {
+    return this.http.get<ScreeningDetails[]>(
+      `/screenings?_expand=movies&date=${this.convertDateFormat(date)}&roomsId=${roomId}`
+    );
+  }
+
+  convertDateFormat(dateValue: Date) {
+    let date: string | number = dateValue.getDate();
+    let month: string | number = dateValue.getMonth() + 1;
+    const year = dateValue.getFullYear();
+
+    if (date < 10) {
+      date = '0' + date;
+    }
+    if (month < 10) {
+      month = '0' + month;
+    }
+    return `${date}-${month}-${year}`;
+  }
 }

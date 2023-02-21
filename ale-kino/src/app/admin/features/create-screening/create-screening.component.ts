@@ -1,8 +1,9 @@
+import { AutocompleteService } from './autocomplete.service';
 import {
   Screening,
   ScreeningsService,
 } from './../../../services/screenings.service';
-import { Movie, MoviesService } from './../../../services/movies.service';
+import { Movie } from './../../../services/movies.service';
 import { Component, inject } from '@angular/core';
 import {
   NonNullableFormBuilder,
@@ -13,19 +14,15 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import {
-  NgxMatDatetimePickerModule,
-  NgxMatTimepickerModule,
-  NgxMatNativeDateModule,
-} from '@angular-material-components/datetime-picker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { map, Observable, startWith } from 'rxjs';
+import { Observable, switchMap, Subscription } from 'rxjs';
 import { MatStepperModule } from '@angular/material/stepper';
-import { Room, RoomsService } from 'src/app/services/rooms.service';
+import { Room } from 'src/app/services/rooms.service';
+import { MatNativeDateModule } from '@angular/material/core';
 
 export interface User {
   name: string;
@@ -42,29 +39,22 @@ export interface User {
     MatIconModule,
     MatSelectModule,
     MatDatepickerModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
     MatButtonModule,
     MatChipsModule,
     MatAutocompleteModule,
     MatStepperModule,
     CommonModule,
+    MatNativeDateModule,
   ],
 })
 export default class CreateScreeningComponent {
   private builder = inject(NonNullableFormBuilder);
   private router = inject(Router);
-  private moviesService = inject(MoviesService);
-  private roomsService = inject(RoomsService);
-  private screenings = inject(ScreeningsService);
+  private autocompleteService = inject(AutocompleteService);
+  private screeningsService = inject(ScreeningsService);
+  private subscriptions = new Subscription();
   screeningForm = this.createForm();
-  isError: boolean = false;
-
-  private movieOptions: Movie[] = [];
   filteredMovieOptions!: Observable<Movie[]>;
-
-  private roomOptions: Room[] = [];
   filteredRoomOptions!: Observable<Room[]>;
 
   private createForm() {
@@ -92,18 +82,33 @@ export default class CreateScreeningComponent {
 
     if (this.screeningForm.valid) {
       const screening: Screening = {
-        date: this.dateValue,
-        time: this.dateValue,
+        date: this.screeningsService.convertDateFormat(new Date(this.dateValue)),
+        time: this.screeningsService.convertDateFormat(new Date(this.dateValue)),
         roomsId: this.roomValue.id,
         moviesId: this.movieValue.id,
       };
-      this.screenings.addScreening(screening).subscribe((response) => {
-        // console.log('Added:', response);
+      this.screeningsService.addScreening(screening).subscribe((response) => {
+        console.log('Added:', response);
       });
 
       // console.log(this.screeningForm.value);
       // this.router.navigate(['/summary']);
     }
+  }
+
+  private handleDateChange() {
+    this.dateTimeCtrl.valueChanges
+      .pipe(
+        switchMap((dateValue) => {
+          return this.screeningsService.getDailyRoomScreeningDetails(
+            this.roomValue.id,
+            new Date(dateValue)
+          );
+        })
+      )
+      .subscribe((dailyRoomScreenings) => {
+        console.log('daily screenings', dailyRoomScreenings);
+      });
   }
 
   get movieValue() {
@@ -146,55 +151,21 @@ export default class CreateScreeningComponent {
     return room && room.name ? room.name : '';
   }
 
-  private _filterMovies(title: string): Movie[] {
-    const filterValue = title.toLowerCase();
 
-    return this.movieOptions.filter((option) =>
-      option.title.toLowerCase().includes(filterValue)
-    );
-  }
-
-  private _filterRooms(name: string): Room[] {
-    const filterValue = name.toLowerCase();
-
-    return this.roomOptions.filter((option) =>
-      option.name.toLowerCase().includes(filterValue)
-    );
-  }
-
-  private onChangeFilterMovieOptions() {
-    this.filteredMovieOptions = this.movieCtrl.valueChanges.pipe(
-      startWith(''),
-      map((value) => {
-        const title = typeof value === 'string' ? value : value?.title;
-        return title
-          ? this._filterMovies(title as string)
-          : this.movieOptions.slice();
-      })
-    );
-  }
-
-  private onChangeFilterRoomOptions() {
-    this.filteredRoomOptions = this.roomCtrl.valueChanges.pipe(
-      startWith(''),
-      map((value) => {
-        const name = typeof value === 'string' ? value : value?.name;
-        return name
-          ? this._filterRooms(name as string)
-          : this.roomOptions.slice();
-      })
-    );
-  }
 
   ngOnInit() {
-    this.moviesService.getAllMovies().subscribe((movies) => {
-      this.movieOptions = movies;
-      this.onChangeFilterMovieOptions();
-    });
-
-    this.roomsService.getAllRooms().subscribe((rooms) => {
-      this.roomOptions = rooms;
-      this.onChangeFilterRoomOptions();
-    });
+    const movieSub = this.autocompleteService.initializeAutocompleteMovieOptions(this.movieCtrl);
+    const roomSub = this.autocompleteService.initializeAutocompleteRoomOptions(this.roomCtrl);
+    const autoStateSub = this.autocompleteService.autocompleteOptionsStateState$.subscribe(autoState => {
+      this.filteredMovieOptions = (<Observable<Movie[]>>autoState.filteredMovieOptions);
+      this.filteredRoomOptions = (<Observable<Room[]>>autoState.filteredRoomOptions);
+    })
+    this.subscriptions.add(movieSub)
+    this.subscriptions.add(roomSub)
+    this.subscriptions.add(autoStateSub)
+    this.handleDateChange();
+  }
+  ngOnDestroy(){
+    this.subscriptions.unsubscribe();
   }
 }

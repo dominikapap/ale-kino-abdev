@@ -87,29 +87,6 @@
                 ><mat-icon>info</mat-icon> Pole Sala jest wymagane
               </mat-error>
             </mat-form-field>
-
-            <!-- <mat-form-field appearance="outline">
-              <mat-label>Wybierz Salę</mat-label>
-              <input
-                type="text"
-                placeholder="Wybierz jedeną salę"
-                aria-label="Sala"
-                matInput
-                [formControl]="roomCtrl"
-                [matAutocomplete]="autoRoom"
-              />
-              <mat-autocomplete #autoRoom="matAutocomplete">
-                <mat-option
-                  *ngFor="let option of filteredRoomOptions | async"
-                  [value]="option"
-                >
-                  {{ option }}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error *ngIf="roomCtrl.hasError('required')"
-                ><mat-icon>info</mat-icon> Pole Sala jest wymagane
-              </mat-error>
-            </mat-form-field> -->
             <div class="nav-buttons">
               <button
                 class="form-button"
@@ -135,29 +112,25 @@
         <!-- DATE TIME STEP -->
         <mat-step [stepControl]="dateInformationForm" label="Data">
           <div formGroupName="dateInfo" class="step-form step-form__datetime">
-            <mat-form-field appearance="outline" class="date-time-form-field">
+            <mat-form-field appearance="fill" class="date-time-form-field">
+              <mat-label>Data Rozpoczęcia</mat-label>
               <input
                 matInput
-                [ngxMatDatetimePicker]="picker"
-                placeholder="Data Rozpoczęcia"
+                [matDatepicker]="picker"
                 [formControl]="dateTimeCtrl"
+                placeholder="Data Rozpoczęcia"
               />
+              <mat-hint>MM/DD/RRRR</mat-hint>
               <mat-datepicker-toggle
-                matSuffix
-                [for]="$any(picker)"
+                matIconSuffix
+                [for]="picker"
               ></mat-datepicker-toggle>
-              <ngx-mat-datetime-picker
-                #picker
-                [defaultTime]="[8, 0, 0]"
-                [stepMinute]="5"
-                color="accent"
-                [touchUi]="true"
-              >
-              </ngx-mat-datetime-picker>
+              <mat-datepicker #picker></mat-datepicker>
               <mat-error *ngIf="dateTimeCtrl.hasError('required')"
                 ><mat-icon>info</mat-icon> Pole Data Rozpoczęcia jest wymagane
               </mat-error>
             </mat-form-field>
+
             <div class="nav-buttons">
               <button
                 class="form-button"
