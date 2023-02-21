@@ -1,4 +1,4 @@
-import { MoviesService } from '../../../../services/movies.service';
+import { DailyMoviesScreeningsService } from '../../../../services/daily-movies-screenings.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DailyMovieScreenings } from 'src/app/user/features/home/movie/movie.interface';
 import { Subscription } from 'rxjs';
@@ -10,10 +10,10 @@ import { Subscription } from 'rxjs';
 })
 export class HomePageComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
-  movies: DailyMovieScreenings[] = [];
+  dailyScreenings: DailyMovieScreenings[] = [];
 
   constructor(
-    private moviesService: MoviesService,
+    private dailyScreeningsService: DailyMoviesScreeningsService,
   ) {}
 
   ngOnInit(): void {
@@ -21,8 +21,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   getDailyMovies(){
-    const sub = this.moviesService.movies$.subscribe((movies) => {
-      this.movies = movies;
+    const sub = this.dailyScreeningsService.dailyScreenings$.subscribe((dailyScreenings) => {
+      this.dailyScreenings = dailyScreenings;
     });
     this.subscriptions.add(sub);
   }

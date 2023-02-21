@@ -1,14 +1,4 @@
-export interface Movie {
-  id: number,
-  title: string,
-  tags: string[],
-  length: string,
-  rated: string,
-  description: string,
-  image: string,
-  premiere: boolean,
-  score: string
-}
+import { Movie } from "src/app/services/movies.service";
 
 export interface MovieScreening {
   date: string;

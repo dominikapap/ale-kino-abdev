@@ -1,10 +1,11 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Movie, MoviesService } from './../../../services/movies.service';
+import { Component, inject } from '@angular/core';
 import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgIf, UpperCasePipe, AsyncPipe, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
@@ -18,6 +19,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { map, Observable, startWith } from 'rxjs';
+import { MatStepperModule } from '@angular/material/stepper';
+import { Room, RoomsService } from 'src/app/services/rooms.service';
+
+export interface User {
+  name: string;
+}
 
 @Component({
   selector: 'app-create-screening',
@@ -29,80 +37,45 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatInputModule,
     MatIconModule,
     MatSelectModule,
-    NgIf,
     MatDatepickerModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     MatButtonModule,
-    UpperCasePipe,
     MatChipsModule,
     MatAutocompleteModule,
-    AsyncPipe,
-    NgFor,
+    MatStepperModule,
+    CommonModule,
   ],
 })
 export default class CreateScreeningComponent {
   private builder = inject(NonNullableFormBuilder);
   private router = inject(Router);
+  private moviesService = inject(MoviesService);
+  private roomsService = inject(RoomsService);
   screeningForm = this.createForm();
   isError: boolean = false;
 
-  @ViewChild('imageButton') imageButton!: ElementRef<HTMLButtonElement>;
+  movieOptions: Movie[] = [];
+  filteredMovieOptions!: Observable<Movie[]>;
 
-  tagList: string[] = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato',
-  ];
-
-  fileName = '';
-
-  onTagRemoved(tag: string) {
-    const tags = this.tagsCtrl.value as string[];
-    this.removeFirst(tags, tag);
-    this.tagsCtrl.setValue(tags); // To trigger change detection
-  }
-
-  private removeFirst<T>(array: T[], toRemove: T): void {
-    const index = array.indexOf(toRemove);
-    if (index !== -1) {
-      array.splice(index, 1);
-    }
-  }
+  roomOptions: Room[] = [];
+  filteredRoomOptions!: Observable<Room[]>;
 
   private createForm() {
     const form = this.builder.group({
-      title: this.builder.control('', {
-        validators: [
-          Validators.required,
-          Validators.pattern('[a-zA-Z]*'),
-          Validators.maxLength(100),
-        ],
+      movieInfo: this.builder.group({
+        movieTitle: this.builder.control<string | Movie>(
+          '',
+          Validators.required
+        ),
       }),
-      description: this.builder.control('', {
-        validators: [
-          Validators.required,
-          Validators.pattern('[a-zA-Z]*'),
-          Validators.maxLength(3000),
-        ],
+      roomInfo: this.builder.group({
+        roomName: this.builder.control<string | Room>('', Validators.required),
       }),
-      tags: this.builder.control<string[]>([], {
-        validators: [Validators.required],
+      dateInfo: this.builder.group({
+        date: this.builder.control(''),
       }),
-      rated: this.builder.control('', {
-        validators: [Validators.required],
-      }),
-      length: this.builder.control('', {
-        validators: [Validators.required],
-      }),
-      dateTime: this.builder.control('', {
-        validators: [Validators.required],
-      }),
-      image: this.builder.control<File | null>(null),
     });
 
     return form;
@@ -115,41 +88,89 @@ export default class CreateScreeningComponent {
       return;
     }
 
-    // handle...
     console.log(this.screeningForm.value);
     if (this.screeningForm.valid) {
       // this.router.navigate(['/summary']);
     }
   }
 
-  get titleCtrl() {
-    return this.screeningForm.controls.title;
+  get movieInformationForm() {
+    return this.screeningForm['controls'].movieInfo;
   }
-  get descriptionCtrl() {
-    return this.screeningForm.controls.description;
+
+  get roomInformationForm() {
+    return this.screeningForm['controls'].roomInfo;
   }
-  get tagsCtrl() {
-    return this.screeningForm.controls.tags;
+  get dateInformationForm() {
+    return this.screeningForm['controls'].dateInfo;
   }
-  get ratedCtrl() {
-    return this.screeningForm.controls.rated;
+
+  get movieCtrl() {
+    return this.movieInformationForm['controls'].movieTitle;
   }
-  get lengthCtrl() {
-    return this.screeningForm.controls.length;
+  get roomCtrl() {
+    return this.roomInformationForm['controls'].roomName;
   }
   get dateTimeCtrl() {
-    return this.screeningForm.controls.dateTime;
-  }
-  get imageCtrl() {
-    return this.screeningForm.controls.image;
+    return this.dateInformationForm['controls'].date;
   }
 
-  setLogoFileToForm(event: Event) {
-    const input = event.target as HTMLInputElement;
+  displayMovieFn(movie: Movie): string {
+    return movie && movie.title ? movie.title : '';
+  }
+  displayRoomFn(room: Room): string {
+    return room && room.name ? room.name : '';
+  }
 
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      this.fileName = file.name;
-    }
+  private _filterMovies(title: string): Movie[] {
+    const filterValue = title.toLowerCase();
+
+    return this.movieOptions.filter((option) =>
+      option.title.toLowerCase().includes(filterValue)
+    );
+  }
+
+  private _filterRooms(name: string): Room[] {
+    const filterValue = name.toLowerCase();
+
+    return this.roomOptions.filter((option) =>
+      option.name.toLowerCase().includes(filterValue)
+    );
+  }
+
+  private onChangeFilterMovieOptions() {
+    this.filteredMovieOptions = this.movieCtrl.valueChanges.pipe(
+      startWith(''),
+      map((value) => {
+        const title = typeof value === 'string' ? value : value?.title;
+        return title
+          ? this._filterMovies(title as string)
+          : this.movieOptions.slice();
+      })
+    );
+  }
+
+  private onChangeFilterRoomOptions() {
+    this.filteredRoomOptions = this.roomCtrl.valueChanges.pipe(
+      startWith(''),
+      map((value) => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name
+          ? this._filterRooms(name as string)
+          : this.roomOptions.slice();
+      })
+    );
+  }
+
+  ngOnInit() {
+    this.moviesService.getAllMovies().subscribe((movies) => {
+      this.movieOptions = movies;
+      this.onChangeFilterMovieOptions();
+    });
+
+    this.roomsService.getAllRooms().subscribe((rooms) => {
+      this.roomOptions = rooms;
+      this.onChangeFilterRoomOptions();
+    });
   }
 }

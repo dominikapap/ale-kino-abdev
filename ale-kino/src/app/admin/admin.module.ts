@@ -18,6 +18,10 @@ import { ReactiveFormsModule } from '@angular/forms';
             path: 'create-screening',
             loadComponent: () => import('./features/create-screening/create-screening.component'),
           },
+          {
+            path: 'add-movie',
+            loadComponent: () => import('./features/add-movie/add-movie.component'),
+          },
         ],
       },
     ]),

@@ -1,20 +1,21 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
+@use "colors" as colors;
 
 @include mat.core();
 
 $my-typography: mat.define-typography-config(
-  $font-family: 'Roboto',
+  $font-family: "Roboto",
 );
 
 $gold-palette: (
   100: #ffe5d4,
   200: #ffe1cd,
-  300: #FBD2B7,
-  500: #FBD2B7,
-  600: #FBD2B7,
-  700: #AF8B73,
-  800: #CF582E,
-  900: #CF582E,
+  300: #fbd2b7,
+  500: #fbd2b7,
+  600: #fbd2b7,
+  700: #af8b73,
+  800: #cf582e,
+  900: #cf582e,
   contrast: (
     50: #000000,
     100: #000000,
@@ -23,9 +24,9 @@ $gold-palette: (
     400: #000000,
     500: #000000,
     600: #000000,
-    700: #FFF,
-    800: #FFF,
-    900: #FFF,
+    700: #fff,
+    800: #fff,
+    900: #fff,
   ),
 );
 
@@ -64,4 +65,21 @@ $app-name-theme: mat.define-dark-theme(
 
 .date-time-form-field .mat-mdc-icon-button {
   color: gray;
+}
+
+/// STEPPER
+.mat-stepper-vertical,
+.mat-stepper-horizontal {
+  background-color: transparent;
+}
+.mat-step-text-label{
+  color: white;
+}
+
+.mat-step-header .mat-step-icon {
+  background-color: gray;
+}
+
+.mat-stepper-horizontal-line {
+  border-color: colors.$accent-color
 }

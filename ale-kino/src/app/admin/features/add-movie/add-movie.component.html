@@ -1,0 +1,144 @@
+<div class="create-screening">
+  <div class="create-screening__title">
+    {{ "dodaj nowy film" | uppercase }}
+  </div>
+
+  <form
+    class="create-screening__form"
+    [formGroup]="screeningForm"
+    (ngSubmit)="sendForm()"
+  >
+    <div class="create-screening__form-left">
+      <mat-form-field appearance="outline">
+        <mat-label>Tytuł</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Tytuł"
+          color="primary"
+          formControlName="title"
+        />
+        <mat-error *ngIf="titleCtrl.hasError('required')"
+          ><mat-icon>info</mat-icon> Pole tytuł jest wymagane </mat-error
+        ><mat-error *ngIf="titleCtrl.hasError('maxlength')"
+          ><mat-icon>info</mat-icon> Maksymalna liczba znaków to
+          {{ titleCtrl.errors!["maxlength"]["requiredLength"] }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="textarea-form-field">
+        <mat-label>Opis</mat-label>
+        <textarea
+          matInput
+          placeholder="Opis"
+          rows="16"
+          formControlName="description"
+        ></textarea>
+        <mat-error *ngIf="descriptionCtrl.hasError('required')"
+          ><mat-icon>info</mat-icon> Pole opis jest wymagane </mat-error
+        ><mat-error *ngIf="descriptionCtrl.hasError('maxlength')"
+          ><mat-icon>info</mat-icon> Maksymalna liczba znaków to
+          {{ descriptionCtrl.errors!["maxlength"]["requiredLength"] }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="create-screening__form-right">
+      <mat-form-field appearance="outline">
+        <mat-label>Kategoria Filmu</mat-label>
+        <mat-select [formControl]="tagsCtrl" multiple>
+          <mat-select-trigger>
+            <mat-chip-listbox>
+              <mat-chip-option
+                *ngFor="let tag of tagsCtrl.value"
+                [removable]="true"
+                (removed)="onTagRemoved(tag)"
+              >
+                {{ tag }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip-option>
+            </mat-chip-listbox>
+          </mat-select-trigger>
+
+          <mat-option *ngFor="let tag of tagList" [value]="tag">{{
+            tag
+          }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="tagsCtrl.hasError('required')"
+          ><mat-icon>info</mat-icon> Pole Kategoria Filmu jest wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Kategoria Wiekowa</mat-label>
+        <mat-select [formControl]="ratedCtrl">
+          <mat-option value="PG-15">PG-15</mat-option>
+        </mat-select>
+        <mat-error *ngIf="ratedCtrl.hasError('required')"
+          ><mat-icon>info</mat-icon> Pole Kategoria Wiekowa jest wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Czas Trwania</mat-label>
+        <input
+          type="number"
+          matInput
+          placeholder="Czas Trwania"
+          formControlName="length"
+        />
+        <mat-error *ngIf="lengthCtrl.hasError('required')"
+          ><mat-icon>info</mat-icon> Pole Czas Trwania jest wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Premiera</mat-label>
+        <mat-select [formControl]="premiereCtrl">
+          <mat-option
+            *ngFor="let premiereOption of premiereOptions"
+            [value]="premiereOption.value"
+          >
+            {{ premiereOption.viewValue }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="premiereCtrl.hasError('required')"
+          ><mat-icon>info</mat-icon> Pole Premiera jest wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        #imageButton
+        type="button"
+        mat-stroked-button
+        class="form-button"
+        (click)="fileInput.click()"
+        color="primary"
+        [value]="'tekst'"
+      >
+        <mat-icon>add_circle</mat-icon>
+        Dodaj Plakat
+      </button>
+      <input
+        hidden
+        #fileInput
+        type="file"
+        id="file"
+        formControlName="image"
+        (change)="setLogoFileToForm($event)"
+      />
+      <div *ngIf="fileName" class="form-attachement-info">
+        <mat-icon>image</mat-icon> {{ fileName }}
+      </div>
+
+      <button
+        type="submit"
+        mat-raised-button
+        color="accent"
+        class="form-button form-button--submit"
+      >
+        Stwórz repertuar
+      </button>
+    </div>
+  </form>
+</div>

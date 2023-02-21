@@ -12,8 +12,9 @@ import {
   Subscription,
 } from 'rxjs';
 import { UserStateService } from '../core/user.state.service';
-import { Movie } from '../user/features/home/movie/movie.interface';
+import { Movie } from './movies.service';
 import { Order, OrdersService } from './orders.service';
+import { Room } from './rooms.service';
 import { Ticket, TicketsService } from './tickets.service';
 
 export interface Seat {
@@ -21,12 +22,6 @@ export interface Seat {
   seatNumber: number;
   isReserved?: boolean;
   isSelected?: boolean;
-}
-
-export interface Room {
-  id: number;
-  rows: number;
-  seats: number;
 }
 
 export type ScreeningDetails = {
