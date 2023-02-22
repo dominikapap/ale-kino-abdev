@@ -23,10 +23,7 @@ import { Observable, switchMap, Subscription } from 'rxjs';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Room } from 'src/app/services/rooms.service';
 import { MatNativeDateModule } from '@angular/material/core';
-
-export interface User {
-  name: string;
-}
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 
 @Component({
   selector: 'app-create-screening',
@@ -45,6 +42,7 @@ export interface User {
     MatStepperModule,
     CommonModule,
     MatNativeDateModule,
+    NgxMatTimepickerModule,
   ],
 })
 export default class CreateScreeningComponent {
@@ -56,6 +54,7 @@ export default class CreateScreeningComponent {
   screeningForm = this.createForm();
   filteredMovieOptions!: Observable<Movie[]>;
   filteredRoomOptions!: Observable<Room[]>;
+  canPickScreeningTime = false;
 
   private createForm() {
     const form = this.builder.group({
@@ -66,7 +65,8 @@ export default class CreateScreeningComponent {
         room: this.builder.control<string | Room>('', Validators.required),
       }),
       dateInfo: this.builder.group({
-        date: this.builder.control(''),
+        date: this.builder.control('', Validators.required),
+        time: this.builder.control({value: '', disabled: true}, Validators.required),
       }),
     });
 
@@ -82,8 +82,10 @@ export default class CreateScreeningComponent {
 
     if (this.screeningForm.valid) {
       const screening: Screening = {
-        date: this.screeningsService.convertDateFormat(new Date(this.dateValue)),
-        time: this.screeningsService.convertDateFormat(new Date(this.dateValue)),
+        date: this.screeningsService.convertDateFormat(
+          new Date(this.dateValue)
+        ),
+        time: this.timeValue,
         roomsId: this.roomValue.id,
         moviesId: this.movieValue.id,
       };
@@ -91,7 +93,7 @@ export default class CreateScreeningComponent {
         console.log('Added:', response);
       });
 
-      // console.log(this.screeningForm.value);
+      console.log(this.screeningForm.value);
       // this.router.navigate(['/summary']);
     }
   }
@@ -108,6 +110,8 @@ export default class CreateScreeningComponent {
       )
       .subscribe((dailyRoomScreenings) => {
         console.log('daily screenings', dailyRoomScreenings);
+        this.timeCtrl.enable();
+        this.canPickScreeningTime = true;
       });
   }
 
@@ -121,6 +125,10 @@ export default class CreateScreeningComponent {
 
   get dateValue() {
     return <string>this.screeningForm.value.dateInfo?.date;
+  }
+
+  get timeValue() {
+    return <string>this.screeningForm.value.dateInfo?.time;
   }
 
   get movieInformationForm() {
@@ -143,6 +151,9 @@ export default class CreateScreeningComponent {
   get dateTimeCtrl() {
     return this.dateInformationForm['controls'].date;
   }
+  get timeCtrl() {
+    return this.dateInformationForm['controls'].time;
+  }
 
   displayMovieFn(movie: Movie): string {
     return movie && movie.title ? movie.title : '';
@@ -151,21 +162,31 @@ export default class CreateScreeningComponent {
     return room && room.name ? room.name : '';
   }
 
-
-
   ngOnInit() {
-    const movieSub = this.autocompleteService.initializeAutocompleteMovieOptions(this.movieCtrl);
-    const roomSub = this.autocompleteService.initializeAutocompleteRoomOptions(this.roomCtrl);
-    const autoStateSub = this.autocompleteService.autocompleteOptionsStateState$.subscribe(autoState => {
-      this.filteredMovieOptions = (<Observable<Movie[]>>autoState.filteredMovieOptions);
-      this.filteredRoomOptions = (<Observable<Room[]>>autoState.filteredRoomOptions);
-    })
-    this.subscriptions.add(movieSub)
-    this.subscriptions.add(roomSub)
-    this.subscriptions.add(autoStateSub)
+    const movieSub =
+      this.autocompleteService.initializeAutocompleteMovieOptions(
+        this.movieCtrl
+      );
+    const roomSub = this.autocompleteService.initializeAutocompleteRoomOptions(
+      this.roomCtrl
+    );
+    const autoStateSub =
+      this.autocompleteService.autocompleteOptionsStateState$.subscribe(
+        (autoState) => {
+          this.filteredMovieOptions = <Observable<Movie[]>>(
+            autoState.filteredMovieOptions
+          );
+          this.filteredRoomOptions = <Observable<Room[]>>(
+            autoState.filteredRoomOptions
+          );
+        }
+      );
+    this.subscriptions.add(movieSub);
+    this.subscriptions.add(roomSub);
+    this.subscriptions.add(autoStateSub);
     this.handleDateChange();
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
 }

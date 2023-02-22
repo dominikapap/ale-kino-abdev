@@ -131,6 +131,26 @@
               </mat-error>
             </mat-form-field>
 
+            <mat-form-field>
+              <input
+                matInput
+                name="selected_time_B"
+                [format]="24"
+                [formControl]="timeCtrl"
+                [ngxMatTimepicker]="pickerB"
+                placeholder="08:00"
+                readonly
+                color="accent"
+              />
+              <mat-icon
+                matSuffix
+                (click)="canPickScreeningTime ? pickerB.open() : ''"
+              >
+                watch_later
+              </mat-icon>
+            </mat-form-field>
+            <ngx-mat-timepicker color="accent" #pickerB></ngx-mat-timepicker>
+
             <div class="nav-buttons">
               <button
                 class="form-button"
@@ -155,6 +175,13 @@
         <!-- SUMMARY STEP -->
         <mat-step label="Podsumowanie">
           <div class="step-form step-form__summary">
+            <ul>
+              <li>Tytuł Filmu: {{ movieValue.title }}</li>
+              <li>Nazwa Sali: {{ roomValue.name }}</li>
+              <li>Data Seansu: {{ dateValue | date}}</li>
+              <li>Czas Rozpoczęcia Seansu: {{ timeValue }}</li>
+            </ul>
+
             <div class="nav-buttons">
               <button
                 class="form-button"

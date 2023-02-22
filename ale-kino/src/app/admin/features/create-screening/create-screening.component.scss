@@ -36,8 +36,14 @@
   }
 
   &__datetime {
-    mat-hint {
+    mat-hint, mat-icon {
       color: gray;
+    }
+  }
+
+  &__summary {
+    ul {
+      color: white;
     }
   }
 
@@ -51,3 +57,5 @@
   height: 50px;
   min-width: 100px;
 }
+
+
