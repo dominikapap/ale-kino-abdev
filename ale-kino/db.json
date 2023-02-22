@@ -44,6 +44,98 @@
       "image": "../../assets/img/imageTwo.jpg",
       "premiere": true,
       "score": "8"
+    },
+    {
+      "title": "Avatar",
+      "tags": [
+        "Horror",
+        "Przygodowy",
+        "Komedia"
+      ],
+      "length": 15,
+      "rated": "PG-15",
+      "description": "Avatar the movie",
+      "image": "https://www.cinema-city.pl/xmedia-cw/repo/feats/posters/5111S2R-lg.jpg",
+      "premiere": false,
+      "id": 3
+    },
+    {
+      "title": "Avatar 2",
+      "tags": [
+        "Sci-Fi",
+        "Przygodowy",
+        "Akcji"
+      ],
+      "length": 120,
+      "rated": "PG-13",
+      "description": "The newest avatar movie.",
+      "image": "https://www.cinema-city.pl/xmedia-cw/repo/feats/posters/5111S2R-lg.jpg",
+      "premiere": false,
+      "id": 4
+    },
+    {
+      "title": "av",
+      "tags": [
+        "Horror"
+      ],
+      "length": 666,
+      "rated": "Dla Dzieci",
+      "description": "av",
+      "image": "https://www.cinema-city.pl/xmedia-cw/repo/feats/posters/5111S2R-lg.jpg",
+      "premiere": false,
+      "id": 5
+    }
+  ],
+  "ratings": [
+    {
+      "id": 1,
+      "name": "Dla Dzieci"
+    },
+    {
+      "id": 2,
+      "name": "PG-13"
+    },
+    {
+      "id": 3,
+      "name": "PG-15"
+    },
+    {
+      "id": 4,
+      "name": "PG-17"
+    },
+    {
+      "id": 5,
+      "name": "Dla Dorosłych"
+    }
+  ],
+  "tags": [
+    {
+      "id": 1,
+      "name": "Sci-Fi"
+    },
+    {
+      "id": 2,
+      "name": "Horror"
+    },
+    {
+      "id": 3,
+      "name": "Przygodowy"
+    },
+    {
+      "id": 4,
+      "name": "Komedia"
+    },
+    {
+      "id": 5,
+      "name": "Romans"
+    },
+    {
+      "id": 6,
+      "name": "Akcji"
+    },
+    {
+      "id": 7,
+      "name": "Przyrodniczy"
     }
   ],
   "rooms": [
@@ -123,6 +215,20 @@
       "roomsId": 1,
       "moviesId": 1,
       "id": 6
+    },
+    {
+      "date": "22-02-2023",
+      "time": "17:30",
+      "roomsId": 3,
+      "moviesId": 3,
+      "id": 7
+    },
+    {
+      "date": "22-02-2023",
+      "time": "19:30",
+      "roomsId": 2,
+      "moviesId": 4,
+      "id": 8
     }
   ],
   "orders": [

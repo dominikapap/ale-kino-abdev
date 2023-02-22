@@ -5,8 +5,13 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { ButtonComponent } from '../ui/button/button.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MovieScoreDialogComponent } from './movie-score-dialog/movie-score-dialog.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -14,12 +19,18 @@ import { CommonModule } from '@angular/common';
     MovieComponent,
     DateNavComponent,
     TimeNavComponent,
+    MovieScoreDialogComponent,
   ],
   imports: [
     ReactiveFormsModule,
     RouterModule,
     CommonModule,
     ButtonComponent,
+    MatIconModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    FormsModule,
+    MatButtonModule,
     RouterModule.forChild([
       {
         path: '',

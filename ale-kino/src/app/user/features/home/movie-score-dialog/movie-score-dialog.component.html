@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Ocena Filmu</h1>
+<div mat-dialog-content>
+  <p>Jak bardzo podał się tobie ten film?</p>
+  <button
+     mat-icon-button
+    *ngFor="let ratingId of ratingArr; index as i"
+    [id]="'star_' + i"
+    (click)="onClick(i + 1)"
+  >
+    <mat-icon>
+      {{ showIcon(i) }}
+    </mat-icon>
+  </button>
+</div>
+<div mat-dialog-actions class="action-buttons">
+  <button mat-button (click)="onNoClick()" color="accent">Nie dzięki</button>
+  <button mat-raised-button [mat-dialog-close]="data.score" cdkFocusInitial color="secondary">
+    Ok
+  </button>
+</div>

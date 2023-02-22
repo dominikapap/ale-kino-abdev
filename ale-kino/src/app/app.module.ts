@@ -22,6 +22,7 @@ import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {MatIconModule} from '@angular/material/icon';
     ButtonComponent,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [
     {

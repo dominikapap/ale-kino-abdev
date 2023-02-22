@@ -1,34 +1,57 @@
 <section class="movie">
   <div class="movie__image">
-    <p class="movie__imageText">Premiera</p>
-    <img class="movie__imagePicture" [src]="movie.movieInfo.image" alt="" />
+    <p class="movie__image-text">Premiera</p>
+    <img class="movie__image-picture" [src]="movie.movieInfo.image" alt="" />
   </div>
   <div class="movie__details">
-    <div class="movie__detailsTitle">{{ movie.movieInfo.title }}</div>
-    <div class="movie__detailsTags">
+    <h3 class="movie__details-title">
+      {{ movie.movieInfo.title | uppercase }}
+    </h3>
+    <div class="movie__details-tags">
       {{ movie.movieInfo.tags }} | {{ movie.movieInfo.length }} minut |
       {{ movie.movieInfo.rated }}
     </div>
-    <div class="movie__detailsDescription">
+
+    <div class="movie__details-description">
       {{ movie.movieInfo.description }}
     </div>
-    <div class="movie__detailsMore"><a href="">Więcej</a></div>
+    <div class="movie__details-more">
+      <a href="" class="hover-effect">Czytaj więcej</a>
+    </div>
+
     <app-time-nav
       *ngIf="movie.screenings"
       [screenings]="movie.screenings"
     ></app-time-nav>
   </div>
-  <div class="movie__score">
-    <p class="movie__scoreText">{{ movie.movieInfo.score }}/10</p>
-    <app-button
+  <div class="movie__additional-info">
+    <div class="movie__additional-info__score movie__additional-info__display">
+      <div class="movie__additional-info__score-number">
+        {{ movie.movieInfo.score ? movie.movieInfo.score + "/10" : "N/A" }}
+      </div>
+      <div class="movie__additional-info__text">Srednia ocena</div>
+    </div>
+
+    <div
+      class="movie__additional-info__rate-it movie__additional-info__display"
       *ngIf="role === 'user'"
-      value="Oceń ten film!"
-      class="movie__scoreButton"
-    ></app-button>
-    <app-button
+    >
+      <mat-icon
+        class="movie__additional-info__icon hover-effect"
+        (click)="openDialog(movie.movieInfo.id!)"
+        >thumbs_up_down</mat-icon
+      >
+      <div class="movie__additional-info__text">Oceń ten film!</div>
+    </div>
+
+    <div
+      class="movie__additional-info__rate-it movie__additional-info__display"
       *ngIf="role === 'user'"
-      value="Chcę zobaczyć"
-      class="movie__scoreButton"
-    ></app-button>
+    >
+      <mat-icon class="movie__additional-info__icon hover-effect"
+        >favorite</mat-icon
+      >
+      <div class="movie__additional-info__text">Chcę zobaczyć</div>
+    </div>
   </div>
 </section>

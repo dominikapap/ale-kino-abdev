@@ -1,11 +1,16 @@
-@use '../../../../../colors' as colors;
+@use "../../../../../colors" as colors;
 
 .rounded__list {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   list-style-type: none;
   border: 1px solid lightgray;
   border-radius: 5px;
+
+  p {
+    margin: 0;
+  }
 }
 
 .rounded__listItem {
@@ -13,13 +18,11 @@
   cursor: pointer;
   border-left: 1px solid lightgray;
   background-color: whitesmoke;
-
 }
 
 .item-wide {
   padding: 3px 25px;
 }
-
 
 li:first-child {
   border-left: none;
@@ -39,8 +42,7 @@ li:last-child {
 
 .disabled {
   cursor: initial;
-  opacity: 0.30;
-
+  opacity: 0.3;
 }
 .rounded__listItem.disabled:hover {
   cursor: initial;

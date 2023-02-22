@@ -1,7 +1,13 @@
+@use '../../../../../colors' as colors;
+@use '../../../../../breakpoints' as breakpoints;
+
 .date {
+  @extend .app-container;
   height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1em 0;
+  border-bottom: 1px solid colors.$accent-color;
+  margin: 0 auto;
 }

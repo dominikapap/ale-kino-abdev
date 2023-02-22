@@ -87,7 +87,7 @@ export default class CreateScreeningComponent {
         ),
         time: this.timeValue,
         roomsId: this.roomValue.id,
-        moviesId: this.movieValue.id,
+        moviesId: <number>this.movieValue.id,
       };
       this.screeningsService.addScreening(screening).subscribe((response) => {
         console.log('Added:', response);

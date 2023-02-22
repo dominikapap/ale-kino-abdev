@@ -1,5 +1,10 @@
+import { Movie } from 'src/app/services/movies.service';
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  NonNullableFormBuilder,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
@@ -8,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MoviesService } from 'src/app/services/movies.service';
 
 interface Premiere {
   value: boolean;
@@ -27,32 +33,25 @@ interface Premiere {
     MatButtonModule,
     MatChipsModule,
     MatAutocompleteModule,
-    CommonModule
+    CommonModule,
   ],
 })
 export default class AddMovieComponent {
   private builder = inject(NonNullableFormBuilder);
+  private movieService = inject(MoviesService);
+  protected ratings$ = this.movieService.getAllRatings();
+  protected tags$ = this.movieService.getAllTags();
   private router = inject(Router);
-  screeningForm = this.createForm();
-  isError: boolean = false;
 
   @ViewChild('imageButton') imageButton!: ElementRef<HTMLButtonElement>;
 
-  tagList: string[] = [
-    'Horror',
-    'Komedia',
-    'Przygodowy',
-    'Animowany',
-    'Akcja',
-    'Romans',
-  ];
-
+  screeningForm = this.createForm();
+  protected MIN_MOVIE_LENGTH = 0;
+  protected MAX_MOVIE_LENGTH = 6000;
   premiereOptions: Premiere[] = [
     { value: true, viewValue: 'Tak' },
     { value: false, viewValue: 'Nie' },
   ];
-
-  fileName = '';
 
   onTagRemoved(tag: string) {
     const tags = this.tagsCtrl.value as string[];
@@ -70,18 +69,10 @@ export default class AddMovieComponent {
   private createForm() {
     const form = this.builder.group({
       title: this.builder.control('', {
-        validators: [
-          Validators.required,
-          Validators.pattern('[a-zA-Z]*'),
-          Validators.maxLength(100),
-        ],
+        validators: [Validators.required, Validators.maxLength(100)],
       }),
       description: this.builder.control('', {
-        validators: [
-          Validators.required,
-          Validators.pattern('[a-zA-Z]*'),
-          Validators.maxLength(3000),
-        ],
+        validators: [Validators.required, Validators.maxLength(3000)],
       }),
       tags: this.builder.control<string[]>([], {
         validators: [Validators.required],
@@ -95,7 +86,9 @@ export default class AddMovieComponent {
       premiere: this.builder.control('', {
         validators: [Validators.required],
       }),
-      image: this.builder.control<File | null>(null),
+      image: this.builder.control('', {
+        validators: [Validators.required],
+      }),
     });
 
     return form;
@@ -107,10 +100,23 @@ export default class AddMovieComponent {
       console.log('invalid');
       return;
     }
-
+    const { title, tags, length, rated, description, image, premiere } =
+      this.screeningForm.value;
     // handle...
     console.log(this.screeningForm.value);
     if (this.screeningForm.valid) {
+      const movie: Movie = {
+        title: <string>title,
+        tags: <string[]>tags,
+        length: <string>length,
+        rated: <string>rated,
+        description: <string>description,
+        image: <string>image,
+        premiere: <string>premiere === 'true',
+      };
+      this.movieService.addMovie(movie).subscribe((response) => {
+        console.log(response);
+      });
       // this.router.navigate(['/summary']);
     }
   }
@@ -135,14 +141,5 @@ export default class AddMovieComponent {
   }
   get imageCtrl() {
     return this.screeningForm.controls.image;
-  }
-
-  setLogoFileToForm(event: Event) {
-    const input = event.target as HTMLInputElement;
-
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      this.fileName = file.name;
-    }
   }
 }
