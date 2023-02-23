@@ -1,4 +1,4 @@
-<div class="seats">
+<div class="seats" *ngIf="roomSetupData">
   <ul *ngFor="let rowLetter of roomSetupData.rowLetters">
     <li class="seatLetter">{{ rowLetter }}</li>
     <li

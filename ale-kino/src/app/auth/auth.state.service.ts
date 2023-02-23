@@ -92,6 +92,7 @@ export class AuthStateService {
     localStorage.removeItem('user');
     localStorage.removeItem('role');
     this.patchState({ hasAuth: false, role: 'guest' });
+    this.router.navigate(['']);
   }
 
   private setStateFromLocalStorage() {

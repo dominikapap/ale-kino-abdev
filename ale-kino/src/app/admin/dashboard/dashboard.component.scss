@@ -1,11 +1,24 @@
-@use '../../../breakpoints' as breakpoints;
+@use "../../../breakpoints" as breakpoints;
+@use "../../../colors" as colors;
 
 .dashboard {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+
+  &__side-menu {
+    display: flex;
+    padding: 0.5em;
+    gap: 5px;
+    background-color: colors.$bg-color;
+    border-bottom: 1px solid colors.$secondary-accent-color;
+
+  }
 }
 
 .wrapper {
   @extend .app-container;
+  align-self: center;
   height: 100%;
 }
+
+

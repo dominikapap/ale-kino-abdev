@@ -17,10 +17,10 @@ export class LoginFormComponent {
 
   private createForm() {
     return this.builder.group({
-      email: this.builder.control('test@test.pl', {
+      email: this.builder.control('', {
         validators: [Validators.required, Validators.email],
       }),
-      password: this.builder.control('testtest', {
+      password: this.builder.control('', {
         validators: [Validators.required],
       }),
     });

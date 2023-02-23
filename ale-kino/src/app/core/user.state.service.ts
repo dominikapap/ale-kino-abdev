@@ -24,4 +24,8 @@ export class UserStateService {
   addUser(user: User) {
     this.user$$.next(user);
   }
+
+  resetUser(){
+    this.user$$= new ReplaySubject<User>(1);
+  }
 }

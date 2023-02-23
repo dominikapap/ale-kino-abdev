@@ -46,8 +46,6 @@ export class TicketsService {
           return combineLatest([of(updatedTicket), ticketTypes$]);
         }),
         map(([updatedTicket, ticketTypes]) => {
-          console.log('updated ticket:',updatedTicket)
-          console.log('ticket types', ticketTypes)
           return (updatedTicket = {
             ...updatedTicket,
             ticketTypes: ticketTypes,

@@ -28,7 +28,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
 
   initializeScreeningDetails() {
     const initDetailsSub = this.screeningRoomStateService
-      .initializeScreeningDetailsFromRouteN(this.route)
+      .initializeScreeningDetailsFromRoute(this.route)
       .subscribe((screeningDetails) => {
         this.screeningDetails = screeningDetails;
       });

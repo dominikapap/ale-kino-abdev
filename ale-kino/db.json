@@ -6,6 +6,27 @@
       "password": "$2a$10$8S9EckIlQF5je9bBcLp45e22ShWu66G2C8H9A5DizzitToUNwxyVi",
       "username": "Nameless",
       "rolesId": 1
+    },
+    {
+      "id": 2,
+      "email": "test@gmail.com",
+      "password": "$2a$10$h9SbCW2fMLTYXgkwG3yZ.ea/UKq9vmrRJYDndp4oKzDn0o1mS7Wim",
+      "username": "Admin",
+      "rolesId": 2
+    },
+    {
+      "email": "olivier@mail.com",
+      "password": "$2a$10$.iDPYUFMVCPqsMcGCu.yyeDaWgtZOJ5zeZmL3efqVcauIDDqhkhFm",
+      "username": "Admin",
+      "rolesId": 2,
+      "id": 3
+    },
+    {
+      "email": "admin@mail.com",
+      "password": "$2a$10$F3bcD.BUDW7avFV3kXrHPuWY0tXEtmPeHmVvVm5S64pu4UNMm9P8a",
+      "username": "Admin",
+      "rolesId": 2,
+      "id": 4
     }
   ],
   "roles": [
@@ -267,24 +288,6 @@
       "screeningsId": 6,
       "isCheckedOut": false,
       "id": 6
-    },
-    {
-      "usersId": 1,
-      "screeningsId": 2,
-      "isCheckedOut": false,
-      "id": 7
-    },
-    {
-      "usersId": 1,
-      "screeningsId": 7,
-      "isCheckedOut": false,
-      "id": 8
-    },
-    {
-      "usersId": 1,
-      "screeningsId": 8,
-      "isCheckedOut": false,
-      "id": 9
     }
   ],
   "tickets": [
@@ -375,7 +378,7 @@
         "row": "E",
         "seatNumber": 9
       },
-      "ticketTypesId": 1,
+      "ticketTypesId": 4,
       "id": 55
     },
     {
@@ -384,7 +387,7 @@
         "row": "F",
         "seatNumber": 6
       },
-      "ticketTypesId": 1,
+      "ticketTypesId": 3,
       "id": 56
     },
     {

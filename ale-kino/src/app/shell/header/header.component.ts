@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
       this.role = authState.role;
     });
     this.userStateService.user$.subscribe((userState) => {
-      this.username = userState.username;
+      this.username = userState?.username;
     });
   }
 
@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit {
     switch (navItem.toLowerCase()) {
       case 'wyloguj':
         this.authStateService.logout();
+        this.userStateService.resetUser();
         break;
     }
     this.isPopNavHidden = true;

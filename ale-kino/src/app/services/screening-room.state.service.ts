@@ -98,25 +98,15 @@ export class ScreeningRoomStateService {
   }
 
   initiateScreeningTicketsState(screeningRoomId: number) {
-    console.log('initiate state:')
-    const subscriptions = new Subscription();
+    //reset state
     this.resetScreeningRoomState();
     //get screening tickets from checked out orders
-    const reservedTicketsSub = this.getReservedScreeningTickets(screeningRoomId).subscribe((tickets) => {
-      // console.log('reserved tickets:',tickets)
-      this.patchTicketState({ reservedTickets: tickets });
-    });
+    const reservedTicketsSub =
+      this.getReservedScreeningTickets(screeningRoomId);
     //get user screening tickets from not checked out order
-    const selectedTicketsSub = this.getSelectedScreeningTickets(screeningRoomId).subscribe((tickets) => {
-      // console.log('selected tickets:',tickets)
-      this.patchTicketState({ selectedTickets: tickets });
-    });
-    subscriptions.add(reservedTicketsSub);
-    subscriptions.add(selectedTicketsSub);
-    return subscriptions;
-    // this.authState$.subscribe(authState => {
-    //   console.log('auth state:', authState.role)
-    // })
+    const selectedTicketsSub =
+      this.getSelectedScreeningTickets(screeningRoomId);
+    return combineLatest([reservedTicketsSub, selectedTicketsSub]);
   }
 
   isSeatReserved(seat: Seat) {
@@ -166,7 +156,6 @@ export class ScreeningRoomStateService {
     }
   }
 
-
   private addSelectedTicketToLocalState(selectedTicket: Ticket) {
     this.patchTicketState({
       selectedTickets: [
@@ -178,9 +167,11 @@ export class ScreeningRoomStateService {
 
   private removeSelectedTicketFromLocalState(selectedTicket: Ticket) {
     const newSelectedTicketsState =
-      this.screeningRoomStateValue.ticketState.selectedTickets.filter((ticket) => {
-        return selectedTicket?.id !== ticket.id;
-      });
+      this.screeningRoomStateValue.ticketState.selectedTickets.filter(
+        (ticket) => {
+          return selectedTicket?.id !== ticket.id;
+        }
+      );
     this.patchTicketState({ selectedTickets: newSelectedTicketsState });
   }
 
@@ -224,13 +215,15 @@ export class ScreeningRoomStateService {
         }),
         map((orders) => {
           return orders.flat();
-        })
+        }),
+        tap((reservedTickets) => this.patchTicketState({ reservedTickets }))
       );
   }
 
   private getSelectedScreeningTickets(screeningRoomId: number) {
     return this.userService.user$.pipe(
       switchMap((user) => {
+        console.log('user?');
         const order: Observable<Order[]> =
           this.ordersService.getNotCheckedOutUserScreeningOrder(
             screeningRoomId,
@@ -248,9 +241,57 @@ export class ScreeningRoomStateService {
       switchMap((order) => {
         this.patchTicketState({ notCheckedOutOrderId: order?.id });
         return this.ticketsService.getAllOrderTicketsWithFullInfo(order?.id);
-      })
+      }),
+      tap((selectedTickets) => this.patchTicketState({ selectedTickets }))
     );
   }
+  // private getSelectedScreeningTicketsN(screeningRoomId: number) {
+  //   return this.authState$.pipe(
+  //     switchMap((authState) => {
+  //       if (authState.role === 'guest') {
+  //         return this.ordersService
+  //           .createScreeningOrder(screeningRoomId, -1)
+  //           .pipe(
+  //             switchMap((order) => {
+  //               this.patchTicketState({ notCheckedOutOrderId: order?.id });
+  //               return this.ticketsService.getAllOrderTicketsWithFullInfo(
+  //                 order?.id
+  //               );
+  //             }),
+  //             tap((selectedTickets) =>
+  //               this.patchTicketState({ selectedTickets })
+  //             )
+  //           );
+  //       } else {
+  //         return this.userService.user$.pipe(
+  //           switchMap((user) => {
+  //             console.log('user?');
+  //             const order: Observable<Order[]> =
+  //               this.ordersService.getNotCheckedOutUserScreeningOrder(
+  //                 screeningRoomId,
+  //                 user.id
+  //               );
+  //             return combineLatest([order, of(user)]);
+  //           }),
+  //           switchMap(([[order], user]) => {
+  //             const newOrder$ = this.ordersService.createScreeningOrder(
+  //               screeningRoomId,
+  //               user.id
+  //             );
+  //             return order !== undefined ? of(order) : newOrder$;
+  //           }),
+  //           switchMap((order) => {
+  //             this.patchTicketState({ notCheckedOutOrderId: order?.id });
+  //             return this.ticketsService.getAllOrderTicketsWithFullInfo(
+  //               order?.id
+  //             );
+  //           }),
+  //           tap((selectedTickets) => this.patchTicketState({ selectedTickets }))
+  //         );
+  //       }
+  //     })
+  //   );
+  // }
 
   private generateRowLetters(rowsNumber: number) {
     //generate an array of letters
@@ -264,44 +305,33 @@ export class ScreeningRoomStateService {
   }
 
   initiateRoomSetupData(screeningRoomId: number) {
-    return this.roomsService
-      .getRoomDetails(screeningRoomId)
-      .subscribe((roomDetails) => {
+    return this.roomsService.getRoomDetails(screeningRoomId).pipe(
+      map((roomDetails) => {
+        return {
+          rowLetters: this.generateRowLetters(roomDetails.rows),
+          rowNumbers: this.generateSeatNumbers(roomDetails.seats),
+        };
+      }),
+      tap((roomSetup) => {
         this.patchState({
-          roomSetup: {
-            rowLetters: this.generateRowLetters(roomDetails.rows),
-            rowNumbers: this.generateSeatNumbers(roomDetails.seats),
-          },
+          roomSetup,
         });
-      });
+      })
+    );
   }
 
   initializeScreeningDetailsFromRoute(route: ActivatedRoute) {
-    return route.paramMap
-      .pipe(
-        switchMap((params) => {
-          const id: string = <string>params.get('id');
-          return this.screeningService.getScreeningDetails(id);
-        })
-      )
-      .subscribe(([screeningDetails]) => {
+    return route.paramMap.pipe(
+      switchMap((params) => {
+        const id: string = <string>params.get('id');
+        return this.screeningService.getScreeningDetails(id);
+      }),
+      map(([screeningDetails]) => {
+        return screeningDetails;
+      }),
+      tap((screeningDetails) => {
         this.patchState({ screeningDetails });
-      });
-  }
-
-  initializeScreeningDetailsFromRouteN(route: ActivatedRoute) {
-    return route.paramMap
-      .pipe(
-        switchMap((params) => {
-          const id: string = <string>params.get('id');
-          return this.screeningService.getScreeningDetails(id);
-        }),
-        map(([screeningDetails]) => {
-          return screeningDetails;
-        }),
-        tap(screeningDetails => {
-          this.patchState({ screeningDetails });
-        })
-      )
+      })
+    );
   }
 }
