@@ -1,3 +1,4 @@
+import { AuthStateService } from './../auth/auth.state.service';
 import { inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -9,6 +10,7 @@ import {
   of,
   Subscription,
   switchMap,
+  tap,
 } from 'rxjs';
 import { UserStateService } from '../core/user.state.service';
 import { Order, OrdersService } from './orders.service';
@@ -58,6 +60,8 @@ export class ScreeningRoomStateService {
   private ordersService = inject(OrdersService);
   private userService = inject(UserStateService);
   private screeningService = inject(ScreeningsService);
+  private authState$ = inject(AuthStateService).auth$;
+
   constructor() {}
   private MAX_NUMBER_OF_RESERVED_SEATS: number = 10;
   private screeningRoomState$$ = new BehaviorSubject<ScreeningRoomState>(
@@ -94,15 +98,25 @@ export class ScreeningRoomStateService {
   }
 
   initiateScreeningTicketsState(screeningRoomId: number) {
+    console.log('initiate state:')
+    const subscriptions = new Subscription();
     this.resetScreeningRoomState();
     //get screening tickets from checked out orders
-    this.getReservedScreeningTickets(screeningRoomId).subscribe((tickets) => {
+    const reservedTicketsSub = this.getReservedScreeningTickets(screeningRoomId).subscribe((tickets) => {
+      // console.log('reserved tickets:',tickets)
       this.patchTicketState({ reservedTickets: tickets });
     });
     //get user screening tickets from not checked out order
-    this.getSelectedScreeningTickets(screeningRoomId).subscribe((tickets) => {
+    const selectedTicketsSub = this.getSelectedScreeningTickets(screeningRoomId).subscribe((tickets) => {
+      // console.log('selected tickets:',tickets)
       this.patchTicketState({ selectedTickets: tickets });
     });
+    subscriptions.add(reservedTicketsSub);
+    subscriptions.add(selectedTicketsSub);
+    return subscriptions;
+    // this.authState$.subscribe(authState => {
+    //   console.log('auth state:', authState.role)
+    // })
   }
 
   isSeatReserved(seat: Seat) {
@@ -250,7 +264,7 @@ export class ScreeningRoomStateService {
   }
 
   initiateRoomSetupData(screeningRoomId: number) {
-    this.roomsService
+    return this.roomsService
       .getRoomDetails(screeningRoomId)
       .subscribe((roomDetails) => {
         this.patchState({
@@ -273,5 +287,21 @@ export class ScreeningRoomStateService {
       .subscribe(([screeningDetails]) => {
         this.patchState({ screeningDetails });
       });
+  }
+
+  initializeScreeningDetailsFromRouteN(route: ActivatedRoute) {
+    return route.paramMap
+      .pipe(
+        switchMap((params) => {
+          const id: string = <string>params.get('id');
+          return this.screeningService.getScreeningDetails(id);
+        }),
+        map(([screeningDetails]) => {
+          return screeningDetails;
+        }),
+        tap(screeningDetails => {
+          this.patchState({ screeningDetails });
+        })
+      )
   }
 }

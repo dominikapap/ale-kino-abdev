@@ -1,4 +1,4 @@
-<div class="reservation" *ngIf="screeningRoomState$ | async as ticketState">
+<div class="reservation" *ngIf="screeningRoomState$ | async as roomState">
   <app-checkout-order></app-checkout-order>
 
   <form class="checkoutForm" [formGroup]="checkoutForm" (ngSubmit)="sendForm()">
@@ -119,6 +119,6 @@
       [value]="'Zamawiam!'"
       class="btn-submit"
     ></app-button>
-    <a routerLink="/reservation/5">Wróć do wyboru mniejsc</a>
+    <a [routerLink]="'/reservation/' + roomState.screeningDetails?.id">Wróć do wyboru mniejsc</a>
   </form>
 </div>

@@ -183,48 +183,48 @@
   "screenings": [
     {
       "id": 1,
-      "date": "22-02-2023",
+      "date": "23-02-2023",
       "time": "12:30",
       "roomsId": 1,
       "moviesId": 1
     },
     {
       "id": 2,
-      "date": "22-02-2023",
+      "date": "23-02-2023",
       "time": "14:30",
       "roomsId": 2,
       "moviesId": 2
     },
     {
       "id": 4,
-      "date": "23-02-2023",
+      "date": "24-02-2023",
       "time": "16:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
       "id": 5,
-      "date": "21-02-2023",
+      "date": "22-02-2023",
       "time": "18:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
-      "date": "22-02-2023",
+      "date": "23-02-2023",
       "time": "19:25",
       "roomsId": 1,
       "moviesId": 1,
       "id": 6
     },
     {
-      "date": "22-02-2023",
+      "date": "23-02-2023",
       "time": "17:30",
       "roomsId": 3,
       "moviesId": 3,
       "id": 7
     },
     {
-      "date": "22-02-2023",
+      "date": "23-02-2023",
       "time": "19:30",
       "roomsId": 2,
       "moviesId": 4,
@@ -261,6 +261,30 @@
       "screeningsId": 5,
       "isCheckedOut": false,
       "id": 5
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 6,
+      "isCheckedOut": false,
+      "id": 6
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 2,
+      "isCheckedOut": false,
+      "id": 7
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": false,
+      "id": 8
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 8,
+      "isCheckedOut": false,
+      "id": 9
     }
   ],
   "tickets": [
@@ -315,62 +339,8 @@
         "row": "C",
         "seatNumber": 6
       },
-      "ticketTypesId": 1,
+      "ticketTypesId": 4,
       "id": 21
-    },
-    {
-      "ordersId": 4,
-      "seat": {
-        "row": "C",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 1,
-      "id": 22
-    },
-    {
-      "ordersId": 4,
-      "seat": {
-        "row": "D",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 1,
-      "id": 42
-    },
-    {
-      "ordersId": 4,
-      "seat": {
-        "row": "B",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 1,
-      "id": 43
-    },
-    {
-      "ordersId": 4,
-      "seat": {
-        "row": "B",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 1,
-      "id": 44
-    },
-    {
-      "ordersId": 4,
-      "seat": {
-        "row": "A",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 1,
-      "id": 45
-    },
-    {
-      "ordersId": 4,
-      "seat": {
-        "row": "A",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 1,
-      "id": 46
     },
     {
       "ordersId": 2,
@@ -425,6 +395,24 @@
       },
       "ticketTypesId": 1,
       "id": 57
+    },
+    {
+      "ordersId": 6,
+      "seat": {
+        "row": "F",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 58
+    },
+    {
+      "ordersId": 6,
+      "seat": {
+        "row": "F",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 59
     }
   ]
 }

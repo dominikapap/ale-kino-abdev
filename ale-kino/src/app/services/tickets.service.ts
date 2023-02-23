@@ -8,7 +8,7 @@ export type Ticket = {
   ordersId: number;
   ticketTypesId: number;
   seat: Seat;
-  // ticketTypes: TicketType;
+  ticketTypes?: TicketType;
 };
 
 export type TicketType = {
@@ -36,13 +36,24 @@ export class TicketsService {
   }
 
   updateTicket(ticketId: number, ticketSlice: Partial<Ticket>) {
-    return this.http.patch<Ticket>(`/tickets/${ticketId}`, { ...ticketSlice });
-    // .pipe(
-    //   switchMap((response) => {
-    //     const ticketType$ = this.getTicketTypeById(response.ticketTypesId);
-    //     return combineLatest([of(response), ticketType$]);
-    //   })
-    // )
+    return this.http
+      .patch<Ticket>(`/tickets/${ticketId}`, { ...ticketSlice })
+      .pipe(
+        switchMap((updatedTicket) => {
+          const ticketTypes$ = this.getTicketTypeInfoById(
+            updatedTicket.ticketTypesId
+          );
+          return combineLatest([of(updatedTicket), ticketTypes$]);
+        }),
+        map(([updatedTicket, ticketTypes]) => {
+          console.log('updated ticket:',updatedTicket)
+          console.log('ticket types', ticketTypes)
+          return (updatedTicket = {
+            ...updatedTicket,
+            ticketTypes: ticketTypes,
+          });
+        })
+      );
   }
 
   getTicketPriceByTypeId(ticketTypeId: number) {
@@ -72,6 +83,15 @@ export class TicketsService {
   }
 
   getTicketTypeInfo(ticketTypeId: number) {
-    return this.http.get<TicketType[]>(`/ticketTypes?id=${ticketTypeId}`);
+    return this.http.get<TicketType>(`/ticketTypes?id=${ticketTypeId}`);
+  }
+
+  getTicketTypeInfoById<TicketType>(ticketTypeId: number) {
+    console.log('ticket type id:', ticketTypeId);
+    return this.getTicketTypes().pipe(
+      map((ticketTypes) => {
+        return ticketTypes.find((ticketType) => ticketType.id === ticketTypeId);
+      })
+    );
   }
 }

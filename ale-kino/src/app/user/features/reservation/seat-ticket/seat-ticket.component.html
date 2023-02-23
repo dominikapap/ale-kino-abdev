@@ -13,6 +13,7 @@
     class="seat__ticketType"
     (change)="onTicketTypeChanged(ticket, tickets.value)"
     #tickets
+    *ngIf="ticketTypes$ | async as ticketTypes"
   >
     <option
       *ngFor="let ticketType of ticketTypes"
@@ -30,15 +31,7 @@
   </div>
   <div
     class="seat__ticketPrice">
-    {{  getTicketPrice(ticket.ticketTypesId) }} PLN
+    {{  ticket.ticketTypes?.price }} PLN
   </div>
-  <!-- <div
-  class="seat__ticketPrice"
-  *ngIf="
-    ticketsService.getTicketPriceByTypeId(ticket.ticketTypesId) | async as price
-  "
->
-  {{ price }} PLN
-</div> -->
 </div>
 

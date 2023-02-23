@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { ScreeningRoomStateService } from 'src/app/services/screening-room.state.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { ScreeningRoomStateService } from 'src/app/services/screening-room.state
   styleUrls: ['./checkout-form.component.scss'],
 })
 export class CheckoutFormComponent implements OnInit {
-  screeningRoomState$ = inject(ScreeningRoomStateService).screeningRoomState$;
+  private screeningRoomStateService = inject(ScreeningRoomStateService);
+  protected screeningRoomState$ = this.screeningRoomStateService.screeningRoomState$;
   private builder = inject(FormBuilder);
   private router = inject(Router);
   checkoutForm = this.createForm();
@@ -86,4 +88,17 @@ export class CheckoutFormComponent implements OnInit {
     this.total +=ticketPrice;
     return this.total;
   }
+
+  // initializeOrderDetailsFromRoute(route: ActivatedRoute) {
+  //   return route.paramMap
+  //     .pipe(
+  //       switchMap((params) => {
+  //         const id: string = <string>params.get('id');
+  //         return this.screeningService.getScreeningDetails(id);
+  //       })
+  //     )
+  //     .subscribe(([screeningDetails]) => {
+  //       this.patchState({ screeningDetails });
+  //     });
+  // }
 }

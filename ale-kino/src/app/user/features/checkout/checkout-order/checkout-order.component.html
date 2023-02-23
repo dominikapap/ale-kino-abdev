@@ -1,18 +1,18 @@
-<div class="container">
-  <div class="selectedMovie">
-    {{ screeningDetails?.movies?.title }}, {{ screeningDetails?.date }}, godz.{{
-      screeningDetails?.time
+<div class="container" *ngIf="roomState$ | async as roomState">
+  <div class="selectedMovie" *ngIf=" roomState.screeningDetails as screeningDetails">
+    {{ screeningDetails.movies.title }}, {{ screeningDetails.date }}, godz.{{
+      screeningDetails.time
     }}
   </div>
 
-  <div class="ticketList">
+  <div class="ticketList" *ngIf="roomState.ticketState.selectedTickets as openOrderTicketList">
     <div class="ticketList__item" *ngFor="let ticket of openOrderTicketList">
       <div class="ticketList__ticketSeat">
         Rząd {{ ticket.seat.row }} Miejsce
         {{ ticket.seat.seatNumber }}
       </div>
       <div class="ticketList__ticketPrice">
-        {{ticket.ticketTypesId}} PLN
+        {{ticket.ticketTypes?.price }} PLN
       </div>
     </div>
     <div class="ticketList__total">

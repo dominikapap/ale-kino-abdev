@@ -1,6 +1,7 @@
 import { ScreeningRoomState, ScreeningRoomStateService, TicketState } from './../../../../services/screening-room.state.service';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, OnDestroy } from '@angular/core';
 import { Seat } from 'src/app/services/rooms.service';
+import { Subscription } from 'rxjs';
 
 export type RoomSize = {
   rows: number;
@@ -12,7 +13,7 @@ export type RoomSize = {
   templateUrl: './screening-room.component.html',
   styleUrls: ['./screening-room.component.scss'],
 })
-export class ScreeningRoomComponent implements OnInit {
+export class ScreeningRoomComponent implements OnInit, OnDestroy {
   private screeningRoomStateService = inject(ScreeningRoomStateService);
   // private screeningService = inject(ScreeningService);
 
@@ -25,18 +26,23 @@ export class ScreeningRoomComponent implements OnInit {
     reservedTickets: [],
     selectedTickets: [],
   };
+  subscriptions: Subscription = new Subscription();
 
   ngOnInit(): void {
-    this.screeningRoomStateService.initiateRoomSetupData(this.roomId);
-    this.screeningRoomStateService.screeningRoomState$.subscribe((roomState) => {
+    const roomSetupSub = this.screeningRoomStateService.initiateRoomSetupData(this.roomId);
+    this.subscriptions = this.screeningRoomStateService.initiateScreeningTicketsState(this.screeningRoomId);
+
+    const roomStateSub = this.screeningRoomStateService.screeningRoomState$.subscribe((roomState) => {
       this.roomSetupData = roomState.roomSetup;
-    });
-
-    this.screeningRoomStateService.initiateScreeningTicketsState(this.screeningRoomId);
-
-    this.screeningRoomStateService.screeningRoomState$.subscribe((roomState) => {
       this.ticketsState = roomState.ticketState;
     });
+    this.subscriptions.add(roomStateSub);
+    this.subscriptions.add(roomSetupSub);
+  }
+
+  ngOnDestroy(){
+    console.log('destroyed')
+    this.subscriptions.unsubscribe();
   }
 
   toggleSeat(row: string, seatNumber: number) {

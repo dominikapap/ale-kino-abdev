@@ -1,4 +1,3 @@
-
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -11,11 +10,13 @@ import { ScreeningDetails } from 'src/app/services/screenings.service';
   styleUrls: ['./reservation.component.scss'],
 })
 export class ReservationComponent implements OnInit, OnDestroy {
-  screeningRoomStateService = inject(ScreeningRoomStateService);
+  private screeningRoomStateService = inject(ScreeningRoomStateService);
+  screeningRoomState$ = this.screeningRoomStateService.screeningRoomState$;
   private route = inject(ActivatedRoute);
   private subscriptions = new Subscription();
 
   screeningDetails!: ScreeningDetails | undefined;
+  openOrderId: number = -1;
   icon: string = 'trash-can';
 
   ngOnInit(): void {
@@ -26,11 +27,14 @@ export class ReservationComponent implements OnInit, OnDestroy {
   }
 
   initializeScreeningDetails() {
-    const initDetailsSub =
-      this.screeningRoomStateService.initializeScreeningDetailsFromRoute(this.route);
+    const initDetailsSub = this.screeningRoomStateService
+      .initializeScreeningDetailsFromRouteN(this.route)
+      .subscribe((screeningDetails) => {
+        this.screeningDetails = screeningDetails;
+      });
     const stateDetailsSub =
       this.screeningRoomStateService.screeningRoomState$.subscribe((state) => {
-        this.screeningDetails = state.screeningDetails;
+        this.openOrderId = <number>state.ticketState.notCheckedOutOrderId;
       });
     this.subscriptions.add(initDetailsSub);
     this.subscriptions.add(stateDetailsSub);

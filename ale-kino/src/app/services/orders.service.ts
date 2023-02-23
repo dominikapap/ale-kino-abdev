@@ -17,6 +17,10 @@ export class OrdersService {
   private http = inject(HttpClient);
   private userService = inject(UserStateService);
 
+  getOrderById(orderId: number){
+    return this.http.get(`/orders?id=${orderId}`);
+  }
+
   createScreeningOrder(screeningId: number, userId: number) {
     return this.http.post<Order>('/orders', {
       usersId: userId,
