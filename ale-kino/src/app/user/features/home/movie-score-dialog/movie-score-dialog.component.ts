@@ -16,8 +16,8 @@ export class MovieScoreDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
-  private rating: number = 3;
-  private starCount: number = 5;
+  private rating: number = 5;
+  private starCount: number = 10;
   protected ratingArr: number[] = [];
 
   onClick(rating: number) {
@@ -41,5 +41,6 @@ export class MovieScoreDialogComponent {
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
+    this.data.score = this.rating;
   }
 }

@@ -50,7 +50,6 @@ export class AuthStateService {
   }
 
   login(credentials: { email: string; password: string }) {
-    console.log(credentials.password, credentials.email)
     return this.http
       .post<AuthResponse>('/login', {
         email: credentials.email,
@@ -70,6 +69,10 @@ export class AuthStateService {
               id: userData.user.id,
               email: userData.user.email,
               username: userData.user.username,
+              firstName: userData.user.firstName,
+              lastName: userData.user.lastName,
+              ratedMovies: userData.user.ratedMovies,
+              movieWatchList: userData.user.movieWatchList,
             };
 
             this.userStateService.addUser(user);

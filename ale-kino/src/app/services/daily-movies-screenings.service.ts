@@ -1,11 +1,25 @@
 import { Injectable } from '@angular/core';
-import {
-  DailyMovieScreenings,
-  MovieScreening,
-} from 'src/app/user/features/home/movie/movie.interface';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map } from 'rxjs';
 import { SelectedDateService } from './selected-date.state.service';
+import { Movie } from './movies.service';
+import { Screening } from './screenings.service';
+
+export interface MovieScreening {
+  date: string;
+  id: number;
+  movies: Movie;
+  moviesId: number;
+  screeningRoomsId: number;
+  time: string;
+}
+
+export interface DailyMovieScreenings {
+  id: number;
+  movieInfo: Movie;
+  screenings: Screening[];
+}
+
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +29,10 @@ export class DailyMoviesScreeningsService {
 
   get dailyScreenings$() {
     return this.dailyScreenings$$.asObservable();
+  }
+
+  private get dailyScreeningsValue() {
+    return this.dailyScreenings$$.value;
   }
 
   constructor(

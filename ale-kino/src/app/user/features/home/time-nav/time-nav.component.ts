@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Screening } from '../movie/movie.interface';
+import { Screening } from 'src/app/services/screenings.service';
 
 @Component({
   selector: 'app-time-nav',

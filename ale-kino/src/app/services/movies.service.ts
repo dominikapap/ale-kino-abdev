@@ -1,5 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { switchMap, tap } from 'rxjs';
+
+export interface Score {
+  points: number;
+  votes: number;
+}
 
 export interface Movie {
   id?: number;
@@ -10,7 +16,7 @@ export interface Movie {
   description: string;
   image: string;
   premiere: boolean;
-  score?: string;
+  score?: Score;
 }
 
 export interface Rating {
@@ -51,5 +57,32 @@ export class MoviesService {
 
   getMovieDetails(movieId: number) {
     return this.http.get<Movie>(`/movies/${movieId}`);
+  }
+
+  updateMovie(movieId: number, movieSlice: Partial<Movie>) {
+    return this.http.patch<Movie>(`/movies/${movieId}`, { ...movieSlice });
+  }
+
+  updateMovieScore(movieId: number, points: number) {
+    return this.http.get<Movie>(`/movies/${movieId}`).pipe(
+      switchMap((movie) => {
+        let score: Score;
+        if (movie.score) {
+          score = {
+            points: movie.score.points + points,
+            votes: movie.score.votes + 1,
+          };
+        } else {
+          score = {
+            points: points,
+            votes: 1,
+          };
+        }
+
+        return this.http.patch<Movie>(`/movies/${movieId}`, {
+          score,
+        })
+      })
+    );
   }
 }

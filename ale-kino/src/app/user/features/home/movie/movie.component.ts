@@ -1,41 +1,62 @@
+import { Subscription, tap, switchMap, of } from 'rxjs';
 import { UserStateService } from 'src/app/core/user.state.service';
 import { AuthStateService } from 'src/app/auth/auth.state.service';
 import { Component, OnInit, Input, inject } from '@angular/core';
-import { DailyMovieScreenings } from 'src/app/user/features/home/movie/movie.interface';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MovieScoreDialogComponent } from '../movie-score-dialog/movie-score-dialog.component';
+import { DailyMovieScreenings } from 'src/app/services/daily-movies-screenings.service';
 
 @Component({
   selector: 'app-movie',
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.scss'],
 })
-export class MovieComponent implements OnInit {
-  private authStateService = inject(AuthStateService);
-  private userStateService = inject(UserStateService);
+export class MovieComponent {
+  protected authStateService = inject(AuthStateService);
+  protected userStateService = inject(UserStateService);
+  private subscriptions = new Subscription();
 
   @Input() movie!: DailyMovieScreenings;
 
   constructor(public dialog: MatDialog) {}
 
-  protected role: string = '';
   private score: number = 0;
+  private movieId: number = -1;
+  protected ratedMovieList: number[] = [];
+  protected textShort = true;
 
   openDialog(movieId: number): void {
-    console.log('movie id:',movieId)
+    this.movieId = movieId;
     const dialogRef = this.dialog.open(MovieScoreDialogComponent, {
-      data: {score: this.score},
+      data: { score: this.score },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('movie score:',result)
-    });
+    const dialogSub = dialogRef
+      .afterClosed()
+      .pipe(
+        switchMap((result) => {
+          if (result) {
+            return this.userStateService.rateMovieByUser(this.movieId, result);
+          }
+          return of(result);
+        })
+      )
+      .subscribe();
+    this.subscriptions.add(dialogSub);
   }
 
+  toggleWatchListMovie(movieId: number) {
+    const sub = this.userStateService
+      .toggleMovieOnUserList(movieId, 'movieWatchList')
+      .subscribe();
+    this.subscriptions.add(sub);
+  }
 
-  ngOnInit(): void {
-    this.authStateService.auth$.subscribe((authState) => {
-      this.role = authState.role;
-    });
+  toggleTextLength() {
+    this.textShort = !this.textShort;
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

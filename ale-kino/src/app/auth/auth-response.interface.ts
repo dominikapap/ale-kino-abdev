@@ -5,5 +5,9 @@ export interface AuthResponse {
     id: number;
     username: string;
     rolesId: string;
+    firstName?: string;
+    lastName?: string;
+    ratedMovies?: number[];
+    movieWatchList?: number[];
   };
 }

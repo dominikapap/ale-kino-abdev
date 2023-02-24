@@ -1,5 +1,9 @@
 <section class="date">
   <app-date-nav></app-date-nav>
 </section>
-<app-movie *ngFor="let dailyScreening of dailyScreenings" [movie]="dailyScreening" ></app-movie>
-
+<div *ngIf="dailyScreeningsState$ | async as dailyScreeningsState">
+  <app-movie
+    *ngFor="let dailyScreening of dailyScreeningsState"
+    [movie]="dailyScreening"
+  ></app-movie>
+</div>

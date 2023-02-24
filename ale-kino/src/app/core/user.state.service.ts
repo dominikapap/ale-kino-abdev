@@ -1,19 +1,25 @@
-import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { of, ReplaySubject, switchMap, take, tap } from 'rxjs';
+import { MoviesService } from '../services/movies.service';
 
 export interface User {
   id: number;
   email: string;
   username: string;
+  firstName?: string;
+  lastName?: string;
+  ratedMovies?: number[];
+  movieWatchList?: number[];
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserStateService {
-
-  constructor() { }
+  private http = inject(HttpClient);
+  private movieService = inject(MoviesService);
+  constructor() {}
 
   private user$$ = new ReplaySubject<User>(1);
 
@@ -25,7 +31,56 @@ export class UserStateService {
     this.user$$.next(user);
   }
 
-  resetUser(){
-    this.user$$= new ReplaySubject<User>(1);
+  resetUser() {
+    this.user$$ = new ReplaySubject<User>(1);
+  }
+
+  updateUserInfo(userId: number, userSlice: Partial<User>) {
+    return this.http.patch<User>(`/users/${userId}`, { ...userSlice });
+  }
+
+  rateMovieByUser(movieId: number, points: number) {
+    return this.movieService.updateMovieScore(movieId, points).pipe(
+      switchMap((ratedMovie) => {
+        return this.toggleMovieOnUserList(<number>ratedMovie.id, 'ratedMovies');
+      })
+    );
+  }
+
+  toggleMovieOnUserList(
+    movieId: number,
+    userListName: 'movieWatchList' | 'ratedMovies'
+  ) {
+    return this.user$.pipe(
+      take(1),
+      switchMap((userState) => {
+        if (this.movieOnTheList(movieId, <number[]>userState[userListName])) {
+          const updatedMovieList: number[] = <number[]>(
+            userState[userListName]?.filter(
+              (listedMovieId) => listedMovieId !== movieId
+            )
+          );
+          return this.updateUserInfo(userState.id, {
+            [userListName]: updatedMovieList,
+          });
+        } else {
+          const updatedMovieList: number[] = [
+            ...(<number[]>userState[userListName]),
+            movieId,
+          ];
+          return this.updateUserInfo(userState.id, {
+            [userListName]: updatedMovieList,
+          });
+        }
+      }),
+      tap((updatedUser) => {
+        this.addUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+      })
+    );
+  }
+
+  movieOnTheList(movieId: number, movieList: number[]) {
+    return movieList.some((listedMovieId) => listedMovieId === movieId);
   }
 }

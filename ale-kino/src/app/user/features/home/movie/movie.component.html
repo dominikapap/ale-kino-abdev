@@ -1,7 +1,16 @@
-<section class="movie">
+<section
+  class="movie"
+  *ngIf="(authStateService.auth$ | async)?.role as userRole"
+>
   <div class="movie__image">
-    <p class="movie__image-text">Premiera</p>
-    <img class="movie__image-picture" [src]="movie.movieInfo.image" alt="" />
+    <div class="movie__image-container">
+      <p class="movie__image-text" *ngIf="movie.movieInfo.premiere">Premiera</p>
+      <img
+        class="movie__image-picture"
+        [src]="movie.movieInfo.image"
+        alt=""
+      /><img />
+    </div>
   </div>
   <div class="movie__details">
     <h3 class="movie__details-title">
@@ -12,11 +21,16 @@
       {{ movie.movieInfo.rated }}
     </div>
 
-    <div class="movie__details-description">
+    <div
+      class="movie__details-description"
+      [ngClass]="{ 'text-short': textShort }"
+    >
       {{ movie.movieInfo.description }}
     </div>
     <div class="movie__details-more">
-      <a href="" class="hover-effect">Czytaj więcej</a>
+      <div class="hover-effect text-more" (click)="toggleTextLength()">
+        Czytaj więcej
+      </div>
     </div>
 
     <app-time-nav
@@ -27,31 +41,45 @@
   <div class="movie__additional-info">
     <div class="movie__additional-info__score movie__additional-info__display">
       <div class="movie__additional-info__score-number">
-        {{ movie.movieInfo.score ? movie.movieInfo.score + "/10" : "N/A" }}
+        {{
+          movie.movieInfo.score
+            ? (movie.movieInfo.score.points / movie.movieInfo.score.votes
+                | number : "1.0-0") + "/10"
+            : "N/A"
+        }}
       </div>
-      <div class="movie__additional-info__text">Srednia ocena</div>
+      <div class="movie__additional-info__text">Średnia ocena</div>
     </div>
 
-    <div
-      class="movie__additional-info__rate-it movie__additional-info__display"
-      *ngIf="role === 'user'"
-    >
-      <mat-icon
-        class="movie__additional-info__icon hover-effect"
-        (click)="openDialog(movie.movieInfo.id!)"
-        >thumbs_up_down</mat-icon
+    <div *ngIf="(userStateService.user$ | async)?.ratedMovies as ratedMovies">
+      <div
+        class="movie__additional-info__rate-it movie__additional-info__display"
+        *ngIf="
+          userRole === 'user' &&
+          !userStateService.movieOnTheList(movie.movieInfo.id!, ratedMovies)
+        "
       >
-      <div class="movie__additional-info__text">Oceń ten film!</div>
+        <mat-icon
+          class="movie__additional-info__icon hover-effect"
+          (click)="openDialog(movie.movieInfo.id!)"
+          >thumbs_up_down</mat-icon
+        >
+        <div class="movie__additional-info__text">Oceń ten film!</div>
+      </div>
     </div>
 
-    <div
-      class="movie__additional-info__rate-it movie__additional-info__display"
-      *ngIf="role === 'user'"
-    >
-      <mat-icon class="movie__additional-info__icon hover-effect"
-        >favorite</mat-icon
+    <div *ngIf="(userStateService.user$ | async)?.movieWatchList as movieWatchList" class="movie__additional-info__container">
+      <div
+        class="movie__additional-info__rate-it movie__additional-info__display"
+        *ngIf="userRole === 'user'"
       >
-      <div class="movie__additional-info__text">Chcę zobaczyć</div>
+        <mat-icon
+          class="movie__additional-info__icon hover-effect"
+          (click)="toggleWatchListMovie(movie.movieInfo.id!)"
+          >{{userStateService.movieOnTheList(movie.movieInfo.id!, movieWatchList) ? "favorite" : "favorite_outline"}}</mat-icon
+        >
+        <div class="movie__additional-info__text">Chcę obejrzeć</div>
+      </div>
     </div>
   </div>
 </section>

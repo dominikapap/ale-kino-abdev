@@ -12,6 +12,7 @@ export type ScreeningDetails = {
 };
 
 export type Screening = {
+  id?: number;
   date: string;
   time: string;
   roomsId: number;

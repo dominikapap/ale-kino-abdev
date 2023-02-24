@@ -11,22 +11,13 @@ import { Component, inject, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   private userStateService = inject(UserStateService);
-  private authStateService = inject(AuthStateService);
-  headerNavState$= inject(HeaderNavService).setupState$;
+  protected authStateService = inject(AuthStateService);
+  headerNavState$ = inject(HeaderNavService).setupState$;
   private router = inject(Router);
 
-  username: string = '';
-  role = '';
   isPopNavHidden: boolean = true;
 
-  ngOnInit(): void {
-    this.authStateService.auth$.subscribe((authState) => {
-      this.role = authState.role;
-    });
-    this.userStateService.user$.subscribe((userState) => {
-      this.username = userState?.username;
-    });
-  }
+  ngOnInit(): void {}
 
   togglePopNavMenu() {
     this.isPopNavHidden = !this.isPopNavHidden;
@@ -45,7 +36,6 @@ export class HeaderComponent implements OnInit {
   }
 
   handlePopupNavClick(navItem: string) {
-    console.log('selected option',navItem)
     switch (navItem.toLowerCase()) {
       case 'wyloguj':
         this.authStateService.logout();
