@@ -1,4 +1,7 @@
 <div *ngIf="userWatchListMovies$ | async as movies">
   <app-movie *ngFor="let movie of movies" [movie]="movie"></app-movie>
+  <div *ngIf="movies.length === 0" class="empty-list">
+    <div class="empty-list__message">Twoje lista polubionych filmów jest obecnie pusta</div>
+    <a mat-raised-button routerLink="add-movie" class="empty-list__button" color="accent">Powrót do strony głównej</a>
+  </div>
 </div>
-
