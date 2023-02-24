@@ -47,6 +47,11 @@ const routes: Routes = [
         loadChildren: () => import('./admin/admin.module'),
         canActivate: [adminRoleGuard],
       },
+      {
+        path: 'user-profile',
+        loadChildren: () => import('./user/features/user-profile/user-profile.module'),
+        canActivate: [customerRoleGuard],
+      },
     ],
   },
   { path: 'login', loadChildren: () => import('./auth/auth.module') },

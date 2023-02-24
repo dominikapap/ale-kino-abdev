@@ -4,28 +4,28 @@
 >
   <div class="movie__image">
     <div class="movie__image-container">
-      <p class="movie__image-text" *ngIf="movie.movieInfo.premiere">Premiera</p>
+      <p class="movie__image-text" *ngIf="movie.premiere">Premiera</p>
       <img
         class="movie__image-picture"
-        [src]="movie.movieInfo.image"
+        [src]="movie.image"
         alt=""
       /><img />
     </div>
   </div>
   <div class="movie__details">
     <h3 class="movie__details-title">
-      {{ movie.movieInfo.title | uppercase }}
+      {{ movie.title | uppercase }}
     </h3>
     <div class="movie__details-tags">
-      {{ movie.movieInfo.tags }} | {{ movie.movieInfo.length }} minut |
-      {{ movie.movieInfo.rated }}
+      {{ movie.tags }} | {{ movie.length }} minut |
+      {{ movie.rated }}
     </div>
 
     <div
       class="movie__details-description"
       [ngClass]="{ 'text-short': textShort }"
     >
-      {{ movie.movieInfo.description }}
+      {{ movie.description }}
     </div>
     <div class="movie__details-more">
       <div class="hover-effect text-more" (click)="toggleTextLength()">
@@ -34,16 +34,16 @@
     </div>
 
     <app-time-nav
-      *ngIf="movie.screenings"
-      [screenings]="movie.screenings"
+      *ngIf="screenings.length !== 0"
+      [screenings]="screenings"
     ></app-time-nav>
   </div>
   <div class="movie__additional-info">
     <div class="movie__additional-info__score movie__additional-info__display">
       <div class="movie__additional-info__score-number">
         {{
-          movie.movieInfo.score
-            ? (movie.movieInfo.score.points / movie.movieInfo.score.votes
+          movie.score
+            ? (movie.score.points / movie.score.votes
                 | number : "1.0-0") + "/10"
             : "N/A"
         }}
@@ -56,12 +56,12 @@
         class="movie__additional-info__rate-it movie__additional-info__display"
         *ngIf="
           userRole === 'user' &&
-          !userStateService.movieOnTheList(movie.movieInfo.id!, ratedMovies)
+          !userStateService.movieOnTheList(movie.id!, ratedMovies)
         "
       >
         <mat-icon
           class="movie__additional-info__icon hover-effect"
-          (click)="openDialog(movie.movieInfo.id!)"
+          (click)="openDialog(movie.id!)"
           >thumbs_up_down</mat-icon
         >
         <div class="movie__additional-info__text">Oceń ten film!</div>
@@ -75,8 +75,8 @@
       >
         <mat-icon
           class="movie__additional-info__icon hover-effect"
-          (click)="toggleWatchListMovie(movie.movieInfo.id!)"
-          >{{userStateService.movieOnTheList(movie.movieInfo.id!, movieWatchList) ? "favorite" : "favorite_outline"}}</mat-icon
+          (click)="toggleWatchListMovie(movie.id!)"
+          >{{userStateService.movieOnTheList(movie.id!, movieWatchList) ? "favorite" : "favorite_outline"}}</mat-icon
         >
         <div class="movie__additional-info__text">Chcę obejrzeć</div>
       </div>

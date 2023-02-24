@@ -205,7 +205,7 @@ export class ScreeningRoomStateService {
       .getAllCheckedOutScreeningOrders(screeningRoomId)
       .pipe(
         switchMap((checkedOutOrders) => {
-          let requests: Observable<Ticket[]>[] = [];
+          const requests: Observable<Ticket[]>[] = [];
           checkedOutOrders.forEach((order) => {
             requests.push(
               this.ticketsService.getAllOrderTicketsWithFullInfo(order.id)

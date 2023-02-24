@@ -1,7 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { of, ReplaySubject, switchMap, take, tap } from 'rxjs';
-import { MoviesService } from '../services/movies.service';
+import {
+  forkJoin,
+  map,
+  Observable,
+  of,
+  ReplaySubject,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
+import { Movie, MoviesService } from '../services/movies.service';
 
 export interface User {
   id: number;
@@ -82,5 +91,24 @@ export class UserStateService {
 
   movieOnTheList(movieId: number, movieList: number[]) {
     return movieList.some((listedMovieId) => listedMovieId === movieId);
+  }
+
+  getUserWatchListMovies() {
+    return this.user$.pipe(
+      switchMap((userState) => {
+        const requests: Observable<Movie>[] = [];
+        if (userState.movieWatchList?.length) {
+          userState.movieWatchList.forEach((movieId) => {
+            requests.push(this.movieService.getMovieDetails(movieId));
+          });
+          return forkJoin<Movie[]>(requests);
+        } else {
+          return of([]);
+        }
+      }),
+      map((movies) => {
+        return movies.flat();
+      })
+    );
   }
 }

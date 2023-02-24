@@ -4,6 +4,7 @@
 <div *ngIf="dailyScreeningsState$ | async as dailyScreeningsState">
   <app-movie
     *ngFor="let dailyScreening of dailyScreeningsState"
-    [movie]="dailyScreening"
+    [movie]="dailyScreening.movieInfo"
+    [screenings]="dailyScreening.screenings"
   ></app-movie>
 </div>

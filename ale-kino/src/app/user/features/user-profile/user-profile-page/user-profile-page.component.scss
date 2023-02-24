@@ -1,0 +1,22 @@
+@use "../../../../../breakpoints" as breakpoints;
+@use "../../../../../colors" as colors;
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+
+  &__menu {
+    display: flex;
+    padding: 0.5em;
+    gap: 5px;
+    background-color: colors.$bg-color;
+    border-bottom: 1px solid colors.$secondary-accent-color;
+
+  }
+}
+
+.wrapper {
+  @extend .app-container;
+  align-self: center;
+  height: 100%;
+}

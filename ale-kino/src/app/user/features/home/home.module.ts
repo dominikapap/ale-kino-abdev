@@ -39,5 +39,6 @@ import {MatButtonModule} from '@angular/material/button';
       },
     ]),
   ],
+  exports: [MovieComponent]
 })
 export default class HomeModule {}

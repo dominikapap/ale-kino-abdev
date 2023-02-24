@@ -5,6 +5,8 @@ import { Component, OnInit, Input, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MovieScoreDialogComponent } from '../movie-score-dialog/movie-score-dialog.component';
 import { DailyMovieScreenings } from 'src/app/services/daily-movies-screenings.service';
+import { Movie } from 'src/app/services/movies.service';
+import { Screening } from 'src/app/services/screenings.service';
 
 @Component({
   selector: 'app-movie',
@@ -16,7 +18,8 @@ export class MovieComponent {
   protected userStateService = inject(UserStateService);
   private subscriptions = new Subscription();
 
-  @Input() movie!: DailyMovieScreenings;
+  @Input() movie!: Movie;
+  @Input() screenings: Screening[] = [];
 
   constructor(public dialog: MatDialog) {}
 

@@ -10,12 +10,11 @@ export const MENU_CATEGORIES_GUEST: MenuCategory[] = [
 export const MENU_CATEGORIES_USER: MenuCategory[] = [
   {
     categoryName: 'moje bilety',
+    href: '/user-profile/ticket-list'
   },
   {
     categoryName: 'chcę obejrzeć',
-  },
-  {
-    categoryName: 'ustawienia',
+    href: '/user-profile/watchlist'
   },
   {
     categoryName: 'wyloguj',

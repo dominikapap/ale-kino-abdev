@@ -1,0 +1,4 @@
+<div *ngIf="userWatchListMovies$ | async as movies">
+  <app-movie *ngFor="let movie of movies" [movie]="movie"></app-movie>
+</div>
+
