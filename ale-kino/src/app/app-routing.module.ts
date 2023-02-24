@@ -10,6 +10,12 @@ const adminRoleGuard: CanActivateFn = () => {
   return userRole === 'admin' ? true : router.navigate(['']);
 };
 
+const userRoleGuard: CanActivateFn = () => {
+  const userRole = inject(AuthStateService).authValue.role;
+  const router = inject(Router);
+  return userRole === 'user' ? true : router.navigate(['']);
+};
+
 const customerRoleGuard: CanActivateFn = () => {
   const userRole = inject(AuthStateService).authValue.role;
   const router = inject(Router);
@@ -50,7 +56,7 @@ const routes: Routes = [
       {
         path: 'user-profile',
         loadChildren: () => import('./user/features/user-profile/user-profile.module'),
-        canActivate: [customerRoleGuard],
+        canActivate: [userRoleGuard],
       },
     ],
   },
