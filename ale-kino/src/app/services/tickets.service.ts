@@ -35,23 +35,25 @@ export class TicketsService {
     return this.http.delete(`/tickets/${ticketId}`);
   }
 
-  updateTicket(ticketId: number, ticketSlice: Partial<Ticket>) {
+  updateTicketN(ticketId: number, ticketSlice: Partial<Ticket>) {
     return this.http
       .patch<Ticket>(`/tickets/${ticketId}`, { ...ticketSlice })
       .pipe(
         switchMap((updatedTicket) => {
-          const ticketTypes$ = this.getTicketTypeInfoById(
-            updatedTicket.ticketTypesId
-          );
-          return combineLatest([of(updatedTicket), ticketTypes$]);
-        }),
-        map(([updatedTicket, ticketTypes]) => {
-          return (updatedTicket = {
-            ...updatedTicket,
-            ticketTypes: ticketTypes,
-          });
+          return this.getTicketWithTypeData(updatedTicket);
         })
       );
+  }
+
+  getTicketWithTypeData(ticket: Ticket) {
+    return this.getTicketTypeInfoById(ticket.ticketTypesId).pipe(
+      map((ticketTypeData) => {
+        return (ticket = {
+          ...ticket,
+          ticketTypes: ticketTypeData,
+        });
+      })
+    );
   }
 
   getTicketPriceByTypeId(ticketTypeId: number) {

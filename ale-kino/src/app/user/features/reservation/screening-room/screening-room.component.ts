@@ -45,7 +45,7 @@ export class ScreeningRoomComponent implements OnInit, OnDestroy {
   }
 
   toggleSeat(row: string, seatNumber: number) {
-    this.screeningRoomStateService.toggleSelectedSeat({ row, seatNumber });
+    this.screeningRoomStateService.toggleSelectedSeat({ row, seatNumber }).subscribe();
   }
 
   isSelected(row: string, seatNumber: number) {

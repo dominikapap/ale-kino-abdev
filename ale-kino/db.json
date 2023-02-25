@@ -375,15 +375,6 @@
       "id": 21
     },
     {
-      "ordersId": 2,
-      "seat": {
-        "row": "C",
-        "seatNumber": 8
-      },
-      "ticketTypesId": 1,
-      "id": 47
-    },
-    {
       "ordersId": 5,
       "seat": {
         "row": "H",
@@ -400,33 +391,6 @@
       },
       "ticketTypesId": 1,
       "id": 49
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "E",
-        "seatNumber": 9
-      },
-      "ticketTypesId": 1,
-      "id": 55
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "F",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 1,
-      "id": 56
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "E",
-        "seatNumber": 8
-      },
-      "ticketTypesId": 1,
-      "id": 57
     },
     {
       "ordersId": 6,
@@ -474,13 +438,67 @@
       "id": 62
     },
     {
-      "ordersId": -1,
+      "ordersId": 2,
       "seat": {
-        "row": "I",
-        "seatNumber": 9
+        "row": "C",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 4,
+      "id": 69
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "D",
+        "seatNumber": 7
       },
       "ticketTypesId": 1,
-      "id": 63
+      "id": 70
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "F",
+        "seatNumber": 8
+      },
+      "ticketTypesId": 1,
+      "id": 77
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "F",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 78
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "G",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 79
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "G",
+        "seatNumber": 10
+      },
+      "ticketTypesId": 1,
+      "id": 80
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "E",
+        "seatNumber": 12
+      },
+      "ticketTypesId": 1,
+      "id": 81
     }
   ]
 }
