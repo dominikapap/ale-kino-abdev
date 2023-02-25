@@ -12,7 +12,9 @@
         1,
         2
       ],
-      "movieWatchList": []
+      "movieWatchList": [
+        1
+      ]
     },
     {
       "id": 2,
@@ -225,34 +227,34 @@
   "screenings": [
     {
       "id": 1,
-      "date": "24-02-2023",
+      "date": "25-02-2023",
       "time": "12:30",
       "roomsId": 1,
       "moviesId": 1
     },
     {
       "id": 2,
-      "date": "24-02-2023",
+      "date": "25-02-2023",
       "time": "14:30",
       "roomsId": 2,
       "moviesId": 2
     },
     {
       "id": 4,
-      "date": "25-02-2023",
+      "date": "26-02-2023",
       "time": "16:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
       "id": 5,
-      "date": "24-02-2023",
+      "date": "25-02-2023",
       "time": "18:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
-      "date": "25-02-2023",
+      "date": "26-02-2023",
       "time": "19:25",
       "roomsId": 1,
       "moviesId": 1,
@@ -405,7 +407,7 @@
         "row": "E",
         "seatNumber": 9
       },
-      "ticketTypesId": 4,
+      "ticketTypesId": 1,
       "id": 55
     },
     {
@@ -414,7 +416,7 @@
         "row": "F",
         "seatNumber": 6
       },
-      "ticketTypesId": 3,
+      "ticketTypesId": 1,
       "id": 56
     },
     {
@@ -470,6 +472,15 @@
       },
       "ticketTypesId": 1,
       "id": 62
+    },
+    {
+      "ordersId": -1,
+      "seat": {
+        "row": "I",
+        "seatNumber": 9
+      },
+      "ticketTypesId": 1,
+      "id": 63
     }
   ]
 }

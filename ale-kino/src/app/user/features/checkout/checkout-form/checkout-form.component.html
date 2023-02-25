@@ -1,124 +1,108 @@
-<div class="reservation" *ngIf="screeningRoomState$ | async as roomState">
-  <app-checkout-order></app-checkout-order>
+<div class="reservation">
+  <div class="reservation__title">
+    {{ "podsumowanie zamówienia" | uppercase }}
+  </div>
 
-  <form class="checkoutForm" [formGroup]="checkoutForm" (ngSubmit)="sendForm()">
-    <div class="checkoutForm__field">
-      <label for="firstName">Imię: </label>
-      <input
-        [class.error]="firstNameCtrl.touched && firstNameCtrl.errors"
-        type="text"
-        id="firstName"
-        placeholder="Imię*"
-        formControlName="firstName"
-      />
-      <ng-container *ngIf="firstNameCtrl.errors as errors">
-        <ng-container *ngIf="firstNameCtrl.touched">
-          <p class="checkoutForm__errorMessage" *ngIf="errors['required']">
-            Te pole jest obowiązkowe
-          </p>
-          <p
-            class="checkoutForm__errorMessage"
-            *ngIf="errors['minlength'] as milLength"
-          >
-            Podałeś {{ milLength.actualLength }} znaki, minimum to
-            {{ milLength.requiredLength }}
-          </p>
-        </ng-container>
-      </ng-container>
-    </div>
+  <div
+    class="reservation__container"
+    *ngIf="screeningRoomState$ | async as roomState"
+  >
+    <app-checkout-order></app-checkout-order>
 
-    <div class="checkoutForm__field">
-      <label for="lastName">Nazwisko:</label>
-      <input
-        type="text"
-        id="lastName"
-        placeholder="Nazwisko*"
-        formControlName="lastName"
-      />
-      <ng-container *ngIf="lastNameCtrl.errors as errors">
-        <ng-container *ngIf="lastNameCtrl.touched">
-          <p class="checkoutForm__errorMessage" *ngIf="errors['required']">
-            Te pole jest obowiązkowe
-          </p>
-        </ng-container>
-      </ng-container>
-    </div>
+    <form
+      [formGroup]="checkoutForm"
+      class="checkout-form"
+      (ngSubmit)="sendForm()"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Imię</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Imię"
+          formControlName="firstName"
+        />
+        <mat-error *ngIf="firstNameCtrl.invalid">{{
+          getNameErrorMessage(firstNameCtrl, "Imię")
+        }}</mat-error>
+      </mat-form-field>
 
-    <div class="checkoutForm__field">
-      <label for="phoneNumber">Numer telefonu: </label>
-      <input
-        type="tel"
-        id="phoneNumber"
-        placeholder="Numer telefonu"
-        formControlName="phoneNumber"
-      />
-    </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Nazwisko</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Nazwisko"
+          formControlName="lastName"
+        />
+        <mat-error *ngIf="lastNameCtrl.invalid">{{
+          getNameErrorMessage(lastNameCtrl, "Nazwisko")
+        }}</mat-error>
+      </mat-form-field>
 
-    <div class="checkoutForm__field">
-      <label for="email">Adres email: </label>
-      <input
-        type="email"
-        placeholder="Adres e-mail*"
-        id="email"
-        formControlName="email"
-      />
-      <ng-container *ngIf="emailCtrl.errors as errors">
-        <ng-container *ngIf="emailCtrl.touched">
-          <p class="checkoutForm__errorMessage" *ngIf="errors['required']">
-            Te pole jest obowiązkowe
-          </p>
-          <p class="checkoutForm__errorMessage" *ngIf="errors['email']">
-            Podany adres email jest nieprawidłowy
-          </p>
-        </ng-container>
-      </ng-container>
-    </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Numer telefonu</mat-label>
+        <input
+          type="email"
+          matInput
+          placeholder="Numer telefonu"
+          formControlName="phoneNumber"
+        />
+        <mat-error *ngIf="phoneNumberCtrl.invalid">{{
+          getPhoneNumberErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
 
-    <div class="checkoutForm__field">
-      <label for="re-email">Powtórz adres email: </label>
-      <input
-        type="email"
-        placeholder="Powtórz adres e-mail*"
-        id="re-email"
-        formControlName="emailRepeat"
-      />
-      <ng-container *ngIf="emailRepeatCtrl.errors as errors">
-        <ng-container *ngIf="emailRepeatCtrl.touched">
-          <p class="checkoutForm__errorMessage" *ngIf="errors['required']">
-            Te pole jest obowiązkowe
-          </p>
-          <p class="checkoutForm__errorMessage" *ngIf="errors['email']">
-            Podany adres email jest nieprawidłowy
-          </p>
-        </ng-container>
-      </ng-container>
-    </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          matInput
+          placeholder="Email"
+          formControlName="email"
+        />
+        <mat-error *ngIf="emailCtrl.invalid">{{
+          getEmailErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
 
-    <div class="checkoutForm__field">
-      <div class="newsletter">
-        <label class="switch">
-          <input type="checkbox" formControlName="hasDiscountCode" />
-          <span class="slider round"></span>
-        </label>
-        <p>Chcę otrzymywać informację o zniżkach, promocjach itp</p>
-      </div>
-    </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Powtórz Email</mat-label>
+        <input
+          type="email"
+          matInput
+          placeholder="Email"
+          formControlName="emailRepeat"
+        />
+        <mat-error *ngIf="emailRepeatCtrl.invalid">{{
+          getEmailErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
 
-    <div class="checkoutForm__field">
-      <label for="code">Kod zniżkowy: </label>
-      <input
-        type="text"
-        placeholder="Kod zniżkowy"
-        id="code"
-        formControlName="discountCode"
-      />
-    </div>
+      <mat-slide-toggle color="accent" class="checkout-form__slide"
+        >Chcę otrzymywać informację o zniżkach, promocjach itp</mat-slide-toggle
+      >
 
-    <app-button
-      type="submit"
-      [value]="'Zamawiam!'"
-      class="btn-submit"
-    ></app-button>
-    <a [routerLink]="'/reservation/' + roomState.screeningDetails?.id">Wróć do wyboru mniejsc</a>
-  </form>
+      <mat-form-field appearance="fill">
+        <mat-label>Kod zniżkowy</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Kod zniżkowy"
+          formControlName="discountCode"
+        />
+        <mat-error *ngIf="discountCodeCtrl.invalid">{{
+          getEmailErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        class="checkout-form__button"
+        color="accent"
+        type="submit"
+      >
+        Zamawiam
+      </button>
+    </form>
+  </div>
 </div>

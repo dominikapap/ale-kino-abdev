@@ -83,3 +83,7 @@ $app-name-theme: mat.define-dark-theme(
 .mat-stepper-horizontal-line {
   border-color: colors.$accent-color
 }
+
+.checkout-form__slide > .mdc-form-field>label {
+  color: white;
+}

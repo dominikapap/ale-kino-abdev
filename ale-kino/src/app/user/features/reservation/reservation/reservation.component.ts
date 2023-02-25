@@ -11,18 +11,21 @@ import { ScreeningDetails } from 'src/app/services/screenings.service';
 })
 export class ReservationComponent implements OnInit, OnDestroy {
   private screeningRoomStateService = inject(ScreeningRoomStateService);
-  screeningRoomState$ = this.screeningRoomStateService.screeningRoomState$;
+  protected screeningRoomState$ = this.screeningRoomStateService.screeningRoomState$;
   private route = inject(ActivatedRoute);
   private subscriptions = new Subscription();
 
   screeningDetails!: ScreeningDetails | undefined;
-  openOrderId: number = -1;
   icon: string = 'trash-can';
 
   ngOnInit(): void {
     this.initializeScreeningDetails();
   }
   ngOnDestroy(): void {
+    const sub = this.screeningRoomStateService.screeningRoomState$.subscribe((state) => {
+      localStorage.setItem('state', JSON.stringify(state));
+    });
+    this.subscriptions.add(sub);
     this.subscriptions.unsubscribe();
   }
 
@@ -32,11 +35,6 @@ export class ReservationComponent implements OnInit, OnDestroy {
       .subscribe((screeningDetails) => {
         this.screeningDetails = screeningDetails;
       });
-    const stateDetailsSub =
-      this.screeningRoomStateService.screeningRoomState$.subscribe((state) => {
-        this.openOrderId = <number>state.ticketState.notCheckedOutOrderId;
-      });
     this.subscriptions.add(initDetailsSub);
-    this.subscriptions.add(stateDetailsSub);
   }
 }

@@ -223,18 +223,17 @@ export class ScreeningRoomStateService {
   private getSelectedScreeningTickets(screeningRoomId: number) {
     return this.userService.user$.pipe(
       switchMap((user) => {
-        console.log('user?');
         const order: Observable<Order[]> =
           this.ordersService.getNotCheckedOutUserScreeningOrder(
             screeningRoomId,
-            user.id
+            user.id!
           );
         return combineLatest([order, of(user)]);
       }),
       switchMap(([[order], user]) => {
         const newOrder$ = this.ordersService.createScreeningOrder(
           screeningRoomId,
-          user.id
+          user.id!
         );
         return order !== undefined ? of(order) : newOrder$;
       }),
@@ -333,5 +332,12 @@ export class ScreeningRoomStateService {
         this.patchState({ screeningDetails });
       })
     );
+  }
+
+  setStateFromLocalStorage() {
+    const state = localStorage.getItem('state');
+    if (state) {
+      this.patchState(JSON.parse(state));
+    }
   }
 }

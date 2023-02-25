@@ -1,119 +1,53 @@
+@use "../../../../../colors" as colors;
+@use "../../../../../breakpoints" as breakpoints;
+
 .reservation {
-  display: flex;
-  flex-direction: column;
-  gap: 2em;
-  padding-top: 2em;
-  padding-bottom: 2em;
+  @extend .app-container;
+  margin: 0 auto;
   color: white;
-}
-
-.checkoutForm {
   display: flex;
   flex-direction: column;
-  max-width: 450px;
-  align-self: center;
-
-  &__field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.5em;
-  }
-
-  &__field > input {
-    padding: 0.5em 1.5em;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-  }
-
-  &__errorMessage {
-    color: red;
-  }
-
-  & > label {
-    margin-bottom: 0.2em;
-  }
-
-  & > a {
-    display: flex;
-    justify-content: center;
-    margin-top: 1.5em;
-    color: white;
-  }
-}
-
-.newsletter {
-  display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
+
+  &__title {
+    color: colors.$accent-color;
+    text-transform: capitalize;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 0.5em;
+    font-size: 1.5em;
+    align-self: flex-start;
+    border-bottom: 1px solid colors.$accent-color;
+  }
 }
 
-.btn-submit {
-  align-self: end;
+.reservation__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
+  padding: 4em;
+  background-color: colors.$bg-color;
+  border: 1px solid colors.$accent-color;
+  border-radius: 10px;
 }
 
-input.ng-touched.ng-invalid {
-  border-color: red;
-}
-
-// Styling for slider
-.switch {
-  position: relative;
-  display: inline-block;
+.checkout-form {
+  display: flex;
+  flex-direction: column;
   align-self: center;
-  width: 30px;
-  height: 14px;
-  margin-right: 0.5em;
-}
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+  &__slide {
+    padding-top: 1em;
+    padding-bottom: 2.5em;
+    & > label {
+      color: white;
+    }
+  }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 10px;
-  width: 10px;
-  left: 4px;
-  bottom: 2px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #27975f;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #27975f;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(13px);
-  -ms-transform: translateX(13px);
-  transform: translateX(13px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 17px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
+  &__button {
+    align-self: flex-end;
+  }
 }

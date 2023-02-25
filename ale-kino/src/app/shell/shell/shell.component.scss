@@ -3,6 +3,8 @@
 .wrapper {
   min-height: calc(100% - 178px);
   background-color: colors.$primary-color;
+  display: flex;
+  flex-direction: column;
 }
 
 

@@ -85,7 +85,6 @@ export class TicketsService {
   }
 
   getTicketTypeInfoById<TicketType>(ticketTypeId: number) {
-    console.log('ticket type id:', ticketTypeId);
     return this.getTicketTypes().pipe(
       map((ticketTypes) => {
         return ticketTypes.find((ticketType) => ticketType.id === ticketTypeId);
