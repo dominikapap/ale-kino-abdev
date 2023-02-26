@@ -1,6 +1,6 @@
-import { Subscription } from 'rxjs';
 import { Component, inject, OnInit } from '@angular/core';
 import { ScreeningRoomStateService } from 'src/app/services';
+import { CheckoutOrderService } from './checkout-order.service';
 
 @Component({
   selector: 'app-checkout-order',
@@ -8,21 +8,11 @@ import { ScreeningRoomStateService } from 'src/app/services';
   styleUrls: ['./checkout-order.component.scss'],
 })
 export class CheckoutOrderComponent implements OnInit {
-  private screeningRoomStateService = inject(ScreeningRoomStateService);
-  protected roomState$ = this.screeningRoomStateService.screeningRoomState$;
-  private subscriptions = new Subscription();
-  protected orderTotalCost: number = 0;
+  protected screeningRoomStateService = inject(ScreeningRoomStateService);
+  protected totalOrderPrice$ =
+    inject(CheckoutOrderService).getTotalOrderPrice();
 
   ngOnInit() {
     this.screeningRoomStateService.setStateFromLocalStorage();
-    const sub = this.screeningRoomStateService.screeningRoomState$.subscribe(state => {
-      state.ticketState.selectedTickets.forEach(ticket => {
-        this.orderTotalCost += <number>ticket.ticketTypes?.price
-      })
-    })
-    this.subscriptions.add(sub);
-  }
-  ngOnDestroy(){
-    this.subscriptions.unsubscribe();
   }
 }

@@ -5,7 +5,7 @@
 
   <div
     class="reservation__container"
-    *ngIf="screeningRoomState$ | async as roomState"
+    *ngIf="screeningRoomStateService.screeningRoomState$ | async as roomState"
   >
     <app-checkout-order></app-checkout-order>
 

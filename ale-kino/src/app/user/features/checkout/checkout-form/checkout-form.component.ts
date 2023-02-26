@@ -1,11 +1,9 @@
-import { User, UserStateService } from './../../../../core/user.state.service';
+import { CheckoutFormService } from './checkout-form.service';
 import { couponCodeValidator } from './codeValidator';
 import { Router } from '@angular/router';
 import {
   ScreeningRoomStateService,
   CouponCodesService,
-  OrdersService,
-  CustomerInfo,
 } from 'src/app/services';
 import { Subscription } from 'rxjs';
 import {
@@ -27,14 +25,11 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckoutFormComponent implements OnInit {
-  private screeningRoomStateService = inject(ScreeningRoomStateService);
-  protected screeningRoomState$ =
-    this.screeningRoomStateService.screeningRoomState$;
-  private orderService = inject(OrdersService);
-  private codesService = inject(CouponCodesService);
+  protected screeningRoomStateService = inject(ScreeningRoomStateService);
+  private couponCodesService = inject(CouponCodesService);
   private builder = inject(NonNullableFormBuilder);
   private router = inject(Router);
-  private userState = inject(UserStateService);
+  private checkoutFormService = inject(CheckoutFormService);
 
   private readonly MIN_FIRST_NAME_LENGTH = 2;
   private readonly MIN_LAST_NAME_LENGTH = 2;
@@ -46,10 +41,14 @@ export class CheckoutFormComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    const userStateSub = this.userState.user$.subscribe((userState) => {
-      this.fillUserForm(userState);
-    });
+    const userStateSub = this.checkoutFormService
+      .fillUserForm(this.checkoutForm)
+      .subscribe();
+    const couponCodeSub = this.checkoutFormService
+      .setCouponCodeDiscount(this.discountCodeCtrl)
+      .subscribe();
     this.subscriptions.add(userStateSub);
+    this.subscriptions.add(couponCodeSub);
   }
 
   ngOnDestroy() {
@@ -85,8 +84,8 @@ export class CheckoutFormComponent implements OnInit {
       }),
       newsletter: this.builder.control(false),
       discountCode: this.builder.control('', {
-        asyncValidators: [couponCodeValidator(this.codesService)],
         updateOn: 'change',
+        asyncValidators: [couponCodeValidator(this.couponCodesService)],
       }),
     });
 
@@ -96,32 +95,19 @@ export class CheckoutFormComponent implements OnInit {
   sendForm(orderId: number) {
     this.checkoutForm.markAllAsTouched();
     if (this.checkoutForm.valid) {
-      this.orderService
-        .updateOrder(orderId, this.getCustomerFormInfo())
-        .subscribe((response) => {
-          console.log('updated order info:', response);
-        });
-      console.log(orderId);
-      console.log(this.checkoutForm.value);
-      // this.router.navigate(['/summary']);
+      const sub = this.checkoutFormService
+        .sendFormData(orderId, this.checkoutForm, this.couponCode())
+        .subscribe();
+      this.subscriptions.add(sub);
+      this.router.navigate(['/summary']);
     }
   }
 
-  private fillUserForm(user: User) {
-    this.firstNameCtrl.setValue(<string>user.firstName);
-    this.lastNameCtrl.setValue(<string>user.lastName);
-    this.emailCtrl.setValue(<string>user.email);
-    this.emailRepeatCtrl.setValue(<string>user.email);
-  }
-
-  private getCustomerFormInfo(): CustomerInfo {
-    return {
-      firstName: this.checkoutForm.value.firstName!,
-      lastName: this.checkoutForm.value.lastName!,
-      email: this.checkoutForm.value.email!,
-      phoneNumber: this.checkoutForm.value.phoneNumber,
-      newsletter: this.checkoutForm.value.newsletter,
-    };
+  private couponCode() {
+    return (
+      this.discountCodeCtrl.touched && this.discountCodeCtrl.valid,
+      this.discountCodeCtrl.value !== ''
+    );
   }
 
   get firstNameCtrl() {
@@ -170,7 +156,7 @@ export class CheckoutFormComponent implements OnInit {
   }
 
   getCouponCodeErrorMessage() {
-    if (this.discountCodeCtrl.hasError('couponValid')) {
+    if (this.discountCodeCtrl.hasError('couponInvalid')) {
       return 'Podany kod jest nieprawidłowy';
     }
     return this.discountCodeCtrl.hasError('couponExpired')

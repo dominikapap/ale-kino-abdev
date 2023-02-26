@@ -1,24 +1,34 @@
-<div class="container" *ngIf="roomState$ | async as roomState">
-  <div class="selectedMovie" *ngIf=" roomState.screeningDetails as screeningDetails">
+<div class="container" *ngIf="screeningRoomStateService.screeningRoomState$ | async as roomState">
+  <div
+    class="selectedMovie"
+    *ngIf="roomState.screeningDetails as screeningDetails"
+  >
     {{ screeningDetails.movies.title }}, {{ screeningDetails.date }}, godz.{{
       screeningDetails.time
     }}
   </div>
 
-  <div class="ticketList" *ngIf="roomState.ticketState.selectedTickets as openOrderTicketList">
+  <div
+    class="ticketList"
+    *ngIf="roomState.ticketState.selectedTickets as openOrderTicketList"
+  >
     <div class="ticketList__item" *ngFor="let ticket of openOrderTicketList">
       <div class="ticketList__ticketSeat">
         Rząd {{ ticket.seat.row }} Miejsce
         {{ ticket.seat.seatNumber }}
       </div>
       <div class="ticketList__ticketPrice">
-        {{ticket.ticketTypes?.price }} PLN
+        {{ ticket.ticketTypes?.price }} PLN
       </div>
     </div>
     <div class="ticketList__total">
       <div class="ticketList__totalLabel">razem</div>
-      <div class="ticketList__totalPrice">{{ orderTotalCost }} PLN</div>
+      <div
+        class="ticketList__totalPrice"
+        *ngIf="totalOrderPrice$ | async as totalOrderPrice"
+      >
+        {{ totalOrderPrice }} PLN
+      </div>
     </div>
   </div>
 </div>
-

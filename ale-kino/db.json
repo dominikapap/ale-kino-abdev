@@ -483,14 +483,7 @@
       "id": 2,
       "usersId": 1,
       "screeningsId": 1,
-      "isCheckedOut": true,
-      "customerInfo": {
-        "firstName": "Test",
-        "lastName": "Testowski",
-        "email": "test@test.pl",
-        "phoneNumber": "",
-        "newsletter": false
-      }
+      "isCheckedOut": true
     },
     {
       "id": 3,
@@ -508,7 +501,15 @@
       "usersId": 1,
       "screeningsId": 5,
       "isCheckedOut": false,
-      "id": 5
+      "id": 5,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      },
+      "couponCodesId": 1
     },
     {
       "usersId": 1,
@@ -526,7 +527,15 @@
       "usersId": 1,
       "screeningsId": 1,
       "isCheckedOut": false,
-      "id": 8
+      "id": 8,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      },
+      "couponCodesId": 1
     }
   ],
   "tickets": [
@@ -671,7 +680,7 @@
         "row": "E",
         "seatNumber": 6
       },
-      "ticketTypesId": 3,
+      "ticketTypesId": 1,
       "id": 33
     },
     {
@@ -682,17 +691,55 @@
       },
       "ticketTypesId": 1,
       "id": 34
+    },
+    {
+      "ordersId": 5,
+      "seat": {
+        "row": "F",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 35
+    },
+    {
+      "ordersId": 5,
+      "seat": {
+        "row": "E",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 36
+    },
+    {
+      "ordersId": 5,
+      "seat": {
+        "row": "F",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 37
+    },
+    {
+      "ordersId": 5,
+      "seat": {
+        "row": "E",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 38
     }
   ],
   "couponCodes": [
     {
       "id": 1,
       "name": "supercheap123",
+      "discount": 0.2,
       "active": true
     },
     {
       "id": 2,
       "name": "superexpensive321",
+      "discount": 2.2,
       "active": false
     }
   ]

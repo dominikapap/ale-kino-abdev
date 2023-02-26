@@ -35,7 +35,7 @@ export class TicketsService {
     return this.http.delete(`/tickets/${ticketId}`);
   }
 
-  updateTicketN(ticketId: number, ticketSlice: Partial<Ticket>) {
+  updateTicket(ticketId: number, ticketSlice: Partial<Ticket>) {
     return this.http
       .patch<Ticket>(`/tickets/${ticketId}`, { ...ticketSlice })
       .pipe(

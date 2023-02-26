@@ -38,7 +38,7 @@ export class SeatTicketComponent implements OnInit, OnDestroy {
   onTicketTypeChanged(ticket: Ticket, ticketTypeId: string) {
     const ticketTypeIdAsNumber = parseInt(ticketTypeId, 10);
     this.ticketsService
-      .updateTicketN(ticket.id, {
+      .updateTicket(ticket.id, {
         ticketTypesId: ticketTypeIdAsNumber,
       })
       .subscribe((updatedTicket) => {
