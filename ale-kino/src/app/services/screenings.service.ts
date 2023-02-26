@@ -33,6 +33,12 @@ export class ScreeningsService {
     });
   }
 
+  getScreeningDetailsById(screeningId: number){
+    return this.http.get<ScreeningDetails[]>(
+      `/screenings?_expand=rooms&_expand=movies&id=${screeningId}`
+    );
+  }
+
   getAllScreeningsDetails() {
     return this.http.get<ScreeningDetails[]>(
       `/screenings?_expand=rooms&_expand=movies`

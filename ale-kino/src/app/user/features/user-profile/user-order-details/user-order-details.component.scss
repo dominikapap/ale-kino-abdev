@@ -1,0 +1,33 @@
+@use "../../../../../colors" as colors;
+@use "../../../../../breakpoints" as breakpoints;
+
+.order-details {
+  @extend .app-container;
+  margin: 0 auto;
+  color: white;
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    color: colors.$accent-color;
+    text-transform: capitalize;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 0.5em;
+    font-size: 1.5em;
+    align-self: flex-start;
+    border-bottom: 1px solid colors.$accent-color;
+  }
+
+  &__tickets {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2em;
+    padding: 4em;
+    background-color: colors.$bg-color;
+    border: 1px solid colors.$accent-color;
+    border-radius: 10px;
+    margin-bottom: 4em;
+  }
+}

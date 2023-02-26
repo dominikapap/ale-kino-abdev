@@ -1,0 +1,11 @@
+<div class="order-details" *ngIf="tickets$ | async as tickets">
+  <div class="order-details__title">
+    {{ "Lista Biletów" | uppercase }}
+  </div>
+  <div class="order-details__tickets">
+    <div *ngFor="let ticket of tickets; let i = index">
+      Bilet {{ i + 1 }} Typ: {{ ticket.ticketTypes?.type }} Miejsce:
+      {{ ticket.seat.row }} {{ ticket.seat.seatNumber }}
+    </div>
+  </div>
+</div>

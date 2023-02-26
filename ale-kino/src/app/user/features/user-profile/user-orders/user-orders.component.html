@@ -1,0 +1,14 @@
+<div class="orders">
+  <div class="orders__title">
+    {{ "Moje Zamówienia" | uppercase }}
+  </div>
+  <div class="orders__navigation" *ngIf="userOrders$ | async as userOrders">
+    <a
+      class="orders__navigation__link"
+      *ngFor="let order of userOrders; let i = index"
+      [routerLink]="'/user-profile/orders/' + order.order.id"
+      >Zamówienie {{ i + 1 }} {{ order.details.movies.title }}
+      {{ order.details.date }} {{ order.details.time }}</a
+    >
+  </div>
+</div>

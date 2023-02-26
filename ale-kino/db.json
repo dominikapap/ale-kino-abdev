@@ -540,24 +540,6 @@
   ],
   "tickets": [
     {
-      "id": 1,
-      "ordersId": 1,
-      "seat": {
-        "row": "B",
-        "seatNumber": 5
-      },
-      "ticketTypesId": 2
-    },
-    {
-      "id": 1,
-      "ordersId": 1,
-      "seat": {
-        "row": "B",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 2
-    },
-    {
       "ordersId": 3,
       "seat": {
         "row": "E",
@@ -698,7 +680,7 @@
         "row": "F",
         "seatNumber": 6
       },
-      "ticketTypesId": 1,
+      "ticketTypesId": 4,
       "id": 35
     },
     {
@@ -707,7 +689,7 @@
         "row": "E",
         "seatNumber": 6
       },
-      "ticketTypesId": 1,
+      "ticketTypesId": 4,
       "id": 36
     },
     {
@@ -716,17 +698,26 @@
         "row": "F",
         "seatNumber": 7
       },
-      "ticketTypesId": 1,
+      "ticketTypesId": 4,
       "id": 37
     },
     {
-      "ordersId": 5,
+      "ordersId": 8,
       "seat": {
-        "row": "E",
-        "seatNumber": 7
+        "row": "F",
+        "seatNumber": 6
       },
       "ticketTypesId": 1,
       "id": 38
+    },
+    {
+      "ordersId": 8,
+      "seat": {
+        "row": "F",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 39
     }
   ],
   "couponCodes": [

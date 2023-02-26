@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
+import { UserProfilePageComponent } from '.';
 
 @NgModule({
-  declarations: [],
   imports: [
     RouterModule.forChild([
       {
@@ -14,6 +13,14 @@ import { UserProfilePageComponent } from './user-profile-page/user-profile-page.
           {
             path: 'watchlist',
             loadComponent: () => import('./user-watchlist/user-watchlist.component'),
+          },
+          {
+            path: 'orders',
+            loadComponent: () => import('./user-orders/user-orders.component'),
+          },
+          {
+            path: 'orders/:id',
+            loadComponent: () => import('./user-order-details/user-order-details.component'),
           },
         ],
       },

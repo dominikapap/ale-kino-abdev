@@ -15,7 +15,7 @@ export type CustomerInfo = {
 export type Order = {
   id: number;
   userId: number;
-  screeningId: number;
+  screeningsId: number;
   isCheckedOut: boolean;
   customerInfo: CustomerInfo;
   couponCodesId?: number;
@@ -31,6 +31,10 @@ export class OrdersService {
 
   getOrderById(orderId: number) {
     return this.http.get<Order>(`/orders?id=${orderId}`);
+  }
+
+  getOrdersByUserId(userId: number) {
+    return this.http.get<Order[]>(`/orders?usersId=${userId}`);
   }
 
   createScreeningOrder(screeningId: number, userId: number) {

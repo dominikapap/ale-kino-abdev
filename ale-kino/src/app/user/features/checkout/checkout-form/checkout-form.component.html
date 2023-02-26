@@ -1,10 +1,10 @@
-<div class="reservation">
-  <div class="reservation__title">
+<div class="checkout">
+  <div class="checkout__title">
     {{ "podsumowanie zamówienia" | uppercase }}
   </div>
 
   <div
-    class="reservation__container"
+    class="checkout__container"
     *ngIf="screeningRoomStateService.screeningRoomState$ | async as roomState"
   >
     <app-checkout-order></app-checkout-order>
@@ -104,5 +104,8 @@
         Zamawiam
       </button>
     </form>
+
+    <a class="checkout__return" [routerLink]="'/reservation/' + roomState.screeningDetails!.id">Powrót do rezerwacji</a>
   </div>
+
 </div>
