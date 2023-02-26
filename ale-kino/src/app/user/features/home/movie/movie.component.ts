@@ -1,12 +1,10 @@
-import { Subscription, tap, switchMap, of } from 'rxjs';
+import { Subscription, switchMap, of } from 'rxjs';
 import { UserStateService } from 'src/app/core/user.state.service';
 import { AuthStateService } from 'src/app/auth/auth.state.service';
-import { Component, OnInit, Input, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MovieScoreDialogComponent } from '../movie-score-dialog/movie-score-dialog.component';
-import { DailyMovieScreenings } from 'src/app/services/daily-movies-screenings.service';
-import { Movie } from 'src/app/services/movies.service';
-import { Screening } from 'src/app/services/screenings.service';
+import { Movie, Screening } from 'src/app/services';
 
 @Component({
   selector: 'app-movie',

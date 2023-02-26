@@ -1,4 +1,4 @@
-import { SelectedDateService } from '../../../../services/selected-date.state.service';
+import { SelectedDateService } from '../../../../services';
 import { Component, OnInit } from '@angular/core';
 import { DateInfoService, Day } from 'src/app/user/features/home/services/date-info.service';
 

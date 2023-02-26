@@ -1,6 +1,6 @@
 import { BehaviorSubject, of, map } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { format, getDay, subDays, addDays, isPast,isSameDay} from 'date-fns';
+import { format, getDay, subDays, addDays, isPast, isSameDay } from 'date-fns';
 
 export interface Day {
   dayOfTheWeek: string;
@@ -35,7 +35,7 @@ export class DateInfoService {
       days.push({
         dayOfTheWeek: format(date, 'EEEEEE'),
         date: format(date, 'dd-MM-yyyy'),
-        isPast: this.checkIfPastDate(date)
+        isPast: this.checkIfPastDate(date),
       });
     });
     return days;
@@ -45,7 +45,11 @@ export class DateInfoService {
     //creates an array with current week dates
     const currentWeekDatesArray: Date[] = [];
     const daysInWeek = 7;
-    const mondayDate = subDays(new Date(), getDay(new Date()) - 1);
+    const sunday = 0;
+    const mondayDate = subDays(
+      new Date(),
+      (getDay(new Date()) === sunday ? 7 : getDay(new Date())) - 1
+    );
     for (let i = 0; i < daysInWeek; i++) {
       currentWeekDatesArray.push(addDays(mondayDate, i));
     }
@@ -63,8 +67,8 @@ export class DateInfoService {
     return day.date;
   }
 
-  private checkIfPastDate(date: Date){
-    if(isPast(date) && !isSameDay(date, new Date())){
+  private checkIfPastDate(date: Date) {
+    if (isPast(date) && !isSameDay(date, new Date())) {
       return true;
     }
     return false;

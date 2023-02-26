@@ -1,13 +1,21 @@
-import { UserStateService } from 'src/app/core/user.state.service';
+import { switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { switchMap, tap } from 'rxjs';
+
+export type CustomerInfo = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber?: string;
+  newsletter?: boolean;
+};
 
 export type Order = {
   id: number;
   userId: number;
   screeningId: number;
   isCheckedOut: boolean;
+  customerInfo: CustomerInfo;
 };
 
 @Injectable({
@@ -15,9 +23,8 @@ export type Order = {
 })
 export class OrdersService {
   private http = inject(HttpClient);
-  private userService = inject(UserStateService);
 
-  getOrderById(orderId: number){
+  getOrderById(orderId: number) {
     return this.http.get(`/orders?id=${orderId}`);
   }
 
@@ -26,7 +33,13 @@ export class OrdersService {
       usersId: userId,
       screeningsId: screeningId,
       isCheckedOut: false,
-    }).pipe(tap(response => console.log('post response:',response)));
+    });
+  }
+
+  updateOrder(orderId: number, customerInfo: CustomerInfo) {
+    return this.http.patch<Order>(`/orders/${orderId}`, {
+      customerInfo,
+    });
   }
 
   getAllScreeningOrders(screeningId: number) {

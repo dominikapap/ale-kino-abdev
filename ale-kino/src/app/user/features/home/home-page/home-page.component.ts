@@ -1,4 +1,4 @@
-import { DailyMoviesScreeningsService } from '../../../../services/daily-movies-screenings.service';
+import { DailyMoviesScreeningsService } from '../../../../services';
 import { Component, inject } from '@angular/core';
 
 @Component({

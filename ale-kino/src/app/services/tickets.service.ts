@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { combineLatest, map, of, switchMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { Seat } from './rooms.service';
 
 export type Ticket = {

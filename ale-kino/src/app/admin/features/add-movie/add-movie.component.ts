@@ -4,6 +4,7 @@ import {
   NonNullableFormBuilder,
   Validators,
   ReactiveFormsModule,
+  FormGroupDirective,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -44,6 +45,7 @@ export default class AddMovieComponent {
   private router = inject(Router);
 
   @ViewChild('imageButton') imageButton!: ElementRef<HTMLButtonElement>;
+  @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   screeningForm = this.createForm();
   protected MIN_MOVIE_LENGTH = 0;
@@ -103,19 +105,18 @@ export default class AddMovieComponent {
     const { title, tags, length, rated, description, image, premiere } =
       this.screeningForm.value;
     // handle...
-    console.log(this.screeningForm.value);
     if (this.screeningForm.valid) {
       const movie: Movie = {
-        title: <string>title,
-        tags: <string[]>tags,
-        length: <string>length,
-        rated: <string>rated,
-        description: <string>description,
-        image: <string>image,
-        premiere: <string>premiere === 'true',
+        title: title!,
+        tags: tags!,
+        length: length!,
+        rated: rated!,
+        description: description!,
+        image: image!,
+        premiere: premiere! === 'true',
       };
       this.movieService.addMovie(movie).subscribe((response) => {
-        console.log(response);
+      this.formGroupDirective.resetForm();
       });
       // this.router.navigate(['/summary']);
     }

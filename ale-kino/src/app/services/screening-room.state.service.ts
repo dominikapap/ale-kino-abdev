@@ -5,6 +5,7 @@ import {
   BehaviorSubject,
   combineLatest,
   EMPTY,
+  first,
   forkJoin,
   map,
   Observable,
@@ -146,6 +147,7 @@ export class ScreeningRoomStateService {
           seat
         )
         .pipe(
+          first(),
           switchMap(selectedTicket => {
             return this.ticketsService.getTicketWithTypeData(selectedTicket)
           }),
@@ -157,6 +159,7 @@ export class ScreeningRoomStateService {
       return this.ticketsService
         .removeTicketFromOrder((<Ticket>selectedTicket)?.id)
         .pipe(
+          first(),
           tap(() => {
             this.removeSelectedTicketFromLocalState(selectedTicket);
           })
@@ -167,7 +170,6 @@ export class ScreeningRoomStateService {
   }
 
   private addSelectedTicketToLocalState(selectedTicket: Ticket) {
-    console.log('selected ticket data:', selectedTicket)
     this.patchTicketState({
       selectedTickets: [
         ...this.screeningRoomStateValue.ticketState.selectedTickets,
@@ -231,134 +233,78 @@ export class ScreeningRoomStateService {
       );
   }
 
+  // private getSelectedScreeningTickets(screeningRoomId: number) {
+  //   return this.userService.user$.pipe(
+  //     switchMap((user) => {
+  //       const order: Observable<Order[]> =
+  //         this.ordersService.getNotCheckedOutUserScreeningOrder(
+  //           screeningRoomId,
+  //           user.id
+  //         );
+  //       return combineLatest([order, of(user)]);
+  //     }),
+  //     switchMap(([[order], user]) => {
+  //       const newOrder$ = this.ordersService.createScreeningOrder(
+  //         screeningRoomId,
+  //         user.id
+  //       );
+  //       return order !== undefined ? of(order) : newOrder$;
+  //     }),
+  //     switchMap((order) => {
+  //       this.patchTicketState({ notCheckedOutOrderId: order?.id });
+  //       return this.ticketsService.getAllOrderTicketsWithFullInfo(order?.id);
+  //     }),
+  //     tap((selectedTickets) => this.patchTicketState({ selectedTickets }))
+  //   );
+  // }
+
   private getSelectedScreeningTickets(screeningRoomId: number) {
-    return this.userService.user$.pipe(
-      switchMap((user) => {
-        const order: Observable<Order[]> =
-          this.ordersService.getNotCheckedOutUserScreeningOrder(
-            screeningRoomId,
-            user.id
+    return this.authState$.pipe(
+      switchMap((authState) => {
+        if (authState.role === 'guest') {
+          return this.ordersService
+            .createScreeningOrder(screeningRoomId, 0)
+            .pipe(
+              switchMap((order) => {
+                console.log('created guest order:', order)
+                this.patchTicketState({ notCheckedOutOrderId: order?.id });
+                return this.ticketsService.getAllOrderTicketsWithFullInfo(
+                  order?.id
+                );
+              }),
+              tap((selectedTickets) =>
+                this.patchTicketState({ selectedTickets })
+              )
+            );
+        } else {
+          return this.userService.user$.pipe(
+            switchMap((user) => {
+              const order: Observable<Order[]> =
+                this.ordersService.getNotCheckedOutUserScreeningOrder(
+                  screeningRoomId,
+                  user.id!
+                );
+              return combineLatest([order, of(user)]);
+            }),
+            switchMap(([[order], user]) => {
+              const newOrder$ = this.ordersService.createScreeningOrder(
+                screeningRoomId,
+                user.id!
+              );
+              return order !== undefined ? of(order) : newOrder$;
+            }),
+            switchMap((order) => {
+              this.patchTicketState({ notCheckedOutOrderId: order?.id });
+              return this.ticketsService.getAllOrderTicketsWithFullInfo(
+                order?.id
+              );
+            }),
+            tap((selectedTickets) => this.patchTicketState({ selectedTickets }))
           );
-        return combineLatest([order, of(user)]);
-      }),
-      switchMap(([[order], user]) => {
-        const newOrder$ = this.ordersService.createScreeningOrder(
-          screeningRoomId,
-          user.id
-        );
-        return order !== undefined ? of(order) : newOrder$;
-      }),
-      switchMap((order) => {
-        this.patchTicketState({ notCheckedOutOrderId: order?.id });
-        return this.ticketsService.getAllOrderTicketsWithFullInfo(order?.id);
-      }),
-      tap((selectedTickets) => this.patchTicketState({ selectedTickets }))
+        }
+      })
     );
   }
-
-  // private getSelectedScreeningTickets(screeningRoomId: number) {
-  //   return this.authState$.pipe(
-  //     switchMap((authState) => {
-  //       if (authState.role === 'guest') {
-  //         console.log('creating temp user')
-  //         return this.userService.createGuestUser().pipe(switchMap(guestUser => {
-  //           const order: Observable<Order[]> =
-  //           this.ordersService.getNotCheckedOutUserScreeningOrder(
-  //             screeningRoomId,
-  //             guestUser.id!
-  //           );
-  //         return combineLatest([order, of(guestUser)]);
-  //         }),
-  //         switchMap(([[order], user]) => {
-  //           const newOrder$ = this.ordersService.createScreeningOrder(
-  //             screeningRoomId,
-  //             user.id!
-  //           );
-  //           return order !== undefined ? of(order) : newOrder$;
-  //         }),
-  //         switchMap((order) => {
-  //           this.patchTicketState({ notCheckedOutOrderId: order?.id });
-  //           return this.ticketsService.getAllOrderTicketsWithFullInfo(
-  //             order?.id
-  //           );
-  //         }),
-  //         tap((selectedTickets) => this.patchTicketState({ selectedTickets })))
-  //       } else {
-  //         return this.userService.user$.pipe(
-  //           switchMap((user) => {
-  //             const order: Observable<Order[]> =
-  //               this.ordersService.getNotCheckedOutUserScreeningOrder(
-  //                 screeningRoomId,
-  //                 user.id!
-  //               );
-  //             return combineLatest([order, of(user)]);
-  //           }),
-  //           switchMap(([[order], user]) => {
-  //             const newOrder$ = this.ordersService.createScreeningOrder(
-  //               screeningRoomId,
-  //               user.id!
-  //             );
-  //             return order !== undefined ? of(order) : newOrder$;
-  //           }),
-  //           switchMap((order) => {
-  //             this.patchTicketState({ notCheckedOutOrderId: order?.id });
-  //             return this.ticketsService.getAllOrderTicketsWithFullInfo(
-  //               order?.id
-  //             );
-  //           }),
-  //           tap((selectedTickets) => this.patchTicketState({ selectedTickets }))
-  //         );
-  //       }
-  //     })
-  //   );
-  // }
-  // private getSelectedScreeningTicketsN(screeningRoomId: number) {
-  //   return this.authState$.pipe(
-  //     switchMap((authState) => {
-  //       if (authState.role === 'guest') {
-  //         return this.ordersService
-  //           .createScreeningOrder(screeningRoomId, -1)
-  //           .pipe(
-  //             switchMap((order) => {
-  //               this.patchTicketState({ notCheckedOutOrderId: order?.id });
-  //               return this.ticketsService.getAllOrderTicketsWithFullInfo(
-  //                 order?.id
-  //               );
-  //             }),
-  //             tap((selectedTickets) =>
-  //               this.patchTicketState({ selectedTickets })
-  //             )
-  //           );
-  //       } else {
-  //         return this.userService.user$.pipe(
-  //           switchMap((user) => {
-  //             console.log('user?');
-  //             const order: Observable<Order[]> =
-  //               this.ordersService.getNotCheckedOutUserScreeningOrder(
-  //                 screeningRoomId,
-  //                 user.id!
-  //               );
-  //             return combineLatest([order, of(user)]);
-  //           }),
-  //           switchMap(([[order], user]) => {
-  //             const newOrder$ = this.ordersService.createScreeningOrder(
-  //               screeningRoomId,
-  //               user.id!
-  //             );
-  //             return order !== undefined ? of(order) : newOrder$;
-  //           }),
-  //           switchMap((order) => {
-  //             this.patchTicketState({ notCheckedOutOrderId: order?.id });
-  //             return this.ticketsService.getAllOrderTicketsWithFullInfo(
-  //               order?.id
-  //             );
-  //           }),
-  //           tap((selectedTickets) => this.patchTicketState({ selectedTickets }))
-  //         );
-  //       }
-  //     })
-  //   );
-  // }
 
   private generateRowLetters(rowsNumber: number) {
     //generate an array of letters

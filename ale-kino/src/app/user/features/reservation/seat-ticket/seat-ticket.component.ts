@@ -1,11 +1,11 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
-import { combineLatest, map, of, Subscription, switchMap } from 'rxjs';
-import { ScreeningRoomStateService } from 'src/app/services/screening-room.state.service';
+import { Subscription } from 'rxjs';
 import {
   Ticket,
   TicketsService,
   TicketType,
-} from 'src/app/services/tickets.service';
+  ScreeningRoomStateService,
+} from 'src/app/services';
 
 @Component({
   selector: 'app-seat-ticket',

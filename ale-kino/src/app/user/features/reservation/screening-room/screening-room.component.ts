@@ -1,10 +1,5 @@
-import {
-  ScreeningRoomState,
-  ScreeningRoomStateService,
-  TicketState,
-} from './../../../../services/screening-room.state.service';
+import { ScreeningRoomStateService } from './../../../../services';
 import { Component, inject, Input, OnInit, OnDestroy } from '@angular/core';
-import { Seat } from 'src/app/services/rooms.service';
 import { Subscription } from 'rxjs';
 
 export type RoomSize = {
@@ -32,10 +27,9 @@ export class ScreeningRoomComponent implements OnInit, OnDestroy {
         this.roomSetupData = roomSetup;
       });
 
-      const ticketInitSub =
-      this.screeningRoomStateService.initiateScreeningTicketsState(
-        this.screeningRoomId
-      ).subscribe();
+    const ticketInitSub = this.screeningRoomStateService
+      .initiateScreeningTicketsState(this.screeningRoomId)
+      .subscribe();
     this.subscriptions.add(roomSetupSub);
     this.subscriptions.add(ticketInitSub);
   }
@@ -45,7 +39,10 @@ export class ScreeningRoomComponent implements OnInit, OnDestroy {
   }
 
   toggleSeat(row: string, seatNumber: number) {
-    this.screeningRoomStateService.toggleSelectedSeat({ row, seatNumber }).subscribe();
+    const sub = this.screeningRoomStateService
+      .toggleSelectedSeat({ row, seatNumber })
+      .subscribe();
+    this.subscriptions.add(sub);
   }
 
   isSelected(row: string, seatNumber: number) {

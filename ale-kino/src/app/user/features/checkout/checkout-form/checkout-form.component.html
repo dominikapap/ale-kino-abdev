@@ -12,7 +12,7 @@
     <form
       [formGroup]="checkoutForm"
       class="checkout-form"
-      (ngSubmit)="sendForm()"
+      (ngSubmit)="sendForm((roomState.ticketState.notCheckedOutOrderId!))"
     >
       <mat-form-field appearance="fill">
         <mat-label>Imię</mat-label>
@@ -79,7 +79,7 @@
         }}</mat-error>
       </mat-form-field>
 
-      <mat-slide-toggle color="accent" class="checkout-form__slide"
+      <mat-slide-toggle formControlName="newsletter" color="accent" class="checkout-form__slide"
         >Chcę otrzymywać informację o zniżkach, promocjach itp</mat-slide-toggle
       >
 
@@ -92,7 +92,7 @@
           formControlName="discountCode"
         />
         <mat-error *ngIf="discountCodeCtrl.invalid">{{
-          getEmailErrorMessage()
+          getCouponCodeErrorMessage()
         }}</mat-error>
       </mat-form-field>
       <button

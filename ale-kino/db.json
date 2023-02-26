@@ -128,6 +128,203 @@
       "image": "https://www.cinema-city.pl/xmedia-cw/repo/feats/posters/5111S2R-lg.jpg",
       "premiere": false,
       "id": 5
+    },
+    {
+      "title": "Asterisk",
+      "tags": [
+        "Horror",
+        "Przygodowy",
+        "Komedia"
+      ],
+      "length": 13,
+      "rated": "PG-17",
+      "description": "Obelisk",
+      "image": "https://www.cinema-city.pl/xmedia-cw/repo/feats/posters/5385D2R-lg.jpg",
+      "premiere": false,
+      "id": 6
+    },
+    {
+      "title": "Asterisk",
+      "tags": [
+        "Horror",
+        "Przygodowy",
+        "Komedia"
+      ],
+      "length": 13,
+      "rated": "PG-17",
+      "description": "Obelisk",
+      "image": "https://www.cinema-city.pl/xmedia-cw/repo/feats/posters/5385D2R-lg.jpg",
+      "premiere": false,
+      "id": 7
+    },
+    {
+      "title": "Asterisk",
+      "tags": [
+        "Przygodowy"
+      ],
+      "length": 120,
+      "rated": "Dla Dzieci",
+      "description": "Obelisk",
+      "image": "https://www.cinema-city.pl/xmedia-cw/repo/feats/posters/5385D2R-lg.jpg",
+      "premiere": false,
+      "id": 8
+    },
+    {
+      "title": "sdvs",
+      "tags": [
+        "Sci-Fi",
+        "Horror"
+      ],
+      "length": 14,
+      "rated": "PG-13",
+      "description": "srsf",
+      "image": "dfvdfdf",
+      "premiere": false,
+      "id": 9
+    },
+    {
+      "title": "tgdtr",
+      "tags": [
+        "Horror"
+      ],
+      "length": 5,
+      "rated": "PG-15",
+      "description": "ergerg",
+      "image": "ergerg",
+      "premiere": false,
+      "id": 10
+    },
+    {
+      "title": "rger",
+      "tags": [
+        "Sci-Fi"
+      ],
+      "length": 5,
+      "rated": "PG-13",
+      "description": "ergerg",
+      "image": "regerger",
+      "premiere": false,
+      "id": 11
+    },
+    {
+      "title": "rger",
+      "tags": [
+        "Sci-Fi"
+      ],
+      "length": 5,
+      "rated": "PG-13",
+      "description": "ergerg",
+      "image": "regerger",
+      "premiere": false,
+      "id": 12
+    },
+    {
+      "title": "rger",
+      "tags": [
+        "Sci-Fi"
+      ],
+      "length": 5,
+      "rated": "PG-13",
+      "description": "ergerg",
+      "image": "regerger",
+      "premiere": false,
+      "id": 13
+    },
+    {
+      "title": "rger",
+      "tags": [
+        "Sci-Fi"
+      ],
+      "length": 5,
+      "rated": "PG-13",
+      "description": "ergerg",
+      "image": "regerger",
+      "premiere": false,
+      "id": 14
+    },
+    {
+      "title": "rger",
+      "tags": [
+        "Sci-Fi"
+      ],
+      "length": 5,
+      "rated": "PG-13",
+      "description": "ergerg",
+      "image": "regerger",
+      "premiere": false,
+      "id": 15
+    },
+    {
+      "title": "rger",
+      "tags": [
+        "Sci-Fi"
+      ],
+      "length": 5,
+      "rated": "PG-13",
+      "description": "ergerg",
+      "image": "regerger",
+      "premiere": false,
+      "id": 16
+    },
+    {
+      "title": "rger",
+      "tags": [
+        "Sci-Fi"
+      ],
+      "length": 5,
+      "rated": "PG-13",
+      "description": "ergerg",
+      "image": "regerger",
+      "premiere": false,
+      "id": 17
+    },
+    {
+      "title": "rger",
+      "tags": [
+        "Sci-Fi"
+      ],
+      "length": 5,
+      "rated": "PG-13",
+      "description": "ergerg",
+      "image": "regerger",
+      "premiere": false,
+      "id": 18
+    },
+    {
+      "title": "rger",
+      "tags": [
+        "Sci-Fi"
+      ],
+      "length": 5,
+      "rated": "PG-13",
+      "description": "ergerg",
+      "image": "regerger",
+      "premiere": false,
+      "id": 19
+    },
+    {
+      "title": "ewf",
+      "tags": [
+        "Sci-Fi"
+      ],
+      "length": 5,
+      "rated": "PG-13",
+      "description": "wfwsre",
+      "image": "wefwef",
+      "premiere": false,
+      "id": 20
+    },
+    {
+      "title": "erg",
+      "tags": [
+        "Horror"
+      ],
+      "length": 4,
+      "rated": "PG-13",
+      "description": "ergerg",
+      "image": "ergerg",
+      "premiere": false,
+      "id": 21
     }
   ],
   "ratings": [
@@ -227,48 +424,48 @@
   "screenings": [
     {
       "id": 1,
-      "date": "25-02-2023",
+      "date": "26-02-2023",
       "time": "12:30",
       "roomsId": 1,
       "moviesId": 1
     },
     {
       "id": 2,
-      "date": "25-02-2023",
+      "date": "26-02-2023",
       "time": "14:30",
       "roomsId": 2,
       "moviesId": 2
     },
     {
       "id": 4,
-      "date": "26-02-2023",
+      "date": "27-02-2023",
       "time": "16:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
       "id": 5,
-      "date": "25-02-2023",
+      "date": "26-02-2023",
       "time": "18:30",
       "roomsId": 2,
       "moviesId": 1
     },
     {
-      "date": "26-02-2023",
+      "date": "27-02-2023",
       "time": "19:25",
       "roomsId": 1,
       "moviesId": 1,
       "id": 6
     },
     {
-      "date": "27-02-2023",
+      "date": "28-02-2023",
       "time": "17:30",
       "roomsId": 3,
       "moviesId": 3,
       "id": 7
     },
     {
-      "date": "26-02-2023",
+      "date": "27-02-2023",
       "time": "19:30",
       "roomsId": 2,
       "moviesId": 4,
@@ -286,7 +483,14 @@
       "id": 2,
       "usersId": 1,
       "screeningsId": 1,
-      "isCheckedOut": false
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
     },
     {
       "id": 3,
@@ -317,6 +521,12 @@
       "screeningsId": 2,
       "isCheckedOut": false,
       "id": 7
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 1,
+      "isCheckedOut": false,
+      "id": 8
     }
   ],
   "tickets": [
@@ -375,85 +585,31 @@
       "id": 21
     },
     {
-      "ordersId": 5,
-      "seat": {
-        "row": "H",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 4,
-      "id": 48
-    },
-    {
-      "ordersId": 5,
-      "seat": {
-        "row": "G",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 1,
-      "id": 49
-    },
-    {
-      "ordersId": 6,
-      "seat": {
-        "row": "F",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 1,
-      "id": 58
-    },
-    {
-      "ordersId": 6,
-      "seat": {
-        "row": "F",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 1,
-      "id": 59
-    },
-    {
-      "ordersId": 7,
+      "ordersId": 2,
       "seat": {
         "row": "E",
-        "seatNumber": 4
+        "seatNumber": 8
       },
       "ticketTypesId": 1,
-      "id": 60
-    },
-    {
-      "ordersId": 7,
-      "seat": {
-        "row": "E",
-        "seatNumber": 5
-      },
-      "ticketTypesId": 1,
-      "id": 61
-    },
-    {
-      "ordersId": 7,
-      "seat": {
-        "row": "D",
-        "seatNumber": 5
-      },
-      "ticketTypesId": 1,
-      "id": 62
+      "id": 22
     },
     {
       "ordersId": 2,
       "seat": {
-        "row": "C",
-        "seatNumber": 6
+        "row": "E",
+        "seatNumber": 9
       },
-      "ticketTypesId": 4,
-      "id": 69
+      "ticketTypesId": 1,
+      "id": 23
     },
     {
       "ordersId": 2,
       "seat": {
-        "row": "D",
-        "seatNumber": 7
+        "row": "F",
+        "seatNumber": 9
       },
       "ticketTypesId": 1,
-      "id": 70
+      "id": 24
     },
     {
       "ordersId": 2,
@@ -462,43 +618,82 @@
         "seatNumber": 8
       },
       "ticketTypesId": 1,
-      "id": 77
+      "id": 25
     },
     {
       "ordersId": 2,
       "seat": {
         "row": "F",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 1,
-      "id": 78
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "G",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 1,
-      "id": 79
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "G",
         "seatNumber": 10
       },
       "ticketTypesId": 1,
-      "id": 80
+      "id": 26
     },
     {
       "ordersId": 2,
       "seat": {
         "row": "E",
-        "seatNumber": 12
+        "seatNumber": 10
       },
       "ticketTypesId": 1,
-      "id": 81
+      "id": 27
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "F",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 28
+    },
+    {
+      "ordersId": 2,
+      "seat": {
+        "row": "G",
+        "seatNumber": 8
+      },
+      "ticketTypesId": 1,
+      "id": 29
+    },
+    {
+      "ordersId": 8,
+      "seat": {
+        "row": "E",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 30
+    },
+    {
+      "ordersId": 8,
+      "seat": {
+        "row": "E",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 3,
+      "id": 33
+    },
+    {
+      "ordersId": 8,
+      "seat": {
+        "row": "E",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 34
+    }
+  ],
+  "couponCodes": [
+    {
+      "id": 1,
+      "name": "supercheap123",
+      "active": true
+    },
+    {
+      "id": 2,
+      "name": "superexpensive321",
+      "active": false
     }
   ]
 }

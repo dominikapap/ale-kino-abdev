@@ -44,10 +44,6 @@ export class UserStateService {
     this.user$$ = new ReplaySubject<User>(1);
   }
 
-  // createGuestUser(){
-  //   return this.http.post<User>(`/users`, { email: '', username: 'guest' })
-  // }
-
   updateUserInfo(userId: number, userSlice: Partial<User>) {
     return this.http.patch<User>(`/users/${userId}`, { ...userSlice });
   }

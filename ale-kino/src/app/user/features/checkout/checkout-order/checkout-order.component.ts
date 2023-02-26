@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Component, inject, OnInit } from '@angular/core';
-import { ScreeningRoomStateService } from 'src/app/services/screening-room.state.service';
+import { ScreeningRoomStateService } from 'src/app/services';
 
 @Component({
   selector: 'app-checkout-order',
