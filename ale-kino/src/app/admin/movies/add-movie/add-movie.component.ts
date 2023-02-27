@@ -83,9 +83,6 @@ export default class AddMovieComponent {
     if (this.screeningForm.invalid) {
       return;
     }
-    const { title, tags, length, rated, description, image, premiere } =
-      this.screeningForm.value;
-    // handle...
     if (this.screeningForm.valid) {
       const {premiere, ...movieData} = this.screeningForm.getRawValue()
       const movie: Movie = {
@@ -96,10 +93,6 @@ export default class AddMovieComponent {
         MoviesActions.addNewMovie(movie)
       );
       this.formGroupDirective.resetForm();
-      // const sub = this.movieService.addMovie(movie).subscribe((response) => {
-      // this.formGroupDirective.resetForm();
-      // });
-      // this.subscriptions.add(sub);
     }
   }
 
