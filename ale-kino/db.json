@@ -397,7 +397,7 @@
       "id": 1,
       "usersId": 1,
       "screeningsId": 1,
-      "isCheckedOut": true
+      "isCheckedOut": false
     },
     {
       "id": 2,
@@ -415,7 +415,14 @@
       "usersId": 1,
       "screeningsId": 4,
       "isCheckedOut": false,
-      "id": 4
+      "id": 4,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
     },
     {
       "usersId": 1,
@@ -456,6 +463,31 @@
         "newsletter": false
       },
       "couponCodesId": 1
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 17,
+      "isCheckedOut": false,
+      "id": 9
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 12,
+      "isCheckedOut": false,
+      "id": 10,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 13,
+      "isCheckedOut": false,
+      "id": 11
     }
   ],
   "tickets": [
@@ -638,6 +670,60 @@
       },
       "ticketTypesId": 1,
       "id": 39
+    },
+    {
+      "ordersId": 9,
+      "seat": {
+        "row": "D",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 40
+    },
+    {
+      "ordersId": 9,
+      "seat": {
+        "row": "D",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 41
+    },
+    {
+      "ordersId": 10,
+      "seat": {
+        "row": "E",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 42
+    },
+    {
+      "ordersId": 10,
+      "seat": {
+        "row": "E",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 4,
+      "id": 43
+    },
+    {
+      "ordersId": 11,
+      "seat": {
+        "row": "D",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 44
+    },
+    {
+      "ordersId": 11,
+      "seat": {
+        "row": "E",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 3,
+      "id": 45
     }
   ],
   "couponCodes": [

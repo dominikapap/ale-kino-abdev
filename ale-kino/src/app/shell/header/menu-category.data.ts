@@ -9,7 +9,7 @@ export const MENU_CATEGORIES_GUEST: MenuCategory[] = [
 
 export const MENU_CATEGORIES_USER: MenuCategory[] = [
   {
-    categoryName: 'moje bilety',
+    categoryName: 'moje zamówienia',
     href: '/user-profile/orders'
   },
   {

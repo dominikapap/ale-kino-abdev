@@ -1,0 +1,33 @@
+<div class="blik-payment">
+  <div class="blik-payment__title">
+    {{ "płatność blik" | uppercase }}
+  </div>
+
+  <div class="blik-payment__container">
+    <img class="blik-payment__image" src="https://blik.com/layout/default/dist/gfx/logo/logo.svg" alt="" />
+    <form [formGroup]="blikForm" class="blik-payment__form" (ngSubmit)="sendForm()">
+      <mat-form-field appearance="fill">
+        <mat-label>Kod Blik</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Kod Blik"
+          formControlName="blikCode"
+          blikCode
+        />
+        <mat-error *ngIf="blikCodeCtrl.invalid">{{
+          getBlikCodeErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+      <button
+      [disabled]="!blikForm.valid"
+      mat-raised-button
+      class="blik-payment__button"
+      color="accent"
+      type="submit"
+    >
+      Zamawiam
+    </button>
+    </form>
+  </div>
+</div>

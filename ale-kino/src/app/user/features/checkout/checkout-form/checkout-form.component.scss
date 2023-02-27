@@ -1,5 +1,7 @@
 @use "../../../../../colors" as colors;
 @use "../../../../../breakpoints" as breakpoints;
+@use "../../../../../styling" as styling;
+
 
 .checkout {
   @extend .app-container;
@@ -11,14 +13,7 @@
   align-items: center;
 
   &__title {
-    color: colors.$accent-color;
-    text-transform: capitalize;
-    margin-top: 2em;
-    margin-bottom: 2em;
-    padding: 0.5em;
-    font-size: 1.5em;
-    align-self: flex-start;
-    border-bottom: 1px solid colors.$accent-color;
+    @extend .section-title;
   }
 
   &__return {
@@ -27,15 +22,9 @@
 }
 
 .checkout__container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  @extend .section-container;
   gap: 2em;
   padding: 4em;
-  background-color: colors.$bg-color;
-  border: 1px solid colors.$accent-color;
-  border-radius: 10px;
   margin-bottom: 4em;
 }
 

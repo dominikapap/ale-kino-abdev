@@ -77,7 +77,9 @@ export class CheckoutFormService {
   setCouponCodeDiscount(discountCode: FormControl<string>) {
     return discountCode.statusChanges.pipe(
       switchMap((status) => {
+        console.log('checking')
         if (status === 'VALID') {
+          console.log('setting code')
           return this.couponCodeService.setCouponCodeDiscount(
             discountCode.value
           );

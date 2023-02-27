@@ -1,0 +1,21 @@
+@use './colors' as colors;
+
+.section-title {
+  color: colors.$accent-color;
+  text-transform: capitalize;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  padding: 0.5em;
+  font-size: 1.5em;
+  align-self: flex-start;
+  border-bottom: 1px solid colors.$accent-color;
+}
+
+.section-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: colors.$bg-color;
+  border: 1px solid colors.$accent-color;
+  border-radius: 10px;
+}

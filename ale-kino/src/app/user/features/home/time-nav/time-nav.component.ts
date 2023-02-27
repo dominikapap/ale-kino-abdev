@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Screening } from 'src/app/admin/screenings';
 
-
 @Component({
   selector: 'app-time-nav',
   templateUrl: './time-nav.component.html',
@@ -13,5 +12,13 @@ export class TimeNavComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sortScreeningsByTime();
+  }
+
+  private sortScreeningsByTime() {
+    this.screenings.sort(function (a, b) {
+      return a.time.localeCompare(b.time);
+    });
+  }
 }

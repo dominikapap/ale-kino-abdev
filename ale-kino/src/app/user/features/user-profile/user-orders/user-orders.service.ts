@@ -22,7 +22,7 @@ export class UserOrdersService {
   getUserOrders() {
     return this.userService.user$.pipe(
       switchMap((userState) => {
-        return this.ordersService.getOrdersByUserId(userState.id);
+        return this.ordersService.getUserOrderHistory(userState.id);
       }),
       switchMap((orders) => {
         const requests: Observable<ScreeningDetails[]>[] = [];

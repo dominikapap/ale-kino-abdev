@@ -37,6 +37,10 @@ export class OrdersService {
     return this.http.get<Order[]>(`/orders?usersId=${userId}`);
   }
 
+  getUserOrderHistory(userId: number) {
+    return this.http.get<Order[]>(`/orders?isCheckedOut=true&usersId=${userId}`);
+  }
+
   createScreeningOrder(screeningId: number, userId: number) {
     return this.http.post<Order>('/orders', {
       usersId: userId,

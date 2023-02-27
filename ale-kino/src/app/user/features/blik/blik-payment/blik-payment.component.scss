@@ -2,25 +2,34 @@
 @use "../../../../../breakpoints" as breakpoints;
 @use "../../../../../styling" as styling;
 
-.orders {
+.blik-payment {
   @extend .app-container;
   margin: 0 auto;
   color: white;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   &__title {
     @extend .section-title;
   }
 
-  &__navigation {
+  &__container {
     @extend .section-container;
-    gap: 2em;
+    gap: 3.5em;
     padding: 4em;
-    margin-bottom: 4em;
+  }
 
-    &__link {
-      color: inherit;
-    }
+  &__image{
+    padding: 0 1em;
+    flex: 1;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 4em;
+    flex: 1;
   }
 }

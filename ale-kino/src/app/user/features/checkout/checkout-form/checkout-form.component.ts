@@ -84,7 +84,7 @@ export class CheckoutFormComponent implements OnInit {
       }),
       newsletter: this.builder.control(false),
       discountCode: this.builder.control('', {
-        updateOn: 'change',
+        updateOn: 'blur',
         asyncValidators: [couponCodeValidator(this.couponCodesService)],
       }),
     });
@@ -99,7 +99,7 @@ export class CheckoutFormComponent implements OnInit {
         .sendFormData(orderId, this.checkoutForm, this.couponCode())
         .subscribe();
       this.subscriptions.add(sub);
-      this.router.navigate(['/summary']);
+      this.router.navigate(['/payment']);
     }
   }
 
