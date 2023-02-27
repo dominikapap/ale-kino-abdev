@@ -1,7 +1,7 @@
-import { TicketsService } from './../../../../services/tickets.service';
+import { TicketsService } from './../../../../services';
 import { inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap, tap } from 'rxjs';
+import { switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
