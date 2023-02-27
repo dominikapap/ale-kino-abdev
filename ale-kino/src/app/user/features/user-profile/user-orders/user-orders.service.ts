@@ -1,15 +1,8 @@
-import { ScreeningsService } from './../../../../services';
-import { Order, OrdersService, ScreeningDetails } from 'src/app/services';
-import {
-  combineLatest,
-  forkJoin,
-  map,
-  Observable,
-  of,
-  switchMap,
-} from 'rxjs';
+import { Order, OrdersService } from 'src/app/services';
+import { combineLatest, forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { UserStateService } from './../../../../core/user.state.service';
 import { inject, Injectable } from '@angular/core';
+import { ScreeningDetails, ScreeningsApiService } from 'src/app/admin/screenings';
 
 export type OrderExtended = {
   order: Order;
@@ -22,7 +15,7 @@ export type OrderExtended = {
 export class UserOrdersService {
   private userService = inject(UserStateService);
   private ordersService = inject(OrdersService);
-  private screeningsService = inject(ScreeningsService);
+  private screeningsService = inject(ScreeningsApiService);
 
   constructor() {}
 

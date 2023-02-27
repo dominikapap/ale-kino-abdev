@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Movie } from '../admin/movies';
-import { Room } from './rooms.service';
+import { Room } from 'src/app/services';
+import { Movie } from '../movies';
 
 export type ScreeningDetails = {
   id: number;
@@ -22,18 +22,32 @@ export type Screening = {
 @Injectable({
   providedIn: 'root',
 })
-export class ScreeningsService {
+export class ScreeningsApiService {
   private http = inject(HttpClient);
 
   constructor() {}
 
   addScreening(screening: Screening) {
     return this.http.post<Screening>('/screenings', {
-      ...screening,
+      date: screening.date,
+      time: screening.time,
+      roomsId: screening.roomsId,
+      moviesId: screening.moviesId,
     });
   }
 
-  getScreeningDetailsById(screeningId: number){
+  getAllScreenings() {
+    return this.http.get<Screening[]>(`/screenings`);
+  }
+
+  getAllDailyRoomScreenings(date: Date, roomId: number) {
+    const convertedDate = this.convertDateFormat(date);
+    return this.http.get<Screening[]>(
+      `/screenings?date=${convertedDate}&roomsId=${roomId}`
+    );
+  }
+
+  getScreeningDetailsById(screeningId: number) {
     return this.http.get<ScreeningDetails[]>(
       `/screenings?_expand=rooms&_expand=movies&id=${screeningId}`
     );
@@ -53,7 +67,9 @@ export class ScreeningsService {
 
   getDailyRoomScreeningDetails(roomId: number, date: Date) {
     return this.http.get<ScreeningDetails[]>(
-      `/screenings?_expand=movies&date=${this.convertDateFormat(date)}&roomsId=${roomId}`
+      `/screenings?_expand=movies&date=${this.convertDateFormat(
+        date
+      )}&roomsId=${roomId}`
     );
   }
 

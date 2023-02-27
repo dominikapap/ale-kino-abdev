@@ -17,8 +17,8 @@ import {
 import { UserStateService } from '../core/user.state.service';
 import { Order, OrdersService } from './orders.service';
 import { RoomsService, Seat } from './rooms.service';
-import { ScreeningDetails, ScreeningsService } from './screenings.service';
 import { Ticket, TicketsService } from './tickets.service';
+import { ScreeningDetails, ScreeningsApiService } from '../admin/screenings';
 
 export type RoomSetup = {
   rowLetters: string[];
@@ -61,7 +61,7 @@ export class ScreeningRoomStateService {
   private roomsService = inject(RoomsService);
   private ordersService = inject(OrdersService);
   private userService = inject(UserStateService);
-  private screeningService = inject(ScreeningsService);
+  private screeningService = inject(ScreeningsApiService);
   private authState$ = inject(AuthStateService).auth$;
 
   constructor() {}

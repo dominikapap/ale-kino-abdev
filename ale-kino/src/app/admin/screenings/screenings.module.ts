@@ -13,6 +13,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import CreateScreeningComponent from './create-screening/create-screening.component';
+import { ScreeningsEffects, screeningsFeatureKey, screeningsReducer } from './store';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [CreateScreeningComponent],
@@ -29,6 +32,8 @@ import CreateScreeningComponent from './create-screening/create-screening.compon
     MatNativeDateModule,
     NgxMatTimepickerModule,
     CommonModule,
+    StoreModule.forFeature(screeningsFeatureKey, screeningsReducer),
+    EffectsModule.forFeature([ScreeningsEffects]),
     RouterModule.forChild([
       { path: '', redirectTo: 'create-screening', pathMatch: 'full' },
       {

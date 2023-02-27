@@ -1,15 +1,17 @@
 import { AutocompleteService } from './autocomplete.service';
-import { Screening, ScreeningsService, Room } from '../../../services';
+import { Room } from '../../../services';
 import { Component, inject, ViewChild } from '@angular/core';
 import {
   FormGroupDirective,
   NonNullableFormBuilder,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Observable, switchMap, Subscription } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
 import { Movie } from '../../movies';
+import { Screening, ScreeningsApiService } from '../screenings-api.service';
+import { Store } from '@ngrx/store';
+import { ScreeningsActions } from '../store';
 
 @Component({
   selector: 'app-create-screening',
@@ -18,9 +20,9 @@ import { Movie } from '../../movies';
 })
 export default class CreateScreeningComponent {
   private builder = inject(NonNullableFormBuilder);
-  private router = inject(Router);
   private autocompleteService = inject(AutocompleteService);
-  private screeningsService = inject(ScreeningsService);
+  private screeningsService = inject(ScreeningsApiService);
+  private store = inject(Store);
   private subscriptions = new Subscription();
   screeningForm = this.createForm();
   filteredMovieOptions!: Observable<Movie[]>;
@@ -56,23 +58,24 @@ export default class CreateScreeningComponent {
     }
 
     if (this.screeningForm.valid) {
-      const screening: Screening = {
-        date: this.screeningsService.convertDateFormat(
-          new Date(this.dateValue)
-        ),
-        time: this.timeValue,
-        roomsId: this.roomValue.id,
-        moviesId: <number>this.movieValue.id,
-      };
-      const sub = this.screeningsService
-        .addScreening(screening)
-        .subscribe(() =>  stepper.reset());
-      this.subscriptions.add(sub);
+      const screening: Screening = this.convertFormData();
+      this.store.dispatch(ScreeningsActions.addNewScreening(screening));
+      stepper.reset();
+      this.formGroupDirective.resetForm();
     }
   }
 
+  private convertFormData(): Screening {
+    return {
+      date: this.screeningsService.convertDateFormat(new Date(this.dateValue)),
+      time: this.timeValue,
+      roomsId: this.roomValue.id,
+      moviesId: <number>this.movieValue.id,
+    };
+  }
+
   private handleDateChange() {
-    this.dateTimeCtrl.valueChanges
+    const sub = this.dateTimeCtrl.valueChanges
       .pipe(
         switchMap((dateValue) => {
           return this.screeningsService.getDailyRoomScreeningDetails(
@@ -81,11 +84,11 @@ export default class CreateScreeningComponent {
           );
         })
       )
-      .subscribe((dailyRoomScreenings) => {
-        console.log('daily screenings', dailyRoomScreenings);
+      .subscribe(() => {
         this.timeCtrl.enable();
         this.canPickScreeningTime = true;
       });
+    this.subscriptions.add(sub);
   }
 
   get movieValue() {

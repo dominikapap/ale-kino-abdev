@@ -1,7 +1,8 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ScreeningRoomStateService, ScreeningDetails } from 'src/app/services';
+import { ScreeningDetails } from 'src/app/admin/screenings';
+import { ScreeningRoomStateService } from 'src/app/services';
 
 @Component({
   selector: 'app-reservation',
