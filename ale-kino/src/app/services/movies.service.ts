@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { switchMap, tap } from 'rxjs';
+import { switchMap } from 'rxjs';
 
 export interface Score {
   points: number;

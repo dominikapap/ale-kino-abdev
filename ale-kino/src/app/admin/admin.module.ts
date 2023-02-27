@@ -16,14 +16,14 @@ import { MatButtonModule } from '@angular/material/button';
         path: '',
         component: DashboardComponent,
         children: [
-          { path: '', redirectTo: 'create-screening', pathMatch: 'full' },
+          // { path: '', redirectTo: 'create-screening', pathMatch: 'full' },
           {
-            path: 'create-screening',
-            loadComponent: () => import('./features/create-screening/create-screening.component'),
+            path: 'movies',
+            loadChildren: () => import('./movies/movies.module'),
           },
           {
-            path: 'add-movie',
-            loadComponent: () => import('./features/add-movie/add-movie.component'),
+            path: 'screenings',
+            loadChildren: () => import('./screenings/screenings.module'),
           },
         ],
       },

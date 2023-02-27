@@ -1,20 +1,12 @@
+import { Subscription } from 'rxjs';
 import { Movie } from 'src/app/services/movies.service';
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import {
   NonNullableFormBuilder,
   Validators,
-  ReactiveFormsModule,
   FormGroupDirective,
 } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MoviesService } from 'src/app/services/movies.service';
+import { MoviesService } from 'src/app/services';
 
 interface Premiere {
   value: boolean;
@@ -25,26 +17,14 @@ interface Premiere {
   selector: 'app-add-movie',
   templateUrl: './add-movie.component.html',
   styleUrls: ['./add-movie.component.scss'],
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatChipsModule,
-    MatAutocompleteModule,
-    CommonModule,
-  ],
 })
 export default class AddMovieComponent {
   private builder = inject(NonNullableFormBuilder);
   private movieService = inject(MoviesService);
   protected ratings$ = this.movieService.getAllRatings();
   protected tags$ = this.movieService.getAllTags();
-  private router = inject(Router);
+  subscriptions = new Subscription();
 
-  @ViewChild('imageButton') imageButton!: ElementRef<HTMLButtonElement>;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   screeningForm = this.createForm();
@@ -99,7 +79,6 @@ export default class AddMovieComponent {
   sendForm() {
     this.screeningForm.markAllAsTouched();
     if (this.screeningForm.invalid) {
-      console.log('invalid');
       return;
     }
     const { title, tags, length, rated, description, image, premiere } =
@@ -115,10 +94,10 @@ export default class AddMovieComponent {
         image: image!,
         premiere: premiere! === 'true',
       };
-      this.movieService.addMovie(movie).subscribe((response) => {
+      const sub = this.movieService.addMovie(movie).subscribe((response) => {
       this.formGroupDirective.resetForm();
       });
-      // this.router.navigate(['/summary']);
+      this.subscriptions.add(sub);
     }
   }
 
@@ -142,5 +121,9 @@ export default class AddMovieComponent {
   }
   get imageCtrl() {
     return this.screeningForm.controls.image;
+  }
+
+  ngOnDestroy(){
+    this.subscriptions.unsubscribe();
   }
 }

@@ -168,163 +168,6 @@
       "image": "https://www.cinema-city.pl/xmedia-cw/repo/feats/posters/5385D2R-lg.jpg",
       "premiere": false,
       "id": 8
-    },
-    {
-      "title": "sdvs",
-      "tags": [
-        "Sci-Fi",
-        "Horror"
-      ],
-      "length": 14,
-      "rated": "PG-13",
-      "description": "srsf",
-      "image": "dfvdfdf",
-      "premiere": false,
-      "id": 9
-    },
-    {
-      "title": "tgdtr",
-      "tags": [
-        "Horror"
-      ],
-      "length": 5,
-      "rated": "PG-15",
-      "description": "ergerg",
-      "image": "ergerg",
-      "premiere": false,
-      "id": 10
-    },
-    {
-      "title": "rger",
-      "tags": [
-        "Sci-Fi"
-      ],
-      "length": 5,
-      "rated": "PG-13",
-      "description": "ergerg",
-      "image": "regerger",
-      "premiere": false,
-      "id": 11
-    },
-    {
-      "title": "rger",
-      "tags": [
-        "Sci-Fi"
-      ],
-      "length": 5,
-      "rated": "PG-13",
-      "description": "ergerg",
-      "image": "regerger",
-      "premiere": false,
-      "id": 12
-    },
-    {
-      "title": "rger",
-      "tags": [
-        "Sci-Fi"
-      ],
-      "length": 5,
-      "rated": "PG-13",
-      "description": "ergerg",
-      "image": "regerger",
-      "premiere": false,
-      "id": 13
-    },
-    {
-      "title": "rger",
-      "tags": [
-        "Sci-Fi"
-      ],
-      "length": 5,
-      "rated": "PG-13",
-      "description": "ergerg",
-      "image": "regerger",
-      "premiere": false,
-      "id": 14
-    },
-    {
-      "title": "rger",
-      "tags": [
-        "Sci-Fi"
-      ],
-      "length": 5,
-      "rated": "PG-13",
-      "description": "ergerg",
-      "image": "regerger",
-      "premiere": false,
-      "id": 15
-    },
-    {
-      "title": "rger",
-      "tags": [
-        "Sci-Fi"
-      ],
-      "length": 5,
-      "rated": "PG-13",
-      "description": "ergerg",
-      "image": "regerger",
-      "premiere": false,
-      "id": 16
-    },
-    {
-      "title": "rger",
-      "tags": [
-        "Sci-Fi"
-      ],
-      "length": 5,
-      "rated": "PG-13",
-      "description": "ergerg",
-      "image": "regerger",
-      "premiere": false,
-      "id": 17
-    },
-    {
-      "title": "rger",
-      "tags": [
-        "Sci-Fi"
-      ],
-      "length": 5,
-      "rated": "PG-13",
-      "description": "ergerg",
-      "image": "regerger",
-      "premiere": false,
-      "id": 18
-    },
-    {
-      "title": "rger",
-      "tags": [
-        "Sci-Fi"
-      ],
-      "length": 5,
-      "rated": "PG-13",
-      "description": "ergerg",
-      "image": "regerger",
-      "premiere": false,
-      "id": 19
-    },
-    {
-      "title": "ewf",
-      "tags": [
-        "Sci-Fi"
-      ],
-      "length": 5,
-      "rated": "PG-13",
-      "description": "wfwsre",
-      "image": "wefwef",
-      "premiere": false,
-      "id": 20
-    },
-    {
-      "title": "erg",
-      "tags": [
-        "Horror"
-      ],
-      "length": 4,
-      "rated": "PG-13",
-      "description": "ergerg",
-      "image": "ergerg",
-      "premiere": false,
-      "id": 21
     }
   ],
   "ratings": [
@@ -470,6 +313,69 @@
       "roomsId": 2,
       "moviesId": 4,
       "id": 8
+    },
+    {
+      "date": "27-02-2023",
+      "time": "17:30",
+      "roomsId": 2,
+      "moviesId": 3,
+      "id": 9
+    },
+    {
+      "date": "27-02-2023",
+      "time": "15:25",
+      "roomsId": 2,
+      "moviesId": 2,
+      "id": 10
+    },
+    {
+      "date": "27-02-2023",
+      "time": "18:30",
+      "roomsId": 2,
+      "moviesId": 1,
+      "id": 11
+    },
+    {
+      "date": "27-02-2023",
+      "time": "18:30",
+      "roomsId": 2,
+      "moviesId": 1,
+      "id": 12
+    },
+    {
+      "date": "27-02-2023",
+      "time": "18:30",
+      "roomsId": 2,
+      "moviesId": 1,
+      "id": 13
+    },
+    {
+      "date": "27-02-2023",
+      "time": "18:24",
+      "roomsId": 3,
+      "moviesId": 2,
+      "id": 14
+    },
+    {
+      "date": "27-02-2023",
+      "time": "19:30",
+      "roomsId": 2,
+      "moviesId": 2,
+      "id": 15
+    },
+    {
+      "date": "27-02-2023",
+      "time": "18:20",
+      "roomsId": 2,
+      "moviesId": 1,
+      "id": 16
+    },
+    {
+      "date": "27-02-2023",
+      "time": "15:10",
+      "roomsId": 3,
+      "moviesId": 1,
+      "id": 17
     }
   ],
   "orders": [

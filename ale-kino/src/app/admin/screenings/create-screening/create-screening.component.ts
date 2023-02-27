@@ -1,49 +1,19 @@
 import { AutocompleteService } from './autocomplete.service';
+import { Screening, ScreeningsService, Movie, Room } from '../../../services';
+import { Component, inject, ViewChild } from '@angular/core';
 import {
-  Screening,
-  ScreeningsService,
-} from './../../../services/screenings.service';
-import { Movie } from './../../../services/movies.service';
-import { Component, inject } from '@angular/core';
-import {
+  FormGroupDirective,
   NonNullableFormBuilder,
-  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Observable, switchMap, Subscription } from 'rxjs';
-import { MatStepperModule } from '@angular/material/stepper';
-import { Room } from 'src/app/services/rooms.service';
-import { MatNativeDateModule } from '@angular/material/core';
-import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-create-screening',
   templateUrl: './create-screening.component.html',
   styleUrls: ['./create-screening.component.scss'],
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatButtonModule,
-    MatChipsModule,
-    MatAutocompleteModule,
-    MatStepperModule,
-    CommonModule,
-    MatNativeDateModule,
-    NgxMatTimepickerModule,
-  ],
 })
 export default class CreateScreeningComponent {
   private builder = inject(NonNullableFormBuilder);
@@ -56,6 +26,8 @@ export default class CreateScreeningComponent {
   filteredRoomOptions!: Observable<Room[]>;
   canPickScreeningTime = false;
 
+  @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
+
   private createForm() {
     const form = this.builder.group({
       movieInfo: this.builder.group({
@@ -66,17 +38,19 @@ export default class CreateScreeningComponent {
       }),
       dateInfo: this.builder.group({
         date: this.builder.control('', Validators.required),
-        time: this.builder.control({value: '', disabled: true}, Validators.required),
+        time: this.builder.control(
+          { value: '', disabled: true },
+          Validators.required
+        ),
       }),
     });
 
     return form;
   }
 
-  sendForm() {
+  sendForm(stepper: MatStepper) {
     this.screeningForm.markAllAsTouched();
     if (this.screeningForm.invalid) {
-      console.log('invalid');
       return;
     }
 
@@ -89,12 +63,10 @@ export default class CreateScreeningComponent {
         roomsId: this.roomValue.id,
         moviesId: <number>this.movieValue.id,
       };
-      this.screeningsService.addScreening(screening).subscribe((response) => {
-        console.log('Added:', response);
-      });
-
-      console.log(this.screeningForm.value);
-      // this.router.navigate(['/summary']);
+      const sub = this.screeningsService
+        .addScreening(screening)
+        .subscribe(() =>  stepper.reset());
+      this.subscriptions.add(sub);
     }
   }
 

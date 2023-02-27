@@ -1,2 +1,2 @@
 export * from './dashboard/dashboard.component';
-export * from './features/create-screening/create-screening.component';
+export * from './screenings/create-screening/create-screening.component';

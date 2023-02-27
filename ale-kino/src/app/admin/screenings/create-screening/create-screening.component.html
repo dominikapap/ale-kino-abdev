@@ -6,7 +6,7 @@
   <form
     class="create-screening__form"
     [formGroup]="screeningForm"
-    (ngSubmit)="sendForm()"
+    (ngSubmit)="sendForm(stepper)"
   >
     <mat-stepper
       [linear]="true"
