@@ -4,7 +4,8 @@ import { AuthStateService } from 'src/app/auth/auth.state.service';
 import { Component, Input, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MovieScoreDialogComponent } from '../movie-score-dialog/movie-score-dialog.component';
-import { Movie, Screening } from 'src/app/services';
+import { Screening } from 'src/app/services';
+import { Movie } from 'src/app/admin/movies';
 
 @Component({
   selector: 'app-movie',

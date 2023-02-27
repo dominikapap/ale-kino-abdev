@@ -1,6 +1,5 @@
 export * from "./coupon-codes.service";
 export * from "./daily-movies-screenings.service";
-export * from "./movies.service";
 export * from "./orders.service";
 export * from "./tickets.service";
 export * from "./rooms.service";

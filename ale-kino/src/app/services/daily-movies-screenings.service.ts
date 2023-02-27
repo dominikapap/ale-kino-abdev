@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map } from 'rxjs';
 import { SelectedDateService } from './selected-date.state.service';
-import { Movie } from './movies.service';
 import { Screening } from './screenings.service';
+import { Movie } from '../admin/movies';
 
 export interface MovieScreening {
   date: string;

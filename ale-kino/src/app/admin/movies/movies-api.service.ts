@@ -32,14 +32,20 @@ export interface Tag {
 @Injectable({
   providedIn: 'root',
 })
-export class MoviesService {
+export class MoviesApiService {
   private http = inject(HttpClient);
 
   constructor() {}
 
   addMovie(movie: Movie) {
     return this.http.post<Movie>('/movies', {
-      ...movie,
+      title: movie.title,
+      tags: movie.tags,
+      length: movie.length,
+      rated: movie.rated,
+      description: movie.description,
+      image: movie.image,
+      premiere: movie.premiere
     });
   }
 

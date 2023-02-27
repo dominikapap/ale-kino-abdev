@@ -1,12 +1,13 @@
 import { Subscription } from 'rxjs';
-import { Movie } from 'src/app/services/movies.service';
 import { Component, inject, ViewChild } from '@angular/core';
 import {
   NonNullableFormBuilder,
   Validators,
   FormGroupDirective,
 } from '@angular/forms';
-import { MoviesService } from 'src/app/services';
+import { Movie, MoviesApiService } from '..';
+import { Store } from '@ngrx/store';
+import { MoviesActions } from '../store';
 
 interface Premiere {
   value: boolean;
@@ -20,7 +21,8 @@ interface Premiere {
 })
 export default class AddMovieComponent {
   private builder = inject(NonNullableFormBuilder);
-  private movieService = inject(MoviesService);
+  private movieService = inject(MoviesApiService);
+  private store = inject(Store);
   protected ratings$ = this.movieService.getAllRatings();
   protected tags$ = this.movieService.getAllTags();
   subscriptions = new Subscription();
@@ -85,19 +87,19 @@ export default class AddMovieComponent {
       this.screeningForm.value;
     // handle...
     if (this.screeningForm.valid) {
+      const {premiere, ...movieData} = this.screeningForm.getRawValue()
       const movie: Movie = {
-        title: title!,
-        tags: tags!,
-        length: length!,
-        rated: rated!,
-        description: description!,
-        image: image!,
-        premiere: premiere! === 'true',
-      };
-      const sub = this.movieService.addMovie(movie).subscribe((response) => {
+        ...movieData,
+        premiere: premiere === 'true'
+      }
+      this.store.dispatch(
+        MoviesActions.addNewMovie(movie)
+      );
       this.formGroupDirective.resetForm();
-      });
-      this.subscriptions.add(sub);
+      // const sub = this.movieService.addMovie(movie).subscribe((response) => {
+      // this.formGroupDirective.resetForm();
+      // });
+      // this.subscriptions.add(sub);
     }
   }
 

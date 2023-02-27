@@ -10,7 +10,7 @@ import {
   take,
   tap,
 } from 'rxjs';
-import { Movie, MoviesService } from '../services/movies.service';
+import { Movie, MoviesApiService } from '../admin/movies';
 
 export interface User {
   id: number;
@@ -27,7 +27,7 @@ export interface User {
 })
 export class UserStateService {
   private http = inject(HttpClient);
-  private movieService = inject(MoviesService);
+  private movieService = inject(MoviesApiService);
   constructor() {}
 
   private user$$ = new ReplaySubject<User>(1);

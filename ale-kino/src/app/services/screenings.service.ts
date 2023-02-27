@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Movie } from './movies.service';
+import { Movie } from '../admin/movies';
 import { Room } from './rooms.service';
 
 export type ScreeningDetails = {

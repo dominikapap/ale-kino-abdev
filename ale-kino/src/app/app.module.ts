@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { StoreModule } from '@ngrx/store';
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
   ],
   providers: [
     {

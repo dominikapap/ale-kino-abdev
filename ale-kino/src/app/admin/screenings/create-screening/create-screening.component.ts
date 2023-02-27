@@ -1,5 +1,5 @@
 import { AutocompleteService } from './autocomplete.service';
-import { Screening, ScreeningsService, Movie, Room } from '../../../services';
+import { Screening, ScreeningsService, Room } from '../../../services';
 import { Component, inject, ViewChild } from '@angular/core';
 import {
   FormGroupDirective,
@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { Observable, switchMap, Subscription } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
+import { Movie } from '../../movies';
 
 @Component({
   selector: 'app-create-screening',

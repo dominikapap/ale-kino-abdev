@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, map, Observable, startWith } from 'rxjs';
-import { Movie, MoviesService } from 'src/app/services/movies.service';
 import { Room, RoomsService } from 'src/app/services/rooms.service';
+import { Movie, MoviesApiService } from '../../movies';
 
 export type AutocompleteOptionsState = {
   movieOptions: Movie[];
@@ -22,7 +22,7 @@ const defaultOptionsState: AutocompleteOptionsState = {
   providedIn: 'root',
 })
 export class AutocompleteService {
-  private moviesService = inject(MoviesService);
+  private moviesService = inject(MoviesApiService);
   private roomsService = inject(RoomsService);
   constructor() {}
 
