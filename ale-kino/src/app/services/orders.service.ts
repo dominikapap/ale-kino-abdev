@@ -1,9 +1,11 @@
 import { CouponCodesService } from './coupon-codes.service';
 import { TicketsService } from './tickets.service';
-import { map, of, switchMap } from 'rxjs';
+import { combineLatest, map, of, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
+import { ActivatedRoute } from '@angular/router';
+import { ScreeningsApiService } from '../admin/screenings';
 
 export type CustomerInfo = {
   firstName: string;
@@ -29,6 +31,7 @@ export class OrdersService {
   private http = inject(HttpClient);
   private ticketsService = inject(TicketsService);
   private couponCodesService = inject(CouponCodesService);
+  private screeningsService = inject(ScreeningsApiService);
 
   getOrderById(orderId: string) {
     return this.http.get<Order[]>(`/orders?id=${orderId}`);
@@ -95,6 +98,26 @@ export class OrdersService {
             return totalOrderPrice;
           })
         );
+      })
+    );
+  }
+
+  getOrderDetailsByRouteId(route: ActivatedRoute) {
+    return route.paramMap.pipe(
+      switchMap((params) => {
+        const orderId: string = <string>params.get('id');
+        return this.getOrderById(orderId);
+      }),
+      switchMap(([order]) => {
+        const screeningDetails$ = this.screeningsService.getScreeningDetailsById(order.screeningsId);
+        const orderTickets$ = this.ticketsService.getAllOrderTicketsWithFullInfo(order.id);
+        return combineLatest([screeningDetails$, orderTickets$]);
+      }),
+      map(([[screeningDetails], orderTickets]) => {
+        return {
+          screeningDetails,
+          orderTickets,
+        };
       })
     );
   }

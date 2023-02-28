@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { UserOrderDetailsService } from './user-order-details.service';
 import { Component, inject } from '@angular/core';
-
+import { OrdersService } from 'src/app/services';
 
 @Component({
   selector: 'app-user-order-details',
@@ -13,6 +12,8 @@ import { Component, inject } from '@angular/core';
 })
 export default class UserOrderDetailsComponent {
   private route = inject(ActivatedRoute)
-  protected tickets$ = inject(UserOrderDetailsService).getOrderTickets(this.route);
+  protected orderDetails$ = inject(OrdersService).getOrderDetailsByRouteId(
+    this.route
+  );
 
 }

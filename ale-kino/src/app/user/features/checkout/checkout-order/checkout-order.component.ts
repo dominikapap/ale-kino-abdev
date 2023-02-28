@@ -1,6 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, inject, OnInit } from '@angular/core';
 import { CheckoutOrderService } from './checkout-order.service';
+import { OrdersService } from 'src/app/services';
 
 @Component({
   selector: 'app-checkout-order',
@@ -12,7 +13,7 @@ export class CheckoutOrderComponent {
   protected totalOrderPrice$ = inject(CheckoutOrderService).getTotalOrderPrice(
     this.activatedRoute
   );
-  protected orderDetails$ = inject(CheckoutOrderService).getOrderDetails(
+  protected orderDetails$ = inject(OrdersService).getOrderDetailsByRouteId(
     this.activatedRoute
   );
 }

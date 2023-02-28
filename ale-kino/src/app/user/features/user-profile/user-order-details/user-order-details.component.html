@@ -1,9 +1,14 @@
-<div class="order-details" *ngIf="tickets$ | async as tickets">
+<div class="order-details" *ngIf="orderDetails$ | async as orderDetails">
   <div class="order-details__title">
-    {{ "Lista Biletów" | uppercase }}
+    {{ "Szczegóły zamówienia" | uppercase }}
   </div>
   <div class="order-details__tickets">
-    <div *ngFor="let ticket of tickets; let i = index">
+    <div>
+      {{ orderDetails.screeningDetails.date }},
+      {{ orderDetails.screeningDetails.time }},
+      {{ orderDetails.screeningDetails.movies.title }}
+    </div>
+    <div *ngFor="let ticket of orderDetails.orderTickets; let i = index">
       Bilet {{ i + 1 }} Typ: {{ ticket.ticketTypes?.type }} Miejsce:
       {{ ticket.seat.row }} {{ ticket.seat.seatNumber }}
     </div>
