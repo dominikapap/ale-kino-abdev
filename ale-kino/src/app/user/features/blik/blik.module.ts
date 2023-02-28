@@ -6,6 +6,7 @@ import { BlikPaymentComponent } from '.';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { BlikCodeDirective } from 'src/app/shared/directives/blik-code.directive';
+import { BlikPaymentService } from './blik-payment/blik-payment.service';
 
 @NgModule({
   declarations: [BlikPaymentComponent],
@@ -22,6 +23,6 @@ import { BlikCodeDirective } from 'src/app/shared/directives/blik-code.directive
         children: [],
       },
     ]),
-  ],
+  ]
 })
 export default class BlikModule {}

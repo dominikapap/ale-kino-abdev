@@ -23,7 +23,7 @@ export type TicketType = {
 export class TicketsService {
   private http = inject(HttpClient);
 
-  addTicketToOrder(orderId: number, seat: Seat) {
+  addTicketToOrder(orderId: string, seat: Seat) {
     return this.http.post<Ticket>('/tickets', {
       ordersId: orderId,
       seat: seat,
@@ -68,7 +68,7 @@ export class TicketsService {
     return this.http.get<Ticket[]>(`/tickets?ordersId=${orderId}`);
   }
 
-  getAllOrderTicketsWithFullInfo(orderId: number) {
+  getAllOrderTicketsWithFullInfo(orderId: string) {
     return this.http.get<Ticket[]>(
       `/tickets?_expand=ticketTypes&ordersId=${orderId}`
     );

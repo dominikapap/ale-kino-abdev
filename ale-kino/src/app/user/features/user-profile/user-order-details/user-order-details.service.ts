@@ -14,9 +14,7 @@ export class UserOrderDetailsService {
     return route.paramMap.pipe(
       switchMap((params) => {
         const id: string = <string>params.get('id');
-        return this.ticketsService.getAllOrderTicketsWithFullInfo(
-          Number.parseInt(id, 10)
-        );
+        return this.ticketsService.getAllOrderTicketsWithFullInfo(id);
       })
     );
   }

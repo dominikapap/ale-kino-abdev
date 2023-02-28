@@ -3,6 +3,7 @@ import { TicketsService } from './tickets.service';
 import { map, of, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 
 export type CustomerInfo = {
   firstName: string;
@@ -13,7 +14,7 @@ export type CustomerInfo = {
 };
 
 export type Order = {
-  id: number;
+  id: string;
   userId: number;
   screeningsId: number;
   isCheckedOut: boolean;
@@ -29,7 +30,7 @@ export class OrdersService {
   private ticketsService = inject(TicketsService);
   private couponCodesService = inject(CouponCodesService);
 
-  getOrderById(orderId: number) {
+  getOrderById(orderId: string) {
     return this.http.get<Order>(`/orders?id=${orderId}`);
   }
 
@@ -37,19 +38,20 @@ export class OrdersService {
     return this.http.get<Order[]>(`/orders?usersId=${userId}`);
   }
 
-  getUserOrderHistory(userId: number) {
+  getUserOrderHistory(userId: string) {
     return this.http.get<Order[]>(`/orders?isCheckedOut=true&usersId=${userId}`);
   }
 
-  createScreeningOrder(screeningId: number, userId: number) {
+  createScreeningOrder(screeningId: number, userId: string) {
     return this.http.post<Order>('/orders', {
+      id: uuidv4(),
       usersId: userId,
       screeningsId: screeningId,
       isCheckedOut: false,
     });
   }
 
-  updateOrder(orderId: number, orderSlice: Partial<Order>) {
+  updateOrder(orderId: string, orderSlice: Partial<Order>) {
     return this.http.patch<Order>(`/orders/${orderId}`, {
       ...orderSlice,
     });
@@ -65,13 +67,13 @@ export class OrdersService {
     );
   }
 
-  getNotCheckedOutUserScreeningOrder(screeningId: number, userId: number) {
+  getNotCheckedOutUserScreeningOrder(screeningId: number, userId: string) {
     return this.http.get<Order[]>(
       `/orders?screeningsId=${screeningId}&userId=${userId}&isCheckedOut=false`
     );
   }
 
-  getOrderTotalPrice(orderId: number) {
+  getOrderTotalPrice(orderId: string) {
     return this.getOrderById(orderId).pipe(
       switchMap((order) => {
         if (order.couponCodesId) {

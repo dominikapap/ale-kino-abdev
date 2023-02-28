@@ -13,7 +13,7 @@ import {
 import { Movie, MoviesApiService } from '../admin/movies';
 
 export interface User {
-  id: number;
+  id: string;
   email: string;
   username: string;
   firstName?: string;
@@ -44,7 +44,7 @@ export class UserStateService {
     this.user$$ = new ReplaySubject<User>(1);
   }
 
-  updateUserInfo(userId: number, userSlice: Partial<User>) {
+  updateUserInfo(userId: string, userSlice: Partial<User>) {
     return this.http.patch<User>(`/users/${userId}`, { ...userSlice });
   }
 

@@ -66,7 +66,7 @@ export class AuthStateService {
           next: ([userData, roleData]) => {
             const role = roleData[0].type;
             const user: User = {
-              id: userData.user.id,
+              id: userData.user.id.toString(),
               email: userData.user.email,
               username: userData.user.username,
               firstName: userData.user.firstName,

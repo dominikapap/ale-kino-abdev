@@ -92,14 +92,15 @@ export class CheckoutFormComponent implements OnInit {
     return form;
   }
 
-  sendForm(orderId: number) {
+  sendForm(orderId: string) {
     this.checkoutForm.markAllAsTouched();
     if (this.checkoutForm.valid) {
       const sub = this.checkoutFormService
         .sendFormData(orderId, this.checkoutForm, this.couponCode())
-        .subscribe();
+        .subscribe(() => {
+          this.router.navigate(['/payment']);
+        });
       this.subscriptions.add(sub);
-      this.router.navigate(['/payment']);
     }
   }
 

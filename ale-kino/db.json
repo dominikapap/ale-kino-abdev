@@ -488,6 +488,127 @@
       "screeningsId": 13,
       "isCheckedOut": false,
       "id": 11
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 12
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 13,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 14,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 15
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 16
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 17,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 18
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 19,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 20
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 21,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 22,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "usersId": 4,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "id": 23,
+      "customerInfo": {
+        "firstName": "guest",
+        "lastName": "user",
+        "email": "guest@user.com",
+        "phoneNumber": "",
+        "newsletter": true
+      }
     }
   ],
   "tickets": [
@@ -573,52 +694,16 @@
       "id": 26
     },
     {
-      "ordersId": 2,
+      "ordersId": 22,
       "seat": {
         "row": "E",
-        "seatNumber": 10
+        "seatNumber": 4
       },
       "ticketTypesId": 1,
       "id": 27
     },
     {
-      "ordersId": 2,
-      "seat": {
-        "row": "F",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 1,
-      "id": 28
-    },
-    {
-      "ordersId": 2,
-      "seat": {
-        "row": "G",
-        "seatNumber": 8
-      },
-      "ticketTypesId": 1,
-      "id": 29
-    },
-    {
-      "ordersId": 8,
-      "seat": {
-        "row": "E",
-        "seatNumber": 5
-      },
-      "ticketTypesId": 1,
-      "id": 30
-    },
-    {
-      "ordersId": 8,
-      "seat": {
-        "row": "E",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 1,
-      "id": 33
-    },
-    {
-      "ordersId": 8,
+      "ordersId": 22,
       "seat": {
         "row": "E",
         "seatNumber": 7
@@ -627,103 +712,31 @@
       "id": 34
     },
     {
-      "ordersId": 5,
+      "ordersId": 23,
       "seat": {
-        "row": "F",
+        "row": "E",
         "seatNumber": 6
       },
-      "ticketTypesId": 4,
+      "ticketTypesId": 1,
       "id": 35
     },
     {
-      "ordersId": 5,
+      "ordersId": 23,
       "seat": {
         "row": "E",
-        "seatNumber": 6
+        "seatNumber": 5
       },
-      "ticketTypesId": 4,
+      "ticketTypesId": 1,
       "id": 36
     },
     {
-      "ordersId": 5,
+      "ordersId": 23,
       "seat": {
-        "row": "F",
-        "seatNumber": 7
+        "row": "D",
+        "seatNumber": 5
       },
       "ticketTypesId": 4,
       "id": 37
-    },
-    {
-      "ordersId": 8,
-      "seat": {
-        "row": "F",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 1,
-      "id": 38
-    },
-    {
-      "ordersId": 8,
-      "seat": {
-        "row": "F",
-        "seatNumber": 5
-      },
-      "ticketTypesId": 1,
-      "id": 39
-    },
-    {
-      "ordersId": 9,
-      "seat": {
-        "row": "D",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 1,
-      "id": 40
-    },
-    {
-      "ordersId": 9,
-      "seat": {
-        "row": "D",
-        "seatNumber": 5
-      },
-      "ticketTypesId": 1,
-      "id": 41
-    },
-    {
-      "ordersId": 10,
-      "seat": {
-        "row": "E",
-        "seatNumber": 5
-      },
-      "ticketTypesId": 1,
-      "id": 42
-    },
-    {
-      "ordersId": 10,
-      "seat": {
-        "row": "E",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 4,
-      "id": 43
-    },
-    {
-      "ordersId": 11,
-      "seat": {
-        "row": "D",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 1,
-      "id": 44
-    },
-    {
-      "ordersId": 11,
-      "seat": {
-        "row": "E",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 3,
-      "id": 45
     }
   ],
   "couponCodes": [
@@ -731,7 +744,7 @@
       "id": 1,
       "name": "supercheap123",
       "discount": 0.2,
-      "active": true
+      "active": false
     },
     {
       "id": 2,

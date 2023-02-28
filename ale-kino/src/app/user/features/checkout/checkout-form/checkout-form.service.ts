@@ -29,14 +29,13 @@ export class CheckoutFormService {
   constructor() {}
 
   sendFormData(
-    orderId: number,
+    orderId: string,
     formGroup: FormGroup<CheckoutForm>,
     couponCode: boolean
   ) {
     if (couponCode) {
       return this.couponCodeService
-        .updateSelectedCouponCode({ active: false })
-        .pipe(
+        .updateSelectedCouponCode({ active: false }).pipe(
           switchMap((coupon) => {
             return this.orderService.updateOrder(orderId, {
               customerInfo: this.getCustomerFormInfo(formGroup),
@@ -77,9 +76,7 @@ export class CheckoutFormService {
   setCouponCodeDiscount(discountCode: FormControl<string>) {
     return discountCode.statusChanges.pipe(
       switchMap((status) => {
-        console.log('checking')
         if (status === 'VALID') {
-          console.log('setting code')
           return this.couponCodeService.setCouponCodeDiscount(
             discountCode.value
           );
