@@ -56,6 +56,10 @@
 
   &-tags {
     color: #9b9b9b;
+
+    &__list {
+      display: inline-block;
+    }
   }
 
   &-description {

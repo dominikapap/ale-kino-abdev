@@ -5,11 +5,7 @@
   <div class="movie__image">
     <div class="movie__image-container">
       <p class="movie__image-text" *ngIf="movie.premiere">Premiera</p>
-      <img
-        class="movie__image-picture"
-        [src]="movie.image"
-        alt=""
-      /><img />
+      <img class="movie__image-picture" [src]="movie.image" alt="" /><img />
     </div>
   </div>
   <div class="movie__details">
@@ -17,7 +13,10 @@
       {{ movie.title | uppercase }}
     </h3>
     <div class="movie__details-tags">
-      {{ movie.tags }} | {{ movie.length }} minut |
+      <div class="movie__details-tags__list" *ngFor="let tag of movie.tags">
+        {{ tag + " | " }}
+      </div>
+      {{ movie.length }} minut |
       {{ movie.rated }}
     </div>
 
@@ -43,8 +42,8 @@
       <div class="movie__additional-info__score-number">
         {{
           movie.score
-            ? (movie.score.points / movie.score.votes
-                | number : "1.0-0") + "/10"
+            ? (movie.score.points / movie.score.votes | number : "1.0-0") +
+              "/10"
             : "N/A"
         }}
       </div>
@@ -68,7 +67,10 @@
       </div>
     </div>
 
-    <div *ngIf="(userStateService.user$ | async)?.movieWatchList as movieWatchList" class="movie__additional-info__container">
+    <div
+      *ngIf="(userStateService.user$ | async)?.movieWatchList as movieWatchList"
+      class="movie__additional-info__container"
+    >
       <div
         class="movie__additional-info__rate-it movie__additional-info__display"
         *ngIf="userRole === 'user'"
@@ -76,7 +78,11 @@
         <mat-icon
           class="movie__additional-info__icon hover-effect"
           (click)="toggleWatchListMovie(movie.id!)"
-          >{{userStateService.movieOnTheList(movie.id!, movieWatchList) ? "favorite" : "favorite_outline"}}</mat-icon
+          >{{
+            userStateService.movieOnTheList(movie.id!, movieWatchList)
+              ? "favorite"
+              : "favorite_outline"
+          }}</mat-icon
         >
         <div class="movie__additional-info__text">Chcę obejrzeć</div>
       </div>

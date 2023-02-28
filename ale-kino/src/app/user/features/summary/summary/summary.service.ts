@@ -10,23 +10,6 @@ export class SummaryService {
   protected screeningRoomStateService = inject(ScreeningRoomStateService);
   protected ordersService = inject(OrdersService);
 
-  // getSummaryOrderDetails() {
-  //   return this.screeningRoomStateService.screeningRoomState$.pipe(
-  //     switchMap((roomState) => {
-  //       if (roomState.ticketState.notCheckedOutOrderId) {
-  //         return this.ordersService.getOrderById(
-  //           roomState.ticketState.notCheckedOutOrderId
-  //         );
-  //       } else {
-  //         return EMPTY;
-  //       }
-  //     }),
-  //     map(([order]) => {
-  //       return order;
-  //     })
-  //   );
-  // }
-
   handleSendForm(route: ActivatedRoute) {
     return route.paramMap.pipe(
       switchMap((params) => {

@@ -13,7 +13,7 @@
         2
       ],
       "movieWatchList": [
-        1
+        2
       ]
     },
     {
@@ -560,6 +560,19 @@
         "phoneNumber": "",
         "newsletter": false
       }
+    },
+    {
+      "id": "3e324c02-b96b-4892-a637-e1e091901a1a",
+      "usersId": 1,
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
     }
   ],
   "tickets": [
@@ -823,6 +836,24 @@
       },
       "ticketTypesId": 1,
       "id": 66
+    },
+    {
+      "ordersId": "3e324c02-b96b-4892-a637-e1e091901a1a",
+      "seat": {
+        "row": "E",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 67
+    },
+    {
+      "ordersId": "3e324c02-b96b-4892-a637-e1e091901a1a",
+      "seat": {
+        "row": "D",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 68
     }
   ],
   "couponCodes": [
