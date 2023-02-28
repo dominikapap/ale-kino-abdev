@@ -10,6 +10,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 3em;
 
   &__title {
     @extend .section-title;

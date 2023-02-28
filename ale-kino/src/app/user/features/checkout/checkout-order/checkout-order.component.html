@@ -1,7 +1,7 @@
-<div class="container" *ngIf="screeningRoomStateService.screeningRoomState$ | async as roomState">
+<div class="container" *ngIf="orderDetails$ | async as orderDetails">
   <div
     class="selectedMovie"
-    *ngIf="roomState.screeningDetails as screeningDetails"
+    *ngIf="orderDetails.screeningDetails as screeningDetails"
   >
     {{ screeningDetails.movies.title }}, {{ screeningDetails.date }}, godz.{{
       screeningDetails.time
@@ -10,7 +10,7 @@
 
   <div
     class="ticketList"
-    *ngIf="roomState.ticketState.selectedTickets as openOrderTicketList"
+    *ngIf="orderDetails.orderTickets as openOrderTicketList"
   >
     <div class="ticketList__item" *ngFor="let ticket of openOrderTicketList">
       <div class="ticketList__ticketSeat">

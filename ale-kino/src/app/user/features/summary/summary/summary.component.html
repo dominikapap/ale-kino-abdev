@@ -1,7 +1,19 @@
-<div class="summary-container">
-  <h1>Dziękujemy za zamówienie</h1>
-  <p>Twoje bilety zostały wysłane na adres email: <a>adres@email.pl</a></p>
-  <img class="qr-code" src="../../../../assets/qr-code/qrcode.svg" alt="">
-  <a routerLink="">Wróć na główną stronę</a>
+<div class="summary">
+  <div class="summary__title">
+    {{ "podsumowanie" | uppercase }}
+  </div>
+  <div class="summary-container" *ngIf="orderDetails$ | async as orderDetails">
+    <h1>Dziękujemy za zamówienie</h1>
+    <p>Twoje bilety zostały wysłane na adres email: {{orderDetails?.customerInfo?.email}}</p>
+    <img
+      *ngIf="orderDetails.id"
+      class="qr-code"
+      [src]="
+        'https://barcodeapi.org/api/qr/order-details/' +
+        orderDetails.id
+      "
+      alt="qr-code"
+    />
+    <a  mat-raised-button  color="accent" routerLink="">Wróć na główną stronę</a>
+  </div>
 </div>
-

@@ -64,7 +64,7 @@ export class TicketsService {
     );
   }
 
-  getAllOrderTickets(orderId: number) {
+  getAllOrderTickets(orderId: string) {
     return this.http.get<Ticket[]>(`/tickets?ordersId=${orderId}`);
   }
 

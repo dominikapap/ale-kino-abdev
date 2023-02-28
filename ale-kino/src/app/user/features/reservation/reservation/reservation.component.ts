@@ -22,10 +22,6 @@ export class ReservationComponent implements OnInit, OnDestroy {
     this.initializeScreeningDetails();
   }
   ngOnDestroy(): void {
-    const sub = this.screeningRoomStateService.screeningRoomState$.subscribe((state) => {
-      localStorage.setItem('state', JSON.stringify(state));
-    });
-    this.subscriptions.add(sub);
     this.subscriptions.unsubscribe();
   }
 

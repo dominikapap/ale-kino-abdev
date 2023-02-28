@@ -1,26 +1,26 @@
-import { OrdersService, ScreeningRoomStateService } from 'src/app/services';
+import { OrdersService } from 'src/app/services';
 import { inject, Injectable } from '@angular/core';
-import { of, switchMap } from 'rxjs';
+import { of, switchMap, EMPTY } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
-  providedIn:'root'
+  providedIn: 'root',
 })
 export class BlikPaymentService {
   private ordersService = inject(OrdersService);
-  private screeningRoomStateService = inject(ScreeningRoomStateService);
 
   constructor() {}
 
-  handleSendForm() {
-    return this.screeningRoomStateService.screeningRoomState$.pipe(
-      switchMap((roomState) => {
-        const orderId = roomState.ticketState.notCheckedOutOrderId;
+  handleSendForm(route: ActivatedRoute) {
+    return route.paramMap.pipe(
+      switchMap((params) => {
+        const orderId: string = <string>params.get('id');
         if (orderId) {
-          return this.ordersService.updateOrder(orderId!, {
+          return this.ordersService.updateOrder(orderId, {
             isCheckedOut: true,
           });
         } else {
-          return of({});
+          return EMPTY;
         }
       })
     );

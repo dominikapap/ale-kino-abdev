@@ -31,7 +31,7 @@ export class OrdersService {
   private couponCodesService = inject(CouponCodesService);
 
   getOrderById(orderId: string) {
-    return this.http.get<Order>(`/orders?id=${orderId}`);
+    return this.http.get<Order[]>(`/orders?id=${orderId}`);
   }
 
   getOrdersByUserId(userId: number) {
@@ -75,7 +75,7 @@ export class OrdersService {
 
   getOrderTotalPrice(orderId: string) {
     return this.getOrderById(orderId).pipe(
-      switchMap((order) => {
+      switchMap(([order]) => {
         if (order.couponCodesId) {
           return this.couponCodesService
             .getCouponCodeById(order.couponCodesId)

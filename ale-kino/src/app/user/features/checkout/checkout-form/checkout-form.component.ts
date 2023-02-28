@@ -98,7 +98,7 @@ export class CheckoutFormComponent implements OnInit {
       const sub = this.checkoutFormService
         .sendFormData(orderId, this.checkoutForm, this.couponCode())
         .subscribe(() => {
-          this.router.navigate(['/payment']);
+          this.router.navigate(['/payment/' + orderId]);
         });
       this.subscriptions.add(sub);
     }

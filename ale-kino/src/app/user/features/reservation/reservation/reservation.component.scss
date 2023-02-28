@@ -1,3 +1,21 @@
+@use "../../../../../colors" as colors;
+@use "../../../../../breakpoints" as breakpoints;
+@use "../../../../../styling" as styling;
+
+.reservation {
+  @extend .app-container;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3em;
+
+  &__title {
+    @extend .section-title;
+  }
+}
+
 .title {
   display: flex;
   justify-content: center;
@@ -19,10 +37,11 @@
   color: white;
 }
 
-.checkoutLink {
+.checkout-link {
   display: flex;
   justify-content: center;
   padding-top: 2em;
   padding-bottom: 2em;
   color: white;
+  margin-top: 3em;
 }

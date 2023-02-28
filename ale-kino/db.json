@@ -609,6 +609,252 @@
         "phoneNumber": "",
         "newsletter": true
       }
+    },
+    {
+      "id": "8bb71420-f5c0-4d6c-9112-373f70a48511",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "7739703d-0093-40c5-9027-ee2c8be6bf07",
+      "usersId": "1",
+      "screeningsId": 19,
+      "isCheckedOut": false
+    },
+    {
+      "id": "670f6415-8a1f-4eea-8b6c-2e230217eae7",
+      "usersId": "1",
+      "screeningsId": 18,
+      "isCheckedOut": false
+    },
+    {
+      "id": "be3fe7b7-526d-49d9-829e-f407ba424c50",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "f3a9b6a3-5383-4edf-8ef2-accdcb740025",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "c5b897ae-709c-4636-8582-c79f3c27f574",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "ecbe079d-82b8-4785-ae78-d055abd83d49",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "f5fddf1d-53a4-4edf-81ef-de23a837b53c",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "3f963d39-a013-41d9-b3e3-eddb481539ae",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "79b9f2aa-654b-415a-bb50-3e0d579f0b05",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "a20ab457-89ef-4683-8a8c-524d034dd4e6",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "b81f0dc9-a321-403a-b9f0-90cbc1ff8251",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "b84f1e4d-ca06-4fff-8e6d-bfe299f9cf0b",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "759e4e9c-3ce6-41f4-87e3-ad09e0f2a007",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "19d49484-31e3-41c3-b345-98e45dc944c0",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "d9f72e39-f0b2-4b0c-8930-3b1189b7dac7",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "aa53f61e-23b7-450b-9756-b9c2bd02c569",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "43aab21e-d8d8-47f5-846d-4771a7214528",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "eb57025d-7c11-4205-92ce-b1db481d6030",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "4a91d5cb-977a-4c76-82c1-4c73fd71e4c3",
+      "usersId": "1",
+      "screeningsId": 7,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
     }
   ],
   "tickets": [
@@ -737,6 +983,267 @@
       },
       "ticketTypesId": 4,
       "id": 37
+    },
+    {
+      "ordersId": "8bb71420-f5c0-4d6c-9112-373f70a48511",
+      "seat": {
+        "row": "E",
+        "seatNumber": 9
+      },
+      "ticketTypesId": 1,
+      "id": 38
+    },
+    {
+      "ordersId": "8bb71420-f5c0-4d6c-9112-373f70a48511",
+      "seat": {
+        "row": "E",
+        "seatNumber": 8
+      },
+      "ticketTypesId": 1,
+      "id": 39
+    },
+    {
+      "ordersId": "8bb71420-f5c0-4d6c-9112-373f70a48511",
+      "seat": {
+        "row": "F",
+        "seatNumber": 8
+      },
+      "ticketTypesId": 1,
+      "id": 40
+    },
+    {
+      "ordersId": "be3fe7b7-526d-49d9-829e-f407ba424c50",
+      "seat": {
+        "row": "C",
+        "seatNumber": 9
+      },
+      "ticketTypesId": 1,
+      "id": 41
+    },
+    {
+      "ordersId": "be3fe7b7-526d-49d9-829e-f407ba424c50",
+      "seat": {
+        "row": "C",
+        "seatNumber": 8
+      },
+      "ticketTypesId": 1,
+      "id": 42
+    },
+    {
+      "ordersId": "f3a9b6a3-5383-4edf-8ef2-accdcb740025",
+      "seat": {
+        "row": "F",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 43
+    },
+    {
+      "ordersId": "c5b897ae-709c-4636-8582-c79f3c27f574",
+      "seat": {
+        "row": "D",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 44
+    },
+    {
+      "ordersId": "f5fddf1d-53a4-4edf-81ef-de23a837b53c",
+      "seat": {
+        "row": "D",
+        "seatNumber": 4
+      },
+      "ticketTypesId": 1,
+      "id": 45
+    },
+    {
+      "ordersId": "f5fddf1d-53a4-4edf-81ef-de23a837b53c",
+      "seat": {
+        "row": "C",
+        "seatNumber": 4
+      },
+      "ticketTypesId": 1,
+      "id": 46
+    },
+    {
+      "ordersId": "3f963d39-a013-41d9-b3e3-eddb481539ae",
+      "seat": {
+        "row": "F",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 47
+    },
+    {
+      "ordersId": "79b9f2aa-654b-415a-bb50-3e0d579f0b05",
+      "seat": {
+        "row": "B",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 48
+    },
+    {
+      "ordersId": "a20ab457-89ef-4683-8a8c-524d034dd4e6",
+      "seat": {
+        "row": "C",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 49
+    },
+    {
+      "ordersId": "b81f0dc9-a321-403a-b9f0-90cbc1ff8251",
+      "seat": {
+        "row": "B",
+        "seatNumber": 3
+      },
+      "ticketTypesId": 1,
+      "id": 50
+    },
+    {
+      "ordersId": "b84f1e4d-ca06-4fff-8e6d-bfe299f9cf0b",
+      "seat": {
+        "row": "B",
+        "seatNumber": 4
+      },
+      "ticketTypesId": 1,
+      "id": 51
+    },
+    {
+      "ordersId": "759e4e9c-3ce6-41f4-87e3-ad09e0f2a007",
+      "seat": {
+        "row": "C",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 52
+    },
+    {
+      "ordersId": "19d49484-31e3-41c3-b345-98e45dc944c0",
+      "seat": {
+        "row": "B",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 53
+    },
+    {
+      "ordersId": "19d49484-31e3-41c3-b345-98e45dc944c0",
+      "seat": {
+        "row": "C",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 54
+    },
+    {
+      "ordersId": "19d49484-31e3-41c3-b345-98e45dc944c0",
+      "seat": {
+        "row": "D",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 55
+    },
+    {
+      "ordersId": "d9f72e39-f0b2-4b0c-8930-3b1189b7dac7",
+      "seat": {
+        "row": "C",
+        "seatNumber": 3
+      },
+      "ticketTypesId": 3,
+      "id": 56
+    },
+    {
+      "ordersId": "aa53f61e-23b7-450b-9756-b9c2bd02c569",
+      "seat": {
+        "row": "F",
+        "seatNumber": 4
+      },
+      "ticketTypesId": 1,
+      "id": 57
+    },
+    {
+      "ordersId": "aa53f61e-23b7-450b-9756-b9c2bd02c569",
+      "seat": {
+        "row": "F",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 58
+    },
+    {
+      "ordersId": "aa53f61e-23b7-450b-9756-b9c2bd02c569",
+      "seat": {
+        "row": "A",
+        "seatNumber": 2
+      },
+      "ticketTypesId": 1,
+      "id": 59
+    },
+    {
+      "ordersId": "aa53f61e-23b7-450b-9756-b9c2bd02c569",
+      "seat": {
+        "row": "A",
+        "seatNumber": 3
+      },
+      "ticketTypesId": 1,
+      "id": 60
+    },
+    {
+      "ordersId": "43aab21e-d8d8-47f5-846d-4771a7214528",
+      "seat": {
+        "row": "A",
+        "seatNumber": 4
+      },
+      "ticketTypesId": 1,
+      "id": 61
+    },
+    {
+      "ordersId": "eb57025d-7c11-4205-92ce-b1db481d6030",
+      "seat": {
+        "row": "F",
+        "seatNumber": 3
+      },
+      "ticketTypesId": 1,
+      "id": 62
+    },
+    {
+      "ordersId": "eb57025d-7c11-4205-92ce-b1db481d6030",
+      "seat": {
+        "row": "E",
+        "seatNumber": 3
+      },
+      "ticketTypesId": 1,
+      "id": 63
+    },
+    {
+      "ordersId": "4a91d5cb-977a-4c76-82c1-4c73fd71e4c3",
+      "seat": {
+        "row": "F",
+        "seatNumber": 9
+      },
+      "ticketTypesId": 1,
+      "id": 64
+    },
+    {
+      "ordersId": "4a91d5cb-977a-4c76-82c1-4c73fd71e4c3",
+      "seat": {
+        "row": "F",
+        "seatNumber": 10
+      },
+      "ticketTypesId": 1,
+      "id": 65
+    },
+    {
+      "ordersId": "4a91d5cb-977a-4c76-82c1-4c73fd71e4c3",
+      "seat": {
+        "row": "E",
+        "seatNumber": 2
+      },
+      "ticketTypesId": 1,
+      "id": 66
     }
   ],
   "couponCodes": [

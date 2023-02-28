@@ -2,7 +2,6 @@ import { AuthStateService } from 'src/app/auth/auth.state.service';
 import { ShellComponent } from './shell/shell/shell.component';
 import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivateFn, Router } from '@angular/router';
-import { of, tap } from 'rxjs';
 
 const adminRoleGuard: CanActivateFn = () => {
   const userRole = inject(AuthStateService).authValue.role;
@@ -39,18 +38,23 @@ const routes: Routes = [
         canActivate: [customerRoleGuard],
       },
       {
-        path: 'checkout',
+        path: 'checkout/:id',
         loadChildren: () => import('./user/features/checkout/checkout.module'),
         canActivate: [customerRoleGuard],
       },
       {
-        path: 'payment',
+        path: 'payment/:id',
         loadChildren: () => import('./user/features/blik/blik.module'),
         canActivate: [customerRoleGuard],
       },
       {
-        path: 'summary',
+        path: 'summary/:id',
         loadChildren: () => import('./user/features/summary/summary.module'),
+        canActivate: [customerRoleGuard],
+      },
+      {
+        path: 'order-details/:id',
+        loadComponent: () => import('./user/features/user-profile/user-order-details/user-order-details.component'),
         canActivate: [customerRoleGuard],
       },
       {

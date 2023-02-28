@@ -3,6 +3,7 @@ import { BlikPaymentService } from './blik-payment.service';
 import { Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blik-payment',
@@ -12,17 +13,15 @@ import { Router } from '@angular/router';
 export class BlikPaymentComponent {
   private builder = inject(NonNullableFormBuilder);
   private router = inject(Router);
-  private blikPaymentService = inject(BlikPaymentService)
+  private activeRoute = inject(ActivatedRoute);
+  private blikPaymentService = inject(BlikPaymentService);
   blikForm = this.createForm();
   subscriptions = new Subscription();
 
   private createForm() {
     const form = this.builder.group({
       blikCode: this.builder.control('', {
-        validators: [
-          Validators.required,
-          Validators.pattern('[0-9]{6}'),
-        ],
+        validators: [Validators.required, Validators.pattern('[0-9]{6}')],
       }),
     });
 
@@ -36,9 +35,12 @@ export class BlikPaymentComponent {
   sendForm() {
     this.blikForm.markAllAsTouched();
     if (this.blikForm.valid) {
-      const sub = this.blikPaymentService.handleSendForm().subscribe();
-      this.subscriptions.add(sub)
-      this.router.navigate(['/summary']);
+      const sub = this.blikPaymentService
+        .handleSendForm(this.activeRoute)
+        .subscribe((updatedOrder) => {
+          this.router.navigate(['/summary/' + updatedOrder.id]);
+        });
+      this.subscriptions.add(sub);
     }
   }
 
@@ -46,7 +48,7 @@ export class BlikPaymentComponent {
     return 'Podany kod blik jest nieprawidłowy';
   }
 
-  ngOnDestroy(){
-    this.subscriptions.unsubscribe()
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

@@ -94,7 +94,6 @@ export class AuthStateService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('role');
-    localStorage.removeItem('state');
     this.patchState({ hasAuth: false, role: 'guest' });
     this.router.navigate(['']);
   }

@@ -1,5 +1,5 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, inject, OnInit } from '@angular/core';
-import { ScreeningRoomStateService } from 'src/app/services';
 import { CheckoutOrderService } from './checkout-order.service';
 
 @Component({
@@ -7,12 +7,12 @@ import { CheckoutOrderService } from './checkout-order.service';
   templateUrl: './checkout-order.component.html',
   styleUrls: ['./checkout-order.component.scss'],
 })
-export class CheckoutOrderComponent implements OnInit {
-  protected screeningRoomStateService = inject(ScreeningRoomStateService);
-  protected totalOrderPrice$ =
-    inject(CheckoutOrderService).getTotalOrderPrice();
-
-  ngOnInit() {
-    this.screeningRoomStateService.setStateFromLocalStorage();
-  }
+export class CheckoutOrderComponent {
+  private activatedRoute = inject(ActivatedRoute);
+  protected totalOrderPrice$ = inject(CheckoutOrderService).getTotalOrderPrice(
+    this.activatedRoute
+  );
+  protected orderDetails$ = inject(CheckoutOrderService).getOrderDetails(
+    this.activatedRoute
+  );
 }
