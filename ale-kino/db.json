@@ -8,8 +8,12 @@
       "firstName": "Test",
       "lastName": "Testowski",
       "rolesId": 1,
-      "ratedMovies": [],
-      "movieWatchList": []
+      "ratedMovies": [
+        2
+      ],
+      "movieWatchList": [
+        2
+      ]
     },
     {
       "id": 2,
@@ -72,8 +76,8 @@
       "image": "../../assets/img/imageTwo.jpg",
       "premiere": false,
       "score": {
-        "points": 115,
-        "votes": 17
+        "points": 122,
+        "votes": 18
       }
     },
     {
@@ -163,6 +167,32 @@
       "image": "https://www.cinema-city.pl/xmedia-cw/repo/feats/posters/5385D2R-lg.jpg",
       "premiere": false,
       "id": 8
+    },
+    {
+      "title": "straszny film",
+      "tags": [
+        "Horror",
+        "Komedia"
+      ],
+      "length": 93,
+      "rated": "Dla Dorosłych",
+      "description": "     ",
+      "image": "https://m.media-amazon.com/images/M/MV5BZTIxYmRmMDMtYjA0MC00MDI0LWFhNWEtMmQwNmE0YTA0YmZjXkEyXkFqcGdeQXVyODIyOTEyMzY@._V1_.jpg",
+      "premiere": false,
+      "id": 9
+    },
+    {
+      "title": "ANT-MAN I OSA: KWANTOMANIA",
+      "tags": [
+        "Sci-Fi",
+        "Horror"
+      ],
+      "length": 125,
+      "rated": "PG-13",
+      "description": "Superbohaterowie Scott Lang (Paul Rudd) i Hope Van Dyne (Evangeline Lilly) powracają jako Ant-Man i Osa w nowym, pełnym przygód filmie. Wraz z rodzicami Hope, Hankiem Pymem (Michael Douglas) i Janet Van Dyne (Michelle Pfeiffer), oraz córką Scotta, Cassie Lang (Kathryn Newton), będą eksplorować Wymiar Kwantowy, gdzie spotkają zadziwiające, nieznane istoty. To, co tam przeżyją, zmieni ich wyobrażenia o tym, co jest możliwe. Reżyserem filmu jest Peyton Reed, producentami zostali Kevin Feige i Stephen Broussard, a w rolę Kanga wciela się Jonathan Majors.",
+      "image": "https://www.cinema-city.pl/xmedia-cw/repo/feats/posters/5473S2R-lg.jpg",
+      "premiere": false,
+      "id": 10
     }
   ],
   "ratings": [
@@ -385,6 +415,55 @@
       "roomsId": 2,
       "moviesId": 2,
       "id": 19
+    },
+    {
+      "date": "02-03-2023",
+      "time": "11:00",
+      "roomsId": 1,
+      "moviesId": 9,
+      "id": 20
+    },
+    {
+      "date": "09-03-2023",
+      "time": "17:20",
+      "roomsId": 2,
+      "moviesId": 2,
+      "id": 21
+    },
+    {
+      "date": "17-03-2023",
+      "time": "16:20",
+      "roomsId": 1,
+      "moviesId": 1,
+      "id": 22
+    },
+    {
+      "date": "17-03-2023",
+      "time": "18:22",
+      "roomsId": 2,
+      "moviesId": 2,
+      "id": 23
+    },
+    {
+      "date": "16-03-2023",
+      "time": "15:20",
+      "roomsId": 2,
+      "moviesId": 2,
+      "id": 24
+    },
+    {
+      "date": "16-03-2023",
+      "time": "15:18",
+      "roomsId": 2,
+      "moviesId": 2,
+      "id": 25
+    },
+    {
+      "date": "02-03-2023",
+      "time": "16:30",
+      "roomsId": 3,
+      "moviesId": 10,
+      "id": 26
     }
   ],
   "orders": [
@@ -599,7 +678,14 @@
       "id": "0dd9e2cd-c5e9-4c1e-958d-cb206a04ef96",
       "usersId": "1",
       "screeningsId": 4,
-      "isCheckedOut": false
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowskide",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
     },
     {
       "id": "93bcc1f6-d31a-4c94-a483-173ac3b8d169",
@@ -751,132 +837,6 @@
       "id": 52
     },
     {
-      "ordersId": "19d49484-31e3-41c3-b345-98e45dc944c0",
-      "seat": {
-        "row": "B",
-        "seatNumber": 6
-      },
-      "ticketTypesId": 1,
-      "id": 53
-    },
-    {
-      "ordersId": "19d49484-31e3-41c3-b345-98e45dc944c0",
-      "seat": {
-        "row": "C",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 1,
-      "id": 54
-    },
-    {
-      "ordersId": "19d49484-31e3-41c3-b345-98e45dc944c0",
-      "seat": {
-        "row": "D",
-        "seatNumber": 7
-      },
-      "ticketTypesId": 1,
-      "id": 55
-    },
-    {
-      "ordersId": "d9f72e39-f0b2-4b0c-8930-3b1189b7dac7",
-      "seat": {
-        "row": "C",
-        "seatNumber": 3
-      },
-      "ticketTypesId": 3,
-      "id": 56
-    },
-    {
-      "ordersId": "aa53f61e-23b7-450b-9756-b9c2bd02c569",
-      "seat": {
-        "row": "F",
-        "seatNumber": 4
-      },
-      "ticketTypesId": 1,
-      "id": 57
-    },
-    {
-      "ordersId": "aa53f61e-23b7-450b-9756-b9c2bd02c569",
-      "seat": {
-        "row": "F",
-        "seatNumber": 5
-      },
-      "ticketTypesId": 1,
-      "id": 58
-    },
-    {
-      "ordersId": "aa53f61e-23b7-450b-9756-b9c2bd02c569",
-      "seat": {
-        "row": "A",
-        "seatNumber": 2
-      },
-      "ticketTypesId": 1,
-      "id": 59
-    },
-    {
-      "ordersId": "aa53f61e-23b7-450b-9756-b9c2bd02c569",
-      "seat": {
-        "row": "A",
-        "seatNumber": 3
-      },
-      "ticketTypesId": 1,
-      "id": 60
-    },
-    {
-      "ordersId": "43aab21e-d8d8-47f5-846d-4771a7214528",
-      "seat": {
-        "row": "A",
-        "seatNumber": 4
-      },
-      "ticketTypesId": 1,
-      "id": 61
-    },
-    {
-      "ordersId": "eb57025d-7c11-4205-92ce-b1db481d6030",
-      "seat": {
-        "row": "F",
-        "seatNumber": 3
-      },
-      "ticketTypesId": 1,
-      "id": 62
-    },
-    {
-      "ordersId": "eb57025d-7c11-4205-92ce-b1db481d6030",
-      "seat": {
-        "row": "E",
-        "seatNumber": 3
-      },
-      "ticketTypesId": 1,
-      "id": 63
-    },
-    {
-      "ordersId": "4a91d5cb-977a-4c76-82c1-4c73fd71e4c3",
-      "seat": {
-        "row": "F",
-        "seatNumber": 9
-      },
-      "ticketTypesId": 1,
-      "id": 64
-    },
-    {
-      "ordersId": "4a91d5cb-977a-4c76-82c1-4c73fd71e4c3",
-      "seat": {
-        "row": "F",
-        "seatNumber": 10
-      },
-      "ticketTypesId": 1,
-      "id": 65
-    },
-    {
-      "ordersId": "4a91d5cb-977a-4c76-82c1-4c73fd71e4c3",
-      "seat": {
-        "row": "E",
-        "seatNumber": 2
-      },
-      "ticketTypesId": 1,
-      "id": 66
-    },
-    {
       "ordersId": "3e324c02-b96b-4892-a637-e1e091901a1a",
       "seat": {
         "row": "E",
@@ -934,10 +894,28 @@
       "ordersId": "0dd9e2cd-c5e9-4c1e-958d-cb206a04ef96",
       "seat": {
         "row": "H",
+        "seatNumber": 8
+      },
+      "ticketTypesId": 2,
+      "id": 74
+    },
+    {
+      "ordersId": "0dd9e2cd-c5e9-4c1e-958d-cb206a04ef96",
+      "seat": {
+        "row": "H",
         "seatNumber": 7
       },
+      "ticketTypesId": 3,
+      "id": 75
+    },
+    {
+      "ordersId": "93bcc1f6-d31a-4c94-a483-173ac3b8d169",
+      "seat": {
+        "row": "I",
+        "seatNumber": 8
+      },
       "ticketTypesId": 1,
-      "id": 73
+      "id": 76
     }
   ],
   "couponCodes": [
@@ -945,7 +923,7 @@
       "id": 1,
       "name": "supercheap123",
       "discount": 0.2,
-      "active": true
+      "active": false
     },
     {
       "id": 2,

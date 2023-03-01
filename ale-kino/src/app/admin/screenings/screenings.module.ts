@@ -16,6 +16,7 @@ import CreateScreeningComponent from './create-screening/create-screening.compon
 import { ScreeningsEffects, screeningsFeatureKey, screeningsReducer } from './store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [CreateScreeningComponent],
@@ -32,6 +33,7 @@ import { EffectsModule } from '@ngrx/effects';
     MatNativeDateModule,
     NgxMatTimepickerModule,
     CommonModule,
+    MatSnackBarModule,
     StoreModule.forFeature(screeningsFeatureKey, screeningsReducer),
     EffectsModule.forFeature([ScreeningsEffects]),
     RouterModule.forChild([

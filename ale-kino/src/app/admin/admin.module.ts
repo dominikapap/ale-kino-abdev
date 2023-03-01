@@ -16,7 +16,6 @@ import { MatButtonModule } from '@angular/material/button';
         path: '',
         component: DashboardComponent,
         children: [
-          // { path: '', redirectTo: 'create-screening', pathMatch: 'full' },
           {
             path: 'movies',
             loadChildren: () => import('./movies/movies.module'),

@@ -87,3 +87,21 @@ $app-name-theme: mat.define-dark-theme(
 .checkout-form__slide > .mdc-form-field>label {
   color: white;
 }
+
+// SNACKBAR
+.mat-mdc-snack-bar-container {
+  max-width: 80vw;
+  padding-bottom: 100px;
+  --mdc-snackbar-supporting-text-line-height: 30px;
+  --mdc-snackbar-supporting-text-size: 16px;
+
+  .mat-mdc-button {
+    font-size: 16px;
+  }
+}
+
+.snackbar-error {
+  --mdc-snackbar-container-color: rgb(253, 80, 80);
+  --mat-mdc-snack-bar-button-color: #fff
+  --mdc-snackbar-supporting-text-color: #fff;
+}
