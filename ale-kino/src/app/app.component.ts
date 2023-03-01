@@ -6,8 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'ale-kino';
-  items = ['18/11', '18/11', '18/11', '18/11', '18/11', '18/11', '18/11'];
-  isUser: boolean = false;
-  isAdmin: boolean = false;
 }

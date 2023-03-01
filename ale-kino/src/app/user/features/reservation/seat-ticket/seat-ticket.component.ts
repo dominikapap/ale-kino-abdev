@@ -1,4 +1,5 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Subscription } from 'rxjs';
 import {
   Ticket,
@@ -32,7 +33,7 @@ export class SeatTicketComponent implements OnInit, OnDestroy {
   }
 
   selectedTickets: Ticket[] = [];
-  icon: any = 'trash-can';
+  icon: IconProp = 'trash-can';
   selectedTicket!: TicketType;
 
   onTicketTypeChanged(ticket: Ticket, ticketTypeId: string) {

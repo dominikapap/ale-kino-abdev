@@ -1,4 +1,4 @@
 <button class="btn" [ngClass]="btnClass" (click)="handleButtonClick()">
-  <fa-icon *ngIf="icon !== ''" [icon]="icon"></fa-icon>
+  <fa-icon *ngIf="icon" [icon]="icon"></fa-icon>
   {{ value }}
 </button>

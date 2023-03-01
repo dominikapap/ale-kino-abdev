@@ -7,6 +7,11 @@ export type RoomSize = {
   seats: number;
 };
 
+export type RoomSetup = {
+  rowLetters: string[],
+  rowNumbers: number[]
+}
+
 @Component({
   selector: 'app-screening-room',
   templateUrl: './screening-room.component.html',
@@ -17,7 +22,10 @@ export class ScreeningRoomComponent implements OnInit, OnDestroy {
 
   @Input() roomId: number = 0;
   @Input() screeningRoomId: number = 0;
-  protected roomSetupData: any;
+  protected roomSetupData: RoomSetup = {
+    rowLetters: [],
+    rowNumbers: []
+  };
   private subscriptions: Subscription = new Subscription();
 
   ngOnInit(): void {

@@ -47,7 +47,9 @@
     {
       "id": 1,
       "title": "Apokawixa",
-      "tags": ["Horror"],
+      "tags": [
+        "Horror"
+      ],
       "length": "120",
       "rated": "PG-13",
       "description": "Lorem ipsum Lorem ipsum dolor sit amet, alii rebum posteei.Lorem ipsum doeiorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.",
@@ -61,7 +63,9 @@
     {
       "id": 2,
       "title": "Apokawixa 2",
-      "tags": ["Horror"],
+      "tags": [
+        "Horror"
+      ],
       "length": "120",
       "rated": "PG-13",
       "description": "Lorem ipsum dolor sit amet, alii rebum postea eam ex. Et mei laoreet officiis, summo sensibus id mei.",
@@ -74,7 +78,11 @@
     },
     {
       "title": "Avatar",
-      "tags": ["Horror", "Przygodowy", "Komedia"],
+      "tags": [
+        "Horror",
+        "Przygodowy",
+        "Komedia"
+      ],
       "length": 15,
       "rated": "PG-15",
       "description": "Avatar the movie",
@@ -88,7 +96,11 @@
     },
     {
       "title": "Avatar 2",
-      "tags": ["Sci-Fi", "Przygodowy", "Akcji"],
+      "tags": [
+        "Sci-Fi",
+        "Przygodowy",
+        "Akcji"
+      ],
       "length": 40,
       "rated": "PG-13",
       "description": "The newest avatar movie.",
@@ -102,7 +114,9 @@
     },
     {
       "title": "av",
-      "tags": ["Horror"],
+      "tags": [
+        "Horror"
+      ],
       "length": 666,
       "rated": "Dla Dzieci",
       "description": "av",
@@ -112,7 +126,11 @@
     },
     {
       "title": "Asterisk",
-      "tags": ["Horror", "Przygodowy", "Komedia"],
+      "tags": [
+        "Horror",
+        "Przygodowy",
+        "Komedia"
+      ],
       "length": 13,
       "rated": "PG-17",
       "description": "Obelisk",
@@ -122,7 +140,11 @@
     },
     {
       "title": "Asterisk",
-      "tags": ["Horror", "Przygodowy", "Komedia"],
+      "tags": [
+        "Horror",
+        "Przygodowy",
+        "Komedia"
+      ],
       "length": 13,
       "rated": "PG-17",
       "description": "Obelisk",
@@ -132,7 +154,9 @@
     },
     {
       "title": "Asterisk",
-      "tags": ["Przygodowy"],
+      "tags": [
+        "Przygodowy"
+      ],
       "length": 120,
       "rated": "Dla Dzieci",
       "description": "Obelisk",
@@ -576,6 +600,18 @@
       "usersId": "1",
       "screeningsId": 4,
       "isCheckedOut": false
+    },
+    {
+      "id": "93bcc1f6-d31a-4c94-a483-173ac3b8d169",
+      "usersId": "1",
+      "screeningsId": 1,
+      "isCheckedOut": false
+    },
+    {
+      "id": "76ddf509-137e-4493-97b3-dfb36d207681",
+      "usersId": "1",
+      "screeningsId": 11,
+      "isCheckedOut": false
     }
   ],
   "tickets": [
@@ -893,6 +929,15 @@
       },
       "ticketTypesId": 1,
       "id": 72
+    },
+    {
+      "ordersId": "0dd9e2cd-c5e9-4c1e-958d-cb206a04ef96",
+      "seat": {
+        "row": "H",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 73
     }
   ],
   "couponCodes": [
