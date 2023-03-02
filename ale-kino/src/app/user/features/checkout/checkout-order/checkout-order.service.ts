@@ -8,14 +8,14 @@ import { ActivatedRoute } from '@angular/router';
   providedIn: 'root',
 })
 export class CheckoutOrderService {
-  private ordersService$ = inject(OrdersService);
+  private ordersService = inject(OrdersService);
   private couponCodeService = inject(CouponCodesService);
 
   getTotalOrderPrice(route: ActivatedRoute) {
     return route.paramMap.pipe(
       switchMap((params) => {
-        const orderId: string = <string>params.get('id');
-        return this.ordersService$.getOrderTotalPrice(orderId);
+        const orderId: string = <string>params.get('orderId');
+        return this.ordersService.getOrderTotalPrice(orderId);
       }),
       switchMap((orderTotalPrice) => {
         return combineLatest([
@@ -29,3 +29,5 @@ export class CheckoutOrderService {
     );
   }
 }
+
+

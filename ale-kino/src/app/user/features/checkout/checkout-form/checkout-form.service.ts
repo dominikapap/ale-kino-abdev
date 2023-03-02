@@ -35,7 +35,8 @@ export class CheckoutFormService {
   ) {
     if (couponCode) {
       return this.couponCodeService
-        .updateSelectedCouponCode({ active: false }).pipe(
+        .updateSelectedCouponCode({ active: false })
+        .pipe(
           switchMap((coupon) => {
             return this.orderService.updateOrder(orderId, {
               customerInfo: this.getCustomerFormInfo(formGroup),

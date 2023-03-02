@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
 import { BlikPaymentComponent } from '.';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { BlikCodeDirective } from 'src/app/shared/directives/blik-code.directive';
-import { BlikPaymentService } from './blik-payment/blik-payment.service';
+import { NumbersOnlyDirective } from 'src/app/shared/directives';
 
 @NgModule({
   declarations: [BlikPaymentComponent],
@@ -15,7 +14,7 @@ import { BlikPaymentService } from './blik-payment/blik-payment.service';
     CommonModule,
     MatButtonModule,
     MatInputModule,
-    BlikCodeDirective,
+    NumbersOnlyDirective,
     RouterModule.forChild([
       {
         path: '',

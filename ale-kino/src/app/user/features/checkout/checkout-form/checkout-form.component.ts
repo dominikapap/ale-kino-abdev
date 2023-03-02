@@ -1,10 +1,8 @@
+import { ScreeningsApiService } from 'src/app/admin/screenings';
 import { CheckoutFormService } from './checkout-form.service';
 import { couponCodeValidator } from './codeValidator';
-import { Router } from '@angular/router';
-import {
-  ScreeningRoomStateService,
-  CouponCodesService,
-} from 'src/app/services';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CouponCodesService, OrdersService } from 'src/app/services';
 import { Subscription } from 'rxjs';
 import {
   ChangeDetectionStrategy,
@@ -25,11 +23,17 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckoutFormComponent implements OnInit {
-  protected screeningRoomStateService = inject(ScreeningRoomStateService);
   private couponCodesService = inject(CouponCodesService);
   private builder = inject(NonNullableFormBuilder);
   private router = inject(Router);
+  protected activatedRoute = inject(ActivatedRoute);
   private checkoutFormService = inject(CheckoutFormService);
+  protected orderId$ = inject(OrdersService).getOrderIdFromRoute(
+    this.activatedRoute
+  );
+  protected screeningId$ = inject(ScreeningsApiService).getScreeningIdFromRoute(
+    this.activatedRoute
+  );
 
   private readonly MIN_FIRST_NAME_LENGTH = 2;
   private readonly MIN_LAST_NAME_LENGTH = 2;

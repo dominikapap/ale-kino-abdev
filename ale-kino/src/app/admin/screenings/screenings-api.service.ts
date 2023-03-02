@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 import { Room } from 'src/app/services';
 import { Movie } from '../movies';
 
@@ -85,5 +87,14 @@ export class ScreeningsApiService {
       month = '0' + month;
     }
     return `${date}-${month}-${year}`;
+  }
+
+  getScreeningIdFromRoute(route: ActivatedRoute) {
+    return route.paramMap.pipe(
+      map((params) => {
+        const screeningId: string = <string>params.get('screeningId');
+        return screeningId;
+      })
+    );
   }
 }

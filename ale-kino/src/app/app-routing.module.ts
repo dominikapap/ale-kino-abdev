@@ -38,7 +38,7 @@ const routes: Routes = [
         canActivate: [customerRoleGuard],
       },
       {
-        path: 'checkout/:id',
+        path: 'checkout/:screeningId/:orderId',
         loadChildren: () => import('./user/features/checkout/checkout.module'),
         canActivate: [customerRoleGuard],
       },

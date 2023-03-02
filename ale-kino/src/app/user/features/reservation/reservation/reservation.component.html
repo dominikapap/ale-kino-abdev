@@ -16,6 +16,16 @@
     ></app-screening-room>
     <app-seat-ticket></app-seat-ticket>
 
-    <a mat-raised-button color="accent" [routerLink]="'/checkout/' + roomState.ticketState.notCheckedOutOrderId" class="checkout-link">Przejdź do zamówienia</a>
+    <a
+      mat-raised-button
+      color="accent"
+      [routerLink]="[
+        '/checkout/',
+        roomState.screeningDetails?.id,
+        roomState.ticketState.notCheckedOutOrderId
+      ]"
+      class="checkout-link"
+      >Przejdź do zamówienia</a
+    >
   </div>
 </div>

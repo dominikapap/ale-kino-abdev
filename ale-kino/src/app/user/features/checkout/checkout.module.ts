@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgIf, AsyncPipe, NgFor, CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { NumbersOnlyDirective } from 'src/app/shared/directives';
 
 @NgModule({
   declarations: [CheckoutFormComponent, CheckoutOrderComponent],
@@ -20,6 +21,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatInputModule,
     MatSlideToggleModule,
     CommonModule,
+    NumbersOnlyDirective,
     RouterModule.forChild([
       {
         path: '',

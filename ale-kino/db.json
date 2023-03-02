@@ -698,6 +698,32 @@
       "usersId": "1",
       "screeningsId": 11,
       "isCheckedOut": false
+    },
+    {
+      "id": "b973498f-33cc-4418-b0a1-1883c36e9a4a",
+      "usersId": "1",
+      "screeningsId": 8,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "9698cc46-dc23-4337-89b8-ab99026b6cce",
+      "usersId": "1",
+      "screeningsId": 8,
+      "isCheckedOut": false,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
     }
   ],
   "tickets": [
@@ -916,6 +942,51 @@
       },
       "ticketTypesId": 1,
       "id": 76
+    },
+    {
+      "ordersId": "b973498f-33cc-4418-b0a1-1883c36e9a4a",
+      "seat": {
+        "row": "F",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 77
+    },
+    {
+      "ordersId": "b973498f-33cc-4418-b0a1-1883c36e9a4a",
+      "seat": {
+        "row": "E",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 3,
+      "id": 78
+    },
+    {
+      "ordersId": "b973498f-33cc-4418-b0a1-1883c36e9a4a",
+      "seat": {
+        "row": "F",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 79
+    },
+    {
+      "ordersId": "9698cc46-dc23-4337-89b8-ab99026b6cce",
+      "seat": {
+        "row": "G",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 80
+    },
+    {
+      "ordersId": "9698cc46-dc23-4337-89b8-ab99026b6cce",
+      "seat": {
+        "row": "G",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 81
     }
   ],
   "couponCodes": [

@@ -3,16 +3,14 @@
     {{ "podsumowanie zamówienia" | uppercase }}
   </div>
 
-  <div
-    class="checkout__container"
-    *ngIf="screeningRoomStateService.screeningRoomState$ | async as roomState"
-  >
+  <div class="checkout__container">
     <app-checkout-order></app-checkout-order>
 
     <form
+      *ngIf="orderId$ | async as orderId"
       [formGroup]="checkoutForm"
       class="checkout-form"
-      (ngSubmit)="sendForm((roomState.ticketState.notCheckedOutOrderId!))"
+      (ngSubmit)="sendForm(orderId)"
     >
       <mat-form-field appearance="fill">
         <mat-label>Imię</mat-label>
@@ -47,6 +45,8 @@
           matInput
           placeholder="Numer telefonu"
           formControlName="phoneNumber"
+          numbers-only
+          [maxInputLength]="9"
         />
         <mat-error *ngIf="phoneNumberCtrl.invalid">{{
           getPhoneNumberErrorMessage()
@@ -79,7 +79,10 @@
         }}</mat-error>
       </mat-form-field>
 
-      <mat-slide-toggle formControlName="newsletter" color="accent" class="checkout-form__slide"
+      <mat-slide-toggle
+        formControlName="newsletter"
+        color="accent"
+        class="checkout-form__slide"
         >Chcę otrzymywać informację o zniżkach, promocjach itp</mat-slide-toggle
       >
 
@@ -105,7 +108,11 @@
       </button>
     </form>
 
-    <a class="checkout__return" [routerLink]="'/reservation/' + roomState.screeningDetails?.id">Powrót do rezerwacji</a>
+    <a
+      *ngIf="screeningId$ | async as screeningId"
+      class="checkout__return"
+      [routerLink]="'/reservation/' + screeningId"
+      >Powrót do rezerwacji</a
+    >
   </div>
-
 </div>

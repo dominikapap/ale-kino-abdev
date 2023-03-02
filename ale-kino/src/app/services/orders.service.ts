@@ -42,7 +42,9 @@ export class OrdersService {
   }
 
   getUserOrderHistory(userId: string) {
-    return this.http.get<Order[]>(`/orders?isCheckedOut=true&usersId=${userId}`);
+    return this.http.get<Order[]>(
+      `/orders?isCheckedOut=true&usersId=${userId}`
+    );
   }
 
   createScreeningOrder(screeningId: number, userId: string) {
@@ -105,12 +107,14 @@ export class OrdersService {
   getOrderDetailsByRouteId(route: ActivatedRoute) {
     return route.paramMap.pipe(
       switchMap((params) => {
-        const orderId: string = <string>params.get('id');
+        const orderId: string = <string>params.get('orderId');
         return this.getOrderById(orderId);
       }),
       switchMap(([order]) => {
-        const screeningDetails$ = this.screeningsService.getScreeningDetailsById(order.screeningsId);
-        const orderTickets$ = this.ticketsService.getAllOrderTicketsWithFullInfo(order.id);
+        const screeningDetails$ =
+          this.screeningsService.getScreeningDetailsById(order.screeningsId);
+        const orderTickets$ =
+          this.ticketsService.getAllOrderTicketsWithFullInfo(order.id);
         return combineLatest([screeningDetails$, orderTickets$]);
       }),
       map(([[screeningDetails], orderTickets]) => {
@@ -118,6 +122,15 @@ export class OrdersService {
           screeningDetails,
           orderTickets,
         };
+      })
+    );
+  }
+
+  getOrderIdFromRoute(route: ActivatedRoute) {
+    return route.paramMap.pipe(
+      map((params) => {
+        const orderId: string = <string>params.get('orderId');
+        return orderId;
       })
     );
   }
