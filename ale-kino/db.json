@@ -994,7 +994,7 @@
       "id": 1,
       "name": "supercheap123",
       "discount": 0.2,
-      "active": false
+      "active": true
     },
     {
       "id": 2,

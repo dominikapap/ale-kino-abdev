@@ -4,9 +4,10 @@ import {
   CouponCodesService,
 } from './../../../../services';
 import { inject, Injectable } from '@angular/core';
-import { switchMap, tap } from 'rxjs';
+import { EMPTY, switchMap, tap } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserStateService } from 'src/app/core/user.state.service';
+import { SnackbarService } from 'src/app/shared/services';
 
 export type CheckoutForm = {
   firstName: FormControl<string>;
@@ -25,8 +26,7 @@ export class CheckoutFormService {
   private couponCodeService = inject(CouponCodesService);
   private orderService = inject(OrdersService);
   private userState = inject(UserStateService);
-
-  constructor() {}
+  private snackbarService = inject(SnackbarService);
 
   sendFormData(
     orderId: string,
@@ -78,11 +78,36 @@ export class CheckoutFormService {
     return discountCode.statusChanges.pipe(
       switchMap((status) => {
         if (status === 'VALID') {
-          return this.couponCodeService.setCouponCodeDiscount(
-            discountCode.value
+          return this.couponCodeService
+            .setCouponCodeDiscount(discountCode.value)
+            .pipe(
+              tap((coupon) => {
+                console.log('coupon state:', coupon);
+                this.snackbarService.openSnackBar(
+                  'Kupon został aktywowany pomyślnie!',
+                  5000
+                );
+              })
+            );
+        } else {
+          this.couponCodeService.resetCouponState();
+          return EMPTY;
+        }
+      })
+    );
+  }
+
+  couponActivationMessage(formControl: FormControl<string>) {
+    return formControl.valueChanges.pipe(
+      tap(() => {
+        if (
+          (formControl.touched && formControl.valid, formControl.value !== '')
+        ) {
+          this.snackbarService.openSnackBar(
+            'Kupon został aktywowany pomyślnie!',
+            5000
           );
         }
-        return '';
       })
     );
   }

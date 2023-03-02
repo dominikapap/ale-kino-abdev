@@ -39,6 +39,7 @@ export class CheckoutFormComponent implements OnInit {
   private readonly MIN_LAST_NAME_LENGTH = 2;
   private readonly MAX_FIRST_NAME_LENGTH = 30;
   private readonly MAX_LAST_NAME_LENGTH = 30;
+  private readonly EMAIL_REGEX_PATTERN = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   checkoutForm = this.createForm();
   subscriptions = new Subscription();
 
@@ -81,10 +82,18 @@ export class CheckoutFormComponent implements OnInit {
         validators: [Validators.pattern(/^\d{9}$/), Validators.maxLength(20)],
       }),
       email: this.builder.control('', {
-        validators: [Validators.required, Validators.email],
+        validators: [
+          Validators.required,
+          Validators.email,
+          Validators.pattern(this.EMAIL_REGEX_PATTERN),
+        ],
       }),
       emailRepeat: this.builder.control('', {
-        validators: [Validators.required, Validators.email],
+        validators: [
+          Validators.required,
+          Validators.email,
+          Validators.pattern(this.EMAIL_REGEX_PATTERN),
+        ],
       }),
       newsletter: this.builder.control(false),
       discountCode: this.builder.control('', {
@@ -143,10 +152,13 @@ export class CheckoutFormComponent implements OnInit {
   ) {
     if (formControl.hasError('required')) {
       return 'To pole jest obowiązkowe';
+    } else if (formControl.hasError('minlength')) {
+      return `Podane ${fieldName} jest zbyt krótkie`;
+    } else if (formControl.hasError('maxlength')) {
+      return `Podane ${fieldName} jest zbyt długie`;
+    } else {
+      return '';
     }
-    return formControl.hasError('maxLength')
-      ? ''
-      : `Podane ${fieldName} jest zbyt długie`;
   }
 
   getPhoneNumberErrorMessage() {
@@ -156,8 +168,9 @@ export class CheckoutFormComponent implements OnInit {
   getEmailErrorMessage() {
     if (this.emailCtrl.hasError('required')) {
       return 'To pole jest obowiązkowe';
+    } else {
+      return 'Podany adres email jest niepoprawny';
     }
-    return this.emailCtrl.hasError('email') ? 'Nieprawidłowy adres email' : '';
   }
 
   getCouponCodeErrorMessage() {

@@ -19,6 +19,7 @@
           matInput
           placeholder="Imię"
           formControlName="firstName"
+          letters-only
         />
         <mat-error *ngIf="firstNameCtrl.invalid">{{
           getNameErrorMessage(firstNameCtrl, "Imię")
@@ -32,6 +33,7 @@
           matInput
           placeholder="Nazwisko"
           formControlName="lastName"
+          letters-only
         />
         <mat-error *ngIf="lastNameCtrl.invalid">{{
           getNameErrorMessage(lastNameCtrl, "Nazwisko")

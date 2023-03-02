@@ -49,6 +49,10 @@ export class CouponCodesService {
     );
   }
 
+  resetCouponState(){
+    this.patchState(defaultCouponCodeState);
+  }
+
   getCouponCodeByName(couponCodeName: string) {
     return this.http.get<CouponCode[]>(`/couponCodes?name=${couponCodeName}`);
   }
