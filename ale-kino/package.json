@@ -8,7 +8,7 @@
     "server": "json-server db.json --watch -m ./node_modules/json-server-auth -r routes.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "jest --no-cache"
   },
   "private": true,
   "dependencies": {
@@ -29,7 +29,11 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@ngrx/effects": "^15.3.0",
     "@ngrx/store": "^15.3.0",
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.14.4",
     "date-fns": "^2.29.3",
+    "jest": "^29.4.3",
+    "jest-preset-angular": "^13.0.0",
     "ngx-mat-timepicker": "^15.1.4",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
@@ -40,16 +44,16 @@
     "@angular-devkit/build-angular": "^15.1.0",
     "@angular/cli": "~15.1.0",
     "@angular/compiler-cli": "^15.1.0",
-    "@types/jasmine": "~4.0.0",
     "@types/uuid": "^9.0.1",
-    "jasmine-core": "~4.3.0",
     "json-server": "^0.17.1",
     "json-server-auth": "^2.1.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~4.9.4"
+  },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupFilesAfterEnv": [
+      "<rootDir>/setup-jest.ts"
+    ],
+    "globalSetup": "jest-preset-angular/global-setup"
   }
 }
