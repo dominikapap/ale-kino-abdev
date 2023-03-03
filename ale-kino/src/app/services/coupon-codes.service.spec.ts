@@ -9,16 +9,7 @@ import {
 describe('CouponCodesService', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [
-        CouponCodesService,
-        // {
-        //   useValue: {
-        //     find(params:  ((value: CouponCode) => value) ) {
-        //       return params.value;
-        //     },
-        //   },
-        // },
-      ],
+      providers: [CouponCodesService],
       imports: [HttpClientTestingModule],
     });
   });
@@ -110,21 +101,30 @@ describe('CouponCodesService', () => {
     const service = TestBed.inject(EnvironmentInjector).get(CouponCodesService);
     const httpController = TestBed.inject(HttpTestingController);
 
-    const checkedCoupon: CouponCode = {
-      name: 'new-coupon',
-      discount: 0.3,
-      active: false,
-    };
+    const couponArray: CouponCode[] = [
+      {
+        name: 'new-coupon',
+        discount: 0.3,
+        active: true,
+      },
+      {
+        name: 'old-coupon',
+        discount: 0.8,
+        active: false,
+      },
+    ];
 
     service.checkIfCouponCodeValid('new-coupon').subscribe({
       next: (res) => {
-        expect(res).toEqual(checkedCoupon);
+        expect(res?.name).toEqual(couponArray[0].name);
+        expect(res?.discount).toEqual(couponArray[0].discount);
+        expect(res?.active).toEqual(couponArray[0].active);
         done();
       },
     });
 
     const req = httpController.expectOne(expectedUrl);
 
-    req.flush(checkedCoupon);
+    req.flush(couponArray);
   });
 });
