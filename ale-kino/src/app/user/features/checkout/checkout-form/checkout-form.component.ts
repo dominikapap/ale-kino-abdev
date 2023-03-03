@@ -26,8 +26,8 @@ export class CheckoutFormComponent implements OnInit {
   private couponCodesService = inject(CouponCodesService);
   private builder = inject(NonNullableFormBuilder);
   private router = inject(Router);
-  protected activatedRoute = inject(ActivatedRoute);
   private checkoutFormService = inject(CheckoutFormService);
+  protected activatedRoute = inject(ActivatedRoute);
   protected orderId$ = inject(OrdersService).getOrderIdFromRoute(
     this.activatedRoute
   );
@@ -105,13 +105,13 @@ export class CheckoutFormComponent implements OnInit {
     return form;
   }
 
-  sendForm(orderId: string) {
+  sendForm(orderId: string, screeningId: string) {
     this.checkoutForm.markAllAsTouched();
     if (this.checkoutForm.valid) {
       const sub = this.checkoutFormService
         .sendFormData(orderId, this.checkoutForm, this.couponCode())
         .subscribe(() => {
-          this.router.navigate(['/payment/' + orderId]);
+          this.router.navigate(['/payment/', screeningId, orderId]);
         });
       this.subscriptions.add(sub);
     }

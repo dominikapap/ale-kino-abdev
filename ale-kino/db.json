@@ -737,6 +737,19 @@
         "phoneNumber": "",
         "newsletter": false
       }
+    },
+    {
+      "id": "fd56ca90-2504-4eb9-8f03-409deed70eaa",
+      "usersId": "1",
+      "screeningsId": 5,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
     }
   ],
   "tickets": [
@@ -1036,6 +1049,33 @@
       },
       "ticketTypesId": 1,
       "id": 85
+    },
+    {
+      "ordersId": "fd56ca90-2504-4eb9-8f03-409deed70eaa",
+      "seat": {
+        "row": "H",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 86
+    },
+    {
+      "ordersId": "fd56ca90-2504-4eb9-8f03-409deed70eaa",
+      "seat": {
+        "row": "G",
+        "seatNumber": 8
+      },
+      "ticketTypesId": 1,
+      "id": 87
+    },
+    {
+      "ordersId": "fd56ca90-2504-4eb9-8f03-409deed70eaa",
+      "seat": {
+        "row": "H",
+        "seatNumber": 8
+      },
+      "ticketTypesId": 1,
+      "id": 88
     }
   ],
   "couponCodes": [

@@ -14,7 +14,7 @@ export class BlikPaymentService {
   handleSendForm(route: ActivatedRoute) {
     return route.paramMap.pipe(
       switchMap((params) => {
-        const orderId: string = <string>params.get('id');
+        const orderId: string = <string>params.get('orderId');
         if (orderId) {
           return this.ordersService.updateOrder(orderId, {
             isCheckedOut: true,

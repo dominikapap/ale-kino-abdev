@@ -4,6 +4,8 @@ import { Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { OrdersService } from 'src/app/services';
+import { ScreeningsApiService } from 'src/app/admin/screenings';
 
 @Component({
   selector: 'app-blik-payment',
@@ -14,6 +16,12 @@ export class BlikPaymentComponent {
   private builder = inject(NonNullableFormBuilder);
   private router = inject(Router);
   private activeRoute = inject(ActivatedRoute);
+  protected orderId$ = inject(OrdersService).getOrderIdFromRoute(
+    this.activeRoute
+  );
+  protected screeningId$ = inject(ScreeningsApiService).getScreeningIdFromRoute(
+    this.activeRoute
+  );
   private blikPaymentService = inject(BlikPaymentService);
   blikForm = this.createForm();
   subscriptions = new Subscription();

@@ -30,7 +30,12 @@
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 4em;
+    gap: 3.5em;
     flex: 1;
+  }
+
+  &__return {
+    color: inherit;
+    text-align: center;
   }
 }
