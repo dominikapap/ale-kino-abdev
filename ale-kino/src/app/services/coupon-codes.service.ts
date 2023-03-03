@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, map, pipe, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 
 export type CouponCode = {
   id?: number;
