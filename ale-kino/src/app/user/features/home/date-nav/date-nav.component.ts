@@ -1,5 +1,5 @@
 import { SelectedDateService } from '../../../../services';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DateInfoService, Day } from 'src/app/user/features/home/services/date-info.service';
 
 @Component({
@@ -7,24 +7,14 @@ import { DateInfoService, Day } from 'src/app/user/features/home/services/date-i
   templateUrl: './date-nav.component.html',
   styleUrls: ['./date-nav.component.scss'],
 })
-export class DateNavComponent implements OnInit {
-  constructor(
-    private selectedDateService: SelectedDateService,
-    private dateInfoService: DateInfoService
-  ) {}
+export class DateNavComponent  {
+  protected selectedDateService = inject(SelectedDateService);
+  protected dateInfoService = inject(DateInfoService);
 
-  currentWeekDays: Day[] = [];
-
-  ngOnInit(): void {
-    this.dateInfoService.currentWeekDates$.subscribe((currentWeekDays) => {
-      this.currentWeekDays = currentWeekDays;
-    });
-  }
-
-  getSelectedDay(dayOfTheWeek: string) {
+  getSelectedDay(dayOfTheWeek: string, currentWeekDays: Day[]) {
     let date: string = this.dateInfoService.getWeekDayDate(
       dayOfTheWeek,
-      this.currentWeekDays
+      currentWeekDays
     );
     this.selectedDateService.setDate(date);
   }
