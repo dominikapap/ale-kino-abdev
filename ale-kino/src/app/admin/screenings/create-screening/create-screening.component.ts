@@ -2,6 +2,7 @@ import { AutocompleteService } from './autocomplete.service';
 import { Room } from '../../../services';
 import { Component, inject, ViewChild } from '@angular/core';
 import {
+  FormControl,
   FormGroupDirective,
   NonNullableFormBuilder,
   Validators,
@@ -12,6 +13,7 @@ import { Movie } from '../../movies';
 import { Screening, ScreeningsApiService } from '../screenings-api.service';
 import { Store } from '@ngrx/store';
 import { ScreeningsActions } from '../store';
+import { timeslotValidator } from './timeslotValidator';
 
 @Component({
   selector: 'app-create-screening',
@@ -32,21 +34,28 @@ export default class CreateScreeningComponent {
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   private createForm() {
-    const form = this.builder.group({
-      movieInfo: this.builder.group({
-        movie: this.builder.control<string | Movie>('', Validators.required),
-      }),
-      roomInfo: this.builder.group({
-        room: this.builder.control<string | Room>('', Validators.required),
-      }),
-      dateInfo: this.builder.group({
-        date: this.builder.control('', Validators.required),
-        time: this.builder.control(
-          { value: '', disabled: true },
-          Validators.required
-        ),
-      }),
-    });
+    const form = this.builder.group(
+      {
+        movieInfo: this.builder.group({
+          movie: this.builder.control<string | Movie>('', Validators.required),
+        }),
+        roomInfo: this.builder.group({
+          room: this.builder.control<string | Room>('', Validators.required),
+        }),
+        dateInfo: this.builder.group({
+          date: this.builder.control('', Validators.required),
+          time: this.builder.control(
+            { value: '', disabled: true },
+            Validators.required
+          ),
+        }),
+      },
+      {
+        asyncValidators: [
+          timeslotValidator(this.screeningsService),
+        ],
+      }
+    );
 
     return form;
   }
@@ -99,7 +108,7 @@ export default class CreateScreeningComponent {
     return <Room>this.screeningForm.value.roomInfo?.room;
   }
 
-  get dateValue() {
+  get dateValue(): string {
     return <string>this.screeningForm.value.dateInfo?.date;
   }
 
