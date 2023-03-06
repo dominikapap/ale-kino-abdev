@@ -2,7 +2,6 @@ import { AutocompleteService } from './autocomplete.service';
 import { Room } from '../../../services';
 import { Component, inject, ViewChild } from '@angular/core';
 import {
-  FormControl,
   FormGroupDirective,
   NonNullableFormBuilder,
   Validators,
@@ -51,9 +50,7 @@ export default class CreateScreeningComponent {
         }),
       },
       {
-        asyncValidators: [
-          timeslotValidator(this.screeningsService),
-        ],
+        asyncValidators: [timeslotValidator()],
       }
     );
 
