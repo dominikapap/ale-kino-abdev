@@ -6,8 +6,8 @@ import { SnackbarService } from 'src/app/shared/services';
 import { inject } from '@angular/core';
 
 export function timeslotValidator(): AsyncValidatorFn {
-  const screeningsService = inject(ScreeningsApiService)
-  const snackbarService = inject(SnackbarService)
+  const screeningsService = inject(ScreeningsApiService);
+  const snackbarService = inject(SnackbarService);
   return (control: AbstractControl) => {
     if (control.value.dateInfo.time) {
       const { roomInfo, dateInfo, movieInfo } = control.value;
@@ -30,12 +30,12 @@ export function timeslotValidator(): AsyncValidatorFn {
                 screening.movies.length
               );
               if (
-                (selectedTimeslot.startTime > takenTimeslot.startTime &&
-                  selectedTimeslot.startTime < takenTimeslot.endTime) ||
-                (selectedTimeslot.endTime > takenTimeslot.startTime &&
-                  selectedTimeslot.endTime < takenTimeslot.endTime) ||
-                (selectedTimeslot.startTime < takenTimeslot.startTime &&
-                  selectedTimeslot.endTime > takenTimeslot.endTime)
+                (selectedTimeslot.startTime >= takenTimeslot.startTime &&
+                  selectedTimeslot.startTime <= takenTimeslot.endTime) ||
+                (selectedTimeslot.endTime >= takenTimeslot.startTime &&
+                  selectedTimeslot.endTime <= takenTimeslot.endTime) ||
+                (selectedTimeslot.startTime <= takenTimeslot.startTime &&
+                  selectedTimeslot.endTime >= takenTimeslot.endTime)
               ) {
                 return screening;
               } else {

@@ -478,6 +478,20 @@
       "roomsId": 1,
       "moviesId": 1,
       "id": 28
+    },
+    {
+      "date": "06-03-2023",
+      "time": "15:00",
+      "roomsId": 1,
+      "moviesId": 1,
+      "id": 29
+    },
+    {
+      "date": "06-03-2023",
+      "time": "17:30",
+      "roomsId": 1,
+      "moviesId": 1,
+      "id": 30
     }
   ],
   "orders": [
