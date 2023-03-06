@@ -4,8 +4,16 @@
   </div>
 
   <div class="blik-payment__container">
-    <img class="blik-payment__image" src="https://blik.com/layout/default/dist/gfx/logo/logo.svg" alt="" />
-    <form [formGroup]="blikForm" class="blik-payment__form" (ngSubmit)="sendForm()">
+    <img
+      class="blik-payment__image"
+      src="https://blik.com/layout/default/dist/gfx/logo/logo.svg"
+      alt=""
+    />
+    <form
+      [formGroup]="blikForm"
+      class="blik-payment__form"
+      (ngSubmit)="sendForm()"
+    >
       <mat-form-field appearance="fill">
         <mat-label>Kod Blik</mat-label>
         <input
@@ -20,14 +28,23 @@
         }}</mat-error>
       </mat-form-field>
       <button
-      [disabled]="!blikForm.valid"
-      mat-raised-button
-      class="blik-payment__button"
-      color="accent"
-      type="submit"
-    >
-      Zamawiam
-    </button>
+        [disabled]="!blikForm.valid"
+        mat-raised-button
+        class="blik-payment__button"
+        color="accent"
+        type="submit"
+      >
+        Zamawiam
+      </button>
     </form>
+    <ng-container *ngIf="screeningId$ | async as screeningId"
+      ><ng-container *ngIf="orderId$ | async as orderId">
+        <a
+          class="blik-payment__return"
+          [routerLink]="'/checkout/' + screeningId + '/' + orderId"
+          >Powrót do rezerwacji</a
+        ></ng-container
+      ></ng-container
+    >
   </div>
 </div>

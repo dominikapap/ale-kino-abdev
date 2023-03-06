@@ -3,14 +3,14 @@
     {{ "podsumowanie zamówienia" | uppercase }}
   </div>
 
-  <div class="checkout__container">
+  <div class="checkout__container"  *ngIf="screeningId$ | async as screeningId">
     <app-checkout-order></app-checkout-order>
 
     <form
       *ngIf="orderId$ | async as orderId"
       [formGroup]="checkoutForm"
       class="checkout-form"
-      (ngSubmit)="sendForm(orderId)"
+      (ngSubmit)="sendForm(orderId, screeningId)"
     >
       <mat-form-field appearance="fill">
         <mat-label>Imię</mat-label>
@@ -111,7 +111,6 @@
     </form>
 
     <a
-      *ngIf="screeningId$ | async as screeningId"
       class="checkout__return"
       [routerLink]="'/reservation/' + screeningId"
       >Powrót do rezerwacji</a

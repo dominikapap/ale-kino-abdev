@@ -43,7 +43,7 @@ const routes: Routes = [
         canActivate: [customerRoleGuard],
       },
       {
-        path: 'payment/:id',
+        path: 'payment/:screeningId/:orderId',
         loadChildren: () => import('./user/features/blik/blik.module'),
         canActivate: [customerRoleGuard],
       },

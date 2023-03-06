@@ -1,10 +1,20 @@
-<ul class="rounded__list">
-  <li
-    *ngFor="let day of currentWeekDays"
-    class="rounded__listItem"
-    [ngClass]="{'disabled': day.isPast}"
-    (click)="!day.isPast && getSelectedDay(day.dayOfTheWeek)"
+<ng-container
+  *ngIf="dateInfoService.currentWeekDates$ | async as currentWeekDays"
+>
+  <ul
+    class="rounded__list"
+    *ngIf="selectedDateService.selectedDateState$ | async as selectedDate"
   >
-    <p>{{ day.dayOfTheWeek }}</p>
-  </li>
-</ul>
+    <li
+      *ngFor="let day of currentWeekDays"
+      class="rounded__list-item"
+      [ngClass]="{
+        disabled: day.isPast,
+        active: day.date === selectedDate.date
+      }"
+      (click)="!day.isPast && getSelectedDay(day.dayOfTheWeek, currentWeekDays)"
+    >
+      <p>{{ day.dayOfTheWeek }}</p>
+    </li>
+  </ul>
+</ng-container>

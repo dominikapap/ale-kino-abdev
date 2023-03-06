@@ -71,7 +71,7 @@ export class DailyMoviesScreeningsService {
   }
 
   mergeMovieScreenings(dailyScreenings: MovieScreening[]) {
-    const formatedMovieData = new Map();
+    const formatedMovieData = new Map<number, DailyMovieScreenings>();
     dailyScreenings.forEach((screening) => {
       if (formatedMovieData.get(screening.moviesId) === undefined) {
         //create map entry for movie if it doesnt exist yet
@@ -81,7 +81,8 @@ export class DailyMoviesScreeningsService {
           screenings: [
             {
               id: screening.id,
-              roomId: screening.screeningRoomsId,
+              moviesId: screening.moviesId,
+              roomsId: screening.screeningRoomsId,
               date: screening.date,
               time: screening.time,
             },
@@ -89,9 +90,10 @@ export class DailyMoviesScreeningsService {
         });
       } else {
         //add a screening to an array for existing map entry for movie
-        formatedMovieData.get(screening.moviesId).screenings.push({
+        formatedMovieData.get(screening.moviesId)?.screenings.push({
           id: screening.id,
-          roomId: screening.screeningRoomsId,
+          moviesId: screening.moviesId,
+          roomsId: screening.screeningRoomsId,
           date: screening.date,
           time: screening.time,
         });

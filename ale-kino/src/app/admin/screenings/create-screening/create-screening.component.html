@@ -148,6 +148,9 @@
               >
                 watch_later
               </mat-icon>
+              <mat-error *ngIf="timeCtrl.invalid"
+                ><mat-icon>info</mat-icon> Pole Czas Rozpoczęcia jest wymagane
+              </mat-error>
             </mat-form-field>
             <ngx-mat-timepicker color="accent" #pickerB></ngx-mat-timepicker>
 
@@ -166,6 +169,7 @@
                 mat-raised-button
                 color="primary"
                 type="button"
+                [disabled]="screeningForm.hasError('timeslotTaken')"
               >
                 Dalej
               </button>
@@ -178,7 +182,7 @@
             <ul>
               <li>Tytuł Filmu: {{ movieValue.title }}</li>
               <li>Nazwa Sali: {{ roomValue.name }}</li>
-              <li>Data Seansu: {{ dateValue | date}}</li>
+              <li>Data Seansu: {{ dateValue | date }}</li>
               <li>Czas Rozpoczęcia Seansu: {{ timeValue }}</li>
             </ul>
 
