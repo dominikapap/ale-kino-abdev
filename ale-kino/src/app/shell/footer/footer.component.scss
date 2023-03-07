@@ -17,6 +17,9 @@
     @extend .app-container;
     box-sizing: border-box;
     display: flex;
+    flex-direction: column-reverse;
+    padding-top: 2em;
+    gap: 10px;
     justify-content: space-between;
     align-items: center;
     padding-left: 2em;
@@ -27,6 +30,8 @@
   &__navPage > ul {
     list-style: none;
     display: flex;
+    justify-content: center;
+    align-items: center;
 
     li {
       padding-left: 5px;
@@ -72,5 +77,16 @@
     border-top: 1px solid colors.$secondary-accent-color;
     padding-top: 1em;
     width: 100%;
+  }
+}
+
+@include breakpoints.media-md {
+
+  .footer {
+    &__nav {
+      flex-direction: row;
+      padding-top: 0;
+      gap: 0;
+    }
   }
 }

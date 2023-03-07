@@ -796,6 +796,19 @@
       "id": "a01b3b4f-a9bf-47ff-9c0c-a63e957d8aaf",
       "usersId": "1",
       "screeningsId": 4,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "fb342b96-74fc-4e38-969e-5361ff95a9d4",
+      "usersId": 1,
+      "screeningsId": 4,
       "isCheckedOut": false
     }
   ],
@@ -1213,6 +1226,42 @@
       },
       "ticketTypesId": 1,
       "id": 111
+    },
+    {
+      "ordersId": "a01b3b4f-a9bf-47ff-9c0c-a63e957d8aaf",
+      "seat": {
+        "row": "D",
+        "seatNumber": 4
+      },
+      "ticketTypesId": 1,
+      "id": 112
+    },
+    {
+      "ordersId": "a01b3b4f-a9bf-47ff-9c0c-a63e957d8aaf",
+      "seat": {
+        "row": "D",
+        "seatNumber": 5
+      },
+      "ticketTypesId": 1,
+      "id": 113
+    },
+    {
+      "ordersId": "fb342b96-74fc-4e38-969e-5361ff95a9d4",
+      "seat": {
+        "row": "F",
+        "seatNumber": 4
+      },
+      "ticketTypesId": 1,
+      "id": 114
+    },
+    {
+      "ordersId": "fb342b96-74fc-4e38-969e-5361ff95a9d4",
+      "seat": {
+        "row": "E",
+        "seatNumber": 8
+      },
+      "ticketTypesId": 1,
+      "id": 115
     }
   ],
   "couponCodes": [
