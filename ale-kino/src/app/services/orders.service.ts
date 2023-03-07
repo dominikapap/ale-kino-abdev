@@ -74,7 +74,7 @@ export class OrdersService {
 
   getNotCheckedOutUserScreeningOrder(screeningId: number, userId: string) {
     return this.http.get<Order[]>(
-      `/orders?screeningsId=${screeningId}&userId=${userId}&isCheckedOut=false`
+      `/orders?screeningsId=${screeningId}&usersId=${userId}&isCheckedOut=false`
     );
   }
 

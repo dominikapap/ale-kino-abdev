@@ -778,6 +778,25 @@
         "phoneNumber": "",
         "newsletter": false
       }
+    },
+    {
+      "id": "aec303ee-c2c0-49cb-addf-aa50ebe6595f",
+      "usersId": "1",
+      "screeningsId": 4,
+      "isCheckedOut": true,
+      "customerInfo": {
+        "firstName": "Test",
+        "lastName": "Testowski",
+        "email": "test@test.pl",
+        "phoneNumber": "",
+        "newsletter": false
+      }
+    },
+    {
+      "id": "a01b3b4f-a9bf-47ff-9c0c-a63e957d8aaf",
+      "usersId": "1",
+      "screeningsId": 4,
+      "isCheckedOut": false
     }
   ],
   "tickets": [
@@ -1104,6 +1123,96 @@
       },
       "ticketTypesId": 1,
       "id": 88
+    },
+    {
+      "ordersId": "aec303ee-c2c0-49cb-addf-aa50ebe6595f",
+      "seat": {
+        "row": "E",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 89
+    },
+    {
+      "ordersId": "aec303ee-c2c0-49cb-addf-aa50ebe6595f",
+      "seat": {
+        "row": "E",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 90
+    },
+    {
+      "ordersId": "aec303ee-c2c0-49cb-addf-aa50ebe6595f",
+      "seat": {
+        "row": "F",
+        "seatNumber": 7
+      },
+      "ticketTypesId": 1,
+      "id": 91
+    },
+    {
+      "ordersId": "aec303ee-c2c0-49cb-addf-aa50ebe6595f",
+      "seat": {
+        "row": "F",
+        "seatNumber": 6
+      },
+      "ticketTypesId": 1,
+      "id": 92
+    },
+    {
+      "ordersId": "aec303ee-c2c0-49cb-addf-aa50ebe6595f",
+      "seat": {
+        "row": "C",
+        "seatNumber": 9
+      },
+      "ticketTypesId": 1,
+      "id": 101
+    },
+    {
+      "ordersId": "aec303ee-c2c0-49cb-addf-aa50ebe6595f",
+      "seat": {
+        "row": "D",
+        "seatNumber": 9
+      },
+      "ticketTypesId": 1,
+      "id": 102
+    },
+    {
+      "ordersId": "a01b3b4f-a9bf-47ff-9c0c-a63e957d8aaf",
+      "seat": {
+        "row": "E",
+        "seatNumber": 10
+      },
+      "ticketTypesId": 1,
+      "id": 108
+    },
+    {
+      "ordersId": "a01b3b4f-a9bf-47ff-9c0c-a63e957d8aaf",
+      "seat": {
+        "row": "E",
+        "seatNumber": 9
+      },
+      "ticketTypesId": 2,
+      "id": 109
+    },
+    {
+      "ordersId": "a01b3b4f-a9bf-47ff-9c0c-a63e957d8aaf",
+      "seat": {
+        "row": "F",
+        "seatNumber": 9
+      },
+      "ticketTypesId": 3,
+      "id": 110
+    },
+    {
+      "ordersId": "a01b3b4f-a9bf-47ff-9c0c-a63e957d8aaf",
+      "seat": {
+        "row": "F",
+        "seatNumber": 10
+      },
+      "ticketTypesId": 1,
+      "id": 111
     }
   ],
   "couponCodes": [

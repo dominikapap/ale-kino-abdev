@@ -43,7 +43,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Numer telefonu</mat-label>
         <input
-          type="email"
+          type="text"
           matInput
           placeholder="Numer telefonu"
           formControlName="phoneNumber"
@@ -62,9 +62,10 @@
           matInput
           placeholder="Email"
           formControlName="email"
+          trim-whitespace
         />
         <mat-error *ngIf="emailCtrl.invalid">{{
-          getEmailErrorMessage()
+          getEmailErrorMessage(emailCtrl)
         }}</mat-error>
       </mat-form-field>
 
@@ -75,9 +76,10 @@
           matInput
           placeholder="Email"
           formControlName="emailRepeat"
+          trim-whitespace
         />
         <mat-error *ngIf="emailRepeatCtrl.invalid">{{
-          getEmailErrorMessage()
+          getEmailErrorMessage(emailRepeatCtrl)
         }}</mat-error>
       </mat-form-field>
 
@@ -95,6 +97,7 @@
           matInput
           placeholder="Kod zniżkowy"
           formControlName="discountCode"
+          trim-whitespace
         />
         <mat-error *ngIf="discountCodeCtrl.invalid">{{
           getCouponCodeErrorMessage()

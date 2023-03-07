@@ -12,6 +12,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import AddMovieComponent from './add-movie/add-movie.component';
 import { moviesFeatureKey, moviesReducer, MoviesEffects } from './store';
 import { EffectsModule } from '@ngrx/effects';
+import { TrimDirective } from './../../shared/directives';
 
 @NgModule({
   declarations: [AddMovieComponent],
@@ -24,6 +25,7 @@ import { EffectsModule } from '@ngrx/effects';
     MatChipsModule,
     MatAutocompleteModule,
     CommonModule,
+    TrimDirective,
     StoreModule.forFeature(moviesFeatureKey, moviesReducer),
     EffectsModule.forFeature([MoviesEffects]),
     RouterModule.forChild([

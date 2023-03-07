@@ -2,6 +2,7 @@ import { AutocompleteService } from './autocomplete.service';
 import { Room } from '../../../services';
 import { Component, inject, ViewChild } from '@angular/core';
 import {
+  FormControl,
   FormGroupDirective,
   NonNullableFormBuilder,
   Validators,
@@ -13,6 +14,10 @@ import { Screening, ScreeningsApiService } from '../screenings-api.service';
 import { Store } from '@ngrx/store';
 import { ScreeningsActions } from '../store';
 import { timeslotValidator } from './timeslotValidator';
+import { movieTitleValidator } from './movieTitleValidator';
+import { selectedRoomValidator } from './selectedRoomValidator';
+
+
 
 @Component({
   selector: 'app-create-screening',
@@ -25,6 +30,8 @@ export default class CreateScreeningComponent {
   private screeningsService = inject(ScreeningsApiService);
   private store = inject(Store);
   private subscriptions = new Subscription();
+  private readonly MIN_LENGTH = 1;
+  private readonly NO_STARTING_WHITESPACE = /^(?!\s)/;
   screeningForm = this.createForm();
   filteredMovieOptions!: Observable<Movie[]>;
   filteredRoomOptions!: Observable<Room[]>;
@@ -36,10 +43,24 @@ export default class CreateScreeningComponent {
     const form = this.builder.group(
       {
         movieInfo: this.builder.group({
-          movie: this.builder.control<string | Movie>('', Validators.required),
+          movie: this.builder.control<string | Movie>('', {
+            validators: [
+              Validators.required,
+              Validators.minLength(this.MIN_LENGTH),
+              Validators.pattern(this.NO_STARTING_WHITESPACE)
+            ],
+            asyncValidators: [movieTitleValidator()],
+          }),
         }),
         roomInfo: this.builder.group({
-          room: this.builder.control<string | Room>('', Validators.required),
+          room: this.builder.control<string | Room>('',{
+            validators: [
+              Validators.required,
+              Validators.minLength(this.MIN_LENGTH),
+              Validators.pattern(this.NO_STARTING_WHITESPACE),
+              selectedRoomValidator()
+            ],
+          }),
         }),
         dateInfo: this.builder.group({
           date: this.builder.control('', Validators.required),
@@ -142,6 +163,45 @@ export default class CreateScreeningComponent {
   }
   displayRoomFn(room: Room): string {
     return room && room.name ? room.name : '';
+  }
+
+  getMovieErrorMessage() {
+    if (this.movieCtrl.hasError('required')) {
+      return 'To pole jest obowiązkowe';
+    }
+    if(this.movieCtrl.hasError('pattern')){
+      return `Podana nazwa jest niepoprawna`;
+    }
+    if(this.movieCtrl.hasError('noMatch')){
+      return 'Podany tytuł filmu nie istnieje'
+    }
+    if(this.movieCtrl.hasError('notFromList')){
+      return 'Proszę wybrać tytuł z listy filmów'
+    }
+    return '';
+  }
+
+  getRoomErrorMessage() {
+    if (this.roomCtrl.hasError('required')) {
+      return 'To pole jest obowiązkowe';
+    }
+    if(this.roomCtrl.hasError('pattern')){
+      return `Podana nazwa jest niepoprawna`;
+    }
+    if(this.roomCtrl.hasError('notFromList')){
+      return 'Proszę wybrać salę z listy sal'
+    }
+    return '';
+  }
+
+  getErrorMessage(control: FormControl) {
+    if (control.hasError('required')) {
+      return 'To pole jest obowiązkowe';
+    }
+    if(control.hasError('pattern')){
+      return `Podana nazwa jest niepoprawna`;
+    }
+    return '';
   }
 
   ngOnInit() {

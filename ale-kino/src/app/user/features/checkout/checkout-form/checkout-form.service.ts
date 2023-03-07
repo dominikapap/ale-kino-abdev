@@ -82,11 +82,14 @@ export class CheckoutFormService {
             .setCouponCodeDiscount(discountCode.value)
             .pipe(
               tap((coupon) => {
-                console.log('coupon state:', coupon);
-                this.snackbarService.openSnackBar(
-                  'Kupon został aktywowany pomyślnie!',
-                  5000
-                );
+                if (coupon.length > 0) {
+                  this.snackbarService.openSnackBar(
+                    'Kupon został aktywowany pomyślnie!',
+                    5000
+                  );
+                }else {
+                  this.couponCodeService.resetCouponState()
+                }
               })
             );
         } else {

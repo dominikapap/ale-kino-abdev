@@ -19,13 +19,14 @@
     <a
       mat-raised-button
       color="accent"
+      [disabled]="roomState.ticketState.selectedTickets.length === 0"
       [routerLink]="[
         '/checkout/',
         roomState.screeningDetails?.id,
         roomState.ticketState.notCheckedOutOrderId
       ]"
       class="checkout-link"
-      >Przejdź do zamówienia</a
+      >Przejdź do zamówienia </a
     >
   </div>
 </div>

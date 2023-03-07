@@ -15,6 +15,10 @@ import {
   NonNullableFormBuilder,
   Validators,
 } from '@angular/forms';
+import { matchEmailValidator } from './matchEmailValidator';
+
+
+
 
 @Component({
   selector: 'app-checkout-form',
@@ -39,7 +43,7 @@ export class CheckoutFormComponent implements OnInit {
   private readonly MIN_LAST_NAME_LENGTH = 2;
   private readonly MAX_FIRST_NAME_LENGTH = 30;
   private readonly MAX_LAST_NAME_LENGTH = 30;
-  private readonly EMAIL_REGEX_PATTERN = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  private readonly EMAIL_REGEX_PATTERN = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
   checkoutForm = this.createForm();
   subscriptions = new Subscription();
 
@@ -93,6 +97,7 @@ export class CheckoutFormComponent implements OnInit {
           Validators.required,
           Validators.email,
           Validators.pattern(this.EMAIL_REGEX_PATTERN),
+          matchEmailValidator('email'),
         ],
       }),
       newsletter: this.builder.control(false),
@@ -165,10 +170,12 @@ export class CheckoutFormComponent implements OnInit {
     return 'Podany numer telefonu jest nieprawidłowy';
   }
 
-  getEmailErrorMessage() {
-    if (this.emailCtrl.hasError('required')) {
+  getEmailErrorMessage(control: FormControl) {
+    if (control.hasError('required')) {
       return 'To pole jest obowiązkowe';
-    } else {
+    } else if(control.hasError('notMatch')){
+      return 'Podany adres email nie jest taki sam';
+    }else {
       return 'Podany adres email jest niepoprawny';
     }
   }
