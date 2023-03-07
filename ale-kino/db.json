@@ -778,6 +778,12 @@
         "phoneNumber": "",
         "newsletter": false
       }
+    },
+    {
+      "id": "de01691c-5b6e-42ba-a8c2-b45e6ed2278c",
+      "usersId": "1",
+      "screeningsId": 4,
+      "isCheckedOut": false
     }
   ],
   "tickets": [

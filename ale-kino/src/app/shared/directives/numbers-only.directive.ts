@@ -5,6 +5,7 @@ import {
   inject,
   Input,
 } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[numbers-only]',
@@ -16,6 +17,7 @@ export class NumbersOnlyDirective {
   private el: ElementRef<HTMLInputElement> = inject(
     ElementRef<HTMLInputElement>
   );
+  private control =  inject(NgControl);
 
   @HostListener('input', ['$event']) onInputChange() {
     this.el.nativeElement.setAttribute(
@@ -23,8 +25,10 @@ export class NumbersOnlyDirective {
       this.maxInputLength.toString()
     );
     const initialValue = this.el.nativeElement.value;
-    this.el.nativeElement.value = initialValue
+    const modifiedValue = initialValue
       .replace(/[^0-9]/g, '')
       .slice(0, this.maxInputLength);
+      this.el.nativeElement.value = modifiedValue;
+      this.control.control?.setValue(modifiedValue);
   }
 }

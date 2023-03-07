@@ -4,6 +4,7 @@ import {
   NonNullableFormBuilder,
   Validators,
   FormGroupDirective,
+  FormControl,
 } from '@angular/forms';
 import { Movie, MoviesApiService } from '..';
 import { Store } from '@ngrx/store';
@@ -26,6 +27,8 @@ export default class AddMovieComponent {
   protected ratings$ = this.movieService.getAllRatings();
   protected tags$ = this.movieService.getAllTags();
   subscriptions = new Subscription();
+  private readonly MIN_LENGTH = 1;
+  private readonly NO_STARTING_WHITESPACE = /^(?!\s)/;
 
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
@@ -53,10 +56,20 @@ export default class AddMovieComponent {
   private createForm() {
     const form = this.builder.group({
       title: this.builder.control('', {
-        validators: [Validators.required, Validators.maxLength(100)],
+        validators: [
+          Validators.required,
+          Validators.maxLength(100),
+          Validators.minLength(this.MIN_LENGTH),
+          Validators.pattern(this.NO_STARTING_WHITESPACE),
+        ],
       }),
       description: this.builder.control('', {
-        validators: [Validators.required, Validators.maxLength(3000)],
+        validators: [
+          Validators.required,
+          Validators.maxLength(3000),
+          Validators.minLength(this.MIN_LENGTH),
+          Validators.pattern(this.NO_STARTING_WHITESPACE),
+        ],
       }),
       tags: this.builder.control<string[]>([], {
         validators: [Validators.required],
@@ -71,7 +84,11 @@ export default class AddMovieComponent {
         validators: [Validators.required],
       }),
       image: this.builder.control('', {
-        validators: [Validators.required],
+        validators: [
+          Validators.required,
+          Validators.minLength(this.MIN_LENGTH),
+          Validators.pattern(this.NO_STARTING_WHITESPACE),
+        ],
       }),
     });
 
@@ -84,14 +101,12 @@ export default class AddMovieComponent {
       return;
     }
     if (this.screeningForm.valid) {
-      const {premiere, ...movieData} = this.screeningForm.getRawValue()
+      const { premiere, ...movieData } = this.screeningForm.getRawValue();
       const movie: Movie = {
         ...movieData,
-        premiere: premiere === 'true'
-      }
-      this.store.dispatch(
-        MoviesActions.addNewMovie(movie)
-      );
+        premiere: premiere === 'true',
+      };
+      this.store.dispatch(MoviesActions.addNewMovie(movie));
       this.formGroupDirective.resetForm();
     }
   }
@@ -118,7 +133,7 @@ export default class AddMovieComponent {
     return this.screeningForm.controls.image;
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
 }
