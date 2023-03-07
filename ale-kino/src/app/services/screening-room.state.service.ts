@@ -238,7 +238,6 @@ export class ScreeningRoomStateService {
     return this.authState$.pipe(
       switchMap((authState) => {
         if (authState.role === 'guest') {
-          console.log('role', authState.role)
           const guestUser: User = {
             id: uuidv4(),
             email: '',
