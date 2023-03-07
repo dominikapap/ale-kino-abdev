@@ -25,7 +25,7 @@
 .checkout__container {
   @extend .section-container;
   gap: 2em;
-  padding: 4em;
+  padding: 1em;
   margin-bottom: 4em;
 }
 
@@ -44,5 +44,11 @@
 
   &__button {
     align-self: flex-end;
+  }
+}
+
+@include breakpoints.media-md {
+  .checkout__container {
+    padding: 4em;
   }
 }
