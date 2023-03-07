@@ -91,4 +91,8 @@ export class MoviesApiService {
       })
     );
   }
+
+  getMovieByTitle(movieTitle: string) {
+    return this.http.get<Movie[]>(`/movies?title=${movieTitle}`);
+  }
 }

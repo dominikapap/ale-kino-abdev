@@ -14,6 +14,10 @@ import { Screening, ScreeningsApiService } from '../screenings-api.service';
 import { Store } from '@ngrx/store';
 import { ScreeningsActions } from '../store';
 import { timeslotValidator } from './timeslotValidator';
+import { movieTitleValidator } from './movieTitleValidator';
+import { selectedRoomValidator } from './selectedRoomValidator';
+
+
 
 @Component({
   selector: 'app-create-screening',
@@ -45,6 +49,7 @@ export default class CreateScreeningComponent {
               Validators.minLength(this.MIN_LENGTH),
               Validators.pattern(this.NO_STARTING_WHITESPACE)
             ],
+            asyncValidators: [movieTitleValidator()],
           }),
         }),
         roomInfo: this.builder.group({
@@ -52,7 +57,8 @@ export default class CreateScreeningComponent {
             validators: [
               Validators.required,
               Validators.minLength(this.MIN_LENGTH),
-              Validators.pattern(this.NO_STARTING_WHITESPACE)
+              Validators.pattern(this.NO_STARTING_WHITESPACE),
+              selectedRoomValidator()
             ],
           }),
         }),
@@ -157,6 +163,35 @@ export default class CreateScreeningComponent {
   }
   displayRoomFn(room: Room): string {
     return room && room.name ? room.name : '';
+  }
+
+  getMovieErrorMessage() {
+    if (this.movieCtrl.hasError('required')) {
+      return 'To pole jest obowiązkowe';
+    }
+    if(this.movieCtrl.hasError('pattern')){
+      return `Podana nazwa jest niepoprawna`;
+    }
+    if(this.movieCtrl.hasError('noMatch')){
+      return 'Podany tytuł filmu nie istnieje'
+    }
+    if(this.movieCtrl.hasError('notFromList')){
+      return 'Proszę wybrać tytuł z listy filmów'
+    }
+    return '';
+  }
+
+  getRoomErrorMessage() {
+    if (this.roomCtrl.hasError('required')) {
+      return 'To pole jest obowiązkowe';
+    }
+    if(this.roomCtrl.hasError('pattern')){
+      return `Podana nazwa jest niepoprawna`;
+    }
+    if(this.roomCtrl.hasError('notFromList')){
+      return 'Proszę wybrać salę z listy sal'
+    }
+    return '';
   }
 
   getErrorMessage(control: FormControl) {
