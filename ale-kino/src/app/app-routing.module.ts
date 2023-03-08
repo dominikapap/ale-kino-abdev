@@ -53,7 +53,7 @@ const routes: Routes = [
         canActivate: [customerRoleGuard],
       },
       {
-        path: 'order-details/:id',
+        path: 'order-details/:orderId',
         loadComponent: () => import('./user/features/user-profile/user-order-details/user-order-details.component'),
         canActivate: [customerRoleGuard],
       },
