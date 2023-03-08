@@ -19,7 +19,7 @@ import { UserProfilePageComponent } from '.';
             loadComponent: () => import('./user-orders/user-orders.component'),
           },
           {
-            path: 'orders/:id',
+            path: 'orders/:orderId',
             loadComponent: () => import('./user-order-details/user-order-details.component'),
           },
         ],
