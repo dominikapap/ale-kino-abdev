@@ -7,6 +7,7 @@ import { Component, inject } from '@angular/core';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent {
-  protected dailyScreeningsState$ = inject(DailyMoviesScreeningsService)
-    .dailyScreenings$;
+  protected dailyScreenings$ = inject(
+    DailyMoviesScreeningsService
+  ).getDailyScreeningsState();
 }

@@ -25,7 +25,7 @@
       [ngClass]="{ 'text-short': textShort }"
       #getHeight
     >
-      {{ movie.description }} {{ getHeight.offsetHeight }}
+      {{ movie.description }}
     </div>
     <div class="movie__details-more">
       <div class="hover-effect text-more" [ngClass]="{'text-more__hide': getHeight.offsetHeight < 60}" (click)="toggleTextLength()">

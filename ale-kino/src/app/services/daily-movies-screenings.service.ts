@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, switchMap, tap } from 'rxjs';
 import { SelectedDateService } from './selected-date.state.service';
 import { Movie } from '../admin/movies';
 import { Screening } from '../admin/screenings';
@@ -20,11 +20,13 @@ export interface DailyMovieScreenings {
   screenings: Screening[];
 }
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class DailyMoviesScreeningsService {
+  private http = inject(HttpClient);
+  private selectedDateService = inject(SelectedDateService);
+
   private dailyScreenings$$ = new BehaviorSubject<DailyMovieScreenings[]>([]);
 
   get dailyScreenings$() {
@@ -35,39 +37,28 @@ export class DailyMoviesScreeningsService {
     return this.dailyScreenings$$.value;
   }
 
-  constructor(
-    private http: HttpClient,
-    private selectedDateService: SelectedDateService
-  ) {
-    this.selectedDateService.selectedDateState$.subscribe(
-      (movieSelectionState) => {
-        this.getDailyScreenings(movieSelectionState.date)
-          .pipe(
-            map((response) => {
-              return Array.from(
-                this.mergeMovieScreenings(<MovieScreening[]>response).values()
-              );
-            })
-          )
-          .subscribe({
-            next: (response) => {
-              this.dailyScreenings$$.next(response);
-            },
-          });
-      }
+  getDailyScreeningsState() {
+    return this.selectedDateService.selectedDateState$.pipe(
+      switchMap((selectedDate) => {
+        return this.getDailyScreenings(selectedDate.date);
+      }),
+      map((response) => {
+        return Array.from(
+          this.mergeMovieScreenings(<MovieScreening[]>response).values()
+        );
+      }),
+      tap((nextDailyScreeningsState) => {
+        this.dailyScreenings$$.next(nextDailyScreeningsState);
+      })
     );
   }
 
   getScreeningDetails(screeningId: string) {
-    return this.http.get(
-      `/screenings?_expand=movies&id=${screeningId}`
-    );
+    return this.http.get(`/screenings?_expand=movies&id=${screeningId}`);
   }
 
   getDailyScreenings(date: string) {
-    return this.http.get(
-      `/screenings?_expand=movies&date=${date}`
-    );
+    return this.http.get(`/screenings?_expand=movies&date=${date}`);
   }
 
   mergeMovieScreenings(dailyScreenings: MovieScreening[]) {
