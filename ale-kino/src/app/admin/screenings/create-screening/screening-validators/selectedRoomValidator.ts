@@ -1,4 +1,3 @@
-import { inject } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export const selectedRoomValidator = (): ValidatorFn => {

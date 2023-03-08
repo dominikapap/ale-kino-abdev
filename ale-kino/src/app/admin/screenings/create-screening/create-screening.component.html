@@ -40,7 +40,7 @@
                 </mat-option>
               </mat-autocomplete>
               <mat-error *ngIf="movieCtrl.errors">
-                <mat-icon>info</mat-icon> {{getMovieErrorMessage()}}
+                <mat-icon>info</mat-icon> {{ getMovieErrorMessage() }}
               </mat-error>
             </mat-form-field>
 
@@ -85,7 +85,7 @@
                 </mat-option>
               </mat-autocomplete>
               <mat-error *ngIf="roomCtrl.errors">
-                <mat-icon>info</mat-icon> {{getRoomErrorMessage()}}
+                <mat-icon>info</mat-icon> {{ getRoomErrorMessage() }}
               </mat-error>
             </mat-form-field>
             <div class="nav-buttons">
@@ -121,6 +121,7 @@
                 [matDatepicker]="picker"
                 [formControl]="dateTimeCtrl"
                 placeholder="Data Rozpoczęcia"
+                date-characters
               />
               <mat-hint>MM/DD/RRRR</mat-hint>
               <mat-datepicker-toggle
@@ -128,8 +129,8 @@
                 [for]="picker"
               ></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="dateTimeCtrl.hasError('required')"
-                ><mat-icon>info</mat-icon> Pole Data Rozpoczęcia jest wymagane
+              <mat-error *ngIf="dateTimeCtrl.errors"
+                ><mat-icon>info</mat-icon> {{ getDateErrorMessage() }}
               </mat-error>
             </mat-form-field>
 
@@ -140,7 +141,7 @@
                 [format]="24"
                 [formControl]="timeCtrl"
                 [ngxMatTimepicker]="pickerB"
-                placeholder="08:00"
+                placeholder="Godzina Rozpoczęcia"
                 readonly
                 color="accent"
               />
@@ -150,8 +151,8 @@
               >
                 watch_later
               </mat-icon>
-              <mat-error *ngIf="timeCtrl.invalid"
-                ><mat-icon>info</mat-icon> Pole Czas Rozpoczęcia jest wymagane
+              <mat-error *ngIf="timeCtrl.errors"
+                ><mat-icon>info</mat-icon> {{ getTimeErrorMessage() }}
               </mat-error>
             </mat-form-field>
             <ngx-mat-timepicker color="accent" #pickerB></ngx-mat-timepicker>
@@ -171,7 +172,11 @@
                 mat-raised-button
                 color="primary"
                 type="button"
-                [disabled]="screeningForm.hasError('timeslotTaken') || dateTimeCtrl.errors || timeCtrl.errors"
+                [disabled]="
+                  screeningForm.hasError('timeslotTaken') ||
+                  dateTimeCtrl.errors ||
+                  timeCtrl.errors
+                "
               >
                 Dalej
               </button>

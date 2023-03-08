@@ -1,5 +1,4 @@
 import { SummaryService } from './summary.service';
-import { ScreeningRoomStateService } from 'src/app/services';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
