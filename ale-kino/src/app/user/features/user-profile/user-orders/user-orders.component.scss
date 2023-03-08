@@ -15,12 +15,25 @@
 
   &__navigation {
     @extend .section-container;
-    gap: 2em;
+    // gap: 2em;
     padding: 4em;
     margin-bottom: 4em;
 
     &__link {
       color: inherit;
+      padding: 1rem 1rem;
+      background-color: colors.$bg-color;
+    }
+
+    &__link:nth-child(odd) {
+      background-color: colors.$primary-color;
+    }
+
+    &__link:hover {
+      filter:brightness(140%)
+    }
+    &__link:nth-child(even):hover {
+      filter:brightness(180%)
     }
   }
 }

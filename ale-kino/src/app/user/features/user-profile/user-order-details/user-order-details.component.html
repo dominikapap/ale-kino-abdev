@@ -3,12 +3,12 @@
     {{ "Szczegóły zamówienia" | uppercase }}
   </div>
   <div class="order-details__tickets">
-    <div>
-      {{ orderDetails.screeningDetails.date }},
-      {{ orderDetails.screeningDetails.time }},
-      {{ orderDetails.screeningDetails.movies.title }}
+    <div class="order-details__tickets-title">
+      {{ orderDetails.screeningDetails.movies.title }} |
+      {{ orderDetails.screeningDetails.date }} |
+      {{ orderDetails.screeningDetails.time }}
     </div>
-    <div *ngFor="let ticket of orderDetails.orderTickets; let i = index">
+    <div class="order-details__ticket" *ngFor="let ticket of orderDetails.orderTickets; let i = index">
       Bilet {{ i + 1 }} Typ: {{ ticket.ticketTypes?.type }} Miejsce:
       {{ ticket.seat.row }} {{ ticket.seat.seatNumber }}
     </div>
