@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import { map, of } from 'rxjs';
-import { MoviesApiService } from '../../movies';
+import { MoviesApiService } from '../../../movies';
 
 export function movieTitleValidator(): AsyncValidatorFn {
   const moviesApiService = inject(MoviesApiService);

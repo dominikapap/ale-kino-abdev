@@ -13,11 +13,13 @@ import { Movie } from '../../movies';
 import { Screening, ScreeningsApiService } from '../screenings-api.service';
 import { Store } from '@ngrx/store';
 import { ScreeningsActions } from '../store';
-import { timeslotValidator } from './timeslotValidator';
-import { movieTitleValidator } from './movieTitleValidator';
-import { selectedRoomValidator } from './selectedRoomValidator';
-
-
+import {
+  timeslotValidator,
+  movieTitleValidator,
+  selectedRoomValidator,
+  dateValidator,
+  timeValidator,
+} from './screening-validators';
 
 @Component({
   selector: 'app-create-screening',
@@ -32,6 +34,7 @@ export default class CreateScreeningComponent {
   private subscriptions = new Subscription();
   private readonly MIN_LENGTH = 1;
   private readonly NO_STARTING_WHITESPACE = /^(?!\s)/;
+  private readonly IS_TIME_FORMAT = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
   screeningForm = this.createForm();
   filteredMovieOptions!: Observable<Movie[]>;
   filteredRoomOptions!: Observable<Room[]>;
@@ -47,26 +50,34 @@ export default class CreateScreeningComponent {
             validators: [
               Validators.required,
               Validators.minLength(this.MIN_LENGTH),
-              Validators.pattern(this.NO_STARTING_WHITESPACE)
+              Validators.pattern(this.NO_STARTING_WHITESPACE),
             ],
             asyncValidators: [movieTitleValidator()],
           }),
         }),
         roomInfo: this.builder.group({
-          room: this.builder.control<string | Room>('',{
+          room: this.builder.control<string | Room>('', {
             validators: [
               Validators.required,
               Validators.minLength(this.MIN_LENGTH),
               Validators.pattern(this.NO_STARTING_WHITESPACE),
-              selectedRoomValidator()
+              selectedRoomValidator(),
             ],
           }),
         }),
         dateInfo: this.builder.group({
-          date: this.builder.control('', Validators.required),
+          date: this.builder.control('', {
+            validators: [Validators.required, dateValidator()],
+          }),
           time: this.builder.control(
             { value: '', disabled: true },
-            Validators.required
+            {
+              validators: [
+                Validators.required,
+                Validators.pattern(this.IS_TIME_FORMAT),
+                timeValidator('date'),
+              ],
+            }
           ),
         }),
       },
@@ -169,14 +180,14 @@ export default class CreateScreeningComponent {
     if (this.movieCtrl.hasError('required')) {
       return 'To pole jest obowiązkowe';
     }
-    if(this.movieCtrl.hasError('pattern')){
+    if (this.movieCtrl.hasError('pattern')) {
       return `Podana nazwa jest niepoprawna`;
     }
-    if(this.movieCtrl.hasError('noMatch')){
-      return 'Podany tytuł filmu nie istnieje'
+    if (this.movieCtrl.hasError('noMatch')) {
+      return 'Podany tytuł filmu nie istnieje';
     }
-    if(this.movieCtrl.hasError('notFromList')){
-      return 'Proszę wybrać tytuł z listy filmów'
+    if (this.movieCtrl.hasError('notFromList')) {
+      return 'Proszę wybrać tytuł z listy filmów';
     }
     return '';
   }
@@ -185,11 +196,11 @@ export default class CreateScreeningComponent {
     if (this.roomCtrl.hasError('required')) {
       return 'To pole jest obowiązkowe';
     }
-    if(this.roomCtrl.hasError('pattern')){
+    if (this.roomCtrl.hasError('pattern')) {
       return `Podana nazwa jest niepoprawna`;
     }
-    if(this.roomCtrl.hasError('notFromList')){
-      return 'Proszę wybrać salę z listy sal'
+    if (this.roomCtrl.hasError('notFromList')) {
+      return 'Proszę wybrać salę z listy sal';
     }
     return '';
   }
@@ -198,8 +209,34 @@ export default class CreateScreeningComponent {
     if (control.hasError('required')) {
       return 'To pole jest obowiązkowe';
     }
-    if(control.hasError('pattern')){
+    if (control.hasError('pattern')) {
       return `Podana nazwa jest niepoprawna`;
+    }
+    return '';
+  }
+
+  getDateErrorMessage() {
+    if (this.dateTimeCtrl.hasError('required')) {
+      return 'To pole jest obowiązkowe';
+    }
+    if (this.dateTimeCtrl.hasError('pattern')) {
+      return `Podana data jest niepoprawna`;
+    }
+    if (this.dateTimeCtrl.hasError('pastDate')) {
+      return `Nie można wybrać daty, która już minęła`;
+    }
+    return '';
+  }
+
+  getTimeErrorMessage() {
+    if (this.timeCtrl.hasError('required')) {
+      return 'To pole jest obowiązkowe';
+    }
+    if (this.timeCtrl.hasError('pattern')) {
+      return `Podany czas jest niepoprawny`;
+    }
+    if (this.timeCtrl.hasError('pastTime')) {
+      return `Nie można wybrać czasu, który już minął`;
     }
     return '';
   }

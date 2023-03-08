@@ -1,10 +1,14 @@
 import { Subscription } from 'rxjs';
-import { Component, inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   NonNullableFormBuilder,
   Validators,
   FormGroupDirective,
-  FormControl,
 } from '@angular/forms';
 import { Movie, MoviesApiService } from '..';
 import { Store } from '@ngrx/store';
@@ -19,6 +23,7 @@ interface Premiere {
   selector: 'app-add-movie',
   templateUrl: './add-movie.component.html',
   styleUrls: ['./add-movie.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class AddMovieComponent {
   private builder = inject(NonNullableFormBuilder);
@@ -27,14 +32,19 @@ export default class AddMovieComponent {
   protected ratings$ = this.movieService.getAllRatings();
   protected tags$ = this.movieService.getAllTags();
   subscriptions = new Subscription();
-  private readonly MIN_LENGTH = 1;
-  private readonly NO_STARTING_WHITESPACE = /^(?!\s)/;
 
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
+  private readonly MIN_LENGTH = 1;
+  private readonly MAX_TITLE_LENGTH = 100;
+  protected readonly MAX_DESCRIPTION_LENGTH = 3000;
+  private readonly MAX_IMAGE_URL_LENGTH = 300;
+  protected readonly MIN_MOVIE_LENGTH = 1;
+  protected readonly MAX_MOVIE_LENGTH = 6000;
+  private readonly NO_STARTING_WHITESPACE = /^(?!\s)/;
+  private readonly NO_STARTING_ZERO_NUMBER = /^(?!0)/;
+
   screeningForm = this.createForm();
-  protected MIN_MOVIE_LENGTH = 0;
-  protected MAX_MOVIE_LENGTH = 6000;
   premiereOptions: Premiere[] = [
     { value: true, viewValue: 'Tak' },
     { value: false, viewValue: 'Nie' },
@@ -58,7 +68,7 @@ export default class AddMovieComponent {
       title: this.builder.control('', {
         validators: [
           Validators.required,
-          Validators.maxLength(100),
+          Validators.maxLength(this.MAX_TITLE_LENGTH),
           Validators.minLength(this.MIN_LENGTH),
           Validators.pattern(this.NO_STARTING_WHITESPACE),
         ],
@@ -66,7 +76,7 @@ export default class AddMovieComponent {
       description: this.builder.control('', {
         validators: [
           Validators.required,
-          Validators.maxLength(3000),
+          Validators.maxLength(this.MAX_DESCRIPTION_LENGTH),
           Validators.minLength(this.MIN_LENGTH),
           Validators.pattern(this.NO_STARTING_WHITESPACE),
         ],
@@ -78,7 +88,12 @@ export default class AddMovieComponent {
         validators: [Validators.required],
       }),
       length: this.builder.control('', {
-        validators: [Validators.required],
+        validators: [
+          Validators.required,
+          Validators.maxLength(this.MAX_MOVIE_LENGTH),
+          Validators.minLength(this.MIN_MOVIE_LENGTH),
+          Validators.pattern(this.NO_STARTING_ZERO_NUMBER),
+        ],
       }),
       premiere: this.builder.control('', {
         validators: [Validators.required],
@@ -87,6 +102,7 @@ export default class AddMovieComponent {
         validators: [
           Validators.required,
           Validators.minLength(this.MIN_LENGTH),
+          Validators.maxLength(this.MAX_IMAGE_URL_LENGTH),
           Validators.pattern(this.NO_STARTING_WHITESPACE),
         ],
       }),
@@ -131,6 +147,22 @@ export default class AddMovieComponent {
   }
   get imageCtrl() {
     return this.screeningForm.controls.image;
+  }
+
+  getLengthErrorMessage() {
+    if (this.lengthCtrl.hasError('required')) {
+      return 'Pole Czas Trwania jest wymagane';
+    }
+    if (this.lengthCtrl.hasError('min')) {
+      return `Podana długość filmu jest za krótka`;
+    }
+    if (this.lengthCtrl.hasError('max')) {
+      return 'Podana długość filmu jest za długa';
+    }
+    if (this.lengthCtrl.hasError('pattern')) {
+      return 'Długość filmu nie może zaczynać się od 0';
+    }
+    return '';
   }
 
   ngOnDestroy() {

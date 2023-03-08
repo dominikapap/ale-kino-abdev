@@ -810,6 +810,12 @@
       "usersId": 1,
       "screeningsId": 4,
       "isCheckedOut": false
+    },
+    {
+      "id": "3145e1d9-e52e-49d5-baae-fead967c0dd1",
+      "usersId": 1,
+      "screeningsId": 5,
+      "isCheckedOut": false
     }
   ],
   "tickets": [
@@ -1262,6 +1268,24 @@
       },
       "ticketTypesId": 1,
       "id": 115
+    },
+    {
+      "ordersId": "3145e1d9-e52e-49d5-baae-fead967c0dd1",
+      "seat": {
+        "row": "F",
+        "seatNumber": 8
+      },
+      "ticketTypesId": 1,
+      "id": 116
+    },
+    {
+      "ordersId": "3145e1d9-e52e-49d5-baae-fead967c0dd1",
+      "seat": {
+        "row": "F",
+        "seatNumber": 9
+      },
+      "ticketTypesId": 1,
+      "id": 117
     }
   ],
   "couponCodes": [

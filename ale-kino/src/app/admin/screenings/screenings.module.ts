@@ -17,7 +17,7 @@ import { ScreeningsEffects, screeningsFeatureKey, screeningsReducer } from './st
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { TrimDirective } from './../../shared/directives';
+import { TrimDirective, DateOnlyCharactersDirective } from './../../shared/directives';
 
 @NgModule({
   declarations: [CreateScreeningComponent],
@@ -36,6 +36,7 @@ import { TrimDirective } from './../../shared/directives';
     CommonModule,
     MatSnackBarModule,
     TrimDirective,
+    DateOnlyCharactersDirective,
     StoreModule.forFeature(screeningsFeatureKey, screeningsReducer),
     EffectsModule.forFeature([ScreeningsEffects]),
     RouterModule.forChild([
