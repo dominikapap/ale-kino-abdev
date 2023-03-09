@@ -20,8 +20,6 @@
 .login-form__input {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-
 }
 
 .login-form__input > input {
@@ -30,6 +28,9 @@
 
 .loginForm__errorMessage {
   color: red;
+  padding: 0;
+  margin: 0;
+  font-size: 0.8rem;
 }
 
 input.ng-touched.ng-invalid {

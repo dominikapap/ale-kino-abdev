@@ -17,9 +17,6 @@ import {
 } from '@angular/forms';
 import { matchEmailValidator } from './matchEmailValidator';
 
-
-
-
 @Component({
   selector: 'app-checkout-form',
   templateUrl: './checkout-form.component.html',

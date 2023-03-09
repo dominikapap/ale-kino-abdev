@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, UpperCasePipe } from '@angular/common';
+import { TrimDirective } from '../shared/directives';
 
 @NgModule({
   declarations: [LoginFormComponent],
@@ -13,6 +14,7 @@ import { CommonModule, UpperCasePipe } from '@angular/common';
     RouterModule,
     CommonModule,
     UpperCasePipe,
+    TrimDirective,
     RouterModule.forChild([
       {
         path: '',

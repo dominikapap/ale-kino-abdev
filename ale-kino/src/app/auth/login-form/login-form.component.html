@@ -3,21 +3,32 @@
   <form [formGroup]="loginForm" class="login-form" (ngSubmit)="login()">
     <div class="login-form__input">
       <label for="email">{{ "e-mail" | uppercase }}</label>
-      <input formControlName="email" type="email" id="email" (focus)="emailNotFocused=false" (focusout)="emailNotFocused=true"/>
+      <input
+        formControlName="email"
+        type="email"
+        id="email"
+        (focus)="emailNotFocused = false"
+        (focusout)="emailNotFocused = true"
+        trim-whitespace
+      />
       <ng-container *ngIf="emailCtrl.errors as errors">
         <ng-container *ngIf="emailCtrl.touched && emailNotFocused">
-          <p class="loginForm__errorMessage" *ngIf="errors['required']">
-            To pole jest obowiązkowe
-          </p>
-          <p class="loginForm__errorMessage" *ngIf="errors['email']">
-            Podany adres email jest nieprawidłowy
+          <p class="loginForm__errorMessage">
+            {{ getEmailErrorMessage() }}
           </p>
         </ng-container>
       </ng-container>
     </div>
     <div class="login-form__input">
       <label for="password">{{ "hasło" | uppercase }}</label>
-      <input formControlName="password" type="password" id="password"  (focus)="passwordNotFocused=false" (focusout)="passwordNotFocused=true"/>
+      <input
+        formControlName="password"
+        type="password"
+        id="password"
+        (focus)="passwordNotFocused = false"
+        (focusout)="passwordNotFocused = true"
+        trim-whitespace
+      />
       <ng-container *ngIf="passwordCtrl.errors as errors">
         <ng-container *ngIf="passwordCtrl.touched && passwordNotFocused">
           <p class="loginForm__errorMessage" *ngIf="errors['required']">
@@ -26,6 +37,9 @@
         </ng-container>
       </ng-container>
     </div>
-    <app-button [value]="'logowanie' | uppercase" (keyup.enter)="login()"></app-button>
+    <app-button
+      [value]="'logowanie' | uppercase"
+      (keyup.enter)="login()"
+    ></app-button>
   </form>
 </div>

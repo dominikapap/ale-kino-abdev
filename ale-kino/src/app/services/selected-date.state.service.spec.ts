@@ -26,7 +26,7 @@ describe('CouponCodesService', () => {
   it('set state', (done) => {
     const state = TestBed.inject(EnvironmentInjector).get(SelectedDateService);
 
-    const newDate: string = '04-03-2023';
+    const newDate: string = '09-03-2023';
     state.setDate(newDate);
     state.selectedDateState$.subscribe((date) => {
       expect(date).toEqual({date: newDate});
