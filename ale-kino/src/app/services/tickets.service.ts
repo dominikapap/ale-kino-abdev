@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, switchMap } from 'rxjs';
-import { Seat } from './rooms.service';
+import { Seat } from './rooms-api.service';
 
 export type Ticket = {
   id: number;

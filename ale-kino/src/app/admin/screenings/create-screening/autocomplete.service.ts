@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, map, Observable, startWith } from 'rxjs';
-import { Room, RoomsService } from 'src/app/services/rooms.service';
+import { Room, RoomsApiService } from 'src/app/services/rooms-api.service';
 import { Movie, MoviesApiService } from '../../movies';
 
 export type AutocompleteOptionsState = {
@@ -15,7 +15,7 @@ const defaultOptionsState: AutocompleteOptionsState = {
   movieOptions: [],
   roomOptions: [],
   filteredMovieOptions: new Observable<Movie[]>(),
-  filteredRoomOptions:  new Observable<Room[]>()
+  filteredRoomOptions: new Observable<Room[]>(),
 };
 
 @Injectable({
@@ -23,7 +23,7 @@ const defaultOptionsState: AutocompleteOptionsState = {
 })
 export class AutocompleteService {
   private moviesService = inject(MoviesApiService);
-  private roomsService = inject(RoomsService);
+  private roomsService = inject(RoomsApiService);
   constructor() {}
 
   private autocompleteOptionsStateState$$ =
@@ -74,7 +74,7 @@ export class AutocompleteService {
   }
 
   onChangeFilterRoomOptions(roomControl: FormControl) {
-    const filteredRoomOptions =  roomControl.valueChanges.pipe(
+    const filteredRoomOptions = roomControl.valueChanges.pipe(
       startWith(''),
       map((value) => {
         const name = typeof value === 'string' ? value : value?.name;
@@ -99,5 +99,4 @@ export class AutocompleteService {
       return this.onChangeFilterRoomOptions(roomControl);
     });
   }
-
 }

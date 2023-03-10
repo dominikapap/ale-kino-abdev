@@ -1,4 +1,4 @@
-import { RoomsService, Room } from './rooms.service';
+import { RoomsService, Room } from './rooms-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,

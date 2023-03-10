@@ -11,7 +11,7 @@
     <p class="screen">Ekran</p>
 
     <app-screening-room
-      [roomId]="screeningDetails.rooms.id"
+      [roomId]="screeningDetails.rooms.id!"
       [screeningRoomId]="screeningDetails.id"
     ></app-screening-room>
     <app-seat-ticket></app-seat-ticket>
@@ -26,7 +26,7 @@
         roomState.ticketState.notCheckedOutOrderId
       ]"
       class="checkout-link"
-      >Przejdź do zamówienia </a
-    >
+      >Przejdź do zamówienia
+    </a>
   </div>
 </div>

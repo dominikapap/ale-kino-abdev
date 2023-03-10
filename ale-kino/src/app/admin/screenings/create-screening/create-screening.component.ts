@@ -107,7 +107,7 @@ export default class CreateScreeningComponent {
     return {
       date: this.screeningsService.convertDateFormat(new Date(this.dateValue)),
       time: this.timeValue,
-      roomsId: this.roomValue.id,
+      roomsId: this.roomValue.id!,
       moviesId: <number>this.movieValue.id,
     };
   }
@@ -117,7 +117,7 @@ export default class CreateScreeningComponent {
       .pipe(
         switchMap((dateValue) => {
           return this.screeningsService.getDailyRoomScreeningDetails(
-            this.roomValue.id,
+            this.roomValue.id!,
             new Date(dateValue)
           );
         })

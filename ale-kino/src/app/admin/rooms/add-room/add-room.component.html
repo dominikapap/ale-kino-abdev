@@ -1,0 +1,87 @@
+<div class="add-room">
+  <div class="add-room__title admin-dashboard-title">
+    {{ "dodaj nową salę" | uppercase }}
+  </div>
+</div>
+
+<form class="add-room__form" [formGroup]="roomForm" (ngSubmit)="sendForm()">
+  <mat-form-field appearance="fill">
+    <mat-label>Nazwa sali</mat-label>
+    <input
+      type="text"
+      matInput
+      placeholder="Nazwa sali"
+      color="primary"
+      formControlName="name"
+      trim-whitespace
+    />
+    <mat-error *ngIf="nameCtrl.hasError('required')"
+      ><mat-icon>info</mat-icon> Pole nazwa jest wymagane
+    </mat-error>
+    <mat-error *ngIf="nameCtrl.hasError('nameTaken')"
+      ><mat-icon>info</mat-icon> Sala o takiej nazwie już istnieje
+    </mat-error>
+    <mat-error *ngIf="nameCtrl.hasError('maxlength')"
+      ><mat-icon>info</mat-icon> Maksymalna liczba znaków to
+      {{ nameCtrl.errors!["maxlength"]["requiredLength"] }}
+    </mat-error>
+    <mat-error *ngIf="nameCtrl.hasError('minlength')"
+      ><mat-icon>info</mat-icon> Minimalna liczba znaków to
+      {{ nameCtrl.errors!["minlength"]["requiredLength"] }}
+    </mat-error>
+    <mat-error *ngIf="nameCtrl.hasError('pattern')"
+      ><mat-icon>info</mat-icon> Podana nazwa jest nieprawidłowa
+    </mat-error>
+  </mat-form-field>
+  <div class="add-room__rows-and-cols">
+    <mat-form-field appearance="fill">
+      <mat-label>Liczba rzędów</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="Liczba rzędów"
+        color="primary"
+        formControlName="rows"
+        [min]="MIN_ROWS"
+        [max]="MAX_ROWS"
+        trim-whitespace
+      />
+      <mat-error *ngIf="rowsCtrl.hasError('required')"
+        ><mat-icon>info</mat-icon> Pole liczba rzędów jest wymagana
+      </mat-error>
+      <mat-error *ngIf="rowsCtrl.hasError('min')"
+        ><mat-icon>info</mat-icon> Minimalna liczba rzędów to
+        {{ MIN_ROWS }} </mat-error
+      ><mat-error *ngIf="rowsCtrl.hasError('max')"
+        ><mat-icon>info</mat-icon> Maksymalna liczba rzędów to {{ MAX_ROWS }}
+      </mat-error></mat-form-field
+    ><mat-form-field appearance="fill">
+      <mat-label>Liczba kolumn</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="Liczba kolumn"
+        color="primary"
+        formControlName="seats"
+        [min]="MIN_COLUMNS"
+        [max]="MAX_COLUMNS"
+        trim-whitespace
+      />
+      <mat-error *ngIf="seatsCtrl.hasError('required')"
+        ><mat-icon>info</mat-icon> Pole liczba kolumn jest wymagana </mat-error
+      ><mat-error *ngIf="seatsCtrl.hasError('min')"
+        ><mat-icon>info</mat-icon> Minimalna liczba kolumn to {{MIN_COLUMNS} </mat-error
+      ><mat-error *ngIf="seatsCtrl.hasError('max')"
+        ><mat-icon>info</mat-icon> Maksymalna liczba kolumn to {{ MAX_COLUMNS }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <button
+    type="submit"
+    mat-raised-button
+    color="accent"
+    class="form-button form-button--submit"
+  >
+    Dodaj Salę
+  </button>
+</form>

@@ -13,6 +13,15 @@ import {
 import { Movie, MoviesApiService } from '..';
 import { Store } from '@ngrx/store';
 import { MoviesActions } from '../store';
+import {
+  MIN_LENGTH,
+  NO_STARTING_WHITESPACE,
+  MAX_DESCRIPTION_LENGTH,
+  MAX_IMAGE_URL_LENGTH,
+  MAX_MOVIE_LENGTH,
+  NO_STARTING_ZERO_NUMBER,
+  MAX_TITLE_LENGTH,
+} from '../../shared/validators-constans';
 
 interface Premiere {
   value: boolean;
@@ -31,20 +40,14 @@ export default class AddMovieComponent {
   private store = inject(Store);
   protected ratings$ = this.movieService.getAllRatings();
   protected tags$ = this.movieService.getAllTags();
+  readonly MAX_DESCRIPTION_LENGTH = MAX_DESCRIPTION_LENGTH;
+  readonly MAX_MOVIE_LENGTH = MAX_MOVIE_LENGTH;
+  readonly MIN_MOVIE_LENGTH = MIN_LENGTH;
   subscriptions = new Subscription();
 
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
-  private readonly MIN_LENGTH = 1;
-  private readonly MAX_TITLE_LENGTH = 100;
-  protected readonly MAX_DESCRIPTION_LENGTH = 3000;
-  private readonly MAX_IMAGE_URL_LENGTH = 300;
-  protected readonly MIN_MOVIE_LENGTH = 1;
-  protected readonly MAX_MOVIE_LENGTH = 6000;
-  private readonly NO_STARTING_WHITESPACE = /^(?!\s)/;
-  private readonly NO_STARTING_ZERO_NUMBER = /^(?!0)/;
-
-  screeningForm = this.createForm();
+  movieForm = this.createForm();
   premiereOptions: Premiere[] = [
     { value: true, viewValue: 'Tak' },
     { value: false, viewValue: 'Nie' },
@@ -68,17 +71,17 @@ export default class AddMovieComponent {
       title: this.builder.control('', {
         validators: [
           Validators.required,
-          Validators.maxLength(this.MAX_TITLE_LENGTH),
-          Validators.minLength(this.MIN_LENGTH),
-          Validators.pattern(this.NO_STARTING_WHITESPACE),
+          Validators.maxLength(MAX_TITLE_LENGTH),
+          Validators.minLength(MIN_LENGTH),
+          Validators.pattern(NO_STARTING_WHITESPACE),
         ],
       }),
       description: this.builder.control('', {
         validators: [
           Validators.required,
-          Validators.maxLength(this.MAX_DESCRIPTION_LENGTH),
-          Validators.minLength(this.MIN_LENGTH),
-          Validators.pattern(this.NO_STARTING_WHITESPACE),
+          Validators.maxLength(MAX_DESCRIPTION_LENGTH),
+          Validators.minLength(MIN_LENGTH),
+          Validators.pattern(NO_STARTING_WHITESPACE),
         ],
       }),
       tags: this.builder.control<string[]>([], {
@@ -90,9 +93,9 @@ export default class AddMovieComponent {
       length: this.builder.control('', {
         validators: [
           Validators.required,
-          Validators.maxLength(this.MAX_MOVIE_LENGTH),
-          Validators.minLength(this.MIN_MOVIE_LENGTH),
-          Validators.pattern(this.NO_STARTING_ZERO_NUMBER),
+          Validators.maxLength(MAX_MOVIE_LENGTH),
+          Validators.minLength(MIN_LENGTH),
+          Validators.pattern(NO_STARTING_ZERO_NUMBER),
         ],
       }),
       premiere: this.builder.control('', {
@@ -101,9 +104,9 @@ export default class AddMovieComponent {
       image: this.builder.control('', {
         validators: [
           Validators.required,
-          Validators.minLength(this.MIN_LENGTH),
-          Validators.maxLength(this.MAX_IMAGE_URL_LENGTH),
-          Validators.pattern(this.NO_STARTING_WHITESPACE),
+          Validators.minLength(MIN_LENGTH),
+          Validators.maxLength(MAX_IMAGE_URL_LENGTH),
+          Validators.pattern(NO_STARTING_WHITESPACE),
         ],
       }),
     });
@@ -112,12 +115,12 @@ export default class AddMovieComponent {
   }
 
   sendForm() {
-    this.screeningForm.markAllAsTouched();
-    if (this.screeningForm.invalid) {
+    this.movieForm.markAllAsTouched();
+    if (this.movieForm.invalid) {
       return;
     }
-    if (this.screeningForm.valid) {
-      const { premiere, ...movieData } = this.screeningForm.getRawValue();
+    if (this.movieForm.valid) {
+      const { premiere, ...movieData } = this.movieForm.getRawValue();
       const movie: Movie = {
         ...movieData,
         premiere: premiere === 'true',
@@ -128,25 +131,25 @@ export default class AddMovieComponent {
   }
 
   get titleCtrl() {
-    return this.screeningForm.controls.title;
+    return this.movieForm.controls.title;
   }
   get descriptionCtrl() {
-    return this.screeningForm.controls.description;
+    return this.movieForm.controls.description;
   }
   get tagsCtrl() {
-    return this.screeningForm.controls.tags;
+    return this.movieForm.controls.tags;
   }
   get ratedCtrl() {
-    return this.screeningForm.controls.rated;
+    return this.movieForm.controls.rated;
   }
   get lengthCtrl() {
-    return this.screeningForm.controls.length;
+    return this.movieForm.controls.length;
   }
   get premiereCtrl() {
-    return this.screeningForm.controls.premiere;
+    return this.movieForm.controls.premiere;
   }
   get imageCtrl() {
-    return this.screeningForm.controls.image;
+    return this.movieForm.controls.image;
   }
 
   getLengthErrorMessage() {

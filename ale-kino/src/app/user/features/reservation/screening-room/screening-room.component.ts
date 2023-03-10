@@ -8,9 +8,9 @@ export type RoomSize = {
 };
 
 export type RoomSetup = {
-  rowLetters: string[],
-  rowNumbers: number[]
-}
+  rowLetters: string[];
+  rowNumbers: number[];
+};
 
 @Component({
   selector: 'app-screening-room',
@@ -24,14 +24,14 @@ export class ScreeningRoomComponent implements OnInit, OnDestroy {
   @Input() screeningRoomId: number = 0;
   protected roomSetupData: RoomSetup = {
     rowLetters: [],
-    rowNumbers: []
+    rowNumbers: [],
   };
   private subscriptions: Subscription = new Subscription();
 
   ngOnInit(): void {
     const roomSetupSub = this.screeningRoomStateService
       .initiateRoomSetupData(this.roomId)
-      .subscribe((roomSetup) => {
+      .subscribe((roomSetup: RoomSetup) => {
         this.roomSetupData = roomSetup;
       });
 

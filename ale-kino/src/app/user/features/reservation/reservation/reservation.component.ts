@@ -11,7 +11,8 @@ import { ScreeningRoomStateService } from 'src/app/services';
 })
 export class ReservationComponent implements OnInit, OnDestroy {
   private screeningRoomStateService = inject(ScreeningRoomStateService);
-  protected screeningRoomState$ = this.screeningRoomStateService.screeningRoomState$;
+  protected screeningRoomState$ =
+    this.screeningRoomStateService.screeningRoomState$;
   private route = inject(ActivatedRoute);
   private subscriptions = new Subscription();
 

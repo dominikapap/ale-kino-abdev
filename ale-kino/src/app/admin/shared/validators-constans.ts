@@ -1,0 +1,12 @@
+export const MIN_LENGTH = 1;
+export const MIN_ROWS = 5;
+export const MIN_COLUMNS = 5;
+export const MAX_ROWS = 20;
+export const MAX_COLUMNS = 20;
+export const MAX_NAME_LENGTH = 100;
+export const MAX_TITLE_LENGTH = 100;
+export const MAX_DESCRIPTION_LENGTH = 3000;
+export const MAX_IMAGE_URL_LENGTH = 300;
+export const MAX_MOVIE_LENGTH = 6000;
+export const NO_STARTING_WHITESPACE = /^(?!\s)/;
+export const NO_STARTING_ZERO_NUMBER = /^(?!0)/;

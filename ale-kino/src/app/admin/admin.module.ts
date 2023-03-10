@@ -24,6 +24,10 @@ import { MatButtonModule } from '@angular/material/button';
             path: 'screenings',
             loadChildren: () => import('./screenings/screenings.module'),
           },
+          {
+            path: 'rooms',
+            loadChildren: () => import('./rooms/rooms.module'),
+          },
         ],
       },
     ]),

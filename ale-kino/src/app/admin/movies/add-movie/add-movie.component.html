@@ -1,14 +1,14 @@
-<div class="create-screening">
-  <div class="create-screening__title">
+<div class="create-movie">
+  <div class="create-movie__title admin-dashboard-title">
     {{ "dodaj nowy film" | uppercase }}
   </div>
 
   <form
-    class="create-screening__form"
-    [formGroup]="screeningForm"
+    class="create-movie__form"
+    [formGroup]="movieForm"
     (ngSubmit)="sendForm()"
   >
-    <div class="create-screening__form-left">
+    <div class="create-movie__form-left">
       <mat-form-field appearance="fill">
         <mat-label>Tytuł</mat-label>
         <input
@@ -68,7 +68,7 @@
       </mat-form-field>
     </div>
 
-    <div class="create-screening__form-right">
+    <div class="create-movie__form-right">
       <mat-form-field appearance="fill" *ngIf="tags$ | async as tags">
         <mat-label>Kategoria Filmu</mat-label>
         <mat-select [formControl]="tagsCtrl" multiple>

@@ -16,7 +16,7 @@ import {
 } from 'rxjs';
 import { User, UserStateService } from '../core/user.state.service';
 import { Order, OrdersService } from './orders.service';
-import { RoomsService, Seat } from './rooms.service';
+import { RoomsApiService, Seat } from './rooms-api.service';
 import { Ticket, TicketsService } from './tickets.service';
 import { ScreeningDetails, ScreeningsApiService } from '../admin/screenings';
 import { v4 as uuidv4 } from 'uuid';
@@ -59,7 +59,7 @@ const defaultScreeningRoomState: ScreeningRoomState = {
 })
 export class ScreeningRoomStateService {
   private ticketsService = inject(TicketsService);
-  private roomsService = inject(RoomsService);
+  private roomsService = inject(RoomsApiService);
   private ordersService = inject(OrdersService);
   private userService = inject(UserStateService);
   private screeningService = inject(ScreeningsApiService);
@@ -241,8 +241,8 @@ export class ScreeningRoomStateService {
           const guestUser: User = {
             id: uuidv4(),
             email: '',
-            username: 'guest'
-          }
+            username: 'guest',
+          };
           this.userService.addUser(guestUser);
         }
         return this.userService.user$;

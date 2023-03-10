@@ -265,6 +265,12 @@
       "name": "Sala C",
       "rows": 6,
       "seats": 10
+    },
+    {
+      "name": "Sala D",
+      "seats": 10,
+      "rows": 10,
+      "id": 4
     }
   ],
   "ticketTypes": [
@@ -492,6 +498,20 @@
       "roomsId": 1,
       "moviesId": 1,
       "id": 30
+    },
+    {
+      "date": "10-03-2023",
+      "time": "16:00",
+      "roomsId": 1,
+      "moviesId": 2,
+      "id": 31
+    },
+    {
+      "date": "11-03-2023",
+      "time": "14:00",
+      "roomsId": 2,
+      "moviesId": 3,
+      "id": 32
     }
   ],
   "orders": [
