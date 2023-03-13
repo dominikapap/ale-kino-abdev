@@ -31,7 +31,7 @@ interface Premiere {
 @Component({
   selector: 'app-add-movie',
   templateUrl: './add-movie.component.html',
-  styleUrls: ['./add-movie.component.scss'],
+  styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class AddMovieComponent {

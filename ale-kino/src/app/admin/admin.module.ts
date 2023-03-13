@@ -28,6 +28,10 @@ import { MatButtonModule } from '@angular/material/button';
             path: 'rooms',
             loadChildren: () => import('./rooms/rooms.module'),
           },
+          {
+            path: 'coupons',
+            loadChildren: () => import('./coupon-codes/coupon-codes.module'),
+          },
         ],
       },
     ]),

@@ -49,7 +49,7 @@ export class CouponCodesService {
     );
   }
 
-  resetCouponState(){
+  resetCouponState() {
     this.patchState(defaultCouponCodeState);
   }
 
@@ -66,9 +66,12 @@ export class CouponCodesService {
   }
 
   updateSelectedCouponCode(couponCodeSlice: Partial<CouponCode>) {
-    return this.http.patch<CouponCode>(`/couponCodes/${this.couponCodeStateValue.id}`, {
-      ...couponCodeSlice,
-    });
+    return this.http.patch<CouponCode>(
+      `/couponCodes/${this.couponCodeStateValue.id}`,
+      {
+        ...couponCodeSlice,
+      }
+    );
   }
 
   checkIfCouponCodeValid(couponCode: string) {
@@ -77,5 +80,15 @@ export class CouponCodesService {
         return code.find((code) => code.name === couponCode);
       })
     );
+  }
+
+  checkIfNameTaken(couponCode: string) {
+    return this.http.get<CouponCode[]>(`/couponCodes?name=${couponCode}`);
+  }
+
+  addCouponCode(couponData: Partial<CouponCode>) {
+    return this.http.post<CouponCode>('/couponCodes', {
+      ...couponData,
+    });
   }
 }

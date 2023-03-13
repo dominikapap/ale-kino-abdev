@@ -1,10 +1,14 @@
-<div class="add-room">
-  <div class="add-room__title admin-dashboard-title">
+<div class="add-container">
+  <div class="admin-dashboard-title">
     {{ "dodaj nową salę" | uppercase }}
   </div>
 </div>
 
-<form class="add-room__form" [formGroup]="roomForm" (ngSubmit)="sendForm()">
+<form
+  class="add-container__form"
+  [formGroup]="roomForm"
+  (ngSubmit)="sendForm()"
+>
   <mat-form-field appearance="fill">
     <mat-label>Nazwa sali</mat-label>
     <input
@@ -33,7 +37,7 @@
       ><mat-icon>info</mat-icon> Podana nazwa jest nieprawidłowa
     </mat-error>
   </mat-form-field>
-  <div class="add-room__rows-and-cols">
+  <div class="add-container__two-inputs">
     <mat-form-field appearance="fill">
       <mat-label>Liczba rzędów</mat-label>
       <input

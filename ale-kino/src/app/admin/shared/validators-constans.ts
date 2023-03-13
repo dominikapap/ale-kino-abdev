@@ -1,6 +1,8 @@
 export const MIN_LENGTH = 1;
 export const MIN_ROWS = 5;
 export const MIN_COLUMNS = 5;
+export const MIN_COUPON_RATE = 0.1;
+export const MAX_COUPON_RATE = 5;
 export const MAX_ROWS = 20;
 export const MAX_COLUMNS = 20;
 export const MAX_NAME_LENGTH = 100;

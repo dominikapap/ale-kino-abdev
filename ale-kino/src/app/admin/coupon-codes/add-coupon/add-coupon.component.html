@@ -1,0 +1,84 @@
+<div class="add-container">
+  <div class="add-coupon__title admin-dashboard-title">
+    {{ "dodaj nowy kupon" | uppercase }}
+  </div>
+</div>
+
+<form
+  class="add-container__form"
+  [formGroup]="couponForm"
+  (ngSubmit)="sendForm()"
+>
+  <mat-form-field appearance="fill">
+    <mat-label>Kod kuponu</mat-label>
+    <input
+      type="text"
+      matInput
+      placeholder="Kod kuponu"
+      color="primary"
+      formControlName="name"
+      trim-whitespace
+    />
+    <mat-error *ngIf="nameCtrl.hasError('required')"
+      ><mat-icon>info</mat-icon> Pole kod kuponu jest wymagane
+    </mat-error>
+
+    <mat-error *ngIf="nameCtrl.hasError('maxlength')"
+      ><mat-icon>info</mat-icon> Maksymalna liczba znaków to
+      {{ nameCtrl.errors!["maxlength"]["requiredLength"] }}
+    </mat-error>
+    <mat-error *ngIf="nameCtrl.hasError('minlength')"
+      ><mat-icon>info</mat-icon> Minimalna liczba znaków to
+      {{ nameCtrl.errors!["minlength"]["requiredLength"] }}
+    </mat-error>
+    <mat-error *ngIf="nameCtrl.hasError('pattern')"
+      ><mat-icon>info</mat-icon> Podany kod ma nieprawidłowy format
+    </mat-error>
+    <mat-error *ngIf="nameCtrl.hasError('nameTaken')"
+      ><mat-icon>info</mat-icon> Kupon z takim kodem już istnieje
+    </mat-error>
+  </mat-form-field>
+  <div class="add-container__two-inputs">
+    <mat-form-field appearance="fill">
+      <mat-label>Stopień obniżki</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="Stopień obniżki"
+        color="primary"
+        formControlName="discount"
+        [min]="MIN_COUPON_RATE"
+        [max]="MAX_COUPON_RATE"
+        step="0.1"
+        trim-whitespace
+      />
+      <mat-error *ngIf="discountCtrl.hasError('required')"
+        ><mat-icon>info</mat-icon> Pole stopień obniżki jest wymagane
+      </mat-error>
+      <mat-error *ngIf="discountCtrl.hasError('min')"
+        ><mat-icon>info</mat-icon> Minimalny stopień obniżki to
+        {{ MIN_COUPON_RATE }} </mat-error
+      ><mat-error *ngIf="discountCtrl.hasError('max')"
+        ><mat-icon>info</mat-icon> Maksymalny stopień obniżki to
+        {{ MAX_COUPON_RATE }}
+      </mat-error></mat-form-field
+    ><mat-form-field appearance="fill">
+      <mat-label>Kupon aktywny</mat-label>
+      <mat-select matNativeControl required formControlName="active">
+        <mat-option value="true">Tak</mat-option>
+        <mat-option value="false">Nie</mat-option>
+      </mat-select>
+      <mat-error *ngIf="activeCtrl.hasError('required')"
+        ><mat-icon>info</mat-icon> Pole kupon aktywny jest wymagana
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <button
+    type="submit"
+    mat-raised-button
+    color="accent"
+    class="form-button form-button--submit"
+  >
+    Dodaj kupon
+  </button>
+</form>

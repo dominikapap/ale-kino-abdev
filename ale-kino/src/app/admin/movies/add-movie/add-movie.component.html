@@ -1,14 +1,14 @@
-<div class="create-movie">
-  <div class="create-movie__title admin-dashboard-title">
+<div class="add-container">
+  <div class="admin-dashboard-title">
     {{ "dodaj nowy film" | uppercase }}
   </div>
 
   <form
-    class="create-movie__form"
+    class="add-container__form add-container__form--flex-row"
     [formGroup]="movieForm"
     (ngSubmit)="sendForm()"
   >
-    <div class="create-movie__form-left">
+    <div class="add-container__form-left">
       <mat-form-field appearance="fill">
         <mat-label>Tytuł</mat-label>
         <input
@@ -68,7 +68,7 @@
       </mat-form-field>
     </div>
 
-    <div class="create-movie__form-right">
+    <div class="add-container__form-right">
       <mat-form-field appearance="fill" *ngIf="tags$ | async as tags">
         <mat-label>Kategoria Filmu</mat-label>
         <mat-select [formControl]="tagsCtrl" multiple>

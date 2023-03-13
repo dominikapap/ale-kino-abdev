@@ -1,5 +1,5 @@
-@use "../../../../colors" as colors;
-.create-movie {
+@use "colors" as colors;
+.add-container {
   display: flex;
   flex-direction: column;
 
@@ -8,9 +8,14 @@
     border-radius: 10px;
     background-color: colors.$bg-color;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     padding: 12em 8em;
     gap: 50px;
+
+    &--flex-row {
+      flex-direction: row;
+    }
 
     &-left {
       display: flex;
@@ -42,6 +47,13 @@
         align-items: center;
         color: colors.$accent-color;
       }
+    }
+  }
+  &__two-inputs {
+    display: flex;
+    gap: 1rem;
+    & > * {
+      width: 50%;
     }
   }
 }

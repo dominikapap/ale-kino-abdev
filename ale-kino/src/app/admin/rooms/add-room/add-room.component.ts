@@ -29,7 +29,7 @@ type RoomForm = FormGroup<{
 @Component({
   selector: 'app-add-room',
   templateUrl: './add-room.component.html',
-  styleUrls: ['./add-room.component.scss'],
+  styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class AddRoomComponent {

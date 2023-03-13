@@ -1320,6 +1320,13 @@
       "name": "superexpensive321",
       "discount": 2.2,
       "active": false
+    },
+    {
+      "name": "supercheap999",
+      "discount": "0.5",
+      "active": "true",
+      "type": "[Coupons] add new coupon",
+      "id": 3
     }
   ]
 }
